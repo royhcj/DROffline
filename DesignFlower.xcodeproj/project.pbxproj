@@ -146,7 +146,8 @@
 			isa = PBXGroup;
 			children = (
 				72061D7C21AE8DE90098FFFD /* Core */,
-				72061D7721AE8AAA0098FFFD /* NoteV4 */,
+				723B1F9921B53ADC00CF91F3 /* FlowControllers */,
+				72061D7721AE8AAA0098FFFD /* Modules */,
 				72061D6521AE8A940098FFFD /* AppDelegate.swift */,
 				72061D6721AE8A950098FFFD /* ViewController.swift */,
 				72061D6921AE8A950098FFFD /* Main.storyboard */,
@@ -157,26 +158,15 @@
 			path = DesignFlower;
 			sourceTree = "<group>";
 		};
-		72061D7721AE8AAA0098FFFD /* NoteV4 */ = {
+		72061D7721AE8AAA0098FFFD /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 				72061D9C21AFE0DA0098FFFD /* Observe */,
 				72061D8721AFDF070098FFFD /* Model */,
-				723B1F8021B4D21C00CF91F3 /* FlowController */,
-				72061D7821AE8AC90098FFFD /* Module */,
+				723B1F9821B53A1300CF91F3 /* Review */,
+				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 			);
-			path = NoteV4;
-			sourceTree = "<group>";
-		};
-		72061D7821AE8AC90098FFFD /* Module */ = {
-			isa = PBXGroup;
-			children = (
-				72061D8521AFDD090098FFFD /* V4ReviewVM.swift */,
-				72061D7A21AE8D870098FFFD /* V4ReviewVC.swift */,
-				72061D8121AE96350098FFFD /* V4Review.storyboard */,
-			);
-			path = Module;
+			path = Modules;
 			sourceTree = "<group>";
 		};
 		72061D7C21AE8DE90098FFFD /* Core */ = {
@@ -242,7 +232,7 @@
 			path = RLMServiceV4;
 			sourceTree = "<group>";
 		};
-		723B1F8021B4D21C00CF91F3 /* FlowController */ = {
+		723B1F8021B4D21C00CF91F3 /* ReviewFlowController */ = {
 			isa = PBXGroup;
 			children = (
 				723B1F8121B4D23500CF91F3 /* V4ReviewFlowController.swift */,
@@ -251,34 +241,44 @@
 				723B1F8921B4E51A00CF91F3 /* V4ReviewFlows-CheckLastUnsaved.swift */,
 				723B1F8B21B5081200CF91F3 /* V4ReviewFlows-AddNewPhoto.swift */,
 			);
-			path = FlowController;
+			path = ReviewFlowController;
 			sourceTree = "<group>";
 		};
 		723B1F8D21B50BBC00CF91F3 /* PhotoPicker */ = {
-			isa = PBXGroup;
-			children = (
-				723B1F9021B50C6E00CF91F3 /* FlowController */,
-				723B1F9121B5242800CF91F3 /* Module */,
-			);
-			path = PhotoPicker;
-			sourceTree = "<group>";
-		};
-		723B1F9021B50C6E00CF91F3 /* FlowController */ = {
-			isa = PBXGroup;
-			children = (
-				723B1F8E21B50BD500CF91F3 /* V4PhotoPickerFlowController.swift */,
-			);
-			path = FlowController;
-			sourceTree = "<group>";
-		};
-		723B1F9121B5242800CF91F3 /* Module */ = {
 			isa = PBXGroup;
 			children = (
 				723B1F9621B532E900CF91F3 /* V4PhotoPickerModule.swift */,
 				723B1F9221B5246300CF91F3 /* V4PhotoPickerVC.swift */,
 				723B1F9421B5278F00CF91F3 /* V4PhotoPicker.storyboard */,
 			);
-			path = Module;
+			path = PhotoPicker;
+			sourceTree = "<group>";
+		};
+		723B1F9021B50C6E00CF91F3 /* PhotoPickerFlowController */ = {
+			isa = PBXGroup;
+			children = (
+				723B1F8E21B50BD500CF91F3 /* V4PhotoPickerFlowController.swift */,
+			);
+			path = PhotoPickerFlowController;
+			sourceTree = "<group>";
+		};
+		723B1F9821B53A1300CF91F3 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				72061D8521AFDD090098FFFD /* V4ReviewVM.swift */,
+				72061D7A21AE8D870098FFFD /* V4ReviewVC.swift */,
+				72061D8121AE96350098FFFD /* V4Review.storyboard */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		723B1F9921B53ADC00CF91F3 /* FlowControllers */ = {
+			isa = PBXGroup;
+			children = (
+				723B1F8021B4D21C00CF91F3 /* ReviewFlowController */,
+				723B1F9021B50C6E00CF91F3 /* PhotoPickerFlowController */,
+			);
+			path = FlowControllers;
 			sourceTree = "<group>";
 		};
 		83CE5528369D52AC2ADEA435 /* Pods */ = {
