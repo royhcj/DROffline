@@ -9,5 +9,9 @@
 import Foundation
 
 class V4ReviewViewModel {
-  
+  var review: KVORestReviewV4?
+
+  init(reviewUUID: String?) {
+    review = KVORestReviewV4(uuid: reviewUUID)
+  }
 }

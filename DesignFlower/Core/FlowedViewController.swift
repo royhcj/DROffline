@@ -10,34 +10,34 @@ import UIKit
 
 class FlowedViewController: UIViewController {
   
-  weak var viewFlower: ViewFlower?
+  weak var viewBasedFlowController: ViewBasedFlowController?
   var isFirstTimeAppear = false // 是否為第一次顯示(只有在viewWillAppear裡有用)
   
   // MARK: - View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    viewFlower?.handle(viewLifecycle: .viewDidLoad)
+    viewBasedFlowController?.handle(viewLifecycle: .viewDidLoad)
   }
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
-    viewFlower?.handle(viewLifecycle: .viewWillAppear(isFirstTimeAppear))
+    viewBasedFlowController?.handle(viewLifecycle: .viewWillAppear(isFirstTimeAppear))
   }
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    viewFlower?.handle(viewLifecycle: .viewDidAppear(isFirstTimeAppear))
+    viewBasedFlowController?.handle(viewLifecycle: .viewDidAppear(isFirstTimeAppear))
     isFirstTimeAppear = false
   }
   
   override func viewWillDisappear(_ animated: Bool) {
     super.viewWillDisappear(animated)
-    viewFlower?.handle(viewLifecycle: .viewWillDisappear)
+    viewBasedFlowController?.handle(viewLifecycle: .viewWillDisappear)
   }
   
   override func viewDidDisappear(_ animated: Bool) {
     super.viewDidDisappear(animated)
-    viewFlower?.handle(viewLifecycle: .viewDidDisappear)
+    viewBasedFlowController?.handle(viewLifecycle: .viewDidDisappear)
   }
 }
 

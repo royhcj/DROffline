@@ -12,7 +12,7 @@ class V4ReviewVC: FlowedViewController,
                   UITableViewDataSource,
                   UITableViewDelegate {
   
-  var flower: V4ReviewFlower?
+  var flowDelegate: FlowDelegate?
   
   var viewModel: V4ReviewViewModel?
   
@@ -20,7 +20,7 @@ class V4ReviewVC: FlowedViewController,
  
   // MARK: - ► Object lifecycle
   
-  static func make(viewModel: V4ReviewViewModel) -> V4ReviewVC {
+  static func make(flowDelegate: FlowDelegate?, viewModel: V4ReviewViewModel) -> V4ReviewVC {
     let vc = UIStoryboard(name: "V4Review", bundle: nil)
               .instantiateViewController(withIdentifier: "V4ReviewVC")
               as! V4ReviewVC
@@ -46,6 +46,10 @@ class V4ReviewVC: FlowedViewController,
   }
   
   
+  typealias FlowDelegate = V4ReviewVCFlowDelegate
 }
 
 
+protocol V4ReviewVCFlowDelegate {
+  
+}
