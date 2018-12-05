@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController,
                       V4ReviewFlowController.Delegate {
   
+  var reviewFlowController: V4ReviewFlowController?
+  
   override func viewDidLoad() {
     super.viewDidLoad()
     
@@ -20,15 +22,15 @@ class ViewController: UIViewController,
     super.viewDidAppear(animated)
     
     // Start Main Flower
-    let reviewFlowController = V4ReviewFlowController.init()
-    reviewFlowController.delegate = self
-    reviewFlowController.prepare()
-    reviewFlowController.start()
+    reviewFlowController = V4ReviewFlowController(scenario: .writeBegin)
+    reviewFlowController?.delegate = self
+    reviewFlowController?.prepare()
+    reviewFlowController?.start()
   }
   
   
   func getDisplayContext(for sender: V4ReviewFlowController) -> DisplayContext {
-    return .present(vc: self, animated: false, style: .fullScreen)
+    return .present(vc: self, animated: true, style: .fullScreen)
   }
   
 }

@@ -11,14 +11,8 @@ import Foundation
 extension V4ReviewFlows {
   class WriteBeginFlow: ReviewBaseFlow {
     override func execute() {
-      let uuid = UserDefaults.standard.string(forKey: "LastUnsavedReviewUUID")
-      
-      if uuid == nil {
-        //flowController.displayReviewVC()
-      } else {
-        let flow = CheckLastUnsavedFlow(flowController: flowController)
-        flow.execute()
-      }
+      let flow = CheckLastUnsavedFlow(flowController: flowController)
+      flow.execute()
     }
   }
 }

@@ -23,6 +23,10 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
     self.scenario = scenario
   }
   
+  deinit {
+    print("V4PhotoPickerFlowController.deinit")
+  }
+  
   // MARK: - Flow Execution
   override func prepare() {
     photoPickerVC = V4PhotoPickerVC.make(flowDelegate: self)
@@ -51,6 +55,7 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
     delegate?.getDisplayContext(for: self).undisplay(photoPickerVC)
   }
   
+  // MARK: - Type Definitions
   typealias Delegate = V4PhotoPickerFlowControllerDelegate
   typealias Scenario = V4PhotoPickerModule.Scenario
 }

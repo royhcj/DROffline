@@ -14,19 +14,31 @@ class V4ReviewFlowController: ViewBasedFlowController {
   
   weak var delegate: Delegate?
   
+  var scenario: Scenario = .writeBegin
+  
   var reviewVC: V4ReviewVC?
   var review: KVORestReviewV4?
   
+  init(scenario: Scenario) {
+    self.scenario = scenario
+  }
+  
+  deinit {
+    print("V4ReviewFlowController.deinit")
+  }
+  
   // MARK: - Flow Execution
   override func prepare() {
-    let viewModel = V4ReviewViewModel(reviewUUID: nil)
-    reviewVC = V4ReviewVC.make(flowDelegate: self, viewModel: viewModel)
+    reviewVC = V4ReviewVC.make(flowDelegate: self)
     reviewVC?.viewBasedFlowController = self
-    //reviewVC?.flowDelegate = self
   }
   
   override func start() {
-    
+    switch scenario {
+    case .writeBegin:
+      let flow = V4ReviewFlows.WriteBeginFlow(flowController: self)
+      flow.execute()
+    }
   }
   
   // MARK: - Review VC Manipulation
@@ -42,9 +54,13 @@ class V4ReviewFlowController: ViewBasedFlowController {
     review = KVORestReviewV4(uuid: reviewUUID)
   }
   
+  // MARK: - Type Definitions
   typealias Delegate = V4ReviewFlowControllerDelegate
+  
+  enum Scenario {
+    case writeBegin // 點羽毛寫筆記
+  }
 }
-
 
 protocol V4ReviewFlowControllerDelegate: class {
   func getDisplayContext(for sender: V4ReviewFlowController) -> DisplayContext
@@ -56,7 +72,8 @@ extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
   func showPhotoPicker(_ scenario: V4PhotoPickerModule.Scenario) {
     let photoPickerFlowController = V4PhotoPickerFlowController(delegate: self, scenario: scenario)
     addChild(flowController: photoPickerFlowController)
-    
+    photoPickerFlowController.delegate = self
+    photoPickerFlowController.prepare()
     photoPickerFlowController.start()
   }
   
@@ -79,16 +96,20 @@ extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
       childFlowControllers.remove(at: index)
     }
     
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      
+    }
   }
   
   func photoPickerDidCancel(_ sender: V4PhotoPickerFlowController) {
-    
     if let index = childFlowControllers.firstIndex(where: { $0 === sender}) {
       childFlowControllers.remove(at: index)
     }
+    delegate?.getDisplayContext(for: self).undisplay(reviewVC)
   }
 }
 
 extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
+  
   
 }

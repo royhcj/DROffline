@@ -16,7 +16,9 @@ extension V4ReviewFlows {
         flowController.loadReview(uuid)
         flowController.showReviewVC()
       } else {
-        
+        let flow = AddNewPhotoFlow(flowController: flowController)
+        flow.execute()
+        flowController.showReviewVC()
       }
     }
   }

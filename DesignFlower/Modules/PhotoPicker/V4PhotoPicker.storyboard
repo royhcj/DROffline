@@ -23,10 +23,16 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZwJ-sC-HGk">
                                         <rect key="frame" x="0.0" y="0.0" width="187.5" height="50"/>
                                         <state key="normal" title="取消"/>
+                                        <connections>
+                                            <action selector="clickedCancel:" destination="i9q-0i-0UO" eventType="touchUpInside" id="DVD-Sm-Yjn"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHp-6s-ldD">
                                         <rect key="frame" x="187.5" y="0.0" width="187.5" height="50"/>
                                         <state key="normal" title="確認"/>
+                                        <connections>
+                                            <action selector="clickedDone:" destination="i9q-0i-0UO" eventType="touchUpInside" id="Tgn-YT-e0J"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <constraints>

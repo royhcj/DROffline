@@ -51,6 +51,7 @@
 		723B1F9321B5246300CF91F3 /* V4PhotoPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F9221B5246300CF91F3 /* V4PhotoPickerVC.swift */; };
 		723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 723B1F9421B5278F00CF91F3 /* V4PhotoPicker.storyboard */; };
 		723B1F9721B532E900CF91F3 /* V4PhotoPickerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F9621B532E900CF91F3 /* V4PhotoPickerModule.swift */; };
+		723B1F9D21B65E7900CF91F3 /* V4ReviewVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F9C21B65E7900CF91F3 /* V4ReviewVC+Cells.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		723B1F9221B5246300CF91F3 /* V4PhotoPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4PhotoPickerVC.swift; sourceTree = "<group>"; };
 		723B1F9421B5278F00CF91F3 /* V4PhotoPicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4PhotoPicker.storyboard; sourceTree = "<group>"; };
 		723B1F9621B532E900CF91F3 /* V4PhotoPickerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4PhotoPickerModule.swift; sourceTree = "<group>"; };
+		723B1F9C21B65E7900CF91F3 /* V4ReviewVC+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V4ReviewVC+Cells.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +269,7 @@
 			children = (
 				72061D8521AFDD090098FFFD /* V4ReviewVM.swift */,
 				72061D7A21AE8D870098FFFD /* V4ReviewVC.swift */,
+				723B1F9C21B65E7900CF91F3 /* V4ReviewVC+Cells.swift */,
 				72061D8121AE96350098FFFD /* V4Review.storyboard */,
 			);
 			path = Review;
@@ -450,6 +453,7 @@
 				72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */,
 				723B1F7D21B4D03A00CF91F3 /* Flow.swift in Sources */,
 				72061D9921AFDF080098FFFD /* KVODishV4.swift in Sources */,
+				723B1F9D21B65E7900CF91F3 /* V4ReviewVC+Cells.swift in Sources */,
 				72061D9221AFDF080098FFFD /* RLMDishV4.swift in Sources */,
 				723B1F9321B5246300CF91F3 /* V4PhotoPickerVC.swift in Sources */,
 			);

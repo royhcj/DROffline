@@ -16,8 +16,8 @@ class V4PhotoPickerVC: FlowedViewController {
   
   // MARK: - Object lifecycle
   static func make(flowDelegate: FlowDelegate) -> V4PhotoPickerVC {
-    let vc =  UIStoryboard(name: "PhotoPicker", bundle: nil)
-                .instantiateViewController(withIdentifier: "PhotoPickerVC")
+    let vc =  UIStoryboard(name: "V4PhotoPicker", bundle: nil)
+                .instantiateViewController(withIdentifier: "V4PhotoPickerVC")
                 as! V4PhotoPickerVC
     vc.flowDelegate = flowDelegate
     return vc
@@ -28,6 +28,16 @@ class V4PhotoPickerVC: FlowedViewController {
     super.viewDidLoad()
   }
   
+  // MARK: - IB Actions
+  @IBAction func clickedDone(_ sender: Any) {
+    flowDelegate?.photoPickerVCPicked(assets: [])
+  }
+  
+  @IBAction func clickedCancel(_ sender: Any) {
+    flowDelegate?.photoPickerVCDidCancel()
+  }
+  
+  // MARK: - Type Definitions
   typealias FlowDelegate = V4PhotoPickerVCFlowDelegate
 }
 
