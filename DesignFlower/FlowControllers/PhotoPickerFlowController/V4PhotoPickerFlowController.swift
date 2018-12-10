@@ -62,6 +62,6 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
 
 protocol V4PhotoPickerFlowControllerDelegate: class {
   func getDisplayContext(for sender: V4PhotoPickerFlowController) -> DisplayContext
-  func photoPicker(_ sender: V4PhotoPickerFlowController, picked: [PHAsset], scenario: V4PhotoPickerModule.Scenario)
+  func photoPicker(_ sender: V4PhotoPickerFlowController, picked assets: [PHAsset], scenario: V4PhotoPickerModule.Scenario)
   func photoPickerDidCancel(_ sender: V4PhotoPickerFlowController)
 }

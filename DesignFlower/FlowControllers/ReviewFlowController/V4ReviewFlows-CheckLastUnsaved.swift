@@ -15,6 +15,7 @@ extension V4ReviewFlows {
       if let uuid = uuid {
         flowController.loadReview(uuid)
         flowController.showReviewVC()
+        flowController.askContinueUnsavedReview()
       } else {
         let flow = AddNewPhotoFlow(flowController: flowController)
         flow.execute()

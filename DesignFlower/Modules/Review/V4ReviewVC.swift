@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class V4ReviewVC: FlowedViewController,
                   UITableViewDataSource,
@@ -25,6 +26,7 @@ class V4ReviewVC: FlowedViewController,
     let vc = UIStoryboard(name: "V4Review", bundle: nil)
               .instantiateViewController(withIdentifier: "V4ReviewVC")
               as! V4ReviewVC
+    vc.flowDelegate = flowDelegate
     return vc
   }
   
@@ -107,9 +109,26 @@ class V4ReviewVC: FlowedViewController,
     return cell
   }
   
+  // MARK: - Flow Related
+  public func askContinueUnsavedReview() {
+    let alert = UIAlertController(title: "您有未儲存筆記", message: "是否繼續編輯？", preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "繼續編輯", style: .default, handler: { [weak self] _ in
+      self?.flowDelegate?.answerContinueLastUnsavedReview(true)
+    }))
+    alert.addAction(UIAlertAction(title: "放棄上次未儲存筆記", style: .destructive, handler: { [weak self] _ in
+      self?.flowDelegate?.answerContinueLastUnsavedReview(false)
+    }))
+    present(alert, animated: true, completion: nil)
+  }
+  
   // MARK: - ► Review Manipulation
   public func setReview(_ review: KVORestReviewV4) {
     viewModel?.setReview(review)
+  }
+  
+  // MARK: - ► DishReview Manipulation
+  public func addDishReviews(with assets: [PHAsset]) {
+    viewModel?.addDishReviews(with: assets)
   }
   
   // MARK: - ► ViewModel Output
@@ -134,5 +153,5 @@ class V4ReviewVC: FlowedViewController,
 
 
 protocol V4ReviewVCFlowDelegate {
-  
+  func answerContinueLastUnsavedReview(_ yesOrNo: Bool)
 }

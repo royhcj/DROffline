@@ -15,22 +15,28 @@ enum DisplayContext {
                style: UIModalPresentationStyle)
   case push(vc: UIViewController, animated: Bool)
   
-  func display(_ viewController: UIViewController) {
+  func display(_ viewController: UIViewController,
+               completion: (() -> ())? = nil) {
     switch self {
     case .embed(let sourceVC, let view):
       viewController.view.frame = view.bounds
       view.addSubview(viewController.view)
       sourceVC.addChild(viewController)
       viewController.didMove(toParent: sourceVC)
+      completion?()
     case .present(let sourceVC, let animated, let style):
       viewController.modalPresentationStyle = style
-      sourceVC.present(viewController, animated: animated, completion: nil)
+      sourceVC.present(viewController, animated: animated) {
+        completion?()
+      }
     case .push(let sourceVC, let animated):
       sourceVC.navigationController?.pushViewController(viewController, animated: animated)
+      completion?()
     }
   }
   
-  func undisplay(_ viewController: UIViewController?) {
+  func undisplay(_ viewController: UIViewController?,
+                 completion: (() -> ())? = nil) {
     guard let viewController = viewController else { return }
     
     switch self {
@@ -38,10 +44,14 @@ enum DisplayContext {
       viewController.view.removeFromSuperview()
       viewController.removeFromParent()
       viewController.didMove(toParent: nil)
+      completion?()
     case .present( _, let animated, _):
-      viewController.dismiss(animated: animated, completion: nil)
+      viewController.dismiss(animated: animated) {
+        completion?()
+      }
     case .push(let sourceVC, let animated):
       sourceVC.navigationController?.popViewController(animated: animated)
+      completion?()
     }
   }
 }

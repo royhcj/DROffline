@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Photos
 
 class V4ReviewViewModel {
   
@@ -22,6 +23,22 @@ class V4ReviewViewModel {
     self.review = review
     output?.refreshReview()
   }
+  
+  func addDishReviews(with assets: [PHAsset]) {
+    for asset in assets {
+      let image = KVOImageV4(uuid: nil)
+      image.phassetID = asset.localIdentifier
+      image.imageStatus = ImageStatus.initial.rawValue
+      
+      let dishReview = KVODishReviewV4(uuid: nil)
+      dishReview.images.append(image)
+      
+      review?.dishReviews.append(dishReview)
+    }
+    output?.refreshReview()
+  }
+  
+  
   
   typealias Output = V4ReviewViewModelOutput
 }

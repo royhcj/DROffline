@@ -17,7 +17,7 @@ class V4ReviewFlowController: ViewBasedFlowController {
   var scenario: Scenario = .writeBegin
   
   var reviewVC: V4ReviewVC?
-  var review: KVORestReviewV4?
+  //var review: KVORestReviewV4?
   
   init(scenario: Scenario) {
     self.scenario = scenario
@@ -29,8 +29,7 @@ class V4ReviewFlowController: ViewBasedFlowController {
   
   // MARK: - Flow Execution
   override func prepare() {
-    reviewVC = V4ReviewVC.make(flowDelegate: self)
-    reviewVC?.viewBasedFlowController = self
+    createReviewVC()
   }
   
   override func start() {
@@ -42,16 +41,30 @@ class V4ReviewFlowController: ViewBasedFlowController {
   }
   
   // MARK: - Review VC Manipulation
+  func createReviewVC() {
+    reviewVC = V4ReviewVC.make(flowDelegate: self)
+    reviewVC?.viewBasedFlowController = self
+  }
+  
   func showReviewVC() {
     guard let reviewVC = reviewVC else { return }
     
-    let displayContext = delegate?.getDisplayContext(for: self)
-    displayContext?.display(reviewVC)
+    delegate?.getDisplayContext(for: self).display(reviewVC)
+  }
+  
+  func askContinueUnsavedReview() {
+    reviewVC?.askContinueUnsavedReview()
   }
   
   // MARK: - Review Manipulation
   func loadReview(_ reviewUUID: String) {
-    review = KVORestReviewV4(uuid: reviewUUID)
+    let review = KVORestReviewV4(uuid: reviewUUID)
+    reviewVC?.setReview(review)
+  }
+  
+  func createNewReview() {
+    let review = KVORestReviewV4(uuid: nil)
+    reviewVC?.setReview(review)
   }
   
   // MARK: - Type Definitions
@@ -90,15 +103,13 @@ extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
   }
   
   func photoPicker(_ sender: V4PhotoPickerFlowController,
-                   picked: [PHAsset],
+                   picked assets: [PHAsset],
                    scenario: V4PhotoPickerModule.Scenario) {
     if let index = childFlowControllers.firstIndex(where: { $0 === sender}) {
       childFlowControllers.remove(at: index)
     }
     
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      
-    }
+    addDishReviews(with: assets)
   }
   
   func photoPickerDidCancel(_ sender: V4PhotoPickerFlowController) {
@@ -109,7 +120,24 @@ extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
   }
 }
 
+// MARK: - DishReview Manipulation
+extension V4ReviewFlowController {
+  func addDishReviews(with assets: [PHAsset]) {
+    reviewVC?.addDishReviews(with: assets)
+  }
+}
+
 extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
   
+  func answerContinueLastUnsavedReview(_ yesOrNo: Bool) {
+    if yesOrNo == false {
+      let oldReviewVC = reviewVC
+      delegate?.getDisplayContext(for: self).undisplay(oldReviewVC,
+                                                       completion: {
+        self.createReviewVC()
+        self.showReviewVC()
+      })
+    }
+  }
   
 }
