@@ -56,6 +56,17 @@
 		7287026221BF8FD9000E1116 /* V4RestaurantPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026121BF8FD9000E1116 /* V4RestaurantPickerVC.swift */; };
 		7287026421BF8FF7000E1116 /* V4RestaurantPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7287026321BF8FF7000E1116 /* V4RestaurantPicker.storyboard */; };
 		7287026821BFA4C7000E1116 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026721BFA4C7000E1116 /* Location.swift */; };
+		7287027021BFB05A000E1116 /* NoteV3Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7287026A21BFB05A000E1116 /* NoteV3Camera.storyboard */; };
+		7287027121BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026B21BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift */; };
+		7287027221BFB05A000E1116 /* NoteV3CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026C21BFB05A000E1116 /* NoteV3CameraViewController.swift */; };
+		7287027321BFB05A000E1116 /* NoteV3PhotoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026D21BFB05A000E1116 /* NoteV3PhotoPickerViewController.swift */; };
+		7287027421BFB05A000E1116 /* NoteV3PhotoPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7287026E21BFB05A000E1116 /* NoteV3PhotoPicker.storyboard */; };
+		7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7287026F21BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard */; };
+		7287027721BFB6EF000E1116 /* NewPhotoSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027621BFB6EE000E1116 /* NewPhotoSelectionViewController.swift */; };
+		7287027921BFB734000E1116 /* PhotoSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027821BFB734000E1116 /* PhotoSelectionViewController.swift */; };
+		7287027C21BFB8A4000E1116 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */; };
+		7287027E21BFB90E000E1116 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */; };
+		7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027F21BFB9FE000E1116 /* Date+Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -112,6 +123,17 @@
 		7287026121BF8FD9000E1116 /* V4RestaurantPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerVC.swift; sourceTree = "<group>"; };
 		7287026321BF8FF7000E1116 /* V4RestaurantPicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4RestaurantPicker.storyboard; sourceTree = "<group>"; };
 		7287026721BFA4C7000E1116 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
+		7287026A21BFB05A000E1116 /* NoteV3Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NoteV3Camera.storyboard; sourceTree = "<group>"; };
+		7287026B21BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteV3PhotoLibrarySelectionViewController.swift; sourceTree = "<group>"; };
+		7287026C21BFB05A000E1116 /* NoteV3CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteV3CameraViewController.swift; sourceTree = "<group>"; };
+		7287026D21BFB05A000E1116 /* NoteV3PhotoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteV3PhotoPickerViewController.swift; sourceTree = "<group>"; };
+		7287026E21BFB05A000E1116 /* NoteV3PhotoPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NoteV3PhotoPicker.storyboard; sourceTree = "<group>"; };
+		7287026F21BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NoteV3PhotoLibrarySelection.storyboard; sourceTree = "<group>"; };
+		7287027621BFB6EE000E1116 /* NewPhotoSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPhotoSelectionViewController.swift; sourceTree = "<group>"; };
+		7287027821BFB734000E1116 /* PhotoSelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoSelectionViewController.swift; sourceTree = "<group>"; };
+		7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
+		7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
+		7287027F21BFB9FE000E1116 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +178,7 @@
 			isa = PBXGroup;
 			children = (
 				72061D7C21AE8DE90098FFFD /* Core */,
+				72061D8721AFDF070098FFFD /* Model */,
 				723B1F9921B53ADC00CF91F3 /* FlowControllers */,
 				72061D7721AE8AAA0098FFFD /* Modules */,
 				72061D6521AE8A940098FFFD /* AppDelegate.swift */,
@@ -171,8 +194,6 @@
 		72061D7721AE8AAA0098FFFD /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				72061D9C21AFE0DA0098FFFD /* Observe */,
-				72061D8721AFDF070098FFFD /* Model */,
 				723B1F9821B53A1300CF91F3 /* Review */,
 				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 				7287026021BF8FAE000E1116 /* RestaurantPicker */,
@@ -183,6 +204,7 @@
 		72061D7C21AE8DE90098FFFD /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				7287027A21BFB8A4000E1116 /* Utility */,
 				723B1F7C21B4D03A00CF91F3 /* Flow.swift */,
 				723B1F7A21B4CFD400CF91F3 /* FlowController.swift */,
 				723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */,
@@ -195,6 +217,7 @@
 		72061D8721AFDF070098FFFD /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				72061D9C21AFE0DA0098FFFD /* Observe */,
 				72061D8A21AFDF080098FFFD /* RLMRestReviewV4.swift */,
 				72061D9121AFDF080098FFFD /* RLMDishReviewV4.swift */,
 				72061D8E21AFDF080098FFFD /* RLMRestaurantV4.swift */,
@@ -259,6 +282,7 @@
 		723B1F8D21B50BBC00CF91F3 /* PhotoPicker */ = {
 			isa = PBXGroup;
 			children = (
+				7287026921BFB05A000E1116 /* V3PhotoPicker */,
 				723B1F9621B532E900CF91F3 /* V4PhotoPickerModule.swift */,
 				723B1F9221B5246300CF91F3 /* V4PhotoPickerVC.swift */,
 				723B1F9421B5278F00CF91F3 /* V4PhotoPicker.storyboard */,
@@ -310,6 +334,31 @@
 				7287026321BF8FF7000E1116 /* V4RestaurantPicker.storyboard */,
 			);
 			path = RestaurantPicker;
+			sourceTree = "<group>";
+		};
+		7287026921BFB05A000E1116 /* V3PhotoPicker */ = {
+			isa = PBXGroup;
+			children = (
+				7287026A21BFB05A000E1116 /* NoteV3Camera.storyboard */,
+				7287026B21BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift */,
+				7287026C21BFB05A000E1116 /* NoteV3CameraViewController.swift */,
+				7287027821BFB734000E1116 /* PhotoSelectionViewController.swift */,
+				7287027621BFB6EE000E1116 /* NewPhotoSelectionViewController.swift */,
+				7287026D21BFB05A000E1116 /* NoteV3PhotoPickerViewController.swift */,
+				7287026E21BFB05A000E1116 /* NoteV3PhotoPicker.storyboard */,
+				7287026F21BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard */,
+			);
+			path = V3PhotoPicker;
+			sourceTree = "<group>";
+		};
+		7287027A21BFB8A4000E1116 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				7287027F21BFB9FE000E1116 /* Date+Extension.swift */,
+				7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */,
+				7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */,
+			);
+			path = Utility;
 			sourceTree = "<group>";
 		};
 		83CE5528369D52AC2ADEA435 /* Pods */ = {
@@ -383,9 +432,12 @@
 			files = (
 				72061D7021AE8A950098FFFD /* LaunchScreen.storyboard in Resources */,
 				7287026421BF8FF7000E1116 /* V4RestaurantPicker.storyboard in Resources */,
+				7287027421BFB05A000E1116 /* NoteV3PhotoPicker.storyboard in Resources */,
 				72061D6D21AE8A950098FFFD /* Assets.xcassets in Resources */,
+				7287027021BFB05A000E1116 /* NoteV3Camera.storyboard in Resources */,
 				72061D8221AE96350098FFFD /* V4Review.storyboard in Resources */,
 				72061D6B21AE8A950098FFFD /* Main.storyboard in Resources */,
+				7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */,
 				723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -424,15 +476,25 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DesignFlower/Pods-DesignFlower-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/CameraManager/CameraManager.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/RxAtomic/RxAtomic.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CameraManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxAtomic.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -463,6 +525,7 @@
 				723B1F9721B532E900CF91F3 /* V4PhotoPickerModule.swift in Sources */,
 				72061D8621AFDD090098FFFD /* V4ReviewVM.swift in Sources */,
 				723B1F8621B4E30700CF91F3 /* V4ReviewFlows-WriteBegin.swift in Sources */,
+				7287027721BFB6EF000E1116 /* NewPhotoSelectionViewController.swift in Sources */,
 				72061D9321AFDF080098FFFD /* RLMImageV4.swift in Sources */,
 				723B1F7F21B4D1A200CF91F3 /* ViewBasedFlowController.swift in Sources */,
 				72061DAD21AFE0DA0098FFFD /* RestReviewObserve.swift in Sources */,
@@ -470,10 +533,14 @@
 				723B1F7B21B4CFD400CF91F3 /* FlowController.swift in Sources */,
 				72061D9B21AFDF080098FFFD /* RLMDishReviewV4.swift in Sources */,
 				72061DAF21AFE0DA0098FFFD /* RLMCustomProtocol.swift in Sources */,
+				7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */,
 				723B1F8221B4D23500CF91F3 /* V4ReviewFlowController.swift in Sources */,
+				7287027321BFB05A000E1116 /* NoteV3PhotoPickerViewController.swift in Sources */,
 				72061DB121AFE0DA0098FFFD /* RLMServiceV4.swift in Sources */,
 				72061D7B21AE8D870098FFFD /* V4ReviewVC.swift in Sources */,
+				7287027E21BFB90E000E1116 /* UIAlertController+Extension.swift in Sources */,
 				72061D9521AFDF080098FFFD /* KVORestReviewV4.swift in Sources */,
+				7287027221BFB05A000E1116 /* NoteV3CameraViewController.swift in Sources */,
 				72061DAE21AFE0DA0098FFFD /* RestaurantObserve.swift in Sources */,
 				72061DB321AFE0DA0098FFFD /* RLMServiceV4+Image.swift in Sources */,
 				723B1F8821B4E36A00CF91F3 /* V4ReviewFlows-Base.swift in Sources */,
@@ -482,6 +549,9 @@
 				7287026221BF8FD9000E1116 /* V4RestaurantPickerVC.swift in Sources */,
 				7287026821BFA4C7000E1116 /* Location.swift in Sources */,
 				72061D9721AFDF080098FFFD /* KVORestaurantV4.swift in Sources */,
+				7287027C21BFB8A4000E1116 /* UIViewController+Alert.swift in Sources */,
+				7287027121BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift in Sources */,
+				7287027921BFB734000E1116 /* PhotoSelectionViewController.swift in Sources */,
 				72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */,
 				723B1F7D21B4D03A00CF91F3 /* Flow.swift in Sources */,
 				72061D9921AFDF080098FFFD /* KVODishV4.swift in Sources */,
@@ -642,7 +712,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.DesignFlower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -660,7 +730,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = test.DesignFlower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -20,6 +20,12 @@
 	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>需要相機權限</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>這樣可讓您使用相簿存取照片，並可從相簿中進行分享</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>需要相簿權限</string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

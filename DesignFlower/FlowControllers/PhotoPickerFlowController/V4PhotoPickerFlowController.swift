@@ -15,7 +15,8 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
   
   weak var delegate: Delegate?
   
-  var photoPickerVC: V4PhotoPickerVC?
+  //var photoPickerVC: V4PhotoPickerVC?
+  var photoPickerVC: NoteV3PhotoPickerViewController?
   var scenario: Scenario
   var sourceDisplayContext: DisplayContext
   
@@ -31,8 +32,10 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
   
   // MARK: - Flow Execution
   override func prepare() {
-    photoPickerVC = V4PhotoPickerVC.make(flowDelegate: self)
-    photoPickerVC?.view.backgroundColor = .purple
+    //photoPickerVC = V4PhotoPickerVC.make(flowDelegate: self)
+    //photoPickerVC?.view.backgroundColor = .purple
+    photoPickerVC = NoteV3PhotoPickerViewController.make(scenario: .addNewPhotos, isPresented: true, photoLimit: 10)
+    photoPickerVC?.flowDelegate = self
   }
   
   override func start() {
@@ -63,7 +66,6 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
 }
 
 protocol V4PhotoPickerFlowControllerDelegate: class {
-  //func getDisplayContext(for sender: V4PhotoPickerFlowController) -> DisplayContext
   func photoPicker(_ sender: V4PhotoPickerFlowController, picked assets: [PHAsset], scenario: V4PhotoPickerModule.Scenario)
   func photoPickerDidCancel(_ sender: V4PhotoPickerFlowController)
 }

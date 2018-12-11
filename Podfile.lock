@@ -1,22 +1,45 @@
 PODS:
+  - CameraManager (4.3.0)
   - Realm (3.12.0):
     - Realm/Headers (= 3.12.0)
   - Realm/Headers (3.12.0)
   - RealmSwift (3.12.0):
     - Realm (= 3.12.0)
+  - RxAtomic (4.4.0)
+  - RxCocoa (4.4.0):
+    - RxSwift (~> 4.0)
+  - RxSwift (4.4.0):
+    - RxAtomic (~> 4.4)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
 
 DEPENDENCIES:
+  - CameraManager (~> 4.2)
   - RealmSwift
+  - RxCocoa
+  - RxSwift
+  - SDWebImage (~> 4.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - CameraManager
     - Realm
     - RealmSwift
+    - RxAtomic
+    - RxCocoa
+    - RxSwift
+    - SDWebImage
 
 SPEC CHECKSUMS:
+  CameraManager: 607b60ad5c84bfa481ebf82eb4cd77a8d1f0bc39
   Realm: cdaef23c4ddb36ab1ddffed23f5a7f3332fc5585
   RealmSwift: 5576324033f0aa5ef1e0a839a3da2281dff47a7f
+  RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
+  RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
+  RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
 
-PODFILE CHECKSUM: b22d8332ffed46e13bdcab9388e842e56b70ac52
+PODFILE CHECKSUM: edac159f82a9636d08b76bb39cec60c0b084f668
 
 COCOAPODS: 1.5.3

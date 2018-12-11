@@ -21,8 +21,8 @@ enum DisplayContext {
     case .embed(let sourceVC, let view):
       viewController.view.frame = view.bounds
       view.addSubview(viewController.view)
-      sourceVC.addChild(viewController)
-      viewController.didMove(toParent: sourceVC)
+      sourceVC.addChildViewController(viewController)
+      viewController.didMove(toParentViewController: sourceVC)
       completion?()
     case .present(let sourceVC, let animated, let style):
       viewController.modalPresentationStyle = style
@@ -42,8 +42,8 @@ enum DisplayContext {
     switch self {
     case .embed( _, _):
       viewController.view.removeFromSuperview()
-      viewController.removeFromParent()
-      viewController.didMove(toParent: nil)
+      viewController.removeFromParentViewController()
+      viewController.didMove(toParentViewController: nil)
       completion?()
     case .present( _, let animated, _):
       viewController.dismiss(animated: animated) {
