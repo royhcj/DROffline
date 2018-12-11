@@ -20,13 +20,16 @@ class ViewController: UIViewController,
   
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
-    
-    // Start Main Flower
+
+  }
+  
+  @IBAction func clickedWriteReview(_ sender: Any) {
     reviewFlowController = V4ReviewFlowController(scenario: .writeBegin)
     reviewFlowController?.delegate = self
     reviewFlowController?.prepare()
     reviewFlowController?.start()
   }
+  
   
   
   func getDisplayContext(for sender: V4ReviewFlowController) -> DisplayContext {

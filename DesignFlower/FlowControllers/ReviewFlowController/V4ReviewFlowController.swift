@@ -83,24 +83,34 @@ protocol V4ReviewFlowControllerDelegate: class {
 extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
   
   func showPhotoPicker(_ scenario: V4PhotoPickerModule.Scenario) {
-    let photoPickerFlowController = V4PhotoPickerFlowController(delegate: self, scenario: scenario)
+    guard let reviewVC = reviewVC else { return }
+    
+    let displayContext: DisplayContext = {
+      switch scenario {
+      case .addNewPhotos:
+        return .embed(vc: reviewVC, on: reviewVC.view)
+      default:
+        return .present(vc: reviewVC, animated: true, style: .fullScreen)
+      }
+    }()
+    
+    let photoPickerFlowController = V4PhotoPickerFlowController(delegate: self, scenario: scenario, sourceDisplayContext: displayContext)
     addChild(flowController: photoPickerFlowController)
-    photoPickerFlowController.delegate = self
     photoPickerFlowController.prepare()
     photoPickerFlowController.start()
   }
   
-  func getDisplayContext(for sender: V4PhotoPickerFlowController) -> DisplayContext {
-    guard let reviewVC = reviewVC
-    else { assert(false, "Failed unwrapping reviewVC") }
-    
-    switch sender.scenario {
-    case .addNewPhotos:
-      return .embed(vc: reviewVC, on: reviewVC.view)
-    default:
-      return .present(vc: reviewVC, animated: true, style: .fullScreen)
-    }
-  }
+//  func getDisplayContext(for sender: V4PhotoPickerFlowController) -> DisplayContext {
+//    guard let reviewVC = reviewVC
+//    else { assert(false, "Failed unwrapping reviewVC") }
+//
+//    switch sender.scenario {
+//    case .addNewPhotos:
+//      return .embed(vc: reviewVC, on: reviewVC.view)
+//    default:
+//      return .present(vc: reviewVC, animated: true, style: .fullScreen)
+//    }
+//  }
   
   func photoPicker(_ sender: V4PhotoPickerFlowController,
                    picked assets: [PHAsset],
@@ -108,6 +118,14 @@ extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
     if let index = childFlowControllers.firstIndex(where: { $0 === sender}) {
       childFlowControllers.remove(at: index)
     }
+    
+    // TODO: 不好的方法，稍後修正
+    sender.sourceDisplayContext.undisplay(sender.photoPickerVC,
+                                          completion: {
+      if sender.scenario == .addNewPhotos {
+        self.showRestaurantPicker()
+      }
+    })
     
     addDishReviews(with: assets)
   }
@@ -127,6 +145,21 @@ extension V4ReviewFlowController {
   }
 }
 
+// MARK: - Restaurant List Manipulation
+extension V4ReviewFlowController: V4RestaurantPickerFlowController.Delegate {
+  func showRestaurantPicker() {
+    guard let reviewVC = reviewVC else { return }
+    
+    let restaurantPickerFlowController = V4RestaurantPickerFlowController(delegate: self, sourceDisplayContext: .present(vc: reviewVC, animated: true, style: .fullScreen), initialLocation: nil)
+    addChild(flowController: restaurantPickerFlowController)
+    restaurantPickerFlowController.prepare()
+    restaurantPickerFlowController.start()
+  }
+
+  
+}
+
+//
 extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
   
   func answerContinueLastUnsavedReview(_ yesOrNo: Bool) {

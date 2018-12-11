@@ -17,10 +17,12 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
   
   var photoPickerVC: V4PhotoPickerVC?
   var scenario: Scenario
+  var sourceDisplayContext: DisplayContext
   
-  init(delegate: Delegate, scenario: Scenario) {
+  init(delegate: Delegate, scenario: Scenario, sourceDisplayContext: DisplayContext) {
     self.delegate = delegate
     self.scenario = scenario
+    self.sourceDisplayContext = sourceDisplayContext
   }
   
   deinit {
@@ -41,18 +43,18 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
   func showPhotoPickerVC() {
     guard let photoPickerVC = photoPickerVC else { return }
     
-    delegate?.getDisplayContext(for: self).display(photoPickerVC)
+    sourceDisplayContext.display(photoPickerVC)
   }
   
   // MARK: - PhotoPicker VC Flow Delegate
   func photoPickerVCPicked(assets: [PHAsset]) {
     delegate?.photoPicker(self, picked: assets, scenario: scenario)
-    delegate?.getDisplayContext(for: self).undisplay(photoPickerVC)
+    sourceDisplayContext.undisplay(photoPickerVC)
   }
   
   func photoPickerVCDidCancel() {
     delegate?.photoPickerDidCancel(self)
-    delegate?.getDisplayContext(for: self).undisplay(photoPickerVC)
+    sourceDisplayContext.undisplay(photoPickerVC)
   }
   
   // MARK: - Type Definitions
@@ -61,7 +63,7 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
 }
 
 protocol V4PhotoPickerFlowControllerDelegate: class {
-  func getDisplayContext(for sender: V4PhotoPickerFlowController) -> DisplayContext
+  //func getDisplayContext(for sender: V4PhotoPickerFlowController) -> DisplayContext
   func photoPicker(_ sender: V4PhotoPickerFlowController, picked assets: [PHAsset], scenario: V4PhotoPickerModule.Scenario)
   func photoPickerDidCancel(_ sender: V4PhotoPickerFlowController)
 }
