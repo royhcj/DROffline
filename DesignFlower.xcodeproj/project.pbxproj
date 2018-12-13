@@ -53,8 +53,8 @@
 		723B1F9721B532E900CF91F3 /* V4PhotoPickerModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F9621B532E900CF91F3 /* V4PhotoPickerModule.swift */; };
 		723B1F9D21B65E7900CF91F3 /* V4ReviewVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F9C21B65E7900CF91F3 /* V4ReviewVC+Cells.swift */; };
 		7287025F21BF8B1F000E1116 /* V4RestaurantPickerFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287025E21BF8B1F000E1116 /* V4RestaurantPickerFlowController.swift */; };
-		7287026221BF8FD9000E1116 /* V4RestaurantPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026121BF8FD9000E1116 /* V4RestaurantPickerVC.swift */; };
-		7287026421BF8FF7000E1116 /* V4RestaurantPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7287026321BF8FF7000E1116 /* V4RestaurantPicker.storyboard */; };
+		7287026221BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026121BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift */; };
+		7287026421BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7287026321BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard */; };
 		7287026821BFA4C7000E1116 /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026721BFA4C7000E1116 /* Location.swift */; };
 		7287027021BFB05A000E1116 /* NoteV3Camera.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7287026A21BFB05A000E1116 /* NoteV3Camera.storyboard */; };
 		7287027121BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287026B21BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift */; };
@@ -67,9 +67,9 @@
 		7287027C21BFB8A4000E1116 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */; };
 		7287027E21BFB90E000E1116 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */; };
 		7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027F21BFB9FE000E1116 /* Date+Extension.swift */; };
-		B0A0AF8921C107F5005BE7AB /* RestaurantListCityTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8621C107F5005BE7AB /* RestaurantListCityTableViewCell.swift */; };
-		B0A0AF8A21C107F5005BE7AB /* RestaurantList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A0AF8721C107F5005BE7AB /* RestaurantList.storyboard */; };
-		B0A0AF8B21C107F5005BE7AB /* RestaurantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8821C107F5005BE7AB /* RestaurantListViewController.swift */; };
+		B0A0AF8921C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */; };
+		B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */; };
+		B0A0AF8B21C107F5005BE7AB /* V4RestaurantPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8821C107F5005BE7AB /* V4RestaurantPickerVC.swift */; };
 		B0A0AF8E21C10EBE005BE7AB /* TipBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8D21C10EBE005BE7AB /* TipBar.swift */; };
 		B0A0AF9221C10ED2005BE7AB /* LocationService+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF9021C10ED2005BE7AB /* LocationService+Message.swift */; };
 		B0A0AF9321C10ED2005BE7AB /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF9121C10ED2005BE7AB /* LocationService.swift */; };
@@ -141,8 +141,8 @@
 		723B1F9621B532E900CF91F3 /* V4PhotoPickerModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4PhotoPickerModule.swift; sourceTree = "<group>"; };
 		723B1F9C21B65E7900CF91F3 /* V4ReviewVC+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V4ReviewVC+Cells.swift"; sourceTree = "<group>"; };
 		7287025E21BF8B1F000E1116 /* V4RestaurantPickerFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerFlowController.swift; sourceTree = "<group>"; };
-		7287026121BF8FD9000E1116 /* V4RestaurantPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerVC.swift; sourceTree = "<group>"; };
-		7287026321BF8FF7000E1116 /* V4RestaurantPicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4RestaurantPicker.storyboard; sourceTree = "<group>"; };
+		7287026121BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerVCTemp.swift; sourceTree = "<group>"; };
+		7287026321BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4RestaurantPickerTemp.storyboard; sourceTree = "<group>"; };
 		7287026721BFA4C7000E1116 /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		7287026A21BFB05A000E1116 /* NoteV3Camera.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = NoteV3Camera.storyboard; sourceTree = "<group>"; };
 		7287026B21BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteV3PhotoLibrarySelectionViewController.swift; sourceTree = "<group>"; };
@@ -155,9 +155,9 @@
 		7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		7287027F21BFB9FE000E1116 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
-		B0A0AF8621C107F5005BE7AB /* RestaurantListCityTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantListCityTableViewCell.swift; sourceTree = "<group>"; };
-		B0A0AF8721C107F5005BE7AB /* RestaurantList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = RestaurantList.storyboard; sourceTree = "<group>"; };
-		B0A0AF8821C107F5005BE7AB /* RestaurantListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RestaurantListViewController.swift; sourceTree = "<group>"; };
+		B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "V4RestaurantPickerVC+Cells.swift"; sourceTree = "<group>"; };
+		B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = V4RestaurantPicker.storyboard; sourceTree = "<group>"; };
+		B0A0AF8821C107F5005BE7AB /* V4RestaurantPickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerVC.swift; sourceTree = "<group>"; };
 		B0A0AF8D21C10EBE005BE7AB /* TipBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipBar.swift; sourceTree = "<group>"; };
 		B0A0AF9021C10ED2005BE7AB /* LocationService+Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationService+Message.swift"; sourceTree = "<group>"; };
 		B0A0AF9121C10ED2005BE7AB /* LocationService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
@@ -379,9 +379,10 @@
 		7287026021BF8FAE000E1116 /* RestaurantPicker */ = {
 			isa = PBXGroup;
 			children = (
-				B0A0AF8421C107F5005BE7AB /* V3RestaurantList */,
-				7287026121BF8FD9000E1116 /* V4RestaurantPickerVC.swift */,
-				7287026321BF8FF7000E1116 /* V4RestaurantPicker.storyboard */,
+				B0A0AF8421C107F5005BE7AB /* no_use */,
+				B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */,
+				B0A0AF8821C107F5005BE7AB /* V4RestaurantPickerVC.swift */,
+				B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */,
 			);
 			path = RestaurantPicker;
 			sourceTree = "<group>";
@@ -427,22 +428,13 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		B0A0AF8421C107F5005BE7AB /* V3RestaurantList */ = {
+		B0A0AF8421C107F5005BE7AB /* no_use */ = {
 			isa = PBXGroup;
 			children = (
-				B0A0AF8521C107F5005BE7AB /* RestaurantListCityTableViewCell */,
-				B0A0AF8721C107F5005BE7AB /* RestaurantList.storyboard */,
-				B0A0AF8821C107F5005BE7AB /* RestaurantListViewController.swift */,
+				7287026121BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift */,
+				7287026321BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard */,
 			);
-			path = V3RestaurantList;
-			sourceTree = "<group>";
-		};
-		B0A0AF8521C107F5005BE7AB /* RestaurantListCityTableViewCell */ = {
-			isa = PBXGroup;
-			children = (
-				B0A0AF8621C107F5005BE7AB /* RestaurantListCityTableViewCell.swift */,
-			);
-			path = RestaurantListCityTableViewCell;
+			path = no_use;
 			sourceTree = "<group>";
 		};
 		B0A0AF8C21C10E5C005BE7AB /* Services */ = {
@@ -543,7 +535,7 @@
 			files = (
 				B0A0AFAB21C13BC2005BE7AB /* AddRestaurant.storyboard in Resources */,
 				72061D7021AE8A950098FFFD /* LaunchScreen.storyboard in Resources */,
-				7287026421BF8FF7000E1116 /* V4RestaurantPicker.storyboard in Resources */,
+				7287026421BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard in Resources */,
 				7287027421BFB05A000E1116 /* NoteV3PhotoPicker.storyboard in Resources */,
 				72061D6D21AE8A950098FFFD /* Assets.xcassets in Resources */,
 				7287027021BFB05A000E1116 /* NoteV3Camera.storyboard in Resources */,
@@ -551,7 +543,7 @@
 				72061D6B21AE8A950098FFFD /* Main.storyboard in Resources */,
 				7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */,
 				723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */,
-				B0A0AF8A21C107F5005BE7AB /* RestaurantList.storyboard in Resources */,
+				B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -634,7 +626,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				72061D9621AFDF080098FFFD /* KVOImageV4.swift in Sources */,
-				B0A0AF8B21C107F5005BE7AB /* RestaurantListViewController.swift in Sources */,
+				B0A0AF8B21C107F5005BE7AB /* V4RestaurantPickerVC.swift in Sources */,
 				72061DB221AFE0DA0098FFFD /* RLMServiceV4+Dish.swift in Sources */,
 				B0A0AFAD21C15AE5005BE7AB /* Array+Extension.swift in Sources */,
 				72061D6821AE8A950098FFFD /* ViewController.swift in Sources */,
@@ -684,10 +676,10 @@
 				72061DB321AFE0DA0098FFFD /* RLMServiceV4+Image.swift in Sources */,
 				723B1F8821B4E36A00CF91F3 /* V4ReviewFlows-Base.swift in Sources */,
 				72061DAC21AFE0DA0098FFFD /* DishObserve.swift in Sources */,
-				B0A0AF8921C107F5005BE7AB /* RestaurantListCityTableViewCell.swift in Sources */,
+				B0A0AF8921C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift in Sources */,
 				72061D9421AFDF080098FFFD /* RLMRestReviewV4.swift in Sources */,
 				B0A0AFB021C162CB005BE7AB /* OpenHour.swift in Sources */,
-				7287026221BF8FD9000E1116 /* V4RestaurantPickerVC.swift in Sources */,
+				7287026221BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift in Sources */,
 				B0A0AF9721C11095005BE7AB /* CustomSearchController.swift in Sources */,
 				B0A0AF9C21C11147005BE7AB /* UIImage+Extension.swift in Sources */,
 				7287026821BFA4C7000E1116 /* Location.swift in Sources */,

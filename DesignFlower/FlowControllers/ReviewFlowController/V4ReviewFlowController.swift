@@ -138,12 +138,22 @@ extension V4ReviewFlowController: V4RestaurantPickerFlowController.Delegate {
   func showRestaurantPicker() {
     guard let reviewVC = reviewVC else { return }
     
-    let restaurantPickerFlowController = V4RestaurantPickerFlowController(delegate: self, sourceDisplayContext: .present(vc: reviewVC, animated: true, style: .fullScreen), initialLocation: nil)
+    let restaurantPickerFlowController = V4RestaurantPickerFlowController(delegate: self, sourceDisplayContext: .present(vc: reviewVC, animated: true, style: .overFullScreen), initialLocation: nil)
     addChild(flowController: restaurantPickerFlowController)
     restaurantPickerFlowController.prepare()
     restaurantPickerFlowController.start()
   }
 
+  func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
+                        selected: Restaurant,
+                        locationInfo: V4RestaurantPickerVC.LocationInfo?) {
+    
+  }
+  
+  func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
+                        dismissedWithLocationInfo: V4RestaurantPickerVC.LocationInfo?) {
+    
+  }
   
 }
 

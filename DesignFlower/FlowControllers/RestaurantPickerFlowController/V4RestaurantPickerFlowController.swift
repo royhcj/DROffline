@@ -13,7 +13,7 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
   weak var delegate: Delegate?
   
   var sourceDisplayContext: DisplayContext
-  var restaurantPickerVC: V4RestaurantPickerVCTemp?
+  var restaurantPickerVC: V4RestaurantPickerVC?
   var initialLocation: Location?
   
   // MARK: - Object lifecycle
@@ -28,7 +28,7 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
   
   // MARK: - Flow Execution
   override func prepare() {
-    restaurantPickerVC = V4RestaurantPickerVCTemp.make(flowDelegate: self,
+    restaurantPickerVC = V4RestaurantPickerVC.make(flowDelegate: self,
                                                    initialLocation: initialLocation)
     
   }
@@ -42,7 +42,8 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
 }
 
 // MARK: - RestaurantVC Manipulation
-extension V4RestaurantPickerFlowController: V4RestaurantPickerVCTemp.FlowDelegate {
+extension V4RestaurantPickerFlowController: V4RestaurantPickerVC.FlowDelegate {
+  
   func showRestaurantPickerVC() {
     guard let vc = restaurantPickerVC
     else { return }
@@ -50,9 +51,21 @@ extension V4RestaurantPickerFlowController: V4RestaurantPickerVCTemp.FlowDelegat
     sourceDisplayContext.display(vc)
   }
   
+  func selectRest(restaurant: Restaurant, locationInfo: V4RestaurantPickerVC.LocationInfo?) {
+    delegate?.restaurantPicker(self, selected: restaurant, locationInfo: locationInfo)
+    sourceDisplayContext.undisplay(restaurantPickerVC)
+  }
   
+  func restaurantListDismissed(locationInfo: V4RestaurantPickerVC.LocationInfo?) {
+    delegate?.restaurantPicker(self, dismissedWithLocationInfo: locationInfo)
+    sourceDisplayContext.undisplay(restaurantPickerVC)
+  }
 }
 
 protocol V4RestaurantPickerFlowControllerDelegate: class {
-  
+  func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
+                        selected: Restaurant,
+                        locationInfo: V4RestaurantPickerVC.LocationInfo?)
+  func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
+                        dismissedWithLocationInfo: V4RestaurantPickerVC.LocationInfo?)
 }
