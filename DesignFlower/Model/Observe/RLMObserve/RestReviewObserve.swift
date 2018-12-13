@@ -50,7 +50,11 @@ class RestReviewObserve: RLMObserveDelegate {
       object.observe(\.title, options: [.initial, .old, .new]) { (restReview, change) in
         if let newValue = change.newValue, let title = newValue {
           RLMServiceV4.shared.update(dbObject, title: title)
-
+        }
+      },
+      object.observe(\.comment, options: [.initial, .old, .new]) { (restReview, change) in
+        if let newValue = change.newValue, let comment = newValue {
+          RLMServiceV4.shared.update(dbObject, comment: comment)
         }
       },
       object.observe(\.id, options: [.initial, .old, .new]) { (restReview, change) in

@@ -13,10 +13,23 @@ class V4ReviewViewModel {
   
   weak var output: Output?
   
-  var review: KVORestReviewV4?
+  var review: KVORestReviewV4? {
+    didSet {
+      if let review = review {
+        observe = RestReviewObserve(object: review)
+      }
+    }
+  }
+  var observe: RestReviewObserve?
 
   init(output: Output?, reviewUUID: String?) {
-    review = KVORestReviewV4(uuid: reviewUUID)
+    review = {
+      let review = KVORestReviewV4(uuid: reviewUUID)
+      self.observe = RestReviewObserve(object: review)
+      return review
+    }()
+    
+    self.output = output
   }
   
   func setReview(_ review: KVORestReviewV4) {
@@ -38,7 +51,26 @@ class V4ReviewViewModel {
     output?.refreshReview()
   }
   
+  // Change Methods
+  func changeReviewTitle(_ title: String?) {
+    review?.title = title
+  }
   
+  func changeReviewComment(_ comment: String?) {
+    review?.comment = comment
+  }
+  
+  func changePriceRank(_ rank: Float) {
+    review?.priceRank = String(format: "%.1f", rank)
+  }
+  
+  func changeServiceRank(_ rank: Float) {
+    review?.serviceRank = String(format: "%.1f", rank)
+  }
+  
+  func changeEnvironmentRank(_ rank: Float) {
+    review?.environmentRank = String(format: "%.1f", rank)
+  }
   
   typealias Output = V4ReviewViewModelOutput
 }

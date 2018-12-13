@@ -43,6 +43,9 @@ target 'DesignFlower' do
   pod 'SwiftLocation', '~> 3.2.3'
   pod 'CountryAndCity'
   
+  # Rate View
+  pod 'YCRateView'
+  
 end
 
 post_install do |installer|

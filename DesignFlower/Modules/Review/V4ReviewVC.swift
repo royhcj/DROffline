@@ -8,12 +8,14 @@
 
 import UIKit
 import Photos
+import YCRateView
 
 class V4ReviewVC: FlowedViewController,
                   UITableViewDataSource,
                   UITableViewDelegate,
+                  V4ReviewVCCommonCellDelegate,
                   V4ReviewViewModel.Output {
-  
+
   var flowDelegate: FlowDelegate?
   
   var viewModel: V4ReviewViewModel?
@@ -90,6 +92,10 @@ class V4ReviewVC: FlowedViewController,
     }
     let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
     
+    if let cell = cell as? CommonCell {
+      cell.delegate = self
+    }
+    
     if let cell = cell as? RestaurantNameCell {
       cell.configure(with: viewModel?.review)
     } else if let cell = cell as? DiningTimeCell {
@@ -107,6 +113,27 @@ class V4ReviewVC: FlowedViewController,
     }
     
     return cell
+  }
+  
+  // MARK: - Cell Delegate
+  func changeReviewTitle(_ title: String?) {
+    viewModel?.changeReviewTitle(title)
+  }
+  
+  func changeReviewComment(_ comment: String?) {
+    viewModel?.changeReviewComment(comment)
+  }
+  
+  func changePriceRank(_ rank: Float) {
+    viewModel?.changePriceRank(rank)
+  }
+  
+  func changeServiceRank(_ rank: Float) {
+    viewModel?.changeServiceRank(rank)
+  }
+  
+  func changeEnvironmentRank(_ rank: Float) {
+    viewModel?.changeEnvironmentRank(rank)
   }
   
   // MARK: - Flow Related

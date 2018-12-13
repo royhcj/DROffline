@@ -8,8 +8,9 @@
 
 import Foundation
 import UIKit
+import YCRateView
 
-class V4ReviewVC_RestaurantNameCell: UITableViewCell {
+class V4ReviewVC_RestaurantNameCell: V4ReviewVC.CommonCell {
   
   @IBOutlet var restaurantNameButton: UIButton!
   
@@ -19,7 +20,7 @@ class V4ReviewVC_RestaurantNameCell: UITableViewCell {
   }
 }
 
-class V4ReviewVC_DiningTimeCell: UITableViewCell {
+class V4ReviewVC_DiningTimeCell: V4ReviewVC.CommonCell {
   
   @IBOutlet var diningTimeButton: UIButton!
   
@@ -38,40 +39,94 @@ class V4ReviewVC_DiningTimeCell: UITableViewCell {
   }
 }
 
-class V4ReviewVC_ReviewTitleCell: UITableViewCell {
+class V4ReviewVC_ReviewTitleCell: V4ReviewVC.CommonCell, UITextFieldDelegate {
   
   @IBOutlet var reviewTitleTextField: UITextField!
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    
+    reviewTitleTextField.delegate = self
+  }
   
   func configure(with review: KVORestReviewV4?) {
     reviewTitleTextField.text = review?.title
   }
-}
-
-class V4ReviewVC_DishReviewHeaderCell: UITableViewCell {
   
-}
-
-class V4ReviewVC_DishReviewCell: UITableViewCell {
-  
-}
-
-class V4ReviewVC_RestaurantRatingCell: UITableViewCell {
-  
-  @IBOutlet var commentTextView: UITextView!
-  @IBOutlet var priceRatingView: UIView!
-  @IBOutlet var serviceRatingView: UIView!
-  @IBOutlet var environmentRatingView: UIView!
-  
-  func configure(with review: KVORestReviewV4?) {
-    commentTextView.text = review?.comment
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    delegate?.changeReviewTitle(textField.text)
   }
 }
 
-class V4ReviewVC_DeleteCell: UITableViewCell {
+class V4ReviewVC_DishReviewHeaderCell: V4ReviewVC.CommonCell {
+  
+}
+
+class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell {
+  
+}
+
+class V4ReviewVC_RestaurantRatingCell: V4ReviewVC.CommonCell, UITextViewDelegate {
+  
+  @IBOutlet var commentTextView: UITextView!
+  @IBOutlet var priceRatingView: YCRateView!
+  @IBOutlet var serviceRatingView: YCRateView!
+  @IBOutlet var environmentRatingView: YCRateView!
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    commentTextView.delegate = self
+    priceRatingView.sliderAddTarget(target: self, selector: #selector(priceRankValueChanged), event: .valueChanged)
+    serviceRatingView.sliderAddTarget(target: self, selector: #selector(serviceRankValueChanged), event: .valueChanged)
+    environmentRatingView.sliderAddTarget(target: self, selector: #selector(environmentRankValueChanged), event: .valueChanged)
+  }
+  
+  func configure(with review: KVORestReviewV4?) {
+    commentTextView.text = review?.comment
+    
+    priceRatingView.yc_IsSliderEnabled = true
+    priceRatingView.yc_IsTextHidden = false
+    priceRatingView.yc_InitValue = Float(review?.priceRank ?? "0.0") ?? 0
+    priceRatingView.setNeedsDisplay()
+    
+    serviceRatingView.yc_IsSliderEnabled = true
+    serviceRatingView.yc_IsTextHidden = false
+    serviceRatingView.yc_InitValue = Float(review?.serviceRank ?? "0.0") ?? 0
+    serviceRatingView.setNeedsDisplay()
+    
+    environmentRatingView.yc_IsSliderEnabled = true
+    environmentRatingView.yc_IsTextHidden = false
+    environmentRatingView.yc_InitValue = Float(review?.environmentRank ?? "0.0") ?? 0
+    environmentRatingView.setNeedsDisplay()
+  }
+  
+  @objc func priceRankValueChanged(sender: UISlider, value: Float) {
+    delegate?.changePriceRank(value)
+  }
+  
+  @objc func serviceRankValueChanged(sender: UISlider, value: Float) {
+    delegate?.changeServiceRank(value)
+  }
+  
+  @objc func environmentRankValueChanged(sender: UISlider, value: Float) {
+    delegate?.changeEnvironmentRank(value)
+  }
+  
+  func textViewDidEndEditing(_ textView: UITextView) {
+    delegate?.changeReviewComment(textView.text)
+  }
+}
+
+class V4ReviewVC_DeleteCell: V4ReviewVC.CommonCell {
 
 }
 
+class V4ReviewVC_CommonCell: UITableViewCell {
+  weak var delegate: V4ReviewVCCommonCellDelegate?
+}
+
 extension V4ReviewVC {
+  typealias CommonCell = V4ReviewVC_CommonCell
   typealias RestaurantNameCell = V4ReviewVC_RestaurantNameCell
   typealias DiningTimeCell = V4ReviewVC_DiningTimeCell
   typealias ReviewTitleCell = V4ReviewVC_ReviewTitleCell
@@ -79,4 +134,13 @@ extension V4ReviewVC {
   typealias DishReviewCell = V4ReviewVC_DishReviewCell
   typealias RestaurantRatingCell = V4ReviewVC_RestaurantRatingCell
   typealias DeleteCell = V4ReviewVC_DeleteCell
+}
+
+
+protocol V4ReviewVCCommonCellDelegate: class {
+  func changeReviewTitle(_ title: String?)
+  func changeReviewComment(_ comment: String?)
+  func changePriceRank(_ rank: Float)
+  func changeServiceRank(_ rank: Float)
+  func changeEnvironmentRank(_ rank: Float)
 }

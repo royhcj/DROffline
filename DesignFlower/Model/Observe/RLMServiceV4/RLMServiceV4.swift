@@ -65,7 +65,7 @@ internal class RLMServiceV4 {
     }
   }
 
-  // no.4
+  // no.4-2
   internal func update(_ restReview: RLMRestReviewV4, title: String?) {
     do {
       try realm.write {
@@ -75,6 +75,16 @@ internal class RLMServiceV4 {
       print("RLMServiceV4 file's no.4 func error")
     }
   }
+  internal func update(_ restReview: RLMRestReviewV4, comment: String?) {
+    do {
+      try realm.write {
+        restReview.comment = comment
+      }
+    } catch {
+      print("RLMServiceV4 file's no.4-2 func error")
+    }
+  }
+  
   // no.5
   internal func update(_ restReview: RLMRestReviewV4, id: Int?) {
     do {
