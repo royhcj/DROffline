@@ -10,15 +10,38 @@ target 'DesignFlower' do
   # Realm
   pod 'RealmSwift'
 
-  # Camear Manager
+  # Camera Manager
   pod 'CameraManager', '~> 4.2'
+  
+  # Network
+  pod 'Moya/RxSwift'
+  
+  # PromiseKit/Alamofire
+  #pod 'PromiseKit', '~> 4.0'
+  pod 'PromiseKit/Alamofire'
+  
+  # HTTP Status Code Enum
+  pod 'HTTPStatusCodes', '~> 3.1.1'
+  
+  # SwiftyJSON
+  #pod 'SwiftyJSON'
+  
+  # Pod for progress
+  pod 'SVProgressHUD'
   
   # Rx
   pod 'RxSwift'
   pod 'RxCocoa'
   
+  # Layout Helpers
+  pod 'SnapKit', '~> 4.0.0'
+  
   # Image Caching
   pod 'SDWebImage', '~> 4.0'
+  
+  # Location Services
+  pod 'SwiftLocation', '~> 3.2.3'
+  pod 'CountryAndCity'
   
 end
 

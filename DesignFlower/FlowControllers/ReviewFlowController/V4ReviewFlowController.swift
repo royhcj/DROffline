@@ -100,18 +100,6 @@ extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
     photoPickerFlowController.start()
   }
   
-//  func getDisplayContext(for sender: V4PhotoPickerFlowController) -> DisplayContext {
-//    guard let reviewVC = reviewVC
-//    else { assert(false, "Failed unwrapping reviewVC") }
-//
-//    switch sender.scenario {
-//    case .addNewPhotos:
-//      return .embed(vc: reviewVC, on: reviewVC.view)
-//    default:
-//      return .present(vc: reviewVC, animated: true, style: .fullScreen)
-//    }
-//  }
-  
   func photoPicker(_ sender: V4PhotoPickerFlowController,
                    picked assets: [PHAsset],
                    scenario: V4PhotoPickerModule.Scenario) {

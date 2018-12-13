@@ -1,10 +1,24 @@
 PODS:
+  - Alamofire (4.8.0)
   - CameraManager (4.3.0)
+  - CountryAndCity (0.1.7)
+  - HTTPStatusCodes (3.1.2)
+  - Moya/Core (12.0.1):
+    - Alamofire (~> 4.1)
+    - Result (~> 4.0)
+  - Moya/RxSwift (12.0.1):
+    - Moya/Core
+    - RxSwift (~> 4.0)
+  - PromiseKit/Alamofire (6.7.0):
+    - Alamofire (~> 4.0)
+    - PromiseKit/CorePromise
+  - PromiseKit/CorePromise (6.7.0)
   - Realm (3.12.0):
     - Realm/Headers (= 3.12.0)
   - Realm/Headers (3.12.0)
   - RealmSwift (3.12.0):
     - Realm (= 3.12.0)
+  - Result (4.0.0)
   - RxAtomic (4.4.0)
   - RxCocoa (4.4.0):
     - RxSwift (~> 4.0)
@@ -13,33 +27,65 @@ PODS:
   - SDWebImage (4.4.2):
     - SDWebImage/Core (= 4.4.2)
   - SDWebImage/Core (4.4.2)
+  - SnapKit (4.0.1)
+  - SVProgressHUD (2.2.5)
+  - SwiftLocation (3.2.3):
+    - SwiftyJSON (~> 4.0.0-alpha.1)
+  - SwiftyJSON (4.0.0)
 
 DEPENDENCIES:
   - CameraManager (~> 4.2)
+  - CountryAndCity
+  - HTTPStatusCodes (~> 3.1.1)
+  - Moya/RxSwift
+  - PromiseKit/Alamofire
   - RealmSwift
   - RxCocoa
   - RxSwift
   - SDWebImage (~> 4.0)
+  - SnapKit (~> 4.0.0)
+  - SVProgressHUD
+  - SwiftLocation (~> 3.2.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - Alamofire
     - CameraManager
+    - CountryAndCity
+    - HTTPStatusCodes
+    - Moya
+    - PromiseKit
     - Realm
     - RealmSwift
+    - Result
     - RxAtomic
     - RxCocoa
     - RxSwift
     - SDWebImage
+    - SnapKit
+    - SVProgressHUD
+    - SwiftLocation
+    - SwiftyJSON
 
 SPEC CHECKSUMS:
+  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   CameraManager: 607b60ad5c84bfa481ebf82eb4cd77a8d1f0bc39
+  CountryAndCity: 9456fa93940a58ca261bef96bed3c4aece4f9de1
+  HTTPStatusCodes: 88155ba36826366a898a7b4f34d311f49083d546
+  Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
+  PromiseKit: 453ddcc947fe7b302f3ef41882b81d31c554df7f
   Realm: cdaef23c4ddb36ab1ddffed23f5a7f3332fc5585
   RealmSwift: 5576324033f0aa5ef1e0a839a3da2281dff47a7f
+  Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
   RxAtomic: eacf60db868c96bfd63320e28619fe29c179656f
   RxCocoa: df63ebf7b9a70d6b4eeea407ed5dd4efc8979749
   RxSwift: 5976ecd04fc2fefd648827c23de5e11157faa973
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  SnapKit: 0de968a9fec17499afa29683b05d0c775b6d1c29
+  SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
+  SwiftLocation: a3c3bc2023118171ef3572188a31def94aa0892c
+  SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
 
-PODFILE CHECKSUM: edac159f82a9636d08b76bb39cec60c0b084f668
+PODFILE CHECKSUM: fd4c1a4dfea810e918cf96cece4dde2e53f0cc7a
 
 COCOAPODS: 1.5.3

@@ -7,7 +7,7 @@
 
 import Foundation
 
-class KVORestReviewV4: NSObject {
+public class KVORestReviewV4: NSObject {
 
   @objc dynamic var serviceRank: String? // 服務分數
   @objc dynamic var environmentRank: String? // 環境分數
@@ -35,4 +35,9 @@ class KVORestReviewV4: NSObject {
     }
   }
 
+  // 地址來源
+  public enum AddressSource: Int {
+      case manual = 0 // 手動輸入
+      case apple  = 1 // Apple找出來的地址
+  }
 }

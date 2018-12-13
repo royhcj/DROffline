@@ -8,7 +8,7 @@
 
 import UIKit
 
-class V4RestaurantPickerVC: FlowedViewController {
+class V4RestaurantPickerVCTemp: FlowedViewController {
   
   weak var flowDelegate: FlowDelegate?
   
@@ -16,10 +16,10 @@ class V4RestaurantPickerVC: FlowedViewController {
   
   // MARK: - Object lifecycle
   static func make(flowDelegate: FlowDelegate,
-                   initialLocation: Location?) -> V4RestaurantPickerVC {
+                   initialLocation: Location?) -> V4RestaurantPickerVCTemp {
     let vc = UIStoryboard(name: "V4RestaurantPicker", bundle: nil)
               .instantiateViewController(withIdentifier: "V4RestaurantPickerVC")
-              as! V4RestaurantPickerVC
+              as! V4RestaurantPickerVCTemp
     
     vc.flowDelegate = flowDelegate
     vc.initialLocation = initialLocation

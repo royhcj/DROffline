@@ -13,7 +13,7 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
   weak var delegate: Delegate?
   
   var sourceDisplayContext: DisplayContext
-  var restaurantPickerVC: V4RestaurantPickerVC?
+  var restaurantPickerVC: V4RestaurantPickerVCTemp?
   var initialLocation: Location?
   
   // MARK: - Object lifecycle
@@ -28,7 +28,7 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
   
   // MARK: - Flow Execution
   override func prepare() {
-    restaurantPickerVC = V4RestaurantPickerVC.make(flowDelegate: self,
+    restaurantPickerVC = V4RestaurantPickerVCTemp.make(flowDelegate: self,
                                                    initialLocation: initialLocation)
     
   }
@@ -42,7 +42,7 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
 }
 
 // MARK: - RestaurantVC Manipulation
-extension V4RestaurantPickerFlowController: V4RestaurantPickerVC.FlowDelegate {
+extension V4RestaurantPickerFlowController: V4RestaurantPickerVCTemp.FlowDelegate {
   func showRestaurantPickerVC() {
     guard let vc = restaurantPickerVC
     else { return }
