@@ -1224,11 +1224,3 @@ extension V4RestaurantPickerVC: AddRestaurantVC.Delegate {
 }
 
 
-class RestaurantListCell: UITableViewCell {
-    @IBOutlet var distanceLabel: UILabel!
-    @IBOutlet var restaurantNameLabel: UILabel!
-    @IBOutlet var restaurantLocationLabel: UILabel!
-    @IBOutlet var dishRankImageView: UIView!
-    @IBOutlet weak var drImageView: UIImageView!
-    @IBOutlet weak var privateOrDRLabel: UILabel!
-}

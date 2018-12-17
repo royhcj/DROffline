@@ -46,6 +46,12 @@ class V4ReviewVC: FlowedViewController,
     refreshReview()
   }
   
+  // MARK: - ► IB Action
+  @IBAction func clickedAddDishReview(_ sender: Any) {
+    viewModel?.addDishReview()
+  }
+  
+  
   // MARK: - ► Table DataSource/Delegate
   
   func numberOfSections(in tableView: UITableView) -> Int {
@@ -67,7 +73,7 @@ class V4ReviewVC: FlowedViewController,
     case .dishReviewHeader:
       return 1
     case .dishReviews:
-      return 0
+      return viewModel?.review?.dishReviews.count ?? 0
     case .restaurantRating:
       return 1
     case .delete:

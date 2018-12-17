@@ -66,6 +66,7 @@
 		7287027C21BFB8A4000E1116 /* UIViewController+Alert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */; };
 		7287027E21BFB90E000E1116 /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */; };
 		7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027F21BFB9FE000E1116 /* Date+Extension.swift */; };
+		7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287028121C750F6000E1116 /* UIView+Extension.swift */; };
 		825146A2F2CB641CB8B874DA /* Pods_DesignFlower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */; };
 		B0A0AF8921C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */; };
 		B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */; };
@@ -154,6 +155,7 @@
 		7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Alert.swift"; sourceTree = "<group>"; };
 		7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		7287027F21BFB9FE000E1116 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
+		7287028121C750F6000E1116 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "V4RestaurantPickerVC+Cells.swift"; sourceTree = "<group>"; };
 		B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = V4RestaurantPicker.storyboard; sourceTree = "<group>"; };
 		B0A0AF8821C107F5005BE7AB /* V4RestaurantPickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerVC.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 		7287027A21BFB8A4000E1116 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				7287028121C750F6000E1116 /* UIView+Extension.swift */,
 				B0A0AFAC21C15AE5005BE7AB /* Array+Extension.swift */,
 				B0A0AFA321C13AD3005BE7AB /* UIColor+Extension.swift */,
 				B0A0AFA121C13A47005BE7AB /* DishRankColor.swift */,
@@ -663,6 +666,7 @@
 				723B1F8421B4D3AA00CF91F3 /* DisplayContext.swift in Sources */,
 				B0A0AFA921C13BC2005BE7AB /* AddRestaurantVM.swift in Sources */,
 				72061D9821AFDF080098FFFD /* RLMRestaurantV4.swift in Sources */,
+				7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */,
 				723B1F8F21B50BD500CF91F3 /* V4PhotoPickerFlowController.swift in Sources */,
 				B0A0AFB421C16305005BE7AB /* Dish.swift in Sources */,
 				7287025F21BF8B1F000E1116 /* V4RestaurantPickerFlowController.swift in Sources */,

@@ -37,6 +37,13 @@ class V4ReviewViewModel {
     output?.refreshReview()
   }
   
+  func addDishReview() {
+    let dishReview = KVODishReviewV4(uuid: nil)
+    review?.dishReviews.append(dishReview)
+    
+    output?.refreshReview()
+  }
+  
   func addDishReviews(with assets: [PHAsset]) {
     for asset in assets {
       let image = KVOImageV4(uuid: nil)
@@ -50,6 +57,8 @@ class V4ReviewViewModel {
     }
     output?.refreshReview()
   }
+  
+  
   
   // Change Methods
   func changeReviewTitle(_ title: String?) {
