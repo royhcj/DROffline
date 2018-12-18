@@ -102,8 +102,7 @@ class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UIT
     delegate?.deleteDishReview(for: uuid)
   }
   
-  
-  func textViewDidEndEditing(_ textView: UITextView) {
+  func textViewDidChange(_ textView: UITextView) {
     guard let uuid = dishReviewUUID else { return }
     delegate?.changeDishReviewComment(for: uuid, comment: commentTextView.text)
   }
@@ -159,6 +158,10 @@ class V4ReviewVC_RestaurantRatingCell: V4ReviewVC.CommonCell, UITextViewDelegate
   
   @objc func environmentRankValueChanged(sender: UISlider, value: Float) {
     delegate?.changeEnvironmentRank(value)
+  }
+  
+  func textViewDidChange(_ textView: UITextView) {
+    delegate?.changeReviewComment(textView.text)
   }
   
   func textViewDidEndEditing(_ textView: UITextView) {

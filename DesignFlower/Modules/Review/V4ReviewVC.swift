@@ -129,6 +129,8 @@ class V4ReviewVC: FlowedViewController,
   
   func changeReviewComment(_ comment: String?) {
     viewModel?.changeReviewComment(comment)
+    tableView.beginUpdates()
+    tableView.endUpdates()
   }
   
   func changePriceRank(_ rank: Float) {
@@ -149,6 +151,9 @@ class V4ReviewVC: FlowedViewController,
   
   func changeDishReviewComment(for dishReviewUUID: String, comment: String) {
     viewModel?.changeDishReviewComment(for: dishReviewUUID, comment: comment)
+    
+    tableView.beginUpdates()
+    tableView.endUpdates()
   }
   
   func changeDishReviewRank(for dishReviewUUID: String, rank: Float) {
