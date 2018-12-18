@@ -17,7 +17,7 @@ class V4ReviewFlowController: ViewBasedFlowController {
   var scenario: Scenario = .writeBegin
   
   var reviewVC: V4ReviewVC?
-  //var review: KVORestReviewV4?
+  var navigationVC: UINavigationController?
   
   init(scenario: Scenario) {
     self.scenario = scenario
@@ -44,12 +44,16 @@ class V4ReviewFlowController: ViewBasedFlowController {
   func createReviewVC() {
     reviewVC = V4ReviewVC.make(flowDelegate: self)
     reviewVC?.viewBasedFlowController = self
+    
+    if let reviewVC = reviewVC {
+      navigationVC = UINavigationController(rootViewController: reviewVC)
+    }
   }
   
   func showReviewVC() {
-    guard let reviewVC = reviewVC else { return }
+    guard let navigationVC = navigationVC else { return }
     
-    delegate?.getDisplayContext(for: self).display(reviewVC)
+    delegate?.getDisplayContext(for: self).display(navigationVC)
   }
   
   func askContinueUnsavedReview() {
@@ -88,7 +92,8 @@ extension V4ReviewFlowController: V4PhotoPickerFlowControllerDelegate {
     let displayContext: DisplayContext = {
       switch scenario {
       case .addNewPhotos:
-        return .embed(vc: reviewVC, on: reviewVC.view)
+        //return .embed(vc: reviewVC, on: reviewVC.view)
+        return .embedEx(vc: reviewVC, on: reviewVC.view, hidesNavigationBar: true)
       default:
         return .present(vc: reviewVC, animated: true, style: .fullScreen)
       }

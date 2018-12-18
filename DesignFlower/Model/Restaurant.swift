@@ -206,7 +206,7 @@ public class Restaurant: NSCoding, ObjectToStringForSearch/*, JSONable*/ {
     dictionary[SerializationKeys.markAsLike] = markAsLike
     if let value = address { dictionary[SerializationKeys.address] = value }
     if let value = country { dictionary[SerializationKeys.country] = value }
-    if let value = city { dictionary[SerializationKeys.city] = city }
+    if let value = city { dictionary[SerializationKeys.city] = value }
     if let value = itemCP { dictionary[SerializationKeys.itemCP] = value }
     if let value = postFullText { dictionary[SerializationKeys.postFullText] = value }
     if let value = latitude { dictionary[SerializationKeys.latitude] = value }

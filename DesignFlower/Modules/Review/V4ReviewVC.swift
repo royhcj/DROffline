@@ -39,6 +39,9 @@ class V4ReviewVC: FlowedViewController,
     
     // Create View Model
     viewModel = V4ReviewViewModel(output: self, reviewUUID: nil)
+    
+    // Configure Navigation Bar
+    configureNavigationController()
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -51,6 +54,28 @@ class V4ReviewVC: FlowedViewController,
     viewModel?.addDishReview()
   }
   
+  @objc func clickedCancel(_ sender: Any) {
+    
+  }
+  
+  @objc func clickedSave(_ sender: Any) {
+    viewModel?.saveReview()
+  }
+  
+  @objc func clickedShare(_ sender: Any) {
+    guard viewModel?.dirty != true
+    else {
+      print("Unsaved")
+      return
+    }
+  }
+  
+  // MARK: - ► Navigation Controller Manipulation
+  func configureNavigationController() {
+    navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(clickedCancel(_:)))
+    navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedShare(_:)))
+    navigationItem.title = "寫筆記"
+  }
   
   // MARK: - ► Table DataSource/Delegate
   
@@ -193,6 +218,16 @@ class V4ReviewVC: FlowedViewController,
   // MARK: - ► ViewModel Output
   func refreshReview() {
     tableView.reloadData()
+  }
+  
+  func refreshDirty() {
+    guard let dirty = viewModel?.dirty else { return }
+    
+    if dirty {
+      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedSave(_:)))
+    } else {
+      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分享", style: .plain, target: self, action: #selector(clickedShare(_:)))
+    }
   }
   
   

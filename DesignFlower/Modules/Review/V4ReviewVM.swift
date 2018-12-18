@@ -14,13 +14,14 @@ class V4ReviewViewModel {
   weak var output: Output?
   
   var review: KVORestReviewV4? {
-    didSet {
-      if let review = review {
-        observe = RestReviewObserve(object: review)
-      }
-    }
-  }
+                didSet {
+                  if let review = review {
+                    observe = RestReviewObserve(object: review)
+                  }
+                }
+              }
   var observe: RestReviewObserve?
+  var dirty: Bool = false
 
   init(output: Output?, reviewUUID: String?) {
     review = {
@@ -65,28 +66,46 @@ class V4ReviewViewModel {
     })
   }
   
+  // MARK: - Save Review
+  func saveReview() {
+    // TODO: Call Save
+    setDirty(false)
+  }
   
-  // Change Methods
+  // MARK: - Dirty Manipulation
+  func setDirty(_ dirty: Bool) {
+    self.dirty = dirty
+    
+    output?.refreshDirty()
+  }
+  
+  // MARK: - Review Change Methods
   func changeReviewTitle(_ title: String?) {
     review?.title = title
+    setDirty(true)
   }
   
   func changeReviewComment(_ comment: String?) {
     review?.comment = comment
+    setDirty(true)
   }
   
   func changePriceRank(_ rank: Float) {
     review?.priceRank = String(format: "%.1f", rank)
+    setDirty(true)
   }
   
   func changeServiceRank(_ rank: Float) {
     review?.serviceRank = String(format: "%.1f", rank)
+    setDirty(true)
   }
   
   func changeEnvironmentRank(_ rank: Float) {
     review?.environmentRank = String(format: "%.1f", rank)
+    setDirty(true)
   }
   
+  // MARK: - Dish Review Change Methods
   func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?) {
     guard let dishReview = getDishReview(dishReviewUUID) else { return }
     
@@ -94,18 +113,21 @@ class V4ReviewViewModel {
     if let dishID = dishID {
       dishReview.dish?.id = dishID
     }
+    setDirty(true)
   }
   
   func changeDishReviewComment(for dishReviewUUID: String, comment: String) {
     guard let dishReview = getDishReview(dishReviewUUID) else { return }
     
     dishReview.comment = comment
+    setDirty(true)
   }
   
   func changeDishReviewRank(for dishReviewUUID: String, rank: Float) {
     guard let dishReview = getDishReview(dishReviewUUID) else { return }
     
     dishReview.rank = String(format: "%.1f", rank)
+    setDirty(true)
   }
   
   func deleteDishReview(for dishReviewUUID: String) {
@@ -116,6 +138,7 @@ class V4ReviewViewModel {
     else { return }
     
     review?.dishReviews.remove(at: index)
+    setDirty(true)
   }
   
   typealias Output = V4ReviewViewModelOutput
@@ -124,4 +147,5 @@ class V4ReviewViewModel {
 
 protocol V4ReviewViewModelOutput: class {
   func refreshReview()
+  func refreshDirty()
 }

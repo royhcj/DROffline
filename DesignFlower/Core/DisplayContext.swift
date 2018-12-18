@@ -11,9 +11,13 @@ import UIKit
 
 enum DisplayContext {
   case embed(vc: UIViewController, on: UIView)
+  case embedEx(vc: UIViewController, on: UIView, hidesNavigationBar: Bool)
   case present(vc: UIViewController, animated: Bool,
                style: UIModalPresentationStyle)
   case push(vc: UIViewController, animated: Bool)
+  
+  //var wasNavigationBarHidden: Bool?
+  
   
   func display(_ viewController: UIViewController,
                completion: (() -> ())? = nil) {
@@ -23,6 +27,16 @@ enum DisplayContext {
       view.addSubview(viewController.view)
       sourceVC.addChildViewController(viewController)
       viewController.didMove(toParentViewController: sourceVC)
+      completion?()
+    case .embedEx(let sourceVC, let view, let hidesNavigationBar):
+      viewController.view.frame = view.bounds
+      view.addSubview(viewController.view)
+      sourceVC.addChildViewController(viewController)
+      viewController.didMove(toParentViewController: sourceVC)
+      if hidesNavigationBar {
+        //wasNavigationBarHidden = viewController.navigationController?.isNavigationBarHidden
+        viewController.navigationController?.isNavigationBarHidden = true
+      }
       completion?()
     case .present(let sourceVC, let animated, let style):
       viewController.modalPresentationStyle = style
@@ -41,6 +55,15 @@ enum DisplayContext {
     
     switch self {
     case .embed( _, _):
+      viewController.view.removeFromSuperview()
+      viewController.removeFromParentViewController()
+      viewController.didMove(toParentViewController: nil)
+      completion?()
+    case .embedEx(_, _, let hidesNavigationBar):
+      if hidesNavigationBar {
+         //let wasNavigationBarHidden = wasNavigationBarHidden {
+        viewController.navigationController?.isNavigationBarHidden = false
+      }
       viewController.view.removeFromSuperview()
       viewController.removeFromParentViewController()
       viewController.didMove(toParentViewController: nil)
