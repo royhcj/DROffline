@@ -110,8 +110,9 @@ class V4ReviewVC: FlowedViewController,
       cell.configure(with: viewModel?.review)
     } else if let _ = cell as? DishReviewHeaderCell {
       
-    } else if let _ = cell as? DishReviewCell {
-      
+    } else if let cell = cell as? DishReviewCell {
+      let dishReview = viewModel?.review?.dishReviews.at(indexPath.row)
+      cell.configure(with: dishReview)
     } else if let cell = cell as? RestaurantRatingCell {
       cell.configure(with: viewModel?.review)
     } else if let _ = cell as? DeleteCell {
@@ -140,6 +141,26 @@ class V4ReviewVC: FlowedViewController,
   
   func changeEnvironmentRank(_ rank: Float) {
     viewModel?.changeEnvironmentRank(rank)
+  }
+  
+  func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?) {
+    viewModel?.changeDishReviewDish(for: dishReviewUUID, name: name, dishID: dishID)
+  }
+  
+  func changeDishReviewComment(for dishReviewUUID: String, comment: String) {
+    viewModel?.changeDishReviewComment(for: dishReviewUUID, comment: comment)
+  }
+  
+  func changeDishReviewRank(for dishReviewUUID: String, rank: Float) {
+    viewModel?.changeDishReviewRank(for: dishReviewUUID, rank: rank)
+  }
+  
+  func showMoreForDishReview(_ dishReviewUUID: String) {
+    // TODO:
+  }
+  
+  func deleteDishReview(for dishReviewUUID: String) {
+    viewModel?.deleteDishReview(for: dishReviewUUID)
   }
   
   // MARK: - Flow Related

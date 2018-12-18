@@ -37,6 +37,7 @@ class V4ReviewViewModel {
     output?.refreshReview()
   }
   
+  // MARK: - DishReview Manipulation
   func addDishReview() {
     let dishReview = KVODishReviewV4(uuid: nil)
     review?.dishReviews.append(dishReview)
@@ -58,6 +59,11 @@ class V4ReviewViewModel {
     output?.refreshReview()
   }
   
+  func getDishReview(_ dishReviewUUID: String) -> KVODishReviewV4? {
+    return review?.dishReviews.first(where: {
+      $0.uuid == dishReviewUUID
+    })
+  }
   
   
   // Change Methods
@@ -79,6 +85,37 @@ class V4ReviewViewModel {
   
   func changeEnvironmentRank(_ rank: Float) {
     review?.environmentRank = String(format: "%.1f", rank)
+  }
+  
+  func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?) {
+    guard let dishReview = getDishReview(dishReviewUUID) else { return }
+    
+    dishReview.dish?.name = name
+    if let dishID = dishID {
+      dishReview.dish?.id = dishID
+    }
+  }
+  
+  func changeDishReviewComment(for dishReviewUUID: String, comment: String) {
+    guard let dishReview = getDishReview(dishReviewUUID) else { return }
+    
+    dishReview.comment = comment
+  }
+  
+  func changeDishReviewRank(for dishReviewUUID: String, rank: Float) {
+    guard let dishReview = getDishReview(dishReviewUUID) else { return }
+    
+    dishReview.rank = String(format: "%.1f", rank)
+  }
+  
+  func deleteDishReview(for dishReviewUUID: String) {
+    guard let dishReview = getDishReview(dishReviewUUID),
+          let index = review?.dishReviews.firstIndex(where: {
+            $0 == dishReview
+          })
+    else { return }
+    
+    review?.dishReviews.remove(at: index)
   }
   
   typealias Output = V4ReviewViewModelOutput

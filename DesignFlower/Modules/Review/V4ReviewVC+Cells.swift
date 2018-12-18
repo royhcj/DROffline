@@ -62,7 +62,56 @@ class V4ReviewVC_DishReviewHeaderCell: V4ReviewVC.CommonCell {
   
 }
 
-class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell {
+class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UITextViewDelegate {
+  
+  var dishReviewUUID: String?
+  @IBOutlet var dishNameTextField: UITextField!
+  @IBOutlet var dishRateView: YCRateView!
+  @IBOutlet var commentTextView: UITextView!
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    dishRateView.sliderAddTarget(target: self, selector: #selector(dishRankValueChanged), event: .touchUpInside)
+    dishRateView.yc_IsSliderEnabled = true
+    dishRateView.yc_IsTextHidden = false
+    dishRateView.setNeedsDisplay()
+    
+    dishNameTextField.delegate = self
+    
+    commentTextView.delegate = self
+  }
+  
+  func configure(with dishReview: KVODishReviewV4?) {
+    dishReviewUUID = dishReview?.uuid
+    dishRateView.yc_InitValue = Float(dishReview?.rank ?? "0.0") ?? 0
+    dishRateView.setNeedsDisplay()
+  }
+  
+  @objc func dishRankValueChanged(sender: UISlider, value: Float) {
+    guard let uuid = dishReviewUUID else { return }
+    delegate?.changeDishReviewRank(for: uuid, rank: sender.value)
+  }
+  
+  @IBAction func clickedMore(_ sender: Any) {
+    guard let uuid = dishReviewUUID else { return }
+    delegate?.showMoreForDishReview(uuid)
+  }
+  
+  @IBAction func clickedDelete(_ sender: Any) {
+    guard let uuid = dishReviewUUID else { return }
+    delegate?.deleteDishReview(for: uuid)
+  }
+  
+  
+  func textViewDidEndEditing(_ textView: UITextView) {
+    guard let uuid = dishReviewUUID else { return }
+    delegate?.changeDishReviewComment(for: uuid, comment: commentTextView.text)
+  }
+  
+  func textFieldDidEndEditing(_ textField: UITextField) {
+    guard let uuid = dishReviewUUID else { return }
+    delegate?.changeDishReviewDish(for: uuid, name: dishNameTextField.text ?? "", dishID: nil)
+  }
   
 }
 
@@ -143,4 +192,11 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func changePriceRank(_ rank: Float)
   func changeServiceRank(_ rank: Float)
   func changeEnvironmentRank(_ rank: Float)
+  
+  // Dish Review Related
+  func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?)
+  func changeDishReviewComment(for dishReviewUUID: String, comment: String)
+  func changeDishReviewRank(for dishReviewUUID: String, rank: Float)
+  func showMoreForDishReview(_ dishReviewUUID: String)
+  func deleteDishReview(for dishReviewUUID: String)
 }
