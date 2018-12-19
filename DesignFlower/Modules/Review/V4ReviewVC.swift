@@ -227,8 +227,10 @@ class V4ReviewVC: FlowedViewController,
     guard let dirty = viewModel?.dirty else { return }
     
     if dirty {
+      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(clickedCancel(_:)))
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedSave(_:)))
     } else {
+      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "離開", style: .plain, target: self, action: #selector(clickedCancel(_:)))
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分享", style: .plain, target: self, action: #selector(clickedShare(_:)))
     }
   }

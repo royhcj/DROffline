@@ -394,6 +394,7 @@
                                             <outlet property="commentTextView" destination="Hxy-8H-Vgh" id="Qin-Ij-qnD"/>
                                             <outlet property="dishNameTextField" destination="hbh-Bg-hhs" id="suv-wI-1Vy"/>
                                             <outlet property="dishRateView" destination="kH7-9V-miB" id="oHo-Nt-2Nd"/>
+                                            <outlet property="photoImageView" destination="xq8-MN-WBc" id="Zds-Te-MYI"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="RestaurantRating" rowHeight="275" id="0Ts-yT-WIt" customClass="V4ReviewVC_RestaurantRatingCell" customModule="DesignFlower" customModuleProvider="target">

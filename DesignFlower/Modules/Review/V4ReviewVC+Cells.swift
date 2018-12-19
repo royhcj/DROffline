@@ -68,6 +68,7 @@ class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UIT
   @IBOutlet var dishNameTextField: UITextField!
   @IBOutlet var dishRateView: YCRateView!
   @IBOutlet var commentTextView: UITextView!
+  @IBOutlet var photoImageView: UIImageView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -85,6 +86,14 @@ class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UIT
     dishReviewUUID = dishReview?.uuid
     dishRateView.yc_InitValue = Float(dishReview?.rank ?? "0.0") ?? 0
     dishRateView.setNeedsDisplay()
+    
+    if let image = dishReview?.images.first {
+      image.fetchUIImage { [weak self] uiImage in
+        self?.photoImageView.image = uiImage ?? UIImage(named: "菜餚預設圖片")
+      }
+    } else {
+      photoImageView.image = UIImage(named: "菜餚預設圖片")
+    }
   }
   
   @objc func dishRankValueChanged(sender: UISlider, value: Float) {
