@@ -47,16 +47,19 @@ extension Uploadable where Self: SubObject {
     return isSync
   }
 
-  func isFirst() -> Bool {
-    guard let isFirstKey = type(of: self).isFirstKey() else {
-      fatalError("Object can't be managed without isFirstKey")
+  func getId() -> Int? {
+    guard let idKey = type(of: self).idKey() else {
+      return nil
+//      fatalError("Object can't be managed without isFirstKey")
+
     }
 
-    guard let isFirst = self.value(forKey: isFirstKey) as? Bool else {
-      fatalError("Object isFirst isn't set")
+    guard let id = self.value(forKey: idKey) as? Int else {
+      return nil
+//      fatalError("Object isFirst isn't set")
     }
 
-    return isFirst
+    return id
   }
 
   static func registerNotificationObserver(for realm: Realm, callback: @escaping (Update) -> Void) -> NotificationToken {

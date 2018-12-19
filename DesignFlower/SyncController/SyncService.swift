@@ -30,7 +30,7 @@ class SyncService {
       return
     }
     
-    if object.isFirst() {
+    if let id = object.getId() {
       // use post new review
     } else {
       // use put update review

@@ -23,6 +23,18 @@ import RealmSwift
 
 class SubObject: Object {
   @objc dynamic var uuid: String?
+
+  static func uuidKey() -> String? {
+    return "uuid"
+  }
+
+  static func isSyncKey() -> String? {
+    return "isSync"
+  }
+
+  static func idKey() -> String? {
+    return "id"
+  }
 }
 
 protocol RLMObserveDelegate: class {

@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import Realm
 import RealmSwift
 
 class RLMDishV4: SubObject, Decodable {
 
   @objc dynamic var name: String? // 菜餚名稱
-  let id = RealmOptional<Int>() // 菜餚ID
+  var id = RealmOptional<Int>() // 菜餚ID
 
   convenience init(name: String?, id: RealmOptional<Int>) {
     self.init()
