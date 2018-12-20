@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Realm
 import RealmSwift
 
 class RLMRestReviewV4: SubObject, Decodable {
@@ -27,7 +28,7 @@ class RLMRestReviewV4: SubObject, Decodable {
 //  @objc dynamic var uuid: String? // uuid 與 KVO內的一樣
   @objc dynamic var isFirst = false //判斷是不是第一次建立
   var dishReviews = List<RLMDishReviewV4>()
-  var restaurant = List<RLMRestaurantV4>()
+  var restaurant = RLMRestaurantV4()
 
   convenience init(serviceRank: String?,
                    environmentRank: String?,
@@ -45,7 +46,7 @@ class RLMRestReviewV4: SubObject, Decodable {
                    updateDate: Date?,
                    isFirst: Bool = false,
                    dishReviews: List<RLMDishReviewV4>,
-                   restaurant: List<RLMRestaurantV4>) {
+                   restaurant: RLMRestaurantV4) {
     self.init()
     self.serviceRank = serviceRank
     self.environmentRank = environmentRank
@@ -104,7 +105,7 @@ class RLMRestReviewV4: SubObject, Decodable {
     let updateDate =  try container.decode(Date.self, forKey: .updateDate)
     let isFirst =  try container.decode(Bool.self, forKey: .isFirst)
     let dishReviews =  try container.decode([RLMDishReviewV4].self, forKey: .dishReviews)
-    let restaurant =  try container.decode([RLMRestaurantV4].self, forKey: .restaurant)
+    let restaurant =  try container.decode(RLMRestaurantV4.self, forKey: .restaurant)
 
     let realmID = RealmOptional<Int>()
     realmID.value = id
@@ -114,8 +115,6 @@ class RLMRestReviewV4: SubObject, Decodable {
     realmParentID.value = parentID
     let realmDishReviews = List<RLMDishReviewV4>()
     realmDishReviews.append(objectsIn: dishReviews)
-    let realmRestaurant = List<RLMRestaurantV4>()
-    realmRestaurant.append(objectsIn: restaurant)
 
     self.init(serviceRank: serviceRank,
               environmentRank: environmentRank,
@@ -133,7 +132,7 @@ class RLMRestReviewV4: SubObject, Decodable {
               updateDate: updateDate,
               isFirst: isFirst,
               dishReviews: realmDishReviews,
-              restaurant: realmRestaurant)
+              restaurant: restaurant)
   }
 
   required init() {

@@ -75,6 +75,7 @@ internal class RLMServiceV4 {
       print("RLMServiceV4 file's no.4 func error")
     }
   }
+
   internal func update(_ restReview: RLMRestReviewV4, comment: String?) {
     do {
       try realm.write {
@@ -198,6 +199,21 @@ internal class RLMServiceV4 {
       }
     } catch {
        print("RLMServiceV4 file's no.15 func error")
+    }
+  }
+
+  // no.16
+  internal func getRestReview(uuid: String) -> RLMRestReviewV4? {
+    do {
+      var restReview: RLMRestReviewV4?
+      try realm.write {
+        let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
+        restReview = realm.objects(RLMRestReviewV4.self).filter(predicate).first
+      }
+      return restReview
+    } catch {
+      print("RLMServiceV4 file's no.16 func error")
+      return nil
     }
   }
 

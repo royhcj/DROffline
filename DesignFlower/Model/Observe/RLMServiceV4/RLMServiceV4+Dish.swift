@@ -19,7 +19,7 @@ extension RLMServiceV4 {
         rlmDish.name = kvoDish.name
         rlmDish.id.value = kvoDish.id
         rlmDish.uuid = kvoDish.uuid
-        rlmDishReview.dish.append(rlmDish)
+        rlmDishReview.dish = rlmDish
       }
     } catch {
       print("RLMServiceV4+Dish file's no.1 func error")

@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMDishReviewV4: SubObject, Decodable {
+class RLMDishReviewV4: SubObject, Codable {
 
   @objc dynamic var rank: String? // 分數
   @objc dynamic var comment: String? // 評比
@@ -20,7 +20,7 @@ class RLMDishReviewV4: SubObject, Decodable {
   var isLike = RealmOptional<Bool>() // 是否為使用者蒐藏
   var order = RealmOptional<Int>() // 順序
   var images = List<RLMImageV4>() // 圖片
-  var dish = List<RLMDishV4>() // 菜餚
+  var dish = RLMDishV4()  // 菜餚
   //  @objc dynamic var uuid: String? // dish uuid
 
   // 自動會管理
@@ -35,7 +35,7 @@ class RLMDishReviewV4: SubObject, Decodable {
                    isLike: RealmOptional<Bool>,
                    order: RealmOptional<Int>,
                    images: List<RLMImageV4>,
-                   dish: List<RLMDishV4>) {
+                   dish: RLMDishV4) {
     self.init()
     self.rank = rank
     self.comment = comment
@@ -73,7 +73,7 @@ class RLMDishReviewV4: SubObject, Decodable {
     let isLike = try container.decode(Bool.self, forKey: .isLike)
     let order = try container.decode(Int.self, forKey: .order)
     let images = try container.decode([RLMImageV4].self, forKey: .images)
-    let dish = try container.decode([RLMDishV4].self, forKey: .dish)
+    let dish = try container.decode(RLMDishV4.self, forKey: .dish)
 
     let realmID = RealmOptional<Int>()
     realmID.value = id
@@ -83,8 +83,6 @@ class RLMDishReviewV4: SubObject, Decodable {
     realmOrder.value = order
     let realmImages = List<RLMImageV4>()
     realmImages.append(objectsIn: images)
-    let realmDishes = List<RLMDishV4>()
-    realmDishes.append(objectsIn: dish)
     let realmIsLike = RealmOptional<Bool>()
     realmIsLike.value = isLike
 
@@ -97,7 +95,15 @@ class RLMDishReviewV4: SubObject, Decodable {
               isLike: realmIsLike,
               order: realmOrder,
               images: realmImages,
-              dish: realmDishes)
+              dish: dish)
+  }
+
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: RLMDishReviewV4DecodeKey.self)
+    try container.encode(rank, forKey: .rank)
+    try container.encode(dish, forKey: .dish)
+
+
   }
 
   required init() {
