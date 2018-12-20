@@ -101,8 +101,16 @@ class RLMDishReviewV4: SubObject, Codable {
   func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMDishReviewV4DecodeKey.self)
     try container.encode(rank, forKey: .rank)
+    try container.encode(comment, forKey: .comment)
+    try container.encode(isCreate, forKey: .isCreate)
+    try container.encode(parentID.value, forKey: .parentID)
+    try container.encode(createDate, forKey: .createDate)
+    try container.encode(isLike.value, forKey: .isLike)
+    try container.encode(order.value, forKey: .order)
+    var imgs = [RLMImageV4]()
+    imgs.append(contentsOf: images)
+    try container.encode(imgs, forKey: .images)
     try container.encode(dish, forKey: .dish)
-
 
   }
 

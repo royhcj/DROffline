@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMRestReviewV4: SubObject, Decodable {
+class RLMRestReviewV4: SubObject, Codable {
 
   @objc dynamic var serviceRank: String? // 服務分數
   @objc dynamic var environmentRank: String? // 環境分數
@@ -133,6 +133,31 @@ class RLMRestReviewV4: SubObject, Decodable {
               isFirst: isFirst,
               dishReviews: realmDishReviews,
               restaurant: restaurant)
+  }
+
+  func encode(to encoder: Encoder) throws {
+    var continer = encoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
+    try continer.encode(serviceRank, forKey: .serviceRank)
+    try continer.encode(environmentRank, forKey: .environmentRank)
+    try continer.encode(priceRank, forKey: .priceRank)
+    try continer.encode(title, forKey: .title)
+    try continer.encode(comment, forKey: .comment)
+    try continer.encode(id.value, forKey: .id)
+    try continer.encode(isScratch, forKey: .isScratch)
+    var allR = [String]()
+    allR.append(contentsOf: allowedReaders)
+    try continer.encode(allR, forKey: .allowedReaders)
+    try continer.encode(createDate, forKey: .createDate)
+    try continer.encode(eatingDate, forKey: .eatingDate)
+    try continer.encode(parentID.value, forKey: .parentID)
+    try continer.encode(isShowComment, forKey: .isShowComment)
+    try continer.encode(isSync, forKey: .isSync)
+    try continer.encode(updateDate, forKey: .updateDate)
+    try continer.encode(isFirst, forKey: .isFirst)
+    var dishR = [RLMDishReviewV4]()
+    dishR.append(contentsOf: dishReviews)
+    try continer.encode(dishR, forKey: .dishReviews)
+    try continer.encode(restaurant, forKey: .restaurant)
   }
 
   required init() {

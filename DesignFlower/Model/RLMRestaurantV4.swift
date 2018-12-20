@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMRestaurantV4: SubObject, Decodable {
+class RLMRestaurantV4: SubObject, Codable {
 
   var id = RealmOptional<Int>() // 餐廳ID
   @objc dynamic var name: String? // 餐廳名字
@@ -90,6 +90,22 @@ class RLMRestaurantV4: SubObject, Decodable {
               phoneNumber: phoneNumber,
               openHour: openHour,
               images: realmImages)
+  }
+
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: RLMRestReviewV4DecodeKey.self)
+    try container.encode(id.value, forKey: .id)
+    try container.encode(name, forKey: .name)
+    try container.encode(latitude.value, forKey: .latitude)
+    try container.encode(longitude.value, forKey: .longitude)
+    try container.encode(address, forKey: .address)
+    try container.encode(country, forKey: .country)
+    try container.encode(area, forKey: .area)
+    try container.encode(phoneNumber, forKey: .phoneNumber)
+    try container.encode(openHour, forKey: .openHour)
+    var imgs = [RLMImageV4]()
+    imgs.append(contentsOf: images)
+    try container.encode(imgs, forKey: .images)
   }
 
   required init() {

@@ -17,7 +17,7 @@ enum ImageStatus: Int {
   case finish
 }
 
-class RLMImageV4: SubObject, Decodable {
+class RLMImageV4: SubObject, Codable {
 
   @objc dynamic var phassetID: String? // PHAsset 的 identifier
   @objc dynamic var localName: String? // app bundle 內存檔的名稱
@@ -48,7 +48,7 @@ class RLMImageV4: SubObject, Decodable {
 
   }
 
-  enum RLMImageV4DecodeKey: String, CodingKey {
+  enum RLMImageV4CodingKey: String, CodingKey {
     case phassetID
     case localName
     case imageID
@@ -60,7 +60,7 @@ class RLMImageV4: SubObject, Decodable {
   }
 
   convenience required init(from decoder: Decoder) throws {
-    let container = try decoder.container(keyedBy: RLMImageV4DecodeKey.self)
+    let container = try decoder.container(keyedBy: RLMImageV4CodingKey.self)
     let phassetID = try container.decode(String.self, forKey: .phassetID)
     let localName = try container.decode(String.self, forKey: .localName)
     let imageID = try container.decode(String.self, forKey: .photoLatitude)
@@ -84,6 +84,19 @@ class RLMImageV4: SubObject, Decodable {
               photoLongtitude: longtitude,
               order: ord)
 
+  }
+
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: RLMImageV4CodingKey.self)
+    try container.encode(phassetID, forKey: .phassetID)
+    try container.encode(localName, forKey: .localName)
+    try container.encode(imageID, forKey: .imageID)
+    try container.encode(url, forKey: .url)
+    try container.encode(imageStatus, forKey: .imageStatus)
+    try container.encode(photoLongtitude.value, forKey: .photoLongtitude)
+    try container.encode(photoLatitude.value, forKey: .photoLatitude)
+    try container.encode(order.value, forKey: .order)
+    
   }
 
   required init() {

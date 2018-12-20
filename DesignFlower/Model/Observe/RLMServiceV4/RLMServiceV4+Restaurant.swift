@@ -24,7 +24,7 @@ extension RLMServiceV4 {
         for image in kvoRest.images {
           RLMServiceV4.shared.createRLMImage(in: rlmRest, kvoImage: image)
         }
-        rlmRestReview.restaurant.append(rlmRest)
+        rlmRestReview.restaurant = rlmRest
       }
     } catch {
       print("RLMServiceV4+Restaurant file's no.1 func error")

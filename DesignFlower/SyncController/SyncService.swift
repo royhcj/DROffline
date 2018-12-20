@@ -29,7 +29,18 @@ class SyncService {
     guard object.isSync() else {
       return
     }
-    
+
+    let uuid = object.getUUID()
+    guard let restReview = RLMServiceV4.shared.getRestReview(uuid: uuid) else {
+      print("can't find object")
+      return
+    }
+    if let dish = restReview.dishReviews.first?.dish {
+      let encoder = JSONEncoder()
+      let json = try? encoder.encode(dish)
+    }
+
+
     if let id = object.getId() {
       // use post new review
     } else {

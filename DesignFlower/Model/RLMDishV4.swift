@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMDishV4: SubObject, Decodable {
+class RLMDishV4: SubObject, Codable {
 
   @objc dynamic var name: String? // 菜餚名稱
   var id = RealmOptional<Int>() // 菜餚ID
@@ -32,6 +32,12 @@ class RLMDishV4: SubObject, Decodable {
     let realmID = RealmOptional<Int>()
     realmID.value = id
     self.init(name: name, id: realmID)
+  }
+
+  func encode(to encoder: Encoder) throws {
+    var container = encoder.container(keyedBy: RLMDishV4CodingKeys.self)
+    try container.encode(name, forKey: .name)
+    try container.encode(self.id.value, forKey: .id)
   }
 
   required init() {
