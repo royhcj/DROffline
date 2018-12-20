@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMRestReviewV4: SubObject, Codable {
+class RLMRestReviewV4: SubObject, Codable, Uploadable {
 
   @objc dynamic var serviceRank: String? // 服務分數
   @objc dynamic var environmentRank: String? // 環境分數
@@ -89,20 +89,20 @@ class RLMRestReviewV4: SubObject, Codable {
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
-    let serviceRank = try container.decode(String.self, forKey: .serviceRank)
-    let environmentRank =  try container.decode(String.self, forKey: .environmentRank)
-    let priceRank =  try container.decode(String.self, forKey: .priceRank)
-    let title =  try container.decode(String.self, forKey: .title)
-    let comment =  try container.decode(String.self, forKey: .comment)
-    let id =  try container.decode(Int.self, forKey: .id)
+    let serviceRank = try container.decodeIfPresent(String.self, forKey: .serviceRank)
+    let environmentRank =  try container.decodeIfPresent(String.self, forKey: .environmentRank)
+    let priceRank =  try container.decodeIfPresent(String.self, forKey: .priceRank)
+    let title =  try container.decodeIfPresent(String.self, forKey: .title)
+    let comment =  try container.decodeIfPresent(String.self, forKey: .comment)
+    let id =  try container.decodeIfPresent(Int.self, forKey: .id)
     let isScratch =  try container.decode(Bool.self, forKey: .isScratch)
     let allowedReaders =  try container.decode([String].self, forKey: .allowedReaders)
     let createDate =  try container.decode(Date.self, forKey: .createDate)
-    let eatingDate =  try container.decode(Date.self, forKey: .eatingDate)
-    let parentID =  try container.decode(Int.self, forKey: .parentID)
+    let eatingDate =  try container.decodeIfPresent(Date.self, forKey: .eatingDate)
+    let parentID =  try container.decodeIfPresent(Int.self, forKey: .parentID)
     let isShowComment =  try container.decode(Bool.self, forKey: .isShowComment)
     let isSync =  try container.decode(Bool.self, forKey: .isSync)
-    let updateDate =  try container.decode(Date.self, forKey: .updateDate)
+    let updateDate =  try container.decodeIfPresent(Date.self, forKey: .updateDate)
     let isFirst =  try container.decode(Bool.self, forKey: .isFirst)
     let dishReviews =  try container.decode([RLMDishReviewV4].self, forKey: .dishReviews)
     let restaurant =  try container.decode(RLMRestaurantV4.self, forKey: .restaurant)
@@ -160,15 +160,15 @@ class RLMRestReviewV4: SubObject, Codable {
     try continer.encode(restaurant, forKey: .restaurant)
   }
 
-  required init() {
-    super.init()
-  }
+//  required init() {
+//    super.init()
+//  }
 
-  required init(realm: RLMRealm, schema: RLMObjectSchema) {
-    fatalError("init(realm:schema:) has not been implemented")
-  }
-
-  required init(value: Any, schema: RLMSchema) {
-    fatalError("init(value:schema:) has not been implemented")
-  }
+//  required init(realm: RLMRealm, schema: RLMObjectSchema) {
+//    fatalError("init(realm:schema:) has not been implemented")
+//  }
+//
+//  required init(value: Any, schema: RLMSchema) {
+//    fatalError("init(value:schema:) has not been implemented")
+//  }
 }

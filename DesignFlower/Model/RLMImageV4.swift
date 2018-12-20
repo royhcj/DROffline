@@ -17,7 +17,7 @@ enum ImageStatus: Int {
   case finish
 }
 
-class RLMImageV4: SubObject, Codable {
+class RLMImageV4: SubObject, Codable, Uploadable {
 
   @objc dynamic var phassetID: String? // PHAsset 的 identifier
   @objc dynamic var localName: String? // app bundle 內存檔的名稱
@@ -61,14 +61,14 @@ class RLMImageV4: SubObject, Codable {
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMImageV4CodingKey.self)
-    let phassetID = try container.decode(String.self, forKey: .phassetID)
-    let localName = try container.decode(String.self, forKey: .localName)
-    let imageID = try container.decode(String.self, forKey: .photoLatitude)
-    let url = try container.decode(String.self, forKey: .url)
+    let phassetID = try container.decodeIfPresent(String.self, forKey: .phassetID)
+    let localName = try container.decodeIfPresent(String.self, forKey: .localName)
+    let imageID = try container.decodeIfPresent(String.self, forKey: .photoLatitude)
+    let url = try container.decodeIfPresent(String.self, forKey: .url)
     let imageStatus = try container.decode(Int.self, forKey: .imageStatus)
-    let photoLongtitude = try container.decode(Float.self, forKey: .photoLongtitude)
-    let photoLatitude = try container.decode(Float.self, forKey: .photoLatitude)
-    let order = try container.decode(Int.self, forKey: .order)
+    let photoLongtitude = try container.decodeIfPresent(Float.self, forKey: .photoLongtitude)
+    let photoLatitude = try container.decodeIfPresent(Float.self, forKey: .photoLatitude)
+    let order = try container.decodeIfPresent(Int.self, forKey: .order)
     let latitude = RealmOptional<Float>()
     latitude.value = photoLatitude
     let longtitude = RealmOptional<Float>()
@@ -97,18 +97,6 @@ class RLMImageV4: SubObject, Codable {
     try container.encode(photoLatitude.value, forKey: .photoLatitude)
     try container.encode(order.value, forKey: .order)
     
-  }
-
-  required init() {
-    super.init()
-  }
-
-  required init(realm: RLMRealm, schema: RLMObjectSchema) {
-    fatalError("init(realm:schema:) has not been implemented")
-  }
-
-  required init(value: Any, schema: RLMSchema) {
-    fatalError("init(value:schema:) has not been implemented")
   }
   
 }

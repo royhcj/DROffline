@@ -35,9 +35,16 @@ class SyncService {
       print("can't find object")
       return
     }
-    if let dish = restReview.dishReviews.first?.dish {
-      let encoder = JSONEncoder()
-      let json = try? encoder.encode(dish)
+
+    let encoder = JSONEncoder()
+    let data = try? encoder.encode(restReview)
+
+
+//    print(json)
+    let decoder = JSONDecoder()
+    if let data = data {
+       let review = try? decoder.decode(RLMRestReviewV4.self, from: data)
+      print(String(decoding: data, as: UTF8.self))
     }
 
 

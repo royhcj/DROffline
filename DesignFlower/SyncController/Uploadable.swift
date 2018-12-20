@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-protocol Uploadable {
+protocol Uploadable: Codable {
 //  static var resourceURL: URL { get }
 }
 

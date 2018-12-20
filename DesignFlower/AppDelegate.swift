@@ -15,10 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   var rootVC: UIViewController?
   var mainFlower: V4ReviewFlowController?
+  var syncService: SyncService!
   
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-    
     // Setup Realm
     let config = Realm.Configuration(
       // Set the new schema version. This must be greater than the previously used
@@ -43,7 +43,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Tell Realm to use this new configuration object for the default Realm
     Realm.Configuration.defaultConfiguration = config
     print("realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
-    
+    //start syncService
+    syncService = SyncService.init(modelTypes: [RLMRestReviewV4.self])
     return true
   }
   

@@ -63,6 +63,9 @@ class V4ReviewVC: FlowedViewController,
   }
   
   @objc func clickedShare(_ sender: Any) {
+    //test sync
+    viewModel?.review?.isSync = true
+    //
     guard viewModel?.dirty != true
     else {
       print("Unsaved")

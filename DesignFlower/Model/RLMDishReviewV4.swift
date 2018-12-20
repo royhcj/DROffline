@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMDishReviewV4: SubObject, Codable {
+class RLMDishReviewV4: SubObject, Codable, Uploadable {
 
   @objc dynamic var rank: String? // 分數
   @objc dynamic var comment: String? // 評比
@@ -64,14 +64,14 @@ class RLMDishReviewV4: SubObject, Codable {
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMDishReviewV4DecodeKey.self)
-    let rank = try container.decode(String.self, forKey: .rank)
-    let comment = try container.decode(String.self, forKey: .comment)
-    let id = try container.decode(Int.self, forKey: .id)
+    let rank = try container.decodeIfPresent(String.self, forKey: .rank)
+    let comment = try container.decodeIfPresent(String.self, forKey: .comment)
+    let id = try container.decodeIfPresent(Int.self, forKey: .id)
     let isCreate = try container.decode(Bool.self, forKey: .isCreate)
     let createDate = try container.decode(Date.self, forKey: .createDate)
-    let parentID = try container.decode(Int.self, forKey: .parentID)
-    let isLike = try container.decode(Bool.self, forKey: .isLike)
-    let order = try container.decode(Int.self, forKey: .order)
+    let parentID = try container.decodeIfPresent(Int.self, forKey: .parentID)
+    let isLike = try container.decodeIfPresent(Bool.self, forKey: .isLike)
+    let order = try container.decodeIfPresent(Int.self, forKey: .order)
     let images = try container.decode([RLMImageV4].self, forKey: .images)
     let dish = try container.decode(RLMDishV4.self, forKey: .dish)
 
@@ -114,15 +114,4 @@ class RLMDishReviewV4: SubObject, Codable {
 
   }
 
-  required init() {
-    super.init()
-  }
-
-  required init(realm: RLMRealm, schema: RLMObjectSchema) {
-    fatalError("init(realm:schema:) has not been implemented")
-  }
-
-  required init(value: Any, schema: RLMSchema) {
-    fatalError("init(value:schema:) has not been implemented")
-  }
 }

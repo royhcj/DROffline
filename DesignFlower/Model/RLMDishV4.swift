@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMDishV4: SubObject, Codable {
+class RLMDishV4: SubObject, Codable, Uploadable {
 
   @objc dynamic var name: String? // 菜餚名稱
   var id = RealmOptional<Int>() // 菜餚ID
@@ -27,8 +27,8 @@ class RLMDishV4: SubObject, Codable {
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMDishV4CodingKeys.self)
-    let name = try container.decode(String.self, forKey: .name)
-    let id = try container.decode(Int.self, forKey: .id)
+    let name = try container.decodeIfPresent(String.self, forKey: .name)
+    let id = try container.decodeIfPresent(Int.self, forKey: .id)
     let realmID = RealmOptional<Int>()
     realmID.value = id
     self.init(name: name, id: realmID)
@@ -40,15 +40,4 @@ class RLMDishV4: SubObject, Codable {
     try container.encode(self.id.value, forKey: .id)
   }
 
-  required init() {
-    super.init()
-  }
-
-  required init(realm: RLMRealm, schema: RLMObjectSchema) {
-    fatalError("init(realm:schema:) has not been implemented")
-  }
-
-  required init(value: Any, schema: RLMSchema) {
-    fatalError("init(value:schema:) has not been implemented")
-  }
 }

@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMRestaurantV4: SubObject, Codable {
+class RLMRestaurantV4: SubObject, Codable, Uploadable {
 
   var id = RealmOptional<Int>() // 餐廳ID
   @objc dynamic var name: String? // 餐廳名字
@@ -60,15 +60,15 @@ class RLMRestaurantV4: SubObject, Codable {
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMRestReviewV4DecodeKey.self)
-    let id = try container.decode(Int.self, forKey: .id)
-    let name = try container.decode(String.self, forKey: .name)
-    let latitude = try container.decode(Float.self, forKey: .latitude)
-    let longitude = try container.decode(Float.self, forKey: .longitude)
-    let address = try container.decode(String.self, forKey: .address)
-    let country = try container.decode(String.self, forKey: .country)
-    let area = try container.decode(String.self, forKey: .area)
-    let phoneNumber = try container.decode(String.self, forKey: .phoneNumber)
-    let openHour = try container.decode(String.self, forKey: .openHour)
+    let id = try container.decodeIfPresent(Int.self, forKey: .id)
+    let name = try container.decodeIfPresent(String.self, forKey: .name)
+    let latitude = try container.decodeIfPresent(Float.self, forKey: .latitude)
+    let longitude = try container.decodeIfPresent(Float.self, forKey: .longitude)
+    let address = try container.decodeIfPresent(String.self, forKey: .address)
+    let country = try container.decodeIfPresent(String.self, forKey: .country)
+    let area = try container.decodeIfPresent(String.self, forKey: .area)
+    let phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
+    let openHour = try container.decodeIfPresent(String.self, forKey: .openHour)
     let images = try container.decode([RLMImageV4].self, forKey: .images)
 
     let realmID = RealmOptional<Int>()
@@ -108,15 +108,4 @@ class RLMRestaurantV4: SubObject, Codable {
     try container.encode(imgs, forKey: .images)
   }
 
-  required init() {
-    super.init()
-  }
-
-  required init(realm: RLMRealm, schema: RLMObjectSchema) {
-    fatalError("init(realm:schema:) has not been implemented")
-  }
-
-  required init(value: Any, schema: RLMSchema) {
-    fatalError("init(value:schema:) has not been implemented")
-  }
 }
