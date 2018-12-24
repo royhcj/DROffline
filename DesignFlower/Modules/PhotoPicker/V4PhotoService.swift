@@ -8,6 +8,7 @@
 
 import Foundation
 import RealmSwift
+import Photos
 
 public class V4PhotoSelection: Object {
   @objc dynamic var identifier: String?
@@ -69,5 +70,44 @@ public class V4PhotoService {
     } catch {
       print(error)
     }
+  }
+  
+  public func getAssets(withIdentifiers identifiers: [String],
+                        completion: @escaping((PHFetchResult<PHAsset>?) -> Void)) {
+    guard identifiers.isEmpty == false else {
+      DispatchQueue.main.async {
+        completion(nil)
+      }
+      return
+    }
+    
+    PHPhotoLibrary.requestAuthorization({ status in
+      if status != .authorized {
+        DispatchQueue.main.async {
+          completion(nil)
+        }
+        return
+      }
+      
+      // 则获取所有资源
+      let allPhotosOptions = PHFetchOptions()
+      // 按照创建时间倒序排列
+      allPhotosOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate",
+                                                           ascending: false)]
+      // 只获取图片
+      //allPhotosOptions.predicate = NSPredicate(format: "mediaType = %d",
+      //                                         PHAssetMediaType.image.rawValue)
+      let predicateFormat = identifiers.map { _ in
+        String(format: "(localIdentifier = %%@)")
+        }.joined(separator: " OR ")
+      
+      allPhotosOptions.predicate = NSPredicate(format: predicateFormat,
+                                               argumentArray: identifiers)
+      let result = PHAsset.fetchAssets(with: PHAssetMediaType.image,
+                                       options: allPhotosOptions)
+      DispatchQueue.main.async {
+        completion(result)
+      }
+    })
   }
 }

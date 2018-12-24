@@ -53,9 +53,10 @@ class V4ReviewViewModel {
       image.imageStatus = ImageStatus.initial.rawValue
       
       let dishReview = KVODishReviewV4(uuid: nil)
-      dishReview.images.append(image)
       
       review?.dishReviews.append(dishReview)
+      
+      dishReview.images.append(image)
     }
     output?.refreshReview()
   }

@@ -90,12 +90,11 @@ class NoteV3PhotoPickerViewController: UINavigationController {
                                                                 target: self, action: #selector(clickedNext(_:)))
     
     // Ask for re-using previous selections
-#if false // TODO:
-    let selectedCount = NoteV3Service.shared.getNotePhotoSelections().count
+    let selectedCount = V4PhotoService.shared.getPhotoSelections().count
     if selectedCount > 0 {
       let alert = UIAlertController(title: "是否繼續使用上次照片", message: "程式裡有\(selectedCount)張暫存未使用的照片，請問是否要繼續使用", preferredStyle: .alert)
       alert.addAction(UIAlertAction(title: "放棄", style: .default, handler: { _ in
-        NoteV3Service.shared.deleteAllNotePhotoSelections()
+        V4PhotoService.shared.deleteAllPhotoSelections()
         for vc in self.viewControllers {
           if let vc = vc as? NoteV3PhotoSelectionUpdatable {
             vc.updateNotePhotoSelections()
@@ -106,7 +105,7 @@ class NoteV3PhotoPickerViewController: UINavigationController {
       }))
       present(alert, animated: true, completion: nil)
     }
-#endif
+
   }
 
   // MARK: - IB Actions
@@ -116,16 +115,12 @@ class NoteV3PhotoPickerViewController: UINavigationController {
       shouldAbort = true
     }
 
-#if false // TODO:
-    let selectedCount = NoteV3Service.shared.getNotePhotoSelections().count
-#endif
-    let selectedCount = 0
+
+    let selectedCount = V4PhotoService.shared.getPhotoSelections().count
     if selectedCount > 0 {
       UIAlertController.show(on: self, title: nil, message: "已有\(selectedCount)張照片，確認離開？",
         doneTitle: "離開", doneAction: {
-#if false // TODO:
-          NoteV3Service.shared.deleteAllNotePhotoSelections()
-#endif
+          V4PhotoService.shared.deleteAllPhotoSelections()
           self.dismiss(abort: shouldAbort)
         }, cancelTitle: "取消", cancelAction: nil)
     } else {
@@ -158,22 +153,18 @@ class NoteV3PhotoPickerViewController: UINavigationController {
 
   func confirmSelections() {
 
-    self.flowDelegate?.photoPickerVCPicked(assets: [])
-    return
-    
-    var creationDates: [Date] = []
-#if false // TODO:
-    let selections = NoteV3Service.shared.getNotePhotoSelections().sorted {
+    var identifiers: [String] = []
+
+    let selections = V4PhotoService.shared.getPhotoSelections().sorted {
       ($0.selectedDate ?? Date(timeIntervalSince1970: 0))
         >= ($1.selectedDate ?? Date(timeIntervalSince1970: 0))
     }
     selections.forEach {
-      if let creationDate = $0.creationDate {
-        creationDates.append(creationDate)
+      if let identifier = $0.identifier {
+        identifiers.append(identifier)
       }
     }
-    NoteV3Service.shared.getAssets(creationDates: creationDates) { result in
-
+    V4PhotoService.shared.getAssets(withIdentifiers: identifiers) { result in
       var assets: [PHAsset] = []
       result?.enumerateObjects({ (asset, _, _) in
         assets.append(asset)
@@ -182,11 +173,9 @@ class NoteV3PhotoPickerViewController: UINavigationController {
       let confirm = { () -> Void in
         switch self.scenario {
         case .addNewPhotos, .addMorePhotos:
-          //self.pickerDelegate?.notePhotoPickerViewController(self, picked: assets)
           self.flowDelegate?.photoPickerVCPicked(assets: assets)
         case .choosePhoto(let indexPath):
           if let asset = assets.first {
-            //self.pickerDelegate?.notePhotoPikcerViewController(self, choosed: asset, for: indexPath)
             self.flowDelegate?.photoPickerVCPicked(assets: [asset])
           }
         }
@@ -200,15 +189,13 @@ class NoteV3PhotoPickerViewController: UINavigationController {
         })
       }
     }
-#endif
+
   }
 
   func dismiss(abort: Bool) {
     switch scenario {
       case .addMorePhotos, .choosePhoto:
-#if false // TODO:
-        NoteV3Service.shared.deleteAllNotePhotoSelections
-#endif
+        V4PhotoService.shared.deleteAllPhotoSelections()
       case .addNewPhotos:
         break
     }
