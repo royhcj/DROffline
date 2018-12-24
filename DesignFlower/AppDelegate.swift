@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var window: UIWindow?
   var rootVC: UIViewController?
   var mainFlower: V4ReviewFlowController?
-  var syncService: SyncService!
+  var syncService = [SyncService]()
   
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -44,7 +44,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     Realm.Configuration.defaultConfiguration = config
     print("realm path: \(Realm.Configuration.defaultConfiguration.fileURL!)")
     //start syncService
-    syncService = SyncService.init(modelTypes: [RLMRestReviewV4.self])
+    syncService.append(SyncService.init(modelTypes: [RLMRestReviewV4.self]))
+    syncService.append(SyncService.init(modelTypes: [RLMQueue.self], factory: .upload))
+
     return true
   }
   

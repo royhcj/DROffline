@@ -14,10 +14,15 @@ protocol Uploadable: Codable {
 
 typealias Syncable = SubObject & Uploadable
 
+struct Identification {
+  var id: Int?
+  var uuid: String
+}
+
 struct Update {
 //  let insertions: [Syncable]
   let modifications: [Syncable]
-  let deletedIds: [String]
+  let deletedIds: [Identification]
   let type: Syncable.Type
 }
 
@@ -47,29 +52,40 @@ extension Uploadable where Self: SubObject {
     return isSync
   }
 
-  func getId() -> Int? {
-    guard let idKey = type(of: self).idKey() else {
-      return nil
-//      fatalError("Object can't be managed without isFirstKey")
+  func getId() -> Identification {
 
+
+
+    guard let uuidKey = type(of: self).uuidKey() else {
+      fatalError("Object can't be managed without a uuidKey")
+    }
+
+    guard let uuid = self.value(forKey: uuidKey) else {
+      fatalError("Objects uuidKey isn't set")
+    }
+    var identification = Identification.init(id: nil, uuid: String(describing: uuid))
+
+    guard let idKey = type(of: self).idKey() else {
+      return identification
     }
 
     guard let id = self.value(forKey: idKey) as? Int else {
-      return nil
-//      fatalError("Object isFirst isn't set")
+      return identification
     }
 
-    return id
+    identification.id = id
+
+    return identification
   }
 
   static func registerNotificationObserver(for realm: Realm, callback: @escaping (Update) -> Void) -> NotificationToken {
     let objects = realm.objects(self)
-    var objectIds: [String]!
+    var objectIds: [Identification]!
 
     return objects.observe { changes in
       switch changes {
       case .initial(_):
-        objectIds = objects.map { $0.getUUID() }
+        objectIds = objects.map { $0.getId() }
       case .update(let collection, let deletions, _, let modifications):
 //        let insertedObjects = insertions.map { collection[$0] }
         let modifiedObjects = modifications.map { collection[$0] }
@@ -78,7 +94,7 @@ extension Uploadable where Self: SubObject {
         let update = Update(modifications: modifiedObjects, deletedIds: deletedIds, type: Self.self)
         callback(update)
 
-        objectIds = objects.map { $0.getUUID() }
+        objectIds = objects.map { $0.getId() }
       case .error(_):
         break
       }

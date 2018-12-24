@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842F921CDD95A00B7510C /* RLMQueue.swift */; };
+		648842FC21CDD9B700B7510C /* RLMServiceV4+Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */; };
 		64D8363321C8F01A003E5ACC /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363121C8F01A003E5ACC /* SyncService.swift */; };
 		64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363221C8F01A003E5ACC /* Uploadable.swift */; };
 		72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6521AE8A940098FFFD /* AppDelegate.swift */; };
@@ -96,6 +98,8 @@
 /* Begin PBXFileReference section */
 		402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_DesignFlower.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		4557ABFD1D8B0ED822560300 /* Pods-DesignFlower.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DesignFlower.release.xcconfig"; path = "Pods/Target Support Files/Pods-DesignFlower/Pods-DesignFlower.release.xcconfig"; sourceTree = "<group>"; };
+		648842F921CDD95A00B7510C /* RLMQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMQueue.swift; sourceTree = "<group>"; };
+		648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+Queue.swift"; sourceTree = "<group>"; };
 		64D8363121C8F01A003E5ACC /* SyncService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		64D8363221C8F01A003E5ACC /* Uploadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
 		72061D6221AE8A940098FFFD /* DesignFlower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignFlower.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -284,6 +288,7 @@
 				B0A0AF9D21C13972005BE7AB /* Restaurant.swift */,
 				72061D9C21AFE0DA0098FFFD /* Observe */,
 				72061D8A21AFDF080098FFFD /* RLMRestReviewV4.swift */,
+				648842F921CDD95A00B7510C /* RLMQueue.swift */,
 				72061D9121AFDF080098FFFD /* RLMDishReviewV4.swift */,
 				72061D8E21AFDF080098FFFD /* RLMRestaurantV4.swift */,
 				72061D8921AFDF080098FFFD /* RLMImageV4.swift */,
@@ -328,6 +333,7 @@
 				72061DA721AFE0DA0098FFFD /* RLMServiceV4+Dish.swift */,
 				72061DA821AFE0DA0098FFFD /* RLMServiceV4+Image.swift */,
 				72061DA921AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift */,
+				648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */,
 			);
 			path = RLMServiceV4;
 			sourceTree = "<group>";
@@ -705,6 +711,7 @@
 				723B1F8621B4E30700CF91F3 /* V4ReviewFlows-WriteBegin.swift in Sources */,
 				B0A0AFA221C13A47005BE7AB /* DishRankColor.swift in Sources */,
 				7287027721BFB6EF000E1116 /* NewPhotoSelectionViewController.swift in Sources */,
+				648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */,
 				72061D9321AFDF080098FFFD /* RLMImageV4.swift in Sources */,
 				723B1F7F21B4D1A200CF91F3 /* ViewBasedFlowController.swift in Sources */,
 				B0A0AF9A21C110DA005BE7AB /* TextField+Extension.swift in Sources */,
@@ -730,6 +737,7 @@
 				72061D9421AFDF080098FFFD /* RLMRestReviewV4.swift in Sources */,
 				B0A0AFB021C162CB005BE7AB /* OpenHour.swift in Sources */,
 				7287026221BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift in Sources */,
+				648842FC21CDD9B700B7510C /* RLMServiceV4+Queue.swift in Sources */,
 				B0A0AF9721C11095005BE7AB /* CustomSearchController.swift in Sources */,
 				B0A0AF9C21C11147005BE7AB /* UIImage+Extension.swift in Sources */,
 				7287026821BFA4C7000E1116 /* Location.swift in Sources */,
