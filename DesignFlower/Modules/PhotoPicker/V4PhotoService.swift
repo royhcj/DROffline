@@ -10,6 +10,7 @@ import Foundation
 import RealmSwift
 import Photos
 
+
 public class V4PhotoSelection: Object {
   @objc dynamic var identifier: String?
   @objc dynamic var selectedDate: Date? // 照片選擇日期
@@ -109,5 +110,41 @@ public class V4PhotoService {
         completion(result)
       }
     })
+  }
+  
+  func getUIImage(for asset: PHAsset,
+                  completion: @escaping ((UIImage?) -> ())) {
+    let manager = PHImageManager.default()
+    manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler: { (result, _) in
+      completion(result)
+    })
+  }
+  
+  func createKVOImage(with asset: PHAsset,
+                      completion: @escaping ((KVOImageV4?) -> Void)) {
+    getUIImage(for: asset) { uiImage in
+      guard let uiImage = uiImage,
+            let imageData = UIImageJPEGRepresentation(uiImage, 1.0)
+      else {
+        completion(nil)
+        return
+      }
+      
+      let uuid = UUID().uuidString.lowercased()
+      let filename = "\(uuid).jpg"
+      let path = KVOImageV4.localFolder.appendingPathComponent(filename)
+      
+      do {
+        try imageData.write(to: path)
+        
+        let image = KVOImageV4(uuid: nil)
+        image.imageStatus = ImageStatus.waitForUpload.rawValue
+        image.localName = filename
+        completion(image)
+      } catch {
+        print("error saving file:", error)
+        completion(nil)
+      }
+    }
   }
 }

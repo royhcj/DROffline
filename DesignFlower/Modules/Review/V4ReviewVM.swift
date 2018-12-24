@@ -48,15 +48,18 @@ class V4ReviewViewModel {
   
   func addDishReviews(with assets: [PHAsset]) {
     for asset in assets {
-      let image = KVOImageV4(uuid: nil)
-      image.phassetID = asset.localIdentifier
-      image.imageStatus = ImageStatus.initial.rawValue
-      
       let dishReview = KVODishReviewV4(uuid: nil)
       
       review?.dishReviews.append(dishReview)
       
-      dishReview.images.append(image)
+      V4PhotoService.shared.createKVOImage(with: asset) { [weak self] image in
+        guard let image = image
+        else { return }
+        
+        dishReview.images.append(image)
+
+        self?.output?.refreshReview()
+      }
     }
     output?.refreshReview()
   }
