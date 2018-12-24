@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842F921CDD95A00B7510C /* RLMQueue.swift */; };
 		648842FC21CDD9B700B7510C /* RLMServiceV4+Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */; };
+		648842FE21D0CF0B00B7510C /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842FD21D0CF0B00B7510C /* SyncViewController.swift */; };
 		64D8363321C8F01A003E5ACC /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363121C8F01A003E5ACC /* SyncService.swift */; };
 		64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363221C8F01A003E5ACC /* Uploadable.swift */; };
 		72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6521AE8A940098FFFD /* AppDelegate.swift */; };
@@ -101,6 +102,7 @@
 		4557ABFD1D8B0ED822560300 /* Pods-DesignFlower.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DesignFlower.release.xcconfig"; path = "Pods/Target Support Files/Pods-DesignFlower/Pods-DesignFlower.release.xcconfig"; sourceTree = "<group>"; };
 		648842F921CDD95A00B7510C /* RLMQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMQueue.swift; sourceTree = "<group>"; };
 		648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+Queue.swift"; sourceTree = "<group>"; };
+		648842FD21D0CF0B00B7510C /* SyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		64D8363121C8F01A003E5ACC /* SyncService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		64D8363221C8F01A003E5ACC /* Uploadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
 		72061D6221AE8A940098FFFD /* DesignFlower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignFlower.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -215,6 +217,7 @@
 			children = (
 				64D8363121C8F01A003E5ACC /* SyncService.swift */,
 				64D8363221C8F01A003E5ACC /* Uploadable.swift */,
+				648842FD21D0CF0B00B7510C /* SyncViewController.swift */,
 			);
 			path = SyncController;
 			sourceTree = "<group>";
@@ -692,6 +695,7 @@
 				7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */,
 				723B1F8F21B50BD500CF91F3 /* V4PhotoPickerFlowController.swift in Sources */,
 				B0A0AFB421C16305005BE7AB /* Dish.swift in Sources */,
+				648842FE21D0CF0B00B7510C /* SyncViewController.swift in Sources */,
 				7287025F21BF8B1F000E1116 /* V4RestaurantPickerFlowController.swift in Sources */,
 				64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */,
 				72061D7E21AE8E130098FFFD /* FlowedViewController.swift in Sources */,

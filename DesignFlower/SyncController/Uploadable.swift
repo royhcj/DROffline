@@ -20,7 +20,7 @@ struct Identification {
 }
 
 struct Update {
-//  let insertions: [Syncable]
+  let insertions: [Syncable]
   let modifications: [Syncable]
   let deletedIds: [Identification]
   let type: Syncable.Type
@@ -32,11 +32,9 @@ extension Uploadable where Self: SubObject {
     guard let uuidKey = type(of: self).uuidKey() else {
       fatalError("Object can't be managed without a uuidKey")
     }
-
     guard let uuid = self.value(forKey: uuidKey) else {
       fatalError("Objects uuidKey isn't set")
     }
-
     return String(describing: uuid)
   }
 
@@ -44,17 +42,13 @@ extension Uploadable where Self: SubObject {
     guard let isSyncKey = type(of: self).isSyncKey() else {
       fatalError("Object can't be managed without isSyncKey")
     }
-
     guard let isSync = self.value(forKey: isSyncKey) as? Bool else {
       fatalError("Object isSync isn't set")
     }
-
     return isSync
   }
 
   func getId() -> Identification {
-
-
 
     guard let uuidKey = type(of: self).uuidKey() else {
       fatalError("Object can't be managed without a uuidKey")
@@ -78,20 +72,32 @@ extension Uploadable where Self: SubObject {
     return identification
   }
 
-  static func registerNotificationObserver(for realm: Realm, callback: @escaping (Update) -> Void) -> NotificationToken {
+  static func registerNotificationObserver(for realm: Realm,factory:  SyncServiceFactory = .addToQueue, callback: @escaping (Update) -> Void) -> NotificationToken {
     let objects = realm.objects(self)
     var objectIds: [Identification]!
 
     return objects.observe { changes in
       switch changes {
-      case .initial(_):
+      case .initial(let collection):
         objectIds = objects.map { $0.getId() }
-      case .update(let collection, let deletions, _, let modifications):
-//        let insertedObjects = insertions.map { collection[$0] }
+        switch factory {
+        case .addToQueue:
+          break
+        case .upload:
+          var insertedObjects = [Syncable]()
+          collection.forEach({ (object) in
+            insertedObjects.append(object)
+          })
+          let update = Update(insertions: insertedObjects, modifications: [], deletedIds: [], type: Self.self)
+          callback(update)
+          break
+        }
+      case .update(let collection, let deletions, let insertions, let modifications):
+        let insertedObjects = insertions.map { collection[$0] }
         let modifiedObjects = modifications.map { collection[$0] }
         let deletedIds = deletions.map { objectIds[$0] }
 
-        let update = Update(modifications: modifiedObjects, deletedIds: deletedIds, type: Self.self)
+        let update = Update(insertions: insertedObjects, modifications: modifiedObjects, deletedIds: deletedIds, type: Self.self)
         callback(update)
 
         objectIds = objects.map { $0.getId() }
