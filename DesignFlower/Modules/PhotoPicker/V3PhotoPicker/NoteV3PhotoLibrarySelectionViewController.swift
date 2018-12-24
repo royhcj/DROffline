@@ -86,12 +86,11 @@ class NoteV3PhotoLibrarySelectionViewController: NewPhotoSelectionViewController
     // Add selections to database
     indexPaths.forEach {
       let asset = assets[$0.section][$0.item]
-#if false // TODO:
-      let notePhotoSelection = NoteV3PhotoSelection(creationDate: asset.creationDate,
-                                                  selectedDate: Date())
-      NoteV3Service.shared.addNotePhotoSelection(notePhotoSelection,
-                                                 isSingle: limitCount == 1)
-#endif
+      
+      let selection = V4PhotoSelection(identifier: asset.localIdentifier,
+                                       selectedDate: Date())
+      V4PhotoService.shared.addPhotoSelection(selection,
+                                              isSingle: limitCount == 1)
     }
 
     super.selectAssets(at: indexPaths)
@@ -101,11 +100,7 @@ class NoteV3PhotoLibrarySelectionViewController: NewPhotoSelectionViewController
     // Remove selections from database
     indexPaths.forEach {
       let asset = assets[$0.section][$0.item]
-      if let creationDate = asset.creationDate {
-#if false // TODO:
-        NoteV3Service.shared.deleteNotePhotoSelection(at: creationDate)
-#endif
-      }
+      V4PhotoService.shared.deleteNotePhotoSelection(with: asset.localIdentifier)
     }
     super.deselectAssets(at: indexPaths)
   }
@@ -116,18 +111,17 @@ class NoteV3PhotoLibrarySelectionViewController: NewPhotoSelectionViewController
     // 取得之前選取的indexPaths
     let selectedIndexPaths: [IndexPath] = {
       var indexPaths: [IndexPath] = []
-#if false // TODO:
-      let notePhotoSelections = NoteV3Service.shared.getNotePhotoSelections()
+      
+      let selections = V4PhotoService.shared.getPhotoSelections()
       for (section, assetGroup) in assets.enumerated() {
         for (item, asset) in assetGroup.enumerated() {
-          if notePhotoSelections.contains(where: {
-            $0.creationDate == asset.creationDate
+          if selections.contains(where: {
+            $0.identifier == asset.localIdentifier
           }) {
             indexPaths.append(IndexPath(item: item, section: section))
           }
         }
       }
-#endif
       return indexPaths
     }()
 
