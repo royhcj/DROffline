@@ -43,6 +43,7 @@ class V4ReviewViewModel {
     let dishReview = KVODishReviewV4(uuid: nil)
     review?.dishReviews.append(dishReview)
     
+    setDirty(true)
     output?.refreshReview()
   }
   
@@ -61,6 +62,7 @@ class V4ReviewViewModel {
         self?.output?.refreshReview()
       }
     }
+    setDirty(!assets.isEmpty)
     output?.refreshReview()
   }
   
@@ -107,6 +109,10 @@ class V4ReviewViewModel {
   func changeEnvironmentRank(_ rank: Float) {
     review?.environmentRank = String(format: "%.1f", rank)
     setDirty(true)
+  }
+  
+  func clearScratch() {
+    
   }
   
   // MARK: - Dish Review Change Methods

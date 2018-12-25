@@ -176,4 +176,11 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
     }
   }
   
+  func leave() {
+    delegate?.getDisplayContext(for: self).undisplay(reviewVC,
+                                                     completion: {
+      
+    })
+  }
+  
 }

@@ -49,13 +49,24 @@ class V4ReviewVC: FlowedViewController,
     refreshReview()
   }
   
+  func leave() {
+    flowDelegate?.leave()
+    viewModel?.clearScratch()
+  }
+  
   // MARK: - ► IB Action
   @IBAction func clickedAddDishReview(_ sender: Any) {
     viewModel?.addDishReview()
   }
   
   @objc func clickedCancel(_ sender: Any) {
-    
+    if viewModel?.dirty == true {
+      showAlert(title: nil, message: "編輯中的資料將不會被保存，確認離開", confirmTitle: "離開", confirmAction: { [weak self] in
+        self?.leave()
+      }, cancelTitle: "取消", cancelAction: nil)
+    } else {
+      leave()
+    }
   }
   
   @objc func clickedSave(_ sender: Any) {
@@ -150,7 +161,7 @@ class V4ReviewVC: FlowedViewController,
     return cell
   }
   
-  // MARK: - Cell Delegate
+  // MARK: - ► Cell Delegate
   func changeReviewTitle(_ title: String?) {
     viewModel?.changeReviewTitle(title)
   }
@@ -196,7 +207,7 @@ class V4ReviewVC: FlowedViewController,
     viewModel?.deleteDishReview(for: dishReviewUUID)
   }
   
-  // MARK: - Flow Related
+  // MARK: - ► Flow Related
   public func askContinueUnsavedReview() {
     let alert = UIAlertController(title: "您有未儲存筆記", message: "是否繼續編輯？", preferredStyle: .alert)
     alert.addAction(UIAlertAction(title: "繼續編輯", style: .default, handler: { [weak self] _ in
@@ -230,7 +241,7 @@ class V4ReviewVC: FlowedViewController,
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(clickedCancel(_:)))
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedSave(_:)))
     } else {
-      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "離開", style: .plain, target: self, action: #selector(clickedCancel(_:)))
+      navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(clickedCancel(_:)))
       navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分享", style: .plain, target: self, action: #selector(clickedShare(_:)))
     }
   }
@@ -253,4 +264,5 @@ class V4ReviewVC: FlowedViewController,
 
 protocol V4ReviewVCFlowDelegate {
   func answerContinueLastUnsavedReview(_ yesOrNo: Bool)
+  func leave()
 }
