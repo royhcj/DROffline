@@ -40,6 +40,9 @@ class V4ReviewVC: FlowedViewController,
     // Create View Model
     viewModel = V4ReviewViewModel(output: self, reviewUUID: nil)
     
+    // Register Table Cells
+    registerTableCells()
+    
     // Configure Navigation Bar
     configureNavigationController()
   }
@@ -92,6 +95,17 @@ class V4ReviewVC: FlowedViewController,
   }
   
   // MARK: - ► Table DataSource/Delegate
+  
+  func registerTableCells() {
+    tableView.register(UINib(nibName: "V4Review_RestaurantNameCell", bundle: nil), forCellReuseIdentifier: "RestaurantName")
+    tableView.register(UINib(nibName: "V4Review_DiningTimeCell", bundle: nil), forCellReuseIdentifier: "DiningTime")
+    tableView.register(UINib(nibName: "V4Review_ReviewTitleCell", bundle: nil), forCellReuseIdentifier: "ReviewTitle")
+    tableView.register(UINib(nibName: "V4Review_DishReviewHeaderCell", bundle: nil), forCellReuseIdentifier: "DishReviewHeader")
+    tableView.register(UINib(nibName: "V4Review_DishReviewCell", bundle: nil), forCellReuseIdentifier: "DishReview")
+    tableView.register(UINib(nibName: "V4Review_RestaurantRatingCell", bundle: nil), forCellReuseIdentifier: "RestaurantRating")
+    tableView.register(UINib(nibName: "V4Review_DeleteCell", bundle: nil), forCellReuseIdentifier: "Delete")
+    
+  }
   
   func numberOfSections(in tableView: UITableView) -> Int {
     return 7

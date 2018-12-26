@@ -42,6 +42,13 @@
 		72061DB221AFE0DA0098FFFD /* RLMServiceV4+Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061DA721AFE0DA0098FFFD /* RLMServiceV4+Dish.swift */; };
 		72061DB321AFE0DA0098FFFD /* RLMServiceV4+Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061DA821AFE0DA0098FFFD /* RLMServiceV4+Image.swift */; };
 		72061DB421AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061DA921AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift */; };
+		7219795721D361B200FD6435 /* V4Review_RestaurantNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795621D361B200FD6435 /* V4Review_RestaurantNameCell.xib */; };
+		7219795921D3665B00FD6435 /* V4Review_DiningTimeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795821D3665B00FD6435 /* V4Review_DiningTimeCell.xib */; };
+		7219795B21D3667100FD6435 /* V4Review_ReviewTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795A21D3667100FD6435 /* V4Review_ReviewTitleCell.xib */; };
+		7219795D21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795C21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib */; };
+		7219795F21D3668700FD6435 /* V4Review_DishReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */; };
+		7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */; };
+		7219796321D367C700FD6435 /* V4Review_DeleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219796221D367C700FD6435 /* V4Review_DeleteCell.xib */; };
 		723B1F7B21B4CFD400CF91F3 /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7A21B4CFD400CF91F3 /* FlowController.swift */; };
 		723B1F7D21B4D03A00CF91F3 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7C21B4D03A00CF91F3 /* Flow.swift */; };
 		723B1F7F21B4D1A200CF91F3 /* ViewBasedFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */; };
@@ -137,6 +144,13 @@
 		72061DA721AFE0DA0098FFFD /* RLMServiceV4+Dish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+Dish.swift"; sourceTree = "<group>"; };
 		72061DA821AFE0DA0098FFFD /* RLMServiceV4+Image.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+Image.swift"; sourceTree = "<group>"; };
 		72061DA921AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+Restaurant.swift"; sourceTree = "<group>"; };
+		7219795621D361B200FD6435 /* V4Review_RestaurantNameCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantNameCell.xib; sourceTree = "<group>"; };
+		7219795821D3665B00FD6435 /* V4Review_DiningTimeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DiningTimeCell.xib; sourceTree = "<group>"; };
+		7219795A21D3667100FD6435 /* V4Review_ReviewTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_ReviewTitleCell.xib; sourceTree = "<group>"; };
+		7219795C21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DishReviewHeaderCell.xib; sourceTree = "<group>"; };
+		7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DishReviewCell.xib; sourceTree = "<group>"; };
+		7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell.xib; sourceTree = "<group>"; };
+		7219796221D367C700FD6435 /* V4Review_DeleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DeleteCell.xib; sourceTree = "<group>"; };
 		723B1F7A21B4CFD400CF91F3 /* FlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		723B1F7C21B4D03A00CF91F3 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBasedFlowController.swift; sourceTree = "<group>"; };
@@ -343,6 +357,20 @@
 			path = RLMServiceV4;
 			sourceTree = "<group>";
 		};
+		7219796421D36B9C00FD6435 /* TableCells */ = {
+			isa = PBXGroup;
+			children = (
+				7219795621D361B200FD6435 /* V4Review_RestaurantNameCell.xib */,
+				7219795821D3665B00FD6435 /* V4Review_DiningTimeCell.xib */,
+				7219795A21D3667100FD6435 /* V4Review_ReviewTitleCell.xib */,
+				7219795C21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib */,
+				7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */,
+				7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */,
+				7219796221D367C700FD6435 /* V4Review_DeleteCell.xib */,
+			);
+			path = TableCells;
+			sourceTree = "<group>";
+		};
 		723B1F8021B4D21C00CF91F3 /* ReviewFlowController */ = {
 			isa = PBXGroup;
 			children = (
@@ -378,6 +406,7 @@
 		723B1F9821B53A1300CF91F3 /* Review */ = {
 			isa = PBXGroup;
 			children = (
+				7219796421D36B9C00FD6435 /* TableCells */,
 				72061D8521AFDD090098FFFD /* V4ReviewVM.swift */,
 				72061D7A21AE8D870098FFFD /* V4ReviewVC.swift */,
 				723B1F9C21B65E7900CF91F3 /* V4ReviewVC+Cells.swift */,
@@ -564,12 +593,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0A0AFAB21C13BC2005BE7AB /* AddRestaurant.storyboard in Resources */,
+				7219795B21D3667100FD6435 /* V4Review_ReviewTitleCell.xib in Resources */,
 				72061D7021AE8A950098FFFD /* LaunchScreen.storyboard in Resources */,
+				7219796321D367C700FD6435 /* V4Review_DeleteCell.xib in Resources */,
+				7219795721D361B200FD6435 /* V4Review_RestaurantNameCell.xib in Resources */,
 				7287026421BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard in Resources */,
 				7287027421BFB05A000E1116 /* NoteV3PhotoPicker.storyboard in Resources */,
+				7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell.xib in Resources */,
 				72061D6D21AE8A950098FFFD /* Assets.xcassets in Resources */,
 				7287027021BFB05A000E1116 /* NoteV3Camera.storyboard in Resources */,
+				7219795921D3665B00FD6435 /* V4Review_DiningTimeCell.xib in Resources */,
+				7219795D21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib in Resources */,
 				72061D8221AE96350098FFFD /* V4Review.storyboard in Resources */,
+				7219795F21D3668700FD6435 /* V4Review_DishReviewCell.xib in Resources */,
 				72061D6B21AE8A950098FFFD /* Main.storyboard in Resources */,
 				7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */,
 				723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */,

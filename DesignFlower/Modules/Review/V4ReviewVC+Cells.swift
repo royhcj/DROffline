@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import YCRateView
 
-class V4ReviewVC_RestaurantNameCell: V4ReviewVC.CommonCell {
+class V4Review_RestaurantNameCell: V4ReviewVC.CommonCell {
   
   @IBOutlet var restaurantNameButton: UIButton!
   
@@ -20,7 +20,7 @@ class V4ReviewVC_RestaurantNameCell: V4ReviewVC.CommonCell {
   }
 }
 
-class V4ReviewVC_DiningTimeCell: V4ReviewVC.CommonCell {
+class V4Review_DiningTimeCell: V4ReviewVC.CommonCell {
   
   @IBOutlet var diningTimeButton: UIButton!
   
@@ -39,7 +39,7 @@ class V4ReviewVC_DiningTimeCell: V4ReviewVC.CommonCell {
   }
 }
 
-class V4ReviewVC_ReviewTitleCell: V4ReviewVC.CommonCell, UITextFieldDelegate {
+class V4Review_ReviewTitleCell: V4ReviewVC.CommonCell, UITextFieldDelegate {
   
   @IBOutlet var reviewTitleTextField: UITextField!
   
@@ -58,11 +58,11 @@ class V4ReviewVC_ReviewTitleCell: V4ReviewVC.CommonCell, UITextFieldDelegate {
   }
 }
 
-class V4ReviewVC_DishReviewHeaderCell: V4ReviewVC.CommonCell {
+class V4Review_DishReviewHeaderCell: V4ReviewVC.CommonCell {
   
 }
 
-class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UITextViewDelegate {
+class V4Review_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UITextViewDelegate {
   
   var dishReviewUUID: String?
   @IBOutlet var dishNameTextField: UITextField!
@@ -123,7 +123,7 @@ class V4ReviewVC_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UIT
   
 }
 
-class V4ReviewVC_RestaurantRatingCell: V4ReviewVC.CommonCell, UITextViewDelegate {
+class V4Review_RestaurantRatingCell: V4ReviewVC.CommonCell, UITextViewDelegate {
   
   @IBOutlet var commentTextView: UITextView!
   @IBOutlet var priceRatingView: YCRateView!
@@ -178,23 +178,23 @@ class V4ReviewVC_RestaurantRatingCell: V4ReviewVC.CommonCell, UITextViewDelegate
   }
 }
 
-class V4ReviewVC_DeleteCell: V4ReviewVC.CommonCell {
+class V4Review_DeleteCell: V4ReviewVC.CommonCell {
 
 }
 
-class V4ReviewVC_CommonCell: UITableViewCell {
+class V4Review_CommonCell: UITableViewCell {
   weak var delegate: V4ReviewVCCommonCellDelegate?
 }
 
 extension V4ReviewVC {
-  typealias CommonCell = V4ReviewVC_CommonCell
-  typealias RestaurantNameCell = V4ReviewVC_RestaurantNameCell
-  typealias DiningTimeCell = V4ReviewVC_DiningTimeCell
-  typealias ReviewTitleCell = V4ReviewVC_ReviewTitleCell
-  typealias DishReviewHeaderCell = V4ReviewVC_DishReviewHeaderCell
-  typealias DishReviewCell = V4ReviewVC_DishReviewCell
-  typealias RestaurantRatingCell = V4ReviewVC_RestaurantRatingCell
-  typealias DeleteCell = V4ReviewVC_DeleteCell
+  typealias CommonCell = V4Review_CommonCell
+  typealias RestaurantNameCell = V4Review_RestaurantNameCell
+  typealias DiningTimeCell = V4Review_DiningTimeCell
+  typealias ReviewTitleCell = V4Review_ReviewTitleCell
+  typealias DishReviewHeaderCell = V4Review_DishReviewHeaderCell
+  typealias DishReviewCell = V4Review_DishReviewCell
+  typealias RestaurantRatingCell = V4Review_RestaurantRatingCell
+  typealias DeleteCell = V4Review_DeleteCell
 }
 
 
