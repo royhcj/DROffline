@@ -30,7 +30,7 @@ class V4ShareFlowController: ViewBasedFlowController,
   override func prepare() {
     shareVC = V4ShareVC.make(flowDelegate: self)
     if let vc = shareVC {
-      navigationVC = UINavigationController(rootViewController: vc)
+      navigationVC = UINavigationController(rootViewController: vc) 
     }
     
     if let originalReviewUUID = originalReviewUUID {
