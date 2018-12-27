@@ -16,9 +16,9 @@ class V4ReviewVC: FlowedViewController,
                   V4ReviewVCCommonCellDelegate,
                   V4ReviewViewModel.Output {
 
-  var flowDelegate: FlowDelegate?
+  private var flowDelegate: FlowDelegate?
   
-  var viewModel: V4ReviewViewModel?
+  private var viewModel: V4ReviewViewModel?
   
   @IBOutlet var tableView: UITableView!
  
@@ -45,6 +45,7 @@ class V4ReviewVC: FlowedViewController,
     
     // Configure Navigation Bar
     configureNavigationController()
+
   }
   
   override func viewWillAppear(_ animated: Bool) {
@@ -77,14 +78,14 @@ class V4ReviewVC: FlowedViewController,
   }
   
   @objc func clickedShare(_ sender: Any) {
-    //test sync
-    viewModel?.review?.isSync = true
     //
     guard viewModel?.dirty != true
     else {
       print("Unsaved")
       return
     }
+    
+    askShare()
   }
   
   // MARK: - ► Navigation Controller Manipulation
@@ -233,6 +234,21 @@ class V4ReviewVC: FlowedViewController,
     present(alert, animated: true, completion: nil)
   }
   
+  public func askShare() {
+    let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+    alert.addAction(UIAlertAction(title: "分享整篇筆記", style: .default, handler: { [weak self] _ in
+      guard let reviewUUID = self?.viewModel?.review?.uuid else { return }
+      self?.flowDelegate?.showShare(originalReviewUUID: reviewUUID)
+    }))
+    alert.addAction(UIAlertAction(title: "分享部分筆記", style: .default, handler: { [weak self] _ in
+      guard let reviewUUID = self?.viewModel?.review?.uuid else { return }
+      self?.flowDelegate?.showChooseShare(originalReviewUUID: reviewUUID)
+    }))
+    alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: { _ in
+    }))
+    present(alert, animated: true, completion: nil)
+  }
+  
   // MARK: - ► Review Manipulation
   public func setReview(_ review: KVORestReviewV4) {
     viewModel?.setReview(review)
@@ -279,4 +295,6 @@ class V4ReviewVC: FlowedViewController,
 protocol V4ReviewVCFlowDelegate {
   func answerContinueLastUnsavedReview(_ yesOrNo: Bool)
   func leave()
+  func showShare(originalReviewUUID: String)
+  func showChooseShare(originalReviewUUID: String)
 }

@@ -21,7 +21,7 @@ extension RLMServiceV4 {
         rlmDishReview.id.value = dishReview.id
         rlmDishReview.isCreate = dishReview.isCreate
         rlmDishReview.createDate = dishReview.createDate
-        rlmDishReview.parentID.value = dishReview.parentID
+//        rlmDishReview.parentID.value = dishReview.parentID
         rlmDishReview.isLike.value = dishReview.isLike
         rlmDishReview.order.value = dishReview.order
         restReview.dishReviews.append(rlmDishReview)

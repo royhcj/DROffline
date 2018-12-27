@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842F921CDD95A00B7510C /* RLMQueue.swift */; };
 		648842FC21CDD9B700B7510C /* RLMServiceV4+Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */; };
-		648842FE21D0CF0B00B7510C /* SyncViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842FD21D0CF0B00B7510C /* SyncViewController.swift */; };
 		64D8363321C8F01A003E5ACC /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363121C8F01A003E5ACC /* SyncService.swift */; };
 		64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363221C8F01A003E5ACC /* Uploadable.swift */; };
 		72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6521AE8A940098FFFD /* AppDelegate.swift */; };
@@ -49,6 +48,10 @@
 		7219795F21D3668700FD6435 /* V4Review_DishReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */; };
 		7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */; };
 		7219796321D367C700FD6435 /* V4Review_DeleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219796221D367C700FD6435 /* V4Review_DeleteCell.xib */; };
+		7219796821D373B500FD6435 /* V4Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7219796721D373B500FD6435 /* V4Share.storyboard */; };
+		7219796A21D3747100FD6435 /* V4ShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796921D3747100FD6435 /* V4ShareVC.swift */; };
+		7219796C21D3796D00FD6435 /* V4ShareVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796B21D3796D00FD6435 /* V4ShareVM.swift */; };
+		7219796F21D4776B00FD6435 /* V4ShareFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796E21D4776B00FD6435 /* V4ShareFlowController.swift */; };
 		723B1F7B21B4CFD400CF91F3 /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7A21B4CFD400CF91F3 /* FlowController.swift */; };
 		723B1F7D21B4D03A00CF91F3 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7C21B4D03A00CF91F3 /* Flow.swift */; };
 		723B1F7F21B4D1A200CF91F3 /* ViewBasedFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */; };
@@ -109,7 +112,6 @@
 		4557ABFD1D8B0ED822560300 /* Pods-DesignFlower.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DesignFlower.release.xcconfig"; path = "Pods/Target Support Files/Pods-DesignFlower/Pods-DesignFlower.release.xcconfig"; sourceTree = "<group>"; };
 		648842F921CDD95A00B7510C /* RLMQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMQueue.swift; sourceTree = "<group>"; };
 		648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+Queue.swift"; sourceTree = "<group>"; };
-		648842FD21D0CF0B00B7510C /* SyncViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncViewController.swift; sourceTree = "<group>"; };
 		64D8363121C8F01A003E5ACC /* SyncService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		64D8363221C8F01A003E5ACC /* Uploadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
 		72061D6221AE8A940098FFFD /* DesignFlower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignFlower.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -151,6 +153,10 @@
 		7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DishReviewCell.xib; sourceTree = "<group>"; };
 		7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell.xib; sourceTree = "<group>"; };
 		7219796221D367C700FD6435 /* V4Review_DeleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DeleteCell.xib; sourceTree = "<group>"; };
+		7219796721D373B500FD6435 /* V4Share.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4Share.storyboard; sourceTree = "<group>"; };
+		7219796921D3747100FD6435 /* V4ShareVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareVC.swift; sourceTree = "<group>"; };
+		7219796B21D3796D00FD6435 /* V4ShareVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareVM.swift; sourceTree = "<group>"; };
+		7219796E21D4776B00FD6435 /* V4ShareFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareFlowController.swift; sourceTree = "<group>"; };
 		723B1F7A21B4CFD400CF91F3 /* FlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		723B1F7C21B4D03A00CF91F3 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBasedFlowController.swift; sourceTree = "<group>"; };
@@ -231,7 +237,6 @@
 			children = (
 				64D8363121C8F01A003E5ACC /* SyncService.swift */,
 				64D8363221C8F01A003E5ACC /* Uploadable.swift */,
-				648842FD21D0CF0B00B7510C /* SyncViewController.swift */,
 			);
 			path = SyncController;
 			sourceTree = "<group>";
@@ -278,6 +283,8 @@
 			children = (
 				B0A0AFA521C13BC2005BE7AB /* AddRestaurant */,
 				723B1F9821B53A1300CF91F3 /* Review */,
+				7219796621D3727B00FD6435 /* Share */,
+				7219796521D3724A00FD6435 /* SelectShareReview */,
 				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 				7287026021BF8FAE000E1116 /* RestaurantPicker */,
 			);
@@ -371,6 +378,31 @@
 			path = TableCells;
 			sourceTree = "<group>";
 		};
+		7219796521D3724A00FD6435 /* SelectShareReview */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = SelectShareReview;
+			sourceTree = "<group>";
+		};
+		7219796621D3727B00FD6435 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				7219796721D373B500FD6435 /* V4Share.storyboard */,
+				7219796921D3747100FD6435 /* V4ShareVC.swift */,
+				7219796B21D3796D00FD6435 /* V4ShareVM.swift */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
+		7219796D21D4750C00FD6435 /* ShareFlowController */ = {
+			isa = PBXGroup;
+			children = (
+				7219796E21D4776B00FD6435 /* V4ShareFlowController.swift */,
+			);
+			path = ShareFlowController;
+			sourceTree = "<group>";
+		};
 		723B1F8021B4D21C00CF91F3 /* ReviewFlowController */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +453,7 @@
 				723B1F8021B4D21C00CF91F3 /* ReviewFlowController */,
 				723B1F9021B50C6E00CF91F3 /* PhotoPickerFlowController */,
 				7287025D21BF6EE8000E1116 /* RestaurantPickerFlowController */,
+				7219796D21D4750C00FD6435 /* ShareFlowController */,
 			);
 			path = FlowControllers;
 			sourceTree = "<group>";
@@ -594,6 +627,7 @@
 			files = (
 				B0A0AFAB21C13BC2005BE7AB /* AddRestaurant.storyboard in Resources */,
 				7219795B21D3667100FD6435 /* V4Review_ReviewTitleCell.xib in Resources */,
+				7219796821D373B500FD6435 /* V4Share.storyboard in Resources */,
 				72061D7021AE8A950098FFFD /* LaunchScreen.storyboard in Resources */,
 				7219796321D367C700FD6435 /* V4Review_DeleteCell.xib in Resources */,
 				7219795721D361B200FD6435 /* V4Review_RestaurantNameCell.xib in Resources */,
@@ -723,6 +757,7 @@
 				72061D9621AFDF080098FFFD /* KVOImageV4.swift in Sources */,
 				B0A0AF8B21C107F5005BE7AB /* V4RestaurantPickerVC.swift in Sources */,
 				72061DB221AFE0DA0098FFFD /* RLMServiceV4+Dish.swift in Sources */,
+				7219796C21D3796D00FD6435 /* V4ShareVM.swift in Sources */,
 				B0A0AFAD21C15AE5005BE7AB /* Array+Extension.swift in Sources */,
 				72061D6821AE8A950098FFFD /* ViewController.swift in Sources */,
 				723B1F8421B4D3AA00CF91F3 /* DisplayContext.swift in Sources */,
@@ -731,7 +766,6 @@
 				7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */,
 				723B1F8F21B50BD500CF91F3 /* V4PhotoPickerFlowController.swift in Sources */,
 				B0A0AFB421C16305005BE7AB /* Dish.swift in Sources */,
-				648842FE21D0CF0B00B7510C /* SyncViewController.swift in Sources */,
 				7287025F21BF8B1F000E1116 /* V4RestaurantPickerFlowController.swift in Sources */,
 				64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */,
 				72061D7E21AE8E130098FFFD /* FlowedViewController.swift in Sources */,
@@ -787,6 +821,8 @@
 				7287026821BFA4C7000E1116 /* Location.swift in Sources */,
 				72061D9721AFDF080098FFFD /* KVORestaurantV4.swift in Sources */,
 				B0A0AFA021C139BA005BE7AB /* CityModel.swift in Sources */,
+				7219796F21D4776B00FD6435 /* V4ShareFlowController.swift in Sources */,
+				7219796A21D3747100FD6435 /* V4ShareVC.swift in Sources */,
 				7287027C21BFB8A4000E1116 /* UIViewController+Alert.swift in Sources */,
 				7287027121BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift in Sources */,
 				7287027921BFB734000E1116 /* PhotoSelectionViewController.swift in Sources */,

@@ -11,7 +11,7 @@ import Photos
 
 class V4ReviewViewModel {
   
-  weak var output: Output?
+  private weak var output: Output?
   
   var review: KVORestReviewV4? {
                 didSet {

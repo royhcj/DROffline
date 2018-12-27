@@ -183,4 +183,20 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
     })
   }
   
+  func showShare(originalReviewUUID: String) {
+    guard let reviewVC = reviewVC else { return }
+    
+    let shareFlowController = V4ShareFlowController(sourceDisplayContext: .present(vc: reviewVC, animated: true, style: .fullScreen),
+                              originalReviewUUID: originalReviewUUID)
+    
+    addChild(flowController: shareFlowController)
+    
+    shareFlowController.prepare()
+    shareFlowController.start()
+  }
+  
+  func showChooseShare(originalReviewUUID: String) {
+    
+  }
+
 }
