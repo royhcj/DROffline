@@ -147,6 +147,17 @@ internal class RLMServiceV4 {
       print("RLMServiceV4 file's no.10 func error")
     }
   }
+  // no.
+  internal func update(_ restReview: RLMRestReviewV4, parentUUID: String?) {
+    do {
+      try realm.write {
+        restReview.parentUUID = parentUUID
+      }
+    } catch {
+      print("RLMServiceV4 file's no.11 func error")
+    }
+  }
+  
   // no.11
   internal func update(_ restReview: RLMRestReviewV4, isShowComment: Bool) {
     do {
@@ -189,10 +200,15 @@ internal class RLMServiceV4 {
   }
 
   // no.15
-  internal func delete(dishReviewUUID: String) {
+  internal func delete(dishReviewUUID: String, forScratch: Bool? = nil) {
     do {
       try realm.write {
-        let predicate = NSPredicate.init(format: "uuid == '\(dishReviewUUID)'")
+        var predicate: NSPredicate
+        if let forScratch = forScratch {
+          predicate = NSPredicate.init(format: "uuid == '\(dishReviewUUID)' && isScratch == \(forScratch ? true : false)")
+        } else {
+          predicate = NSPredicate.init(format: "uuid == '\(dishReviewUUID)'")
+        }
         if let dishReview = realm.objects(RLMDishReviewV4.self).filter(predicate).first {
           realm.delete(dishReview)
         }
@@ -206,7 +222,7 @@ internal class RLMServiceV4 {
   internal func getRestReview(uuid: String) -> RLMRestReviewV4? {
     do {
       var restReview: RLMRestReviewV4?
-      try realm.write {
+      try realm.write { // TODO: 應該不需要write?
         let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
         restReview = realm.objects(RLMRestReviewV4.self).filter(predicate).first
       }

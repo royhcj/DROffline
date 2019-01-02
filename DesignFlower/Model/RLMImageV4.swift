@@ -23,7 +23,6 @@ class RLMImageV4: SubObject, Codable, Uploadable {
   @objc dynamic var localName: String? // app bundle 內存檔的名稱
   @objc dynamic var imageID: String? // DB的ID
   @objc dynamic var url: String? // 圖片連結
-  @objc dynamic var localFilename: String?
   @objc dynamic var imageStatus = ImageStatus.initial.rawValue // 是否上傳中
   var photoLatitude = RealmOptional<Float>() // 精度
   var photoLongtitude = RealmOptional<Float>()  // 緯度

@@ -49,6 +49,13 @@ extension RLMServiceV4 {
       print("RLMServiceV4+Dish file's no.2 func error")
     }
   }
+  
+  // no.
+  internal func getDish(uuid: String) -> RLMDishV4? {
+    let predicate = NSPredicate(format: "uuid == '\(uuid)'")
+    let dish = realm.objects(RLMDishV4.self).filter(predicate).first
+    return dish
+  }
 
   // no.4
   internal func delete(dishUUID: String) {

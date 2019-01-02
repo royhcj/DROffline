@@ -27,6 +27,10 @@ class V4ReviewViewModel {
     review = {
       let review = KVORestReviewV4(uuid: reviewUUID)
       self.observe = RestReviewObserve(object: review)
+      print("new review: \(review.uuid))")
+      DispatchQueue.main.asyncAfter(deadline: .now()) {
+        self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
+      }
       return review
     }()
     
@@ -34,7 +38,16 @@ class V4ReviewViewModel {
   }
   
   func setReview(_ review: KVORestReviewV4) {
+    if let oldReviewUUID = self.review?.uuid {
+      print("deleting \(oldReviewUUID))")
+      RLMServiceV4.shared.delete(dishReviewUUID: oldReviewUUID) // TODO: 應該只刪scratch
+    }
+    
     self.review = review
+    DispatchQueue.main.asyncAfter(deadline: .now()) {
+      self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
+    }
+    
     output?.refreshReview()
   }
   

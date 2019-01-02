@@ -263,11 +263,11 @@
 			isa = PBXGroup;
 			children = (
 				64D8363021C8F01A003E5ACC /* SyncController */,
-				72061D7C21AE8DE90098FFFD /* Core */,
-				B0A0AF8C21C10E5C005BE7AB /* Services */,
-				72061D8721AFDF070098FFFD /* Model */,
-				723B1F9921B53ADC00CF91F3 /* FlowControllers */,
-				72061D7721AE8AAA0098FFFD /* Modules */,
+				72061D7C21AE8DE90098FFFD /* (Core) */,
+				B0A0AF8C21C10E5C005BE7AB /* (Services) */,
+				72061D8721AFDF070098FFFD /* (Models) */,
+				723B1F9921B53ADC00CF91F3 /* (FlowControllers) */,
+				72061D7721AE8AAA0098FFFD /* (Modules) */,
 				72061D6521AE8A940098FFFD /* AppDelegate.swift */,
 				72061D6721AE8A950098FFFD /* ViewController.swift */,
 				72061D6921AE8A950098FFFD /* Main.storyboard */,
@@ -278,7 +278,7 @@
 			path = DesignFlower;
 			sourceTree = "<group>";
 		};
-		72061D7721AE8AAA0098FFFD /* Modules */ = {
+		72061D7721AE8AAA0098FFFD /* (Modules) */ = {
 			isa = PBXGroup;
 			children = (
 				B0A0AFA521C13BC2005BE7AB /* AddRestaurant */,
@@ -288,10 +288,11 @@
 				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 				7287026021BF8FAE000E1116 /* RestaurantPicker */,
 			);
+			name = "(Modules)";
 			path = Modules;
 			sourceTree = "<group>";
 		};
-		72061D7C21AE8DE90098FFFD /* Core */ = {
+		72061D7C21AE8DE90098FFFD /* (Core) */ = {
 			isa = PBXGroup;
 			children = (
 				7287027A21BFB8A4000E1116 /* Utility */,
@@ -301,10 +302,11 @@
 				72061D7D21AE8E130098FFFD /* FlowedViewController.swift */,
 				723B1F8321B4D3AA00CF91F3 /* DisplayContext.swift */,
 			);
+			name = "(Core)";
 			path = Core;
 			sourceTree = "<group>";
 		};
-		72061D8721AFDF070098FFFD /* Model */ = {
+		72061D8721AFDF070098FFFD /* (Models) */ = {
 			isa = PBXGroup;
 			children = (
 				B0A0AFB221C16305005BE7AB /* Dish.swift */,
@@ -326,6 +328,7 @@
 				72061D9021AFDF080098FFFD /* KVODishReviewV4.swift */,
 				7287026721BFA4C7000E1116 /* Location.swift */,
 			);
+			name = "(Models)";
 			path = Model;
 			sourceTree = "<group>";
 		};
@@ -354,8 +357,8 @@
 		72061DA421AFE0DA0098FFFD /* RLMServiceV4 */ = {
 			isa = PBXGroup;
 			children = (
-				72061DA521AFE0DA0098FFFD /* RLMServiceV4+DishReview.swift */,
 				72061DA621AFE0DA0098FFFD /* RLMServiceV4.swift */,
+				72061DA521AFE0DA0098FFFD /* RLMServiceV4+DishReview.swift */,
 				72061DA721AFE0DA0098FFFD /* RLMServiceV4+Dish.swift */,
 				72061DA821AFE0DA0098FFFD /* RLMServiceV4+Image.swift */,
 				72061DA921AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift */,
@@ -447,7 +450,7 @@
 			path = Review;
 			sourceTree = "<group>";
 		};
-		723B1F9921B53ADC00CF91F3 /* FlowControllers */ = {
+		723B1F9921B53ADC00CF91F3 /* (FlowControllers) */ = {
 			isa = PBXGroup;
 			children = (
 				723B1F8021B4D21C00CF91F3 /* ReviewFlowController */,
@@ -455,6 +458,7 @@
 				7287025D21BF6EE8000E1116 /* RestaurantPickerFlowController */,
 				7219796D21D4750C00FD6435 /* ShareFlowController */,
 			);
+			name = "(FlowControllers)";
 			path = FlowControllers;
 			sourceTree = "<group>";
 		};
@@ -519,11 +523,12 @@
 			path = no_use;
 			sourceTree = "<group>";
 		};
-		B0A0AF8C21C10E5C005BE7AB /* Services */ = {
+		B0A0AF8C21C10E5C005BE7AB /* (Services) */ = {
 			isa = PBXGroup;
 			children = (
 				B0A0AF8F21C10ED2005BE7AB /* Location */,
 			);
+			name = "(Services)";
 			path = Services;
 			sourceTree = "<group>";
 		};

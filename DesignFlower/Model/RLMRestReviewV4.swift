@@ -22,6 +22,7 @@ class RLMRestReviewV4: SubObject, Codable, Uploadable {
   @objc dynamic var createDate: Date = Date() // 創造日期
   @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
   var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
+  @objc dynamic var parentUUID: String? // 複製品紀錄本尊的UUID(本尊可能沒有ID)
   @objc dynamic var isShowComment = true // 是否顯示餐廳評比
   @objc dynamic var isSync = false //是否同步
   @objc dynamic var updateDate: Date? //上次上傳日期

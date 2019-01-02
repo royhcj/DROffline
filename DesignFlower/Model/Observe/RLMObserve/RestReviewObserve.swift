@@ -87,6 +87,12 @@ class RestReviewObserve: RLMObserveDelegate {
           RLMServiceV4.shared.update(dbObject, parentID: newValue)
         }
       },
+      object.observe(\.parentUUID, options:
+          [.initial, .old, .new]) { (restReview, change) in
+        if let newValue = change.newValue {
+          RLMServiceV4.shared.update(dbObject, parentUUID: newValue)
+        }
+      },
       object.observe(\.isShowComment, options: [.initial, .old, .new]) { (restReview, change) in
         if let newValue = change.newValue {
           RLMServiceV4.shared.update(dbObject, isShowComment: newValue)

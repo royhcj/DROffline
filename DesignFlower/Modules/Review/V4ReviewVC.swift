@@ -18,7 +18,7 @@ class V4ReviewVC: FlowedViewController,
 
   private var flowDelegate: FlowDelegate?
   
-  private var viewModel: V4ReviewViewModel?
+  var viewModel: V4ReviewViewModel?
   
   @IBOutlet var tableView: UITableView!
  
@@ -38,7 +38,7 @@ class V4ReviewVC: FlowedViewController,
     super.viewDidLoad()
     
     // Create View Model
-    viewModel = V4ReviewViewModel(output: self, reviewUUID: nil)
+    createViewModel()
     
     // Register Table Cells
     registerTableCells()
@@ -257,6 +257,11 @@ class V4ReviewVC: FlowedViewController,
   // MARK: - ► DishReview Manipulation
   public func addDishReviews(with assets: [PHAsset]) {
     viewModel?.addDishReviews(with: assets)
+  }
+
+  // MARK: - ► ViewModel Manipulation
+  func createViewModel() {
+    viewModel = V4ReviewViewModel(output: self, reviewUUID: nil)
   }
   
   // MARK: - ► ViewModel Output

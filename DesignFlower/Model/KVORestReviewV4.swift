@@ -34,13 +34,47 @@ public class KVORestReviewV4: NSObject {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
+      load(withUUID: uuid)
     }
   }
 
-  // 地址來源
-  public enum AddressSource: Int {
-      case manual = 0 // 手動輸入
-      case apple  = 1 // Apple找出來的地址
+  init(with rlmRestReview: RLMRestReviewV4) {
+    super.init()
+    set(with: rlmRestReview)
+  }
+  
+  func set(with rlmRestReview: RLMRestReviewV4) {
+    serviceRank = rlmRestReview.serviceRank
+    environmentRank = rlmRestReview.environmentRank
+    priceRank = rlmRestReview.priceRank
+    title = rlmRestReview.title
+    comment = rlmRestReview.comment
+    isScratch = rlmRestReview.isScratch
+    allowedReaders = []
+    rlmRestReview.allowedReaders.forEach {
+      self.allowedReaders.append($0)
+    }
+    createDate = rlmRestReview.createDate
+    eatingDate = rlmRestReview.eatingDate
+    parentID = rlmRestReview.id.value ?? -1
+    parentUUID = rlmRestReview.parentUUID
+    isShowComment = rlmRestReview.isShowComment
+    isSync = rlmRestReview.isSync
+    updateDate = rlmRestReview.updateDate
+    isFirst = rlmRestReview.isFirst
+    restaurant = KVORestaurantV4(with: rlmRestReview.restaurant)
+    dishReviews = []
+    for rlmDishReview in rlmRestReview.dishReviews {
+      let dishReview = KVODishReviewV4(with: rlmDishReview)
+      dishReviews.append(dishReview)
+    }
+  }
+  
+  func load(withUUID uuid: String) {
+    guard let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: uuid)
+      else { return }
+    
+    set(with: rlmRestReview)
   }
   
   func copyForShare() -> KVORestReviewV4 {
@@ -68,5 +102,12 @@ public class KVORestReviewV4: NSObject {
     }
     
     return review
+  }
+  
+  
+  // 地址來源
+  public enum AddressSource: Int {
+    case manual = 0 // 手動輸入
+    case apple  = 1 // Apple找出來的地址
   }
 }

@@ -138,7 +138,13 @@ extension RLMServiceV4 {
     }
   }
 
-
+  // no.
+  internal func getRestaurant(uuid: String) -> RLMRestaurantV4? {
+    let predicate = NSPredicate(format: "uuid == '\(uuid)'")
+    let restaurant = realm.objects(RLMRestaurantV4.self).filter(predicate).first
+    return restaurant
+  }
+  
   // no.10
   internal func delete(restUUID: String) {
     do {

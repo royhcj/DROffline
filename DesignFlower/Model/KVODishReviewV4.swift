@@ -18,7 +18,7 @@ class KVODishReviewV4: NSObject {
   @objc dynamic var id = -1 // 評比ID
   @objc dynamic var isCreate = false // 不透過圖片直接建立新的評比
   @objc dynamic var createDate: Date = Date()
-  //@objc dynamic var parentID = -1// 複製品紀錄本尊的ID // dishReview應該不需要本尊? TODO: 待確認
+  @objc dynamic var parentID = -1// 複製品紀錄本尊的ID
   @objc dynamic var isLike = false // 是否為使用者蒐藏
   @objc dynamic var order = -1 // 順序
   @objc dynamic var dish: KVODishV4? // 菜餚
@@ -30,6 +30,30 @@ class KVODishReviewV4: NSObject {
     if let uuid = uuid {
       self.uuid = uuid
     }
+  }
+  
+  init(with rlmDishReview: RLMDishReviewV4) {
+    super.init()
+    set(with: rlmDishReview)
+  }
+  
+  func set(with rlmDishReview: RLMDishReviewV4) {
+    
+    rank = rlmDishReview.rank
+    comment = rlmDishReview.comment
+    id = rlmDishReview.id.value ?? -1
+    isCreate = rlmDishReview.isCreate
+    createDate = rlmDishReview.createDate
+    parentID = rlmDishReview.parentID.value ?? -1
+    isLike = rlmDishReview.isLike.value ?? false
+    order = rlmDishReview.order.value ?? -1
+    dish = KVODishV4(with: rlmDishReview.dish)
+    images = [] // TODO:
+    
+    if let uuid = rlmDishReview.uuid {
+      self.uuid = uuid
+    }
+    
   }
   
   func copyForShare() -> KVODishReviewV4 {

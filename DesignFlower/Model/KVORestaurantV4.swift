@@ -25,8 +25,45 @@ class KVORestaurantV4: NSObject {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
+      
+      load(withUUID: uuid)
     }
   }
+  
+  init(with rlmRestaurant: RLMRestaurantV4) {
+    super.init()
+    set(with: rlmRestaurant)
+  }
+  
+  func set(with rlmRestaurant: RLMRestaurantV4) {
+    id = rlmRestaurant.id.value ?? -1
+    name = rlmRestaurant.name
+    latitude = rlmRestaurant.latitude.value ?? -1
+    longitude = rlmRestaurant.longitude.value ?? -1
+    address = rlmRestaurant.address
+    country = rlmRestaurant.country
+    area = rlmRestaurant.area
+    phoneNumber = rlmRestaurant.phoneNumber
+    openHour = rlmRestaurant.openHour
+    if let uuid = rlmRestaurant.uuid {
+      self.uuid = uuid
+    }
+    self.images = []
+    for rlmImage in rlmRestaurant.images {
+      let image = KVOImageV4(with: rlmImage)
+      self.images.append(image)
+    }
+    
+  }
+  
+  func load(withUUID uuid: String) {
+    guard let rlmRestaurant = RLMServiceV4.shared.getRestaurant(uuid: uuid)
+    else { return }
+    
+    set(with: rlmRestaurant)
+  }
+  
+
 
 
 }

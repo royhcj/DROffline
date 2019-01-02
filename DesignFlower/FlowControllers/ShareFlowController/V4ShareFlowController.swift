@@ -33,9 +33,12 @@ class V4ShareFlowController: ViewBasedFlowController,
       navigationVC = UINavigationController(rootViewController: vc) 
     }
     
+    shareVC?.loadViewIfNeeded() // Force load to make sure view model created
+    
     if let originalReviewUUID = originalReviewUUID {
       let review = KVORestReviewV4(uuid: originalReviewUUID)
       let shareReview = review.copyForShare()
+      print("shared copy: \(shareReview.uuid))")
       self.shareVC?.setReview(shareReview)
     }
   }

@@ -153,6 +153,13 @@ extension RLMServiceV4 {
       print("RLMServiceV4+Image file's no.9 func error")
     }
   }
+  
+  // no.
+  internal func getImage(uuid: String) -> RLMImageV4? {
+    let predicate = NSPredicate(format: "uuid == '\(uuid)'")
+    let rlmImage = realm.objects(RLMImageV4.self).filter(predicate).first
+    return rlmImage
+  }
 
   // no.10
   internal func delete(imageUUID: String) {

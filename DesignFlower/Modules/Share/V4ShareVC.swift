@@ -12,7 +12,7 @@ class V4ShareVC: V4ReviewVC {
   
   var flowDelegate: V4ShareVCFlowDelegate?
   
-  var viewModel: V4ShareViewModel?
+  var shareViewModel: V4ShareViewModel? { return viewModel as? V4ShareViewModel }
   
   // MARK: - ► Object lifecycle
   static func make(flowDelegate: V4ShareVCFlowDelegate) -> V4ShareVC {
@@ -26,9 +26,6 @@ class V4ShareVC: V4ReviewVC {
   // MARK: - ► View lifecycle
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Create View Model
-    viewModel = V4ShareViewModel(output: self, reviewUUID: nil)
     
     // Register Table Cells
     registerTableCells()
@@ -78,6 +75,11 @@ class V4ShareVC: V4ReviewVC {
   // MARK: - ► Refresh Methods
   override func refreshDirty() {
     
+  }
+  
+  // MARK: - ► ViewModel Manipulation
+  override func createViewModel() {
+    viewModel = V4ShareViewModel(output: self, reviewUUID: nil)
   }
   
 

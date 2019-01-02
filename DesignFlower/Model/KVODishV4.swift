@@ -16,7 +16,29 @@ class KVODishV4: NSObject {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
+      
+      load(withUUID: uuid)
     }
+  }
+  
+  init(with rlmDish: RLMDishV4) {
+    super.init()
+    set(with: rlmDish)
+  }
+  
+  func set(with rlmDish: RLMDishV4) {
+    name = rlmDish.name
+    id = rlmDish.id.value ?? -1
+    if let uuid = rlmDish.uuid {
+      self.uuid = uuid
+    }
+  }
+  
+  func load(withUUID uuid: String) {
+    guard let rlmDish = RLMServiceV4.shared.getDish(uuid: uuid)
+    else { return }
+    
+    set(with: rlmDish)
   }
 
 }

@@ -52,11 +52,11 @@ class DishReviewObserve: RLMObserveDelegate {
           RLMServiceV4.shared.update(dbObject, createDate: newValue)
         }
       }),
-//      object.observe(\.parentID, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
-//        if let newValue = change.newValue {
-//          RLMServiceV4.shared.update(dbObject, parentID: newValue)
-//        }
-//      }),
+      object.observe(\.parentID, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
+        if let newValue = change.newValue {
+          RLMServiceV4.shared.update(dbObject, parentID: newValue)
+        }
+      }),
       object.observe(\.isLike, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
           RLMServiceV4.shared.update(dbObject, isLike: newValue)

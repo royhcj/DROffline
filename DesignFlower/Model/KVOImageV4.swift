@@ -28,6 +28,32 @@ class KVOImageV4: NSObject {
     }
   }
   
+  init(with rlmImage: RLMImageV4) {
+    super.init()
+    set(with: rlmImage)
+  }
+  
+  func set(with rlmImage: RLMImageV4) {
+    phassetID = rlmImage.phassetID
+    localName = rlmImage.localName
+    imageID = rlmImage.imageID
+    url = rlmImage.url
+    imageStatus = rlmImage.imageStatus
+    photoLatitude = rlmImage.photoLatitude.value ?? -1
+    photoLongtitude = rlmImage.photoLatitude.value ?? -1
+    order = rlmImage.order.value ?? -1
+    if let uuid = rlmImage.uuid {
+      self.uuid = uuid
+    }
+  }
+
+  func load(withUUID uuid: String) {
+    guard let rlmImage = RLMServiceV4.shared.getImage(uuid: uuid)
+    else { return }
+    
+    set(with: rlmImage)
+  }
+
   func fetchUIImage(_ completion: @escaping ((UIImage?) -> ())) {
     if let localName = localName { // 來源1. 從local檔案取得
       do {
