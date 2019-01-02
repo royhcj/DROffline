@@ -220,6 +220,10 @@ internal class RLMServiceV4 {
 
   // no.16
   internal func getRestReview(uuid: String) -> RLMRestReviewV4? {
+    let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
+    let restReview = realm.objects(RLMRestReviewV4.self).filter(predicate).first
+    return restReview
+    /*
     do {
       var restReview: RLMRestReviewV4?
       try realm.write { // TODO: 應該不需要write?
@@ -230,6 +234,26 @@ internal class RLMServiceV4 {
     } catch {
       print("RLMServiceV4 file's no.16 func error")
       return nil
+    }
+     */
+  }
+  
+  // no. 17
+  internal func delete(reviewUUID: String, forScratch: Bool? = nil) {
+    do {
+      try realm.write {
+        var predicate: NSPredicate
+        if let forScratch = forScratch {
+          predicate = NSPredicate.init(format: "uuid == '\(reviewUUID)' && isScratch == \(forScratch ? true : false)")
+        } else {
+          predicate = NSPredicate.init(format: "uuid == '\(reviewUUID)'")
+        }
+        if let review = realm.objects(RLMRestReviewV4.self).filter(predicate).first {
+          realm.delete(review)
+        }
+      }
+    } catch {
+      print("RLMServiceV4 file's no.17 func error")
     }
   }
 

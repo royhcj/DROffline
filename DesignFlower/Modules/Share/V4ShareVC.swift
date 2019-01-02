@@ -38,6 +38,11 @@ class V4ShareVC: V4ReviewVC {
     configureNavigationController()
   }
   
+  override func leave() {
+    super.leave()
+    flowDelegate?.leave()
+  }
+  
   // MARK: - ► IB Actions
   @objc func clickedMore(_ sender: Any) {
     
@@ -45,6 +50,10 @@ class V4ShareVC: V4ReviewVC {
   
   @objc func clickedSaveShare(_ sender: Any) {
     viewModel?.saveReview()
+  }
+  
+  override func clickedCancel(_ sender: Any) {
+    leave()
   }
   
   // MARK: - ► Navigation Bar Configuration
@@ -96,7 +105,7 @@ class V4ShareVC: V4ReviewVC {
 }
 
 protocol V4ShareVCFlowDelegate: class {
-  
+  func leave()
 }
 
 enum ShareScenario {
