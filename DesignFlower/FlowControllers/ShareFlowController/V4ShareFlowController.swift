@@ -28,7 +28,7 @@ class V4ShareFlowController: ViewBasedFlowController,
   
   // MARK: - Flow Execution
   override func prepare() {
-    shareVC = V4ShareVC.make(flowDelegate: self)
+    shareVC = V4ShareVC.make(flowDelegate: self, scenario: .new)
     if let vc = shareVC {
       navigationVC = UINavigationController(rootViewController: vc) 
     }

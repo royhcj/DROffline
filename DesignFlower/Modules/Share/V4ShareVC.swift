@@ -14,12 +14,16 @@ class V4ShareVC: V4ReviewVC {
   
   var shareViewModel: V4ShareViewModel? { return viewModel as? V4ShareViewModel }
   
+  var scenario: ShareScenario = .new
+  
   // MARK: - ► Object lifecycle
-  static func make(flowDelegate: V4ShareVCFlowDelegate) -> V4ShareVC {
+  static func make(flowDelegate: V4ShareVCFlowDelegate,
+                   scenario: ShareScenario) -> V4ShareVC {
     let vc = UIStoryboard(name: "V4Share", bundle: nil)
               .instantiateViewController(withIdentifier: "V4ShareVC")
               as! V4ShareVC
     vc.flowDelegate = flowDelegate
+    vc.scenario = scenario
     return vc
   }
   
@@ -45,30 +49,34 @@ class V4ShareVC: V4ReviewVC {
   
   // MARK: - ► Navigation Bar Configuration
   override func configureNavigationController() {
-    self.navigationItem.leftBarButtonItem
-      = UIBarButtonItem(title: "取消", style: .plain,
-                        target: self, action: #selector(self.clickedCancel(_:)))
+    switch scenario {
+      case .new:
+        let sendButton = UIBarButtonItem(title: "送出", style: .plain,
+                                         target: self, action: #selector(self.clickedSaveShare(_:)))
+        self.navigationItem.rightBarButtonItems = [sendButton]
+        self.navigationItem.leftBarButtonItem
+          = UIBarButtonItem(title: "取消", style: .plain,
+                            target: self, action: #selector(self.clickedCancel(_:)))
+      case .edit:
+        let moreButton = UIBarButtonItem(title: "...", style: .plain,
+                                         target: self, action: #selector(self.clickedMore(_:)))
+        let sendButton = UIBarButtonItem(title: "儲存", style: .plain,
+                                         target: self, action: #selector(self.clickedSaveShare(_:)))
+        self.navigationItem.rightBarButtonItems = [moreButton, sendButton]
+        self.navigationItem.leftBarButtonItem
+          = UIBarButtonItem(image: #imageLiteral(resourceName: "icon_back"), style: .plain,
+                            target: self, action: #selector(self.clickedCancel(_:)))
+    }
     
-    let moreButton = UIBarButtonItem(title: "...", style: .plain,
-                                     target: self, action: #selector(self.clickedMore(_:)))
-    let sendButton = UIBarButtonItem(title: "儲存", style: .plain,
-                                     target: self, action: #selector(self.clickedSaveShare(_:)))
-//    self.navigationItem.leftBarButtonItem
-//      = UIBarButtonItem(image: #imageLiteral(resourceName: "icon_back"), style: .plain,
-//                        target: self, action: #selector(self.clickedCancel(_:)))
-//
-//    let moreButton = UIBarButtonItem(image: #imageLiteral(resourceName: "Icon_More"), style: .plain,
-//                                     target: self, action: #selector(self.clickedMore(_:)))
-//    let sendButton = UIBarButtonItem(title: "儲存", style: .plain,
-//                                     target: self, action: #selector(self.clickedSaveShare(_:)))
-    self.navigationItem.rightBarButtonItems = [moreButton, sendButton]
     self.navigationItem.title = "編輯分享筆記"
     let textAttributes = [NSAttributedStringKey.foregroundColor: UIColor.white]
     self.navigationController?.navigationBar.titleTextAttributes = textAttributes
     self.navigationItem.leftBarButtonItem?.tintColor = .white
-    self.navigationItem.rightBarButtonItems?[0].tintColor = .white
+    self.navigationItem.rightBarButtonItems?.forEach {
+      $0.tintColor = .white
+    }
     self.navigationController?.navigationBar.barTintColor = DishRankColor.darkTan
-    self.navigationItem.rightBarButtonItems?[1].tintColor = .white
+
     self.navigationController?.navigationBar.isTranslucent = false
   }
   
@@ -89,4 +97,9 @@ class V4ShareVC: V4ReviewVC {
 
 protocol V4ShareVCFlowDelegate: class {
   
+}
+
+enum ShareScenario {
+  case new
+  case edit
 }

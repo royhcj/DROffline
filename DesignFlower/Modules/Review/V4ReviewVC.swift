@@ -51,6 +51,7 @@ class V4ReviewVC: FlowedViewController,
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
     refreshReview()
+    refreshDirty()
   }
   
   func leave() {
@@ -93,6 +94,11 @@ class V4ReviewVC: FlowedViewController,
     navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(clickedCancel(_:)))
     navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedShare(_:)))
     navigationItem.title = "寫筆記"
+
+    self.navigationItem.leftBarButtonItem?.tintColor = DishRankColor.darkTan
+    self.navigationItem.rightBarButtonItems?.first?.tintColor = DishRankColor.darkTan
+    self.navigationController?.navigationBar.barTintColor = .white
+    self.navigationController?.navigationBar.isTranslucent = false
   }
   
   // MARK: - ► Table DataSource/Delegate
@@ -273,12 +279,31 @@ class V4ReviewVC: FlowedViewController,
     guard let dirty = viewModel?.dirty else { return }
     
     if dirty {
+      let saveButton: UIButton = {
+        let saveButton = UIButton(type: .system)
+        let nsattributeString = NSAttributedString.init(string: "儲存", attributes: [NSAttributedStringKey.font:
+          UIFont(name: "Helvetica", size: 17.0)!])
+        saveButton.setAttributedTitle(nsattributeString, for: .normal)
+        saveButton.tintColor = UIColor(red: 0, green: 122/255, blue: 1, alpha: 1)
+        saveButton.addTarget(self, action: #selector(clickedSave(_:)), for: .touchUpInside)
+        saveButton.sizeToFit()
+        return saveButton
+      }()
+      
+      navigationItem.title = "編輯筆記" // TODO: 判斷 寫筆記 or 編輯筆記
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(clickedCancel(_:)))
-      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedSave(_:)))
+      self.navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: saveButton)]
+      //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedSave(_:)))
     } else {
+      navigationItem.title = "檢視筆記"
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(clickedCancel(_:)))
-      navigationItem.rightBarButtonItem = UIBarButtonItem(title: "分享", style: .plain, target: self, action: #selector(clickedShare(_:)))
+      navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "分享", style: .plain, target: self, action: #selector(clickedShare(_:)))]
     }
+    
+    self.navigationItem.leftBarButtonItem?.tintColor = DishRankColor.darkTan
+    self.navigationItem.rightBarButtonItems?.first?.tintColor = DishRankColor.darkTan
+    self.navigationController?.navigationBar.barTintColor = .white
+    self.navigationController?.navigationBar.isTranslucent = false
   }
   
   
