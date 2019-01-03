@@ -30,9 +30,6 @@ class V4ReviewViewModel {
       let review = KVORestReviewV4(uuid: reviewUUID)
       self.observe = RestReviewObserve(object: review)
       print("new review: \(review.uuid))")
-//      DispatchQueue.main.asyncAfter(deadline: .now()) {
-//        self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
-//      }
       self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
       return review
     }()
@@ -44,9 +41,6 @@ class V4ReviewViewModel {
     clearScratch()
     
     self.review = review
-//    DispatchQueue.main.asyncAfter(deadline: .now()) {
-//      self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
-//    }
     self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
     
     output?.refreshReview()

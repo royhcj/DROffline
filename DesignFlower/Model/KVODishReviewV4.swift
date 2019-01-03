@@ -29,6 +29,7 @@ class KVODishReviewV4: NSObject {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
+      load(withUUID: uuid)
     }
   }
   
@@ -48,12 +49,22 @@ class KVODishReviewV4: NSObject {
     isLike = rlmDishReview.isLike.value ?? false
     order = rlmDishReview.order.value ?? -1
     dish = KVODishV4(with: rlmDishReview.dish)
-    images = [] // TODO:
+    images = []
+    for image in rlmDishReview.images {
+      let image = KVOImageV4(with: image)
+      images.append(image)
+    }
     
     if let uuid = rlmDishReview.uuid {
       self.uuid = uuid
     }
+  }
+  
+  func load(withUUID uuid: String) {
+    guard let rlmDishReview = RLMServiceV4.shared.getDishReview(uuid: uuid)
+    else { return }
     
+    set(with: rlmDishReview)
   }
   
   func copyForShare() -> KVODishReviewV4 {

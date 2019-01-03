@@ -124,5 +124,12 @@ extension RLMServiceV4 {
       print("RLMServiceV4+DihsReview file's no.9 func error")
     }
   }
+  
+  // no. 10
+  internal func getDishReview(uuid: String) -> RLMDishReviewV4? {
+    let predicate = NSPredicate(format: "uuid == \(uuid)'")
+    let dishReview = realm.objects(RLMDishReviewV4.self).filter(predicate).first
+    return dishReview
+  }
 
 }
