@@ -114,14 +114,27 @@ class V4ReviewVC: FlowedViewController,
     
   }
   
+  func tableSectionType(_ section: Int) -> TableSection {
+    switch section {
+      case 0: return .restaurantName
+      case 1: return .diningTime
+      case 2: return .reviewTitle
+      case 3: return .dishReviewHeader
+      case 4: return .dishReviews
+      case 5: return .restaurantRating
+      case 6: return .delete
+      default: return .delete
+    }
+  }
+  
   func numberOfSections(in tableView: UITableView) -> Int {
     return 7
   }
   
   func tableView(_ tableView: UITableView,
                  numberOfRowsInSection section: Int) -> Int {
-    guard let sectionType = TableSection(rawValue: section)
-    else { return 0 }
+    
+    let sectionType = tableSectionType(section)
     
     switch sectionType {
     case .restaurantName:
@@ -143,8 +156,8 @@ class V4ReviewVC: FlowedViewController,
   
   func tableView(_ tableView: UITableView,
                  cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    guard let sectionType = TableSection(rawValue: indexPath.section)
-    else { return UITableViewCell() }
+
+    let sectionType = tableSectionType(indexPath.section)
     
     var cellID: String
     switch sectionType {
@@ -226,6 +239,12 @@ class V4ReviewVC: FlowedViewController,
   
   func deleteDishReview(for dishReviewUUID: String) {
     viewModel?.deleteDishReview(for: dishReviewUUID)
+  }
+  
+  func toggleDishReviewSelection(dishReviewUUID: String) {
+  }
+  
+  func toggleRestaurantRatingSelection() {
   }
   
   // MARK: - ► Flow Related

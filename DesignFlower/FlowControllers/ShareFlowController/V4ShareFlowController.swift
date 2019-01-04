@@ -39,7 +39,7 @@ class V4ShareFlowController: ViewBasedFlowController,
       let review = KVORestReviewV4(uuid: originalReviewUUID)
       let shareReview = review.copyForShare()
       print("shared copy: \(shareReview.uuid))")
-      self.shareVC?.setReview(shareReview)
+      shareVC?.setReview(shareReview)
     }
   }
   

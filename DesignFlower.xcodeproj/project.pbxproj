@@ -53,6 +53,10 @@
 		7219796A21D3747100FD6435 /* V4ShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796921D3747100FD6435 /* V4ShareVC.swift */; };
 		7219796C21D3796D00FD6435 /* V4ShareVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796B21D3796D00FD6435 /* V4ShareVM.swift */; };
 		7219796F21D4776B00FD6435 /* V4ShareFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796E21D4776B00FD6435 /* V4ShareFlowController.swift */; };
+		7219797221DDF45B00FD6435 /* V4ChooseShareFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219797121DDF45B00FD6435 /* V4ChooseShareFlowController.swift */; };
+		7219797421DDF68D00FD6435 /* V4ChooseShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219797321DDF68D00FD6435 /* V4ChooseShareVC.swift */; };
+		7219797621DDF69B00FD6435 /* V4ChooseShareVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219797521DDF69B00FD6435 /* V4ChooseShareVM.swift */; };
+		7219797821DDF88400FD6435 /* V4ChooseShare.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7219797721DDF88400FD6435 /* V4ChooseShare.storyboard */; };
 		723B1F7B21B4CFD400CF91F3 /* FlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7A21B4CFD400CF91F3 /* FlowController.swift */; };
 		723B1F7D21B4D03A00CF91F3 /* Flow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7C21B4D03A00CF91F3 /* Flow.swift */; };
 		723B1F7F21B4D1A200CF91F3 /* ViewBasedFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */; };
@@ -159,6 +163,10 @@
 		7219796921D3747100FD6435 /* V4ShareVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareVC.swift; sourceTree = "<group>"; };
 		7219796B21D3796D00FD6435 /* V4ShareVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareVM.swift; sourceTree = "<group>"; };
 		7219796E21D4776B00FD6435 /* V4ShareFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareFlowController.swift; sourceTree = "<group>"; };
+		7219797121DDF45B00FD6435 /* V4ChooseShareFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ChooseShareFlowController.swift; sourceTree = "<group>"; };
+		7219797321DDF68D00FD6435 /* V4ChooseShareVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ChooseShareVC.swift; sourceTree = "<group>"; };
+		7219797521DDF69B00FD6435 /* V4ChooseShareVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ChooseShareVM.swift; sourceTree = "<group>"; };
+		7219797721DDF88400FD6435 /* V4ChooseShare.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4ChooseShare.storyboard; sourceTree = "<group>"; };
 		723B1F7A21B4CFD400CF91F3 /* FlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowController.swift; sourceTree = "<group>"; };
 		723B1F7C21B4D03A00CF91F3 /* Flow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flow.swift; sourceTree = "<group>"; };
 		723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewBasedFlowController.swift; sourceTree = "<group>"; };
@@ -287,7 +295,7 @@
 				B0A0AFA521C13BC2005BE7AB /* AddRestaurant */,
 				723B1F9821B53A1300CF91F3 /* Review */,
 				7219796621D3727B00FD6435 /* Share */,
-				7219796521D3724A00FD6435 /* SelectShareReview */,
+				7219796521D3724A00FD6435 /* ChooseShare */,
 				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 				7287026021BF8FAE000E1116 /* RestaurantPicker */,
 			);
@@ -384,11 +392,14 @@
 			path = TableCells;
 			sourceTree = "<group>";
 		};
-		7219796521D3724A00FD6435 /* SelectShareReview */ = {
+		7219796521D3724A00FD6435 /* ChooseShare */ = {
 			isa = PBXGroup;
 			children = (
+				7219797321DDF68D00FD6435 /* V4ChooseShareVC.swift */,
+				7219797521DDF69B00FD6435 /* V4ChooseShareVM.swift */,
+				7219797721DDF88400FD6435 /* V4ChooseShare.storyboard */,
 			);
-			path = SelectShareReview;
+			path = ChooseShare;
 			sourceTree = "<group>";
 		};
 		7219796621D3727B00FD6435 /* Share */ = {
@@ -407,6 +418,14 @@
 				7219796E21D4776B00FD6435 /* V4ShareFlowController.swift */,
 			);
 			path = ShareFlowController;
+			sourceTree = "<group>";
+		};
+		7219797021DDF44900FD6435 /* ChooseShareFlowController */ = {
+			isa = PBXGroup;
+			children = (
+				7219797121DDF45B00FD6435 /* V4ChooseShareFlowController.swift */,
+			);
+			path = ChooseShareFlowController;
 			sourceTree = "<group>";
 		};
 		723B1F8021B4D21C00CF91F3 /* ReviewFlowController */ = {
@@ -460,6 +479,7 @@
 				723B1F9021B50C6E00CF91F3 /* PhotoPickerFlowController */,
 				7287025D21BF6EE8000E1116 /* RestaurantPickerFlowController */,
 				7219796D21D4750C00FD6435 /* ShareFlowController */,
+				7219797021DDF44900FD6435 /* ChooseShareFlowController */,
 			);
 			name = "(FlowControllers)";
 			path = FlowControllers;
@@ -650,6 +670,7 @@
 				7219795F21D3668700FD6435 /* V4Review_DishReviewCell.xib in Resources */,
 				72061D6B21AE8A950098FFFD /* Main.storyboard in Resources */,
 				7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */,
+				7219797821DDF88400FD6435 /* V4ChooseShare.storyboard in Resources */,
 				723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */,
 				B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */,
 			);
@@ -768,7 +789,9 @@
 				7219796C21D3796D00FD6435 /* V4ShareVM.swift in Sources */,
 				B0A0AFAD21C15AE5005BE7AB /* Array+Extension.swift in Sources */,
 				72061D6821AE8A950098FFFD /* ViewController.swift in Sources */,
+				7219797621DDF69B00FD6435 /* V4ChooseShareVM.swift in Sources */,
 				723B1F8421B4D3AA00CF91F3 /* DisplayContext.swift in Sources */,
+				7219797421DDF68D00FD6435 /* V4ChooseShareVC.swift in Sources */,
 				B0A0AFA921C13BC2005BE7AB /* AddRestaurantVM.swift in Sources */,
 				6488430221DE0F5400B7510C /* AutoLogin.swift in Sources */,
 				72061D9821AFDF080098FFFD /* RLMRestaurantV4.swift in Sources */,
@@ -795,6 +818,7 @@
 				B0A0AFA421C13AD3005BE7AB /* UIColor+Extension.swift in Sources */,
 				72061D8621AFDD090098FFFD /* V4ReviewVM.swift in Sources */,
 				723B1F8621B4E30700CF91F3 /* V4ReviewFlows-WriteBegin.swift in Sources */,
+				7219797221DDF45B00FD6435 /* V4ChooseShareFlowController.swift in Sources */,
 				B0A0AFA221C13A47005BE7AB /* DishRankColor.swift in Sources */,
 				7287027721BFB6EF000E1116 /* NewPhotoSelectionViewController.swift in Sources */,
 				648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */,

@@ -9,6 +9,7 @@
 import Foundation
 import UIKit
 import YCRateView
+import SnapKit
 
 class V4Review_RestaurantNameCell: V4ReviewVC.CommonCell {
   
@@ -62,7 +63,7 @@ class V4Review_DishReviewHeaderCell: V4ReviewVC.CommonCell {
   
 }
 
-class V4Review_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UITextViewDelegate {
+class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell, UITextFieldDelegate, UITextViewDelegate {
   
   var dishReviewUUID: String?
   @IBOutlet var dishNameTextField: UITextField!
@@ -111,6 +112,11 @@ class V4Review_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UITex
     delegate?.deleteDishReview(for: uuid)
   }
   
+  override func clickedSelectionButton(_ sender: Any) {
+    guard let dishReviewUUID = dishReviewUUID else { return }
+    delegate?.toggleDishReviewSelection(dishReviewUUID: dishReviewUUID)
+  }
+  
   func textViewDidChange(_ textView: UITextView) {
     guard let uuid = dishReviewUUID else { return }
     delegate?.changeDishReviewComment(for: uuid, comment: commentTextView.text)
@@ -123,7 +129,7 @@ class V4Review_DishReviewCell: V4ReviewVC.CommonCell, UITextFieldDelegate, UITex
   
 }
 
-class V4Review_RestaurantRatingCell: V4ReviewVC.CommonCell, UITextViewDelegate {
+class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextViewDelegate {
   
   @IBOutlet var commentTextView: UITextView!
   @IBOutlet var priceRatingView: YCRateView!
@@ -176,6 +182,10 @@ class V4Review_RestaurantRatingCell: V4ReviewVC.CommonCell, UITextViewDelegate {
   func textViewDidEndEditing(_ textView: UITextView) {
     delegate?.changeReviewComment(textView.text)
   }
+  
+  override func clickedSelectionButton(_ sender: Any) {
+    delegate?.toggleRestaurantRatingSelection()
+  }
 }
 
 class V4Review_DeleteCell: V4ReviewVC.CommonCell {
@@ -186,8 +196,120 @@ class V4Review_CommonCell: UITableViewCell {
   weak var delegate: V4ReviewVCCommonCellDelegate?
 }
 
+class V4Review_SelectableCommonCell: V4Review_CommonCell {
+  var selectionStatus: SelectionStatus = .unselected
+  
+  @IBOutlet weak var selectionContainer: UIView?
+
+  var selectionView: UIView?
+  var selectionButton: UIButton?
+  var selectionCircle: UIView?
+  var selectionLabel: UILabel?
+  var selectionImage: UIImageView?
+  
+  func createSelectionViews() {
+    guard let container = selectionContainer
+    else { return }
+    
+    if selectionView != nil {
+      return
+    }
+    
+    selectionView = {
+      let selectionView = UIView(frame: container.bounds)
+      selectionView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
+      selectionView.translatesAutoresizingMaskIntoConstraints = true
+      container.addSubview(selectionView)
+      container.bringSubview(toFront: selectionView)
+      return selectionView
+    }()
+
+    selectionButton = {
+      guard let selectionView = self.selectionView else { return nil }
+      let button: UIButton = UIButton(frame: selectionView.bounds)
+      button.translatesAutoresizingMaskIntoConstraints = true
+      selectionView.addSubview(button)
+      
+      button.addTarget(self, action: #selector(clickedSelectionButton(_:)), for: .touchUpInside)
+      
+      return button
+    }()
+    
+    selectionCircle = {
+      guard let selectionView = self.selectionView else { return nil }
+      let circle = UIView(frame: CGRect(x: selectionView.bounds.width - 5 - 24, y: 5, width: 24, height: 24))
+      circle.translatesAutoresizingMaskIntoConstraints = true
+      circle.autoresizingMask = [.flexibleLeftMargin, .flexibleBottomMargin]
+      circle.backgroundColor = .white
+      circle.borderColor = DishRankColor.darkTan
+      circle.borderWidth = 1
+      circle.layer.cornerRadius = circle.bounds.width * 0.5
+      circle.clipsToBounds = true
+      selectionView.addSubview(circle)
+      return circle
+    }()
+    
+    selectionLabel = {
+      guard let circle = self.selectionCircle else { return nil }
+      let label = UILabel(frame: circle.bounds)
+      label.textColor = .white
+      label.textAlignment = .center
+      label.backgroundColor = DishRankColor.darkTan
+      label.layer.cornerRadius = circle.bounds.width * 0.5
+      label.layer.masksToBounds = true
+      label.translatesAutoresizingMaskIntoConstraints = true
+      circle.addSubview(label)
+      return label
+    }()
+    
+    selectionImage = {
+      guard let circle = self.selectionCircle else { return nil }
+      let image = UIImageView(frame: circle.bounds)
+      image.image = UIImage(named: "Susccess")
+      image.backgroundColor = DishRankColor.darkTan
+      image.translatesAutoresizingMaskIntoConstraints = true
+      circle.addSubview(image)
+      return image
+    }()
+  }
+  
+  func setSelectionStatus(_ selectionStatus: SelectionStatus) {
+    self.selectionStatus = selectionStatus
+    
+    switch selectionStatus {
+    case .unselected:
+      selectionView?.backgroundColor = .clear
+      selectionLabel?.isHidden = true
+      selectionImage?.isHidden = true
+    case .selected:
+      selectionView?.backgroundColor = UIColor.init(white: 0, alpha: 0.25)
+      selectionLabel?.isHidden = true
+      //selectionLabel?.text = "✓"
+      selectionImage?.isHidden = false
+    case .selectedWithNumber(let number):
+      selectionView?.backgroundColor = UIColor.init(white: 0, alpha: 0.25)
+      selectionLabel?.isHidden = false
+      selectionLabel?.text = "\(number + 1)"
+      selectionImage?.isHidden = true
+    }
+  }
+  
+  @objc func clickedSelectionButton(_ sender: Any) {
+    
+  }
+  
+  
+  
+  enum SelectionStatus {
+    case unselected
+    case selected
+    case selectedWithNumber(_ number: Int)
+  }
+}
+
 extension V4ReviewVC {
   typealias CommonCell = V4Review_CommonCell
+  typealias SelectableCommonCell = V4Review_SelectableCommonCell
   typealias RestaurantNameCell = V4Review_RestaurantNameCell
   typealias DiningTimeCell = V4Review_DiningTimeCell
   typealias ReviewTitleCell = V4Review_ReviewTitleCell
@@ -211,4 +333,8 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func changeDishReviewRank(for dishReviewUUID: String, rank: Float)
   func showMoreForDishReview(_ dishReviewUUID: String)
   func deleteDishReview(for dishReviewUUID: String)
+  
+  // Selection Related
+  func toggleDishReviewSelection(dishReviewUUID: String)
+  func toggleRestaurantRatingSelection()
 }
