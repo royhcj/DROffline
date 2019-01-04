@@ -10,7 +10,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMQueue: SubObject, Codable, Uploadable {
+class RLMQueue: SubObject, Uploadable {
 
   @objc dynamic var serviceRank: String? // 服務分數
   @objc dynamic var environmentRank: String? // 環境分數
@@ -35,7 +35,8 @@ class RLMQueue: SubObject, Codable, Uploadable {
   @objc dynamic var isDelete: Bool = false // 創造日期
 
 
-  convenience init(serviceRank: String?,
+  convenience init(uuid: String?,
+                   serviceRank: String?,
                    environmentRank: String?,
                    priceRank: String?,
                    title: String?,
@@ -70,6 +71,9 @@ class RLMQueue: SubObject, Codable, Uploadable {
     self.isFirst = isFirst
     self.dishReviews = dishReviews
     self.restaurant = restaurant
+    if let uuid = uuid {
+      self.uuid = uuid
+    }
   }
 
   enum RLMRestReviewV4DecoderKey: String, CodingKey {
@@ -90,12 +94,14 @@ class RLMQueue: SubObject, Codable, Uploadable {
     case isFirst
     case dishReviews
     case restaurant
+    case uuid
   }
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
     let serviceRank = try container.decodeIfPresent(String.self, forKey: .serviceRank)
     let environmentRank =  try container.decodeIfPresent(String.self, forKey: .environmentRank)
+    let uuid = try container.decodeIfPresent(String.self, forKey: .uuid)
     let priceRank =  try container.decodeIfPresent(String.self, forKey: .priceRank)
     let title =  try container.decodeIfPresent(String.self, forKey: .title)
     let comment =  try container.decodeIfPresent(String.self, forKey: .comment)
@@ -121,7 +127,8 @@ class RLMQueue: SubObject, Codable, Uploadable {
     let realmDishReviews = List<RLMDishReviewV4>()
     realmDishReviews.append(objectsIn: dishReviews)
 
-    self.init(serviceRank: serviceRank,
+    self.init(uuid: uuid,
+              serviceRank: serviceRank,
               environmentRank: environmentRank,
               priceRank: priceRank,
               title: title,
@@ -140,7 +147,7 @@ class RLMQueue: SubObject, Codable, Uploadable {
               restaurant: restaurant)
   }
 
-  func encode(to encoder: Encoder) throws {
+  override func encode(to encoder: Encoder) throws {
     var continer = encoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
     try continer.encode(serviceRank, forKey: .serviceRank)
     try continer.encode(environmentRank, forKey: .environmentRank)
@@ -163,6 +170,7 @@ class RLMQueue: SubObject, Codable, Uploadable {
     dishR.append(contentsOf: dishReviews)
     try continer.encode(dishR, forKey: .dishReviews)
     try continer.encode(restaurant, forKey: .restaurant)
+    try continer.encode(uuid, forKey: .uuid)
   }
 
 }

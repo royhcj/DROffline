@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMRestaurantV4: SubObject, Codable, Uploadable {
+class RLMRestaurantV4: SubObject, Uploadable {
 
   var id = RealmOptional<Int>() // 餐廳ID
   @objc dynamic var name: String? // 餐廳名字
@@ -92,7 +92,7 @@ class RLMRestaurantV4: SubObject, Codable, Uploadable {
               images: realmImages)
   }
 
-  func encode(to encoder: Encoder) throws {
+  override func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMRestReviewV4DecodeKey.self)
     try container.encode(id.value, forKey: .id)
     try container.encode(name, forKey: .name)

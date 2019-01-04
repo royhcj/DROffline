@@ -89,7 +89,7 @@ extension SyncService {
         return
       }
 
-      guard queueReview.isDelete else {
+      guard !queueReview.isDelete else {
         self.delete(with: queueReview)
         return
       }
@@ -107,6 +107,7 @@ extension SyncService {
       let data = try? encoder.encode(queueReview)
 
       if object.getId().id != nil {
+        // TODO: 更新筆記
         // use post new review
 //        let decoder = JSONDecoder()
         if let data = data {
@@ -118,6 +119,7 @@ extension SyncService {
           upload(newObjects)
         }
       } else {
+        // TODO: 新增筆記 完成要回填id
         // use put update review
 //        let decoder = JSONDecoder()
         if let data = data {
@@ -143,9 +145,11 @@ extension SyncService {
     }
 
     private static func uploadIMG(review: RLMQueue, completion: (Bool) -> ()) {
+
       review.dishReviews.forEach {
+        // TODO: 上傳圖片
         $0.images.forEach({
-          $0.url = "https://xxx.xxx.xxx"
+          RLMServiceV4.shared.update($0, url: "http://xxx.xxx.xxx")
         })
       }
       completion(true)

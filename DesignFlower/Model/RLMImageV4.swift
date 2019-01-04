@@ -17,7 +17,7 @@ enum ImageStatus: Int {
   case finish
 }
 
-class RLMImageV4: SubObject, Codable, Uploadable {
+class RLMImageV4: SubObject, Uploadable {
 
   @objc dynamic var phassetID: String? // PHAsset 的 identifier
   @objc dynamic var localName: String? // app bundle 內存檔的名稱
@@ -86,7 +86,7 @@ class RLMImageV4: SubObject, Codable, Uploadable {
 
   }
 
-  func encode(to encoder: Encoder) throws {
+  override func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMImageV4CodingKey.self)
     try container.encode(phassetID, forKey: .phassetID)
     try container.encode(localName, forKey: .localName)

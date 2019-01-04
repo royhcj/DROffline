@@ -21,7 +21,7 @@ import RealmSwift
 
  */
 
-class SubObject: Object {
+class SubObject: Object, Codable {
   @objc dynamic var uuid: String?
 
   static func uuidKey() -> String? {

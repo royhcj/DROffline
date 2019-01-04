@@ -9,7 +9,7 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMDishReviewV4: SubObject, Codable, Uploadable {
+class RLMDishReviewV4: SubObject, Uploadable {
 
   @objc dynamic var rank: String? // 分數
   @objc dynamic var comment: String? // 評比
@@ -98,7 +98,7 @@ class RLMDishReviewV4: SubObject, Codable, Uploadable {
               dish: dish)
   }
 
-  func encode(to encoder: Encoder) throws {
+  override func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMDishReviewV4DecodeKey.self)
     try container.encode(rank, forKey: .rank)
     try container.encode(comment, forKey: .comment)

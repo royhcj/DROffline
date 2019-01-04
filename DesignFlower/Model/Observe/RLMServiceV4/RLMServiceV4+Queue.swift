@@ -21,7 +21,9 @@ extension RLMServiceV4 {
         queueReview.allowedReaders = restReview.allowedReaders
         queueReview.comment = restReview.comment
         queueReview.createDate = restReview.createDate
-        queueReview.dishReviews = restReview.dishReviews
+        for dishReview in restReview.dishReviews {
+          queueReview.dishReviews.append(dishReview)
+        }
         queueReview.eatingDate = restReview.eatingDate
         queueReview.environmentRank = restReview.environmentRank
         queueReview.id = restReview.id
