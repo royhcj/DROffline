@@ -46,7 +46,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //start syncService
     syncService.append(SyncService.init(modelTypes: [RLMRestReviewV4.self]))
     syncService.append(SyncService.init(modelTypes: [RLMQueue.self], factory: .upload))
-
+    if UserDefaults.standard.value(forKey: "token") == nil {
+      AutoLogin.login()
+    } else {
+      print("token: \(String(describing: UserDefaults.standard.value(forKey: "token")!))")
+    }
     return true
   }
   
