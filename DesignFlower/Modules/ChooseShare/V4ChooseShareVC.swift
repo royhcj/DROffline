@@ -99,6 +99,15 @@ class V4ChooseShareVC: V4ReviewVC,
     }
   }
   
+  override func tableSectionIndex(_ sectionType: V4ReviewVC.TableSection) -> Int {
+    switch sectionType {
+      case .dishReviewHeader:   return 0
+      case .dishReviews:        return 1
+      case .restaurantRating:   return 2
+      default:                  return -1
+    }
+  }
+  
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
     
@@ -114,6 +123,8 @@ class V4ChooseShareVC: V4ReviewVC,
         = chooseShareViewModel?.selectedRestaurantReview == true ?
             .selected : .unselected
       cell.setSelectionStatus(selectionStatus)
+    } else if let cell = cell as? DishReviewHeaderCell {
+      cell.addDishReviewButton.isHidden = true
     }
     
     

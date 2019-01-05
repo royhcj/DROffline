@@ -24,6 +24,8 @@ class V4ReviewViewModel {
               }
   var observe: RestReviewObserve?
   var dirty: Bool = false
+  
+  var lastBlankDishReviewUUID: String?
 
   init(output: Output?, reviewUUID: String?) {
     review = {
@@ -48,11 +50,25 @@ class V4ReviewViewModel {
   
   // MARK: - DishReview Manipulation
   func addDishReview() {
+    guard let review = review else { return }
+    
+    // 如果有空白的dish review, 捲動至該dish review即可
+    if let blankDishReviewUUID = lastBlankDishReviewUUID,
+       let index = review.dishReviews.firstIndex(where: { $0.uuid == blankDishReviewUUID }) {
+      output?.scrollToDishReviewAtIndex(index)
+      return
+    }
+    
+    // 加入新的空白dish review
     let dishReview = KVODishReviewV4(uuid: nil)
-    review?.dishReviews.append(dishReview)
+    review.dishReviews.append(dishReview)
+    lastBlankDishReviewUUID = dishReview.uuid
     
     setDirty(true)
     output?.refreshReview()
+    DispatchQueue.main.async { [weak self] in
+      self?.output?.scrollToDishReviewAtIndex(review.dishReviews.count - 1)
+    }
   }
   
   func addDishReviews(with assets: [PHAsset]) {
@@ -91,6 +107,13 @@ class V4ReviewViewModel {
     self.dirty = dirty
     
     output?.refreshDirty()
+  }
+  
+  func setDirty(_ dirty: Bool, forDishReview dishReview: KVODishReviewV4) {
+    if dishReview.uuid == lastBlankDishReviewUUID {
+      lastBlankDishReviewUUID = nil
+    }
+    setDirty(dirty)
   }
   
   // MARK: - Review Change Methods
@@ -137,21 +160,21 @@ class V4ReviewViewModel {
     if let dishID = dishID {
       dishReview.dish?.id = dishID
     }
-    setDirty(true)
+    setDirty(true, forDishReview: dishReview)
   }
   
   func changeDishReviewComment(for dishReviewUUID: String, comment: String) {
     guard let dishReview = getDishReview(dishReviewUUID) else { return }
     
     dishReview.comment = comment
-    setDirty(true)
+    setDirty(true, forDishReview: dishReview)
   }
   
   func changeDishReviewRank(for dishReviewUUID: String, rank: Float) {
     guard let dishReview = getDishReview(dishReviewUUID) else { return }
     
     dishReview.rank = String(format: "%.1f", rank)
-    setDirty(true)
+    setDirty(true, forDishReview: dishReview)
   }
   
   func deleteDishReview(for dishReviewUUID: String) {
@@ -162,7 +185,7 @@ class V4ReviewViewModel {
     else { return }
     
     review?.dishReviews.remove(at: index)
-    setDirty(true)
+    setDirty(true, forDishReview: dishReview)
   }
   
   typealias Output = V4ReviewViewModelOutput
@@ -172,4 +195,5 @@ class V4ReviewViewModel {
 protocol V4ReviewViewModelOutput: class {
   func refreshReview()
   func refreshDirty()
+  func scrollToDishReviewAtIndex(_ index: Int)
 }

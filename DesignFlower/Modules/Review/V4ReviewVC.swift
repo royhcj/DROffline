@@ -127,6 +127,19 @@ class V4ReviewVC: FlowedViewController,
     }
   }
   
+  func tableSectionIndex(_ sectionType: TableSection) -> Int {
+    switch sectionType {
+      case .restaurantName:   return 0
+      case .diningTime:       return 1
+      case .reviewTitle:      return 2
+      case .dishReviewHeader: return 3
+      case .dishReviews:      return 4
+      case .restaurantRating: return 5
+      case .delete:           return 6
+      //default:                return -1
+    }
+  }
+  
   func numberOfSections(in tableView: UITableView) -> Int {
     return 7
   }
@@ -241,6 +254,10 @@ class V4ReviewVC: FlowedViewController,
     viewModel?.deleteDishReview(for: dishReviewUUID)
   }
   
+  func addDishReview() {
+    viewModel?.addDishReview()
+  }
+  
   func toggleDishReviewSelection(dishReviewUUID: String) {
   }
   
@@ -325,6 +342,14 @@ class V4ReviewVC: FlowedViewController,
     self.navigationController?.navigationBar.isTranslucent = false
   }
   
+  func scrollToDishReviewAtIndex(_ index: Int) {
+    let indexPath = IndexPath(row: index, section: tableSectionIndex(.dishReviews))
+    guard indexPath.section < tableView.numberOfSections,
+          indexPath.row < tableView.numberOfRows(inSection: indexPath.section)
+    else { return }
+    
+    tableView.scrollToRow(at: indexPath, at: .none, animated: true)
+  }
   
   // MARK: - ► Type definitions
   typealias FlowDelegate = V4ReviewVCFlowDelegate

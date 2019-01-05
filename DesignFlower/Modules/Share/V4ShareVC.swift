@@ -119,6 +119,19 @@ class V4ShareVC: V4ReviewVC {
     default: return .delete // TODO: other default
     }
   }
+  
+  override func tableSectionIndex(_ sectionType: V4ReviewVC.TableSection) -> Int {
+    switch sectionType {
+      case .restaurantName:   return 0
+      case .diningTime:       return 1
+      case .reviewTitle:      return 2
+      case .dishReviewHeader: return 3
+      case .dishReviews:      return 4
+      case .restaurantRating: return 5
+      //case .delete:           return 6
+      default:                return -1
+    }
+  }
 
   // MARK: - ► Type Definitions
   typealias FlowDelegate = V4ShareVCFlowDelegate

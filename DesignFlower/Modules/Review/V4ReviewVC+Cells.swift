@@ -60,7 +60,11 @@ class V4Review_ReviewTitleCell: V4ReviewVC.CommonCell, UITextFieldDelegate {
 }
 
 class V4Review_DishReviewHeaderCell: V4ReviewVC.CommonCell {
+  @IBOutlet weak var addDishReviewButton: UIButton!
   
+  @IBAction func clickedAddDishReview(_ sender: Any) {
+    delegate?.addDishReview()
+  }
 }
 
 class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell, UITextFieldDelegate, UITextViewDelegate {
@@ -333,6 +337,7 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func changeDishReviewRank(for dishReviewUUID: String, rank: Float)
   func showMoreForDishReview(_ dishReviewUUID: String)
   func deleteDishReview(for dishReviewUUID: String)
+  func addDishReview()
   
   // Selection Related
   func toggleDishReviewSelection(dishReviewUUID: String)

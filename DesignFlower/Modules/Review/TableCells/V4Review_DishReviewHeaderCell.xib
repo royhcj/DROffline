@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -37,6 +37,9 @@
                                 <real key="value" value="2"/>
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
+                        <connections>
+                            <action selector="clickedAddDishReview:" destination="-2" eventType="touchUpInside" id="r73-0D-0hA"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>
@@ -47,6 +50,9 @@
                     <constraint firstAttribute="bottom" secondItem="I2L-0j-tNi" secondAttribute="bottom" constant="15" id="zgJ-i4-Vgm"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="addDishReviewButton" destination="kFw-s9-2s6" id="I7n-qG-lTK"/>
+            </connections>
         </tableViewCell>
     </objects>
 </document>
