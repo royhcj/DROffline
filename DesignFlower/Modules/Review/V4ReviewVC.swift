@@ -123,7 +123,7 @@ class V4ReviewVC: FlowedViewController,
       case 4: return .dishReviews
       case 5: return .restaurantRating
       case 6: return .delete
-      default: return .delete
+      default: return .delete // TODO: other default
     }
   }
   

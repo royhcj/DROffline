@@ -37,9 +37,7 @@ class V4ChooseShareFlowController: ViewBasedFlowController,
 
     if let originalReviewUUID = originalReviewUUID {
       let review = KVORestReviewV4(uuid: originalReviewUUID)
-      let shareReview = review.copyForShare()
-      print("choose shared copy: \(shareReview.uuid))")
-      chooseShareVC?.setReview(shareReview)
+      chooseShareVC?.setReview(review)
     }
   }
   
@@ -54,6 +52,25 @@ class V4ChooseShareFlowController: ViewBasedFlowController,
   
   // MARK: - ChooseShareVC FlowDelegate
   func leave() {
+    sourceDisplayContext.undisplay(navigationVC)
+  }
+  
+  func showShare(originalReviewUUID: String, selections: ShareSelections) {
+    guard let navigationVC = navigationVC else { return }
     
+    let sourceDisplayContext = DisplayContext.push(vc: navigationVC, animated: true)
+    
+    let shareFlowController =
+          V4ShareFlowController(sourceDisplayContext: sourceDisplayContext,
+                                originalReviewUUID: originalReviewUUID,
+                                shareSelections: selections)
+    shareFlowController.cancel = { [weak self] in
+      self?.leave()
+    }
+    
+    addChild(flowController: shareFlowController)
+    
+    shareFlowController.prepare()
+    shareFlowController.start()
   }
 }

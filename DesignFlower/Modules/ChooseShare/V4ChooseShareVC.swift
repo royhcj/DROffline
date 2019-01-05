@@ -48,7 +48,18 @@ class V4ChooseShareVC: V4ReviewVC,
   }
   
   @objc func clickedDone(_ sender: Any) {
-  
+    guard let reviewUUID = viewModel?.review?.uuid
+    else { return }
+    
+    let selections: ShareSelections = {
+      let selectedRetaurantRating = chooseShareViewModel?.selectedRestaurantReview ?? false
+      let dishReviewUUIDs: [String] = chooseShareViewModel?.selectedDishReviewUUIDs ?? []
+      
+      return ShareSelections(selectedDishReviewUUIDs: dishReviewUUIDs,
+                             selectedRestaurantRating: selectedRetaurantRating)
+    }()
+    
+    flowDelegate?.showShare(originalReviewUUID: reviewUUID, selections: selections)
   }
   
   // MARK: - ► ViewModel Manipulation
@@ -58,12 +69,20 @@ class V4ChooseShareVC: V4ReviewVC,
   
   // MARK: - ► Navigation Bar Configuration
   override func configureNavigationController() {
+    self.navigationController?.navigationBar.barTintColor = DishRankColor.darkTan
+    self.navigationController?.navigationBar.isTranslucent = false
+    self.navigationController?.navigationBar.titleTextAttributes =
+        [NSAttributedStringKey.foregroundColor: UIColor.white]
+    
     self.navigationItem.title = "選擇筆記分享內容"
     self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "確認", style: .plain,
                                                              target: self, action: #selector(self.clickedDone(_:)))
     self.navigationItem.leftBarButtonItem
       = UIBarButtonItem(image: #imageLiteral(resourceName: "icon_back"), style: .plain,
                         target: self, action: #selector(self.clickedCancel(_:)))
+    
+    self.navigationItem.leftBarButtonItem?.tintColor = .white
+    self.navigationItem.rightBarButtonItem?.tintColor = .white
   }
   
   // MARK: - Table DataSource/Delegate
@@ -109,8 +128,14 @@ class V4ChooseShareVC: V4ReviewVC,
   override func toggleRestaurantRatingSelection() {
     chooseShareViewModel?.toggleRestaurantRatingSelection()
   }
+  
+  // MARK: - Refresh Methods
+  override func refreshDirty() {
+    configureNavigationController()
+  }
 }
 
 protocol V4ChooseShareVCFlowDelegate: class {
   func leave()
+  func showShare(originalReviewUUID: String, selections: ShareSelections)
 }

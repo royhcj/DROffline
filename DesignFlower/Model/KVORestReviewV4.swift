@@ -77,7 +77,7 @@ public class KVORestReviewV4: NSObject {
     set(with: rlmRestReview)
   }
   
-  func copyForShare() -> KVORestReviewV4 {
+  func copyForShare(withSelections selections: ShareSelections? = nil) -> KVORestReviewV4 {
     let review = KVORestReviewV4(uuid: nil)
     
     review.serviceRank = serviceRank
@@ -101,9 +101,19 @@ public class KVORestReviewV4: NSObject {
       review.dishReviews.append(newDishReview)
     }
     
+    // 如果有指定分享部分筆記
+    if let selections = selections {
+      review.dishReviews.removeAll()
+      for dishReviewUUID in selections.selectedDishReviewUUIDs {
+        if let dishReview = dishReviews.first(where: { $0.uuid == dishReviewUUID}) {
+          review.dishReviews.append(dishReview)
+        }
+      }
+      review.isShowComment = selections.selectedRestaurantRating
+    }
+    
     return review
   }
-  
   
   // 地址來源
   public enum AddressSource: Int {

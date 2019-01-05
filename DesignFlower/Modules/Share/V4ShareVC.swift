@@ -99,6 +99,26 @@ class V4ShareVC: V4ReviewVC {
     viewModel = V4ShareViewModel(output: self, reviewUUID: nil)
   }
   
+  // MARK: - ► Table DataSource / Delegate
+  override func numberOfSections(in tableView: UITableView) -> Int {
+    var number = 5
+    if viewModel?.review?.isShowComment == true {
+      number += 1
+    }
+    return number
+  }
+  
+  override func tableSectionType(_ section: Int) -> V4ReviewVC.TableSection {
+    switch section {
+    case 0: return .restaurantName
+    case 1: return .diningTime
+    case 2: return .reviewTitle
+    case 3: return .dishReviewHeader
+    case 4: return .dishReviews
+    case 5: return .restaurantRating
+    default: return .delete // TODO: other default
+    }
+  }
 
   // MARK: - ► Type Definitions
   typealias FlowDelegate = V4ShareVCFlowDelegate

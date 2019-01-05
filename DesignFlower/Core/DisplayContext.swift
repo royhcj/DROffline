@@ -44,7 +44,9 @@ enum DisplayContext {
         completion?()
       }
     case .push(let sourceVC, let animated):
-      sourceVC.navigationController?.pushViewController(viewController, animated: animated)
+      let navigationController = (sourceVC as? UINavigationController)
+                                  ?? sourceVC.navigationController
+      navigationController?.pushViewController(viewController, animated: animated)
       completion?()
     }
   }
@@ -73,8 +75,18 @@ enum DisplayContext {
         completion?()
       }
     case .push(let sourceVC, let animated):
-      sourceVC.navigationController?.popViewController(animated: animated)
+      let navigationController = (sourceVC as? UINavigationController)
+                                 ?? sourceVC.navigationController
+      navigationController?.popViewController(animated: animated)
       completion?()
     }
+  }
+  
+  func containsNavigationController() -> Bool {
+    if case DisplayContext.push(let vc, _) = self,
+       vc is UINavigationController {
+      return true
+    }
+    return false
   }
 }

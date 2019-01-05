@@ -62,8 +62,11 @@ class KVORestaurantV4: NSObject {
     
     set(with: rlmRestaurant)
   }
-  
+
+}
 
 
-
+struct ShareSelections {
+  var selectedDishReviewUUIDs: [String]
+  var selectedRestaurantRating: Bool
 }

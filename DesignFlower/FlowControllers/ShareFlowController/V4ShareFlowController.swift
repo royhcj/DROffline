@@ -15,11 +15,15 @@ class V4ShareFlowController: ViewBasedFlowController,
   var navigationVC: UINavigationController?
   var sourceDisplayContext: DisplayContext
   var originalReviewUUID: String?
+  var shareSelections: ShareSelections?
+  var cancel: (() -> Void)?
   
   init(sourceDisplayContext: DisplayContext,
-       originalReviewUUID: String?) {
+       originalReviewUUID: String?,
+       shareSelections: ShareSelections? = nil) {
     self.sourceDisplayContext = sourceDisplayContext
     self.originalReviewUUID = originalReviewUUID
+    self.shareSelections = shareSelections
   }
   
   deinit {
@@ -29,15 +33,17 @@ class V4ShareFlowController: ViewBasedFlowController,
   // MARK: - Flow Execution
   override func prepare() {
     shareVC = V4ShareVC.make(flowDelegate: self, scenario: .new)
-    if let vc = shareVC {
+    if !sourceDisplayContext.containsNavigationController(),
+       let vc = shareVC {
       navigationVC = UINavigationController(rootViewController: vc) 
     }
     
     shareVC?.loadViewIfNeeded() // Force load to make sure view model created
     
     if let originalReviewUUID = originalReviewUUID {
+      // Make a share copy
       let review = KVORestReviewV4(uuid: originalReviewUUID)
-      let shareReview = review.copyForShare()
+      let shareReview = review.copyForShare(withSelections: shareSelections)
       print("shared copy: \(shareReview.uuid))")
       shareVC?.setReview(shareReview)
     }
@@ -48,12 +54,21 @@ class V4ShareFlowController: ViewBasedFlowController,
   }
 
   func showShareVC() {
-    guard let navigationVC = navigationVC else { return }
-    sourceDisplayContext.display(navigationVC)
+    if let navigationVC = navigationVC {  // if shareVC wrapped inside navigationVC
+      sourceDisplayContext.display(navigationVC)
+    } else if let shareVC = shareVC {     // else just show shareVC
+      sourceDisplayContext.display(shareVC)
+    }
   }
   
   func leave() {
-    sourceDisplayContext.undisplay(navigationVC)
+    if let cancel = cancel {
+      cancel()
+    } else {
+      sourceDisplayContext.undisplay(navigationVC)
+    }
   }
+
   
+  // MARK: - Type Definitions
 }
