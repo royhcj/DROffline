@@ -24,31 +24,39 @@ class V4Review_RestaurantNameCell: V4ReviewVC.CommonCell {
 class V4Review_DiningTimeCell: V4ReviewVC.CommonCell {
   
   @IBOutlet var diningTimeButton: UIButton!
-  
+  @IBOutlet var diningTimeArrowButton: UIButton!
+  @IBOutlet var deleteTimeButton: UIButton!
+
   func configure(with review: KVORestReviewV4?) {
     var title: String
     var textColor: UIColor
-    var icon: UIImage?
     
     if let date = review?.eatingDate {
       let formatter = DateFormatter()
       formatter.dateFormat = "yyyy/MM/dd HH:mm"
       title = formatter.string(from: date)
       textColor = UIColor.lightGray
-      icon = #imageLiteral(resourceName: "24Cancel")
+      diningTimeArrowButton.isHidden = true
+      deleteTimeButton.isHidden = false
     } else {
       title = "不顯示"
       textColor = UIColor(hex: "333333")
-      icon = #imageLiteral(resourceName: "next_Arrow")
+      diningTimeArrowButton.isHidden = false
+      deleteTimeButton.isHidden = true
     }
     
     diningTimeButton.setTitle(title, for: .normal)
     diningTimeButton.tintColor = textColor
-    diningTimeButton.setImage(icon, for: .normal)
   }
+
   @IBAction func clickedDiningTime(_ sender: Any) {
     delegate?.pickDiningTime()
   }
+  
+  @IBAction func clickedDeleteTime(_ sender: Any) {
+    delegate?.changeDiningTime(nil)
+  }
+  
 }
 
 class V4Review_ReviewTitleCell: V4ReviewVC.CommonCell, UITextFieldDelegate {

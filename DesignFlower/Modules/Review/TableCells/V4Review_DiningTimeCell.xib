@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -29,38 +29,65 @@
                         <fontDescription key="fontDescription" name="PingFangTC-Medium" family="PingFang TC" pointSize="16"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-z1-ruj">
-                        <rect key="frame" x="0.0" y="0.0" width="300" height="75.5"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-z1-ruj">
+                        <rect key="frame" x="0.0" y="0.0" width="284" height="75.5"/>
                         <fontDescription key="fontDescription" name="PingFangTC-Light" family="PingFang TC" pointSize="16"/>
                         <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
-                        <state key="normal" title="時間" image="next_Arrow">
+                        <state key="normal" title="時間">
                             <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <connections>
                             <action selector="clickedDiningTime:" destination="en4-Bw-HJu" eventType="touchUpInside" id="dM5-W2-yK5"/>
                         </connections>
                     </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qyU-RW-z5y">
+                        <rect key="frame" x="277" y="0.0" width="30" height="76.5"/>
+                        <state key="normal" image="next_Arrow"/>
+                        <connections>
+                            <action selector="clickedDiningTime:" destination="en4-Bw-HJu" eventType="touchUpInside" id="gIt-lW-ja4"/>
+                        </connections>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bHz-JS-nEB">
+                        <rect key="frame" x="277" y="0.0" width="30" height="76.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="30" id="wyA-hN-KG2"/>
+                        </constraints>
+                        <state key="normal" image="24Cancel"/>
+                        <connections>
+                            <action selector="clickedDeleteTime:" destination="en4-Bw-HJu" eventType="touchUpInside" id="eqh-ld-LPE"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="qyU-RW-z5y" firstAttribute="leading" secondItem="bHz-JS-nEB" secondAttribute="leading" id="2Ee-EN-gVG"/>
                     <constraint firstItem="sOn-bM-aCg" firstAttribute="leading" secondItem="ZlS-E7-lWb" secondAttribute="leading" constant="20" id="Bmq-do-53w"/>
+                    <constraint firstItem="qyU-RW-z5y" firstAttribute="trailing" secondItem="bHz-JS-nEB" secondAttribute="trailing" id="E04-ql-dgr"/>
                     <constraint firstItem="a21-h1-yaP" firstAttribute="top" secondItem="eI5-z1-ruj" secondAttribute="bottom" id="G7M-BW-4jL"/>
                     <constraint firstItem="eI5-z1-ruj" firstAttribute="top" secondItem="ZlS-E7-lWb" secondAttribute="top" id="H7T-0S-eWF"/>
-                    <constraint firstAttribute="trailing" secondItem="eI5-z1-ruj" secondAttribute="trailing" constant="20" id="QwX-OF-8dR"/>
+                    <constraint firstAttribute="trailing" secondItem="eI5-z1-ruj" secondAttribute="trailing" constant="36" id="QwX-OF-8dR"/>
                     <constraint firstItem="eI5-z1-ruj" firstAttribute="leading" secondItem="a21-h1-yaP" secondAttribute="leading" id="SpD-y9-z6B"/>
+                    <constraint firstAttribute="bottom" secondItem="bHz-JS-nEB" secondAttribute="bottom" id="XT5-ko-fQk"/>
                     <constraint firstItem="sOn-bM-aCg" firstAttribute="top" secondItem="ZlS-E7-lWb" secondAttribute="top" constant="15" id="Y6l-Xb-dsa"/>
                     <constraint firstItem="a21-h1-yaP" firstAttribute="leading" secondItem="ZlS-E7-lWb" secondAttribute="leading" id="c9i-e5-1bf"/>
                     <constraint firstAttribute="bottom" secondItem="a21-h1-yaP" secondAttribute="bottom" id="ejP-gI-6IO"/>
+                    <constraint firstItem="qyU-RW-z5y" firstAttribute="top" secondItem="bHz-JS-nEB" secondAttribute="top" id="hcD-Nf-kAj"/>
+                    <constraint firstItem="bHz-JS-nEB" firstAttribute="top" secondItem="ZlS-E7-lWb" secondAttribute="top" id="jvp-W6-YDH"/>
                     <constraint firstItem="a21-h1-yaP" firstAttribute="top" secondItem="sOn-bM-aCg" secondAttribute="bottom" constant="15" id="mKW-43-1ji"/>
+                    <constraint firstItem="bHz-JS-nEB" firstAttribute="centerX" secondItem="eI5-z1-ruj" secondAttribute="trailing" constant="8" id="ooD-xV-qCS"/>
                     <constraint firstAttribute="trailing" secondItem="a21-h1-yaP" secondAttribute="trailing" id="qeF-4u-p8c"/>
+                    <constraint firstItem="qyU-RW-z5y" firstAttribute="bottom" secondItem="bHz-JS-nEB" secondAttribute="bottom" id="vqQ-30-TCd"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="deleteTimeButton" destination="bHz-JS-nEB" id="uvw-3T-lTz"/>
+                <outlet property="diningTimeArrowButton" destination="qyU-RW-z5y" id="eHX-dK-WSU"/>
                 <outlet property="diningTimeButton" destination="eI5-z1-ruj" id="p98-0J-NfT"/>
             </connections>
             <point key="canvasLocation" x="332.80000000000001" y="165.06746626686657"/>
         </tableViewCell>
     </objects>
     <resources>
+        <image name="24Cancel" width="16" height="16"/>
         <image name="next_Arrow" width="16" height="16"/>
     </resources>
 </document>
