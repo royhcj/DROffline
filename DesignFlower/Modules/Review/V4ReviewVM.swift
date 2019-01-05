@@ -66,7 +66,7 @@ class V4ReviewViewModel {
     
     setDirty(true)
     output?.refreshReview()
-    DispatchQueue.main.async { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
       self?.output?.scrollToDishReviewAtIndex(review.dishReviews.count - 1)
     }
   }
@@ -186,6 +186,7 @@ class V4ReviewViewModel {
     
     review?.dishReviews.remove(at: index)
     setDirty(true, forDishReview: dishReview)
+    output?.refreshReview()
   }
   
   typealias Output = V4ReviewViewModelOutput

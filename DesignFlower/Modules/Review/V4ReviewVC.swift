@@ -329,8 +329,7 @@ class V4ReviewVC: FlowedViewController,
       navigationItem.title = "編輯筆記" // TODO: 判斷 寫筆記 or 編輯筆記
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .plain, target: self, action: #selector(clickedCancel(_:)))
       self.navigationItem.rightBarButtonItems = [UIBarButtonItem.init(customView: saveButton)]
-      //navigationItem.rightBarButtonItem = UIBarButtonItem(title: "儲存", style: .plain, target: self, action: #selector(clickedSave(_:)))
-    } else {
+    } else { // if not dirty
       navigationItem.title = "檢視筆記"
       navigationItem.leftBarButtonItem = UIBarButtonItem(title: "返回", style: .plain, target: self, action: #selector(clickedCancel(_:)))
       navigationItem.rightBarButtonItems = [UIBarButtonItem(title: "分享", style: .plain, target: self, action: #selector(clickedShare(_:)))]
