@@ -3,6 +3,7 @@ PODS:
   - CameraManager (4.3.0)
   - CountryAndCity (0.1.7)
   - HTTPStatusCodes (3.1.2)
+  - IQKeyboardManagerSwift (6.2.0)
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
@@ -38,6 +39,7 @@ DEPENDENCIES:
   - CameraManager (~> 4.2)
   - CountryAndCity
   - HTTPStatusCodes (~> 3.1.1)
+  - IQKeyboardManagerSwift
   - Moya/RxSwift
   - PromiseKit/Alamofire
   - RealmSwift
@@ -54,6 +56,7 @@ SPEC CHECKSUMS:
   CameraManager: 607b60ad5c84bfa481ebf82eb4cd77a8d1f0bc39
   CountryAndCity: 9456fa93940a58ca261bef96bed3c4aece4f9de1
   HTTPStatusCodes: 88155ba36826366a898a7b4f34d311f49083d546
+  IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   PromiseKit: 453ddcc947fe7b302f3ef41882b81d31c554df7f
   Realm: cdaef23c4ddb36ab1ddffed23f5a7f3332fc5585
@@ -69,6 +72,6 @@ SPEC CHECKSUMS:
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
   YCRateView: 2d9d6b151616d5186dc253681b76fb7ef76e2840
 
-PODFILE CHECKSUM: de26067c078b3ba9ab29beb3ad4a3892d41b5632
+PODFILE CHECKSUM: d171284a90ce1b8e904678c5681203a6bed139f6
 
 COCOAPODS: 1.4.0

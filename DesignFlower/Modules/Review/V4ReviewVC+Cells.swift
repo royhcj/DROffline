@@ -27,16 +27,27 @@ class V4Review_DiningTimeCell: V4ReviewVC.CommonCell {
   
   func configure(with review: KVORestReviewV4?) {
     var title: String
+    var textColor: UIColor
+    var icon: UIImage?
     
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy/MM/dd HH:mm >"
     if let date = review?.eatingDate {
+      let formatter = DateFormatter()
+      formatter.dateFormat = "yyyy/MM/dd HH:mm"
       title = formatter.string(from: date)
+      textColor = UIColor.lightGray
+      icon = #imageLiteral(resourceName: "24Cancel")
     } else {
-      title = "選擇用餐時間 >"
+      title = "不顯示"
+      textColor = UIColor(hex: "333333")
+      icon = #imageLiteral(resourceName: "next_Arrow")
     }
     
     diningTimeButton.setTitle(title, for: .normal)
+    diningTimeButton.tintColor = textColor
+    diningTimeButton.setImage(icon, for: .normal)
+  }
+  @IBAction func clickedDiningTime(_ sender: Any) {
+    delegate?.pickDiningTime()
   }
 }
 
@@ -330,6 +341,8 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func changePriceRank(_ rank: Float)
   func changeServiceRank(_ rank: Float)
   func changeEnvironmentRank(_ rank: Float)
+  func changeDiningTime(_ date: Date?)
+  func pickDiningTime()
   
   // Dish Review Related
   func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?)

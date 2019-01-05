@@ -46,6 +46,9 @@ target 'DesignFlower' do
   # Rate View
   pod 'YCRateView'
   
+  # IQ Keyboard Manager
+  pod 'IQKeyboardManagerSwift'
+  
 end
 
 post_install do |installer|

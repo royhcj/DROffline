@@ -142,6 +142,12 @@ class V4ReviewViewModel {
     setDirty(true)
   }
   
+  func changeDiningTime(_ date: Date?) {
+    review?.eatingDate = date
+    setDirty(true)
+    output?.refreshReview()
+  }
+  
   func clearScratch() {
     if let oldReviewUUID = self.review?.uuid {
       print("deleting \(oldReviewUUID) TODO: ***")

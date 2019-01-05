@@ -209,5 +209,18 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
     chooseShareFlowController.prepare()
     chooseShareFlowController.start()
   }
+  
+  func showDiningTimePicker(initailDate: Date?) {
+    let picker = V4CustomDatePickerVC.make(initDate: initailDate) { [weak self] date in
+      if date == Date(timeIntervalSince1970: 0) {
+        self?.reviewVC?.resetDiningTime()
+      } else {
+        self?.reviewVC?.changeDiningTime(date)
+      }
+    }
+    
+    picker.modalPresentationStyle = .overFullScreen
+    reviewVC?.present(picker, animated: true, completion: nil)
+  }
 
 }

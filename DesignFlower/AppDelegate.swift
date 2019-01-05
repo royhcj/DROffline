@@ -8,6 +8,7 @@
 
 import UIKit
 import RealmSwift
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -51,6 +52,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     } else {
       print("token: \(String(describing: UserDefaults.standard.value(forKey: "token")!))")
     }
+    
+    IQKeyboardManager.shared.enable = true
+    
     return true
   }
   

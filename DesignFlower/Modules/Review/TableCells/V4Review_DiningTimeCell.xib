@@ -10,42 +10,57 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="DiningTime" rowHeight="40" id="BaL-sE-7tf" customClass="V4Review_DiningTimeCell" customModule="DesignFlower" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="40"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DiningTime" rowHeight="77" id="en4-Bw-HJu" customClass="V4Review_DiningTimeCell" customModule="DesignFlower" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="77"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="BaL-sE-7tf" id="jwr-sF-c2H">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="39.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="en4-Bw-HJu" id="ZlS-E7-lWb">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="76.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="hJt-W6-XNt">
-                        <rect key="frame" x="16" y="0.0" width="343" height="39.5"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用餐時間:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aRY-cc-95F">
-                                <rect key="frame" x="0.0" y="0.0" width="74" height="39.5"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Upc-NQ-JoZ">
-                                <rect key="frame" x="211" y="0.0" width="132" height="39.5"/>
-                                <state key="normal" title="2018/11/28 18:23 &gt;"/>
-                            </button>
-                        </subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a21-h1-yaP">
+                        <rect key="frame" x="0.0" y="75.5" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.7843137255" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="39.5" id="qqo-Tv-Ipg"/>
+                            <constraint firstAttribute="height" constant="1" id="MJr-gw-dUN"/>
                         </constraints>
-                    </stackView>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用餐時間" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sOn-bM-aCg">
+                        <rect key="frame" x="20" y="15" width="64" height="45.5"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Medium" family="PingFang TC" pointSize="16"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eI5-z1-ruj">
+                        <rect key="frame" x="0.0" y="0.0" width="300" height="75.5"/>
+                        <fontDescription key="fontDescription" name="PingFangTC-Light" family="PingFang TC" pointSize="16"/>
+                        <inset key="titleEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
+                        <state key="normal" title="時間" image="next_Arrow">
+                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="clickedDiningTime:" destination="en4-Bw-HJu" eventType="touchUpInside" id="dM5-W2-yK5"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="hJt-W6-XNt" firstAttribute="leading" secondItem="jwr-sF-c2H" secondAttribute="leading" constant="16" id="HZ7-dr-Ek9"/>
-                    <constraint firstAttribute="bottom" secondItem="hJt-W6-XNt" secondAttribute="bottom" id="N22-az-bpH"/>
-                    <constraint firstAttribute="trailing" secondItem="hJt-W6-XNt" secondAttribute="trailing" constant="16" id="Z4r-Vn-ecB"/>
-                    <constraint firstItem="hJt-W6-XNt" firstAttribute="top" secondItem="jwr-sF-c2H" secondAttribute="top" id="xX1-vN-tJ9"/>
+                    <constraint firstItem="sOn-bM-aCg" firstAttribute="leading" secondItem="ZlS-E7-lWb" secondAttribute="leading" constant="20" id="Bmq-do-53w"/>
+                    <constraint firstItem="a21-h1-yaP" firstAttribute="top" secondItem="eI5-z1-ruj" secondAttribute="bottom" id="G7M-BW-4jL"/>
+                    <constraint firstItem="eI5-z1-ruj" firstAttribute="top" secondItem="ZlS-E7-lWb" secondAttribute="top" id="H7T-0S-eWF"/>
+                    <constraint firstAttribute="trailing" secondItem="eI5-z1-ruj" secondAttribute="trailing" constant="20" id="QwX-OF-8dR"/>
+                    <constraint firstItem="eI5-z1-ruj" firstAttribute="leading" secondItem="a21-h1-yaP" secondAttribute="leading" id="SpD-y9-z6B"/>
+                    <constraint firstItem="sOn-bM-aCg" firstAttribute="top" secondItem="ZlS-E7-lWb" secondAttribute="top" constant="15" id="Y6l-Xb-dsa"/>
+                    <constraint firstItem="a21-h1-yaP" firstAttribute="leading" secondItem="ZlS-E7-lWb" secondAttribute="leading" id="c9i-e5-1bf"/>
+                    <constraint firstAttribute="bottom" secondItem="a21-h1-yaP" secondAttribute="bottom" id="ejP-gI-6IO"/>
+                    <constraint firstItem="a21-h1-yaP" firstAttribute="top" secondItem="sOn-bM-aCg" secondAttribute="bottom" constant="15" id="mKW-43-1ji"/>
+                    <constraint firstAttribute="trailing" secondItem="a21-h1-yaP" secondAttribute="trailing" id="qeF-4u-p8c"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="diningTimeButton" destination="Upc-NQ-JoZ" id="zge-JZ-HFR"/>
+                <outlet property="diningTimeButton" destination="eI5-z1-ruj" id="p98-0J-NfT"/>
             </connections>
+            <point key="canvasLocation" x="332.80000000000001" y="165.06746626686657"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="next_Arrow" width="16" height="16"/>
+    </resources>
 </document>

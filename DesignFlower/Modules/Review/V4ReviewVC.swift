@@ -231,6 +231,20 @@ class V4ReviewVC: FlowedViewController,
     viewModel?.changeEnvironmentRank(rank)
   }
   
+  func changeDiningTime(_ date: Date?) {
+    viewModel?.changeDiningTime(date)
+  }
+  
+  func resetDiningTime() {
+    let resetDate = viewModel?.review?.createDate
+    viewModel?.changeDiningTime(resetDate)
+  }
+  
+  func pickDiningTime() {
+    let diningTime = viewModel?.review?.eatingDate
+    flowDelegate?.showDiningTimePicker(initailDate: diningTime)
+  }
+  
   func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?) {
     viewModel?.changeDishReviewDish(for: dishReviewUUID, name: name, dishID: dishID)
   }
@@ -238,8 +252,10 @@ class V4ReviewVC: FlowedViewController,
   func changeDishReviewComment(for dishReviewUUID: String, comment: String) {
     viewModel?.changeDishReviewComment(for: dishReviewUUID, comment: comment)
     
+    UIView.setAnimationsEnabled(false)
     tableView.beginUpdates()
     tableView.endUpdates()
+    UIView.setAnimationsEnabled(true)
   }
   
   func changeDishReviewRank(for dishReviewUUID: String, rank: Float) {
@@ -370,4 +386,5 @@ protocol V4ReviewVCFlowDelegate {
   func leave()
   func showShare(originalReviewUUID: String)
   func showChooseShare(originalReviewUUID: String)
+  func showDiningTimePicker(initailDate: Date?)
 }
