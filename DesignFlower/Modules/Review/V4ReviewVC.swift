@@ -242,7 +242,16 @@ class V4ReviewVC: FlowedViewController,
   
   func pickDiningTime() {
     let diningTime = viewModel?.review?.eatingDate
-    flowDelegate?.showDiningTimePicker(initailDate: diningTime)
+    let picker = V4CustomDatePickerVC.make(initDate: diningTime) { [weak self] date in
+      if date == Date(timeIntervalSince1970: 0) {
+        self?.resetDiningTime()
+      } else {
+        self?.changeDiningTime(date)
+      }
+    }
+    
+    picker.modalPresentationStyle = .overFullScreen
+    present(picker, animated: true, completion: nil)
   }
   
   func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?) {
@@ -386,5 +395,4 @@ protocol V4ReviewVCFlowDelegate {
   func leave()
   func showShare(originalReviewUUID: String)
   func showChooseShare(originalReviewUUID: String)
-  func showDiningTimePicker(initailDate: Date?)
 }
