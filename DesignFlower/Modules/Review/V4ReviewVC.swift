@@ -254,6 +254,23 @@ class V4ReviewVC: FlowedViewController,
     present(picker, animated: true, completion: nil)
   }
   
+  func findShare() {
+    
+  }
+  
+  func deleteReview() {
+    let alert: UIAlertController = {
+      let alert = UIAlertController(title: "刪除整則筆記", message: nil, preferredStyle: .alert)
+      alert.addAction(UIAlertAction(title: "刪除", style: .destructive, handler: { [weak self] _ in
+        self?.viewModel?.deleteReview()
+        self?.leave()
+      }))
+      alert.addAction(UIAlertAction(title: "取消", style: .cancel, handler: nil))
+      return alert
+    }()
+    present(alert, animated: true, completion: nil)
+  }
+  
   func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?) {
     viewModel?.changeDishReviewDish(for: dishReviewUUID, name: name, dishID: dishID)
   }

@@ -156,6 +156,13 @@ class V4ReviewViewModel {
     output?.refreshReview()
   }
   
+  func deleteReview() {
+    if let oldReviewUUID = self.review?.uuid {
+      RLMServiceV4.shared.delete(reviewUUID: oldReviewUUID)
+    }
+    review = nil
+  }
+  
   func clearScratch() {
     if let oldReviewUUID = self.review?.uuid {
       print("deleting \(oldReviewUUID) TODO: ***")

@@ -213,6 +213,18 @@ class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextView
 
 class V4Review_DeleteCell: V4ReviewVC.CommonCell {
 
+  
+  @IBOutlet weak var findShareContainer: UIView!
+  
+  @IBOutlet weak var deleteReviewContainer: UIView!
+  
+  @IBAction func clickedFindShare(_ sender: Any) {
+    delegate?.findShare()
+  }
+  
+  @IBAction func clickedDeleteReview(_ sender: Any) {
+    delegate?.deleteReview()
+  }
 }
 
 class V4Review_CommonCell: UITableViewCell {
@@ -351,6 +363,8 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func changeEnvironmentRank(_ rank: Float)
   func changeDiningTime(_ date: Date?)
   func pickDiningTime()
+  func findShare()
+  func deleteReview()
   
   // Dish Review Related
   func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?)

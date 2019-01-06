@@ -1,37 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Delete" id="luA-Uf-3M4" customClass="V4Review_DeleteCell" customModule="DesignFlower" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Delete" rowHeight="221" id="ElC-t8-2C9" customClass="V4Review_DeleteCell" customModule="DesignFlower" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="221"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="luA-Uf-3M4" id="MwI-Tv-Xll">
-                <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ElC-t8-2C9" id="40c-uk-FVC">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="220.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t7Q-Wk-zNm">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="43.5" id="hR9-li-8Yk"/>
-                        </constraints>
-                        <state key="normal" title="刪除筆記"/>
-                    </button>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="Gat-Ak-57d">
+                        <rect key="frame" x="117.5" y="30" width="140" height="50"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ztD-OG-Dpi" userLabel="FindShareContainer">
+                                <rect key="frame" x="0.0" y="0.0" width="140" height="32"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QYJ-Fx-ffS">
+                                        <rect key="frame" x="25" y="-0.5" width="90" height="33"/>
+                                        <fontDescription key="fontDescription" name="PingFangTC-Medium" family="PingFang TC" pointSize="15"/>
+                                        <state key="normal" title="查看分享紀錄">
+                                            <color key="titleColor" red="0.72941176470000002" green="0.56078431370000004" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="clickedFindShare:" destination="ElC-t8-2C9" eventType="touchUpInside" id="5rI-3g-Dz7"/>
+                                            <action selector="clickedFindShare:" destination="-2" eventType="touchUpInside" id="bQc-hi-hjg"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="QYJ-Fx-ffS" firstAttribute="centerY" secondItem="ztD-OG-Dpi" secondAttribute="centerY" id="D0Z-M5-xzO"/>
+                                    <constraint firstItem="QYJ-Fx-ffS" firstAttribute="centerX" secondItem="ztD-OG-Dpi" secondAttribute="centerX" id="LgI-rp-soB"/>
+                                    <constraint firstAttribute="height" constant="32" id="OEP-Bt-UEt"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.20000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g96-4S-ldi" userLabel="DeleteContainer">
+                                <rect key="frame" x="0.0" y="0.0" width="140" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BNY-Ku-C3B">
+                                        <rect key="frame" x="25" y="8.5" width="90" height="33"/>
+                                        <fontDescription key="fontDescription" name="PingFangTC-Medium" family="PingFang TC" pointSize="15"/>
+                                        <state key="normal" title="刪除整篇筆記">
+                                            <color key="titleColor" red="0.51764705879999995" green="0.1176470588" blue="0.25882352939999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                                <color key="value" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="clickedDeleteReview:" destination="ElC-t8-2C9" eventType="touchUpInside" id="hZX-KD-u64"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="32" id="Bk1-sj-THM"/>
+                                    <constraint firstItem="BNY-Ku-C3B" firstAttribute="centerX" secondItem="g96-4S-ldi" secondAttribute="centerX" id="Kka-Zu-Blw"/>
+                                    <constraint firstItem="BNY-Ku-C3B" firstAttribute="centerY" secondItem="g96-4S-ldi" secondAttribute="centerY" id="Y5q-vb-bCa"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowRadius">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="shadowOpacity">
+                                        <real key="value" value="0.20000000000000001"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="size" keyPath="shadowOffset">
+                                        <size key="value" width="0.0" height="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                    </stackView>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottom" secondItem="t7Q-Wk-zNm" secondAttribute="bottom" id="1O1-er-U1L"/>
-                    <constraint firstAttribute="trailing" secondItem="t7Q-Wk-zNm" secondAttribute="trailing" id="5HA-lt-vQM"/>
-                    <constraint firstItem="t7Q-Wk-zNm" firstAttribute="leading" secondItem="MwI-Tv-Xll" secondAttribute="leading" id="6VL-qr-zsU"/>
-                    <constraint firstItem="t7Q-Wk-zNm" firstAttribute="top" secondItem="MwI-Tv-Xll" secondAttribute="top" id="6YH-qH-cMv"/>
+                    <constraint firstAttribute="bottom" secondItem="Gat-Ak-57d" secondAttribute="bottom" constant="90" id="4Sz-ek-MQq"/>
+                    <constraint firstItem="Gat-Ak-57d" firstAttribute="centerX" secondItem="40c-uk-FVC" secondAttribute="centerX" id="C8q-si-HPs"/>
+                    <constraint firstItem="Gat-Ak-57d" firstAttribute="top" secondItem="40c-uk-FVC" secondAttribute="top" constant="30" id="Kxm-Ps-OPu"/>
+                    <constraint firstItem="Gat-Ak-57d" firstAttribute="width" secondItem="40c-uk-FVC" secondAttribute="width" multiplier="140:375" id="Z7I-MD-8nO"/>
                 </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="deleteReviewContainer" destination="g96-4S-ldi" id="f9D-fK-Bz6"/>
+                <outlet property="findShareContainer" destination="ztD-OG-Dpi" id="dy9-vg-G2r"/>
+            </connections>
+            <point key="canvasLocation" x="-130.40000000000001" y="228.03598200899552"/>
         </tableViewCell>
     </objects>
 </document>
