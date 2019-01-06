@@ -60,8 +60,8 @@ class V4ReviewVC: FlowedViewController,
   }
   
   // MARK: - ► IB Action
-  @IBAction func clickedAddDishReview(_ sender: Any) {
-    viewModel?.addDishReview()
+  @IBAction func clickedAddDishReviewWithPhoto(_ sender: Any) {
+    flowDelegate?.showAddDishReviewWithPhoto()
   }
   
   @objc func clickedCancel(_ sender: Any) {
@@ -368,8 +368,8 @@ class V4ReviewVC: FlowedViewController,
   
   func scrollToDishReviewAtIndex(_ index: Int) {
     let indexPath = IndexPath(row: index, section: tableSectionIndex(.dishReviews))
-    guard indexPath.section < tableView.numberOfSections,
-          indexPath.row < tableView.numberOfRows(inSection: indexPath.section)
+    guard UInt(indexPath.section) < tableView.numberOfSections,
+          UInt(indexPath.row) < tableView.numberOfRows(inSection: indexPath.section)
     else { return }
     
     tableView.scrollToRow(at: indexPath, at: .none, animated: true)
@@ -395,4 +395,5 @@ protocol V4ReviewVCFlowDelegate {
   func leave()
   func showShare(originalReviewUUID: String)
   func showChooseShare(originalReviewUUID: String)
+  func showAddDishReviewWithPhoto()
 }

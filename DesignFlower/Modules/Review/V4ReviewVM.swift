@@ -72,10 +72,12 @@ class V4ReviewViewModel {
   }
   
   func addDishReviews(with assets: [PHAsset]) {
+    guard let review = review else { return }
+    
     for asset in assets {
       let dishReview = KVODishReviewV4(uuid: nil)
       
-      review?.dishReviews.append(dishReview)
+      review.dishReviews.append(dishReview)
       
       V4PhotoService.shared.createKVOImage(with: asset) { [weak self] image in
         guard let image = image
@@ -84,6 +86,12 @@ class V4ReviewViewModel {
         dishReview.images.append(image)
 
         self?.output?.refreshReview()
+        
+        if asset == assets.last {
+          DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            self?.output?.scrollToDishReviewAtIndex(review.dishReviews.count - 1)
+          }
+        }
       }
     }
     setDirty(!assets.isEmpty)

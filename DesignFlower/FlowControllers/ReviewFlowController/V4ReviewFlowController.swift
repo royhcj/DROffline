@@ -209,5 +209,9 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
     chooseShareFlowController.prepare()
     chooseShareFlowController.start()
   }
+  
+  func showAddDishReviewWithPhoto() {
+    showPhotoPicker(.addMorePhotos)
+  }
 
 }

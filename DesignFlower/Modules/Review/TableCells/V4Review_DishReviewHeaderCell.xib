@@ -38,7 +38,7 @@
                             </userDefinedRuntimeAttribute>
                         </userDefinedRuntimeAttributes>
                         <connections>
-                            <action selector="clickedAddDishReview:" destination="-2" eventType="touchUpInside" id="r73-0D-0hA"/>
+                            <action selector="clickedAddDishReview:" destination="fei-7X-p71" eventType="touchUpInside" id="7Rf-dx-Jpv"/>
                         </connections>
                     </button>
                 </subviews>
