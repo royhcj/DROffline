@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import YCRateView
+import TableViewDragger
 
 class V4ReviewVC: FlowedViewController,
                   UITableViewDataSource,
@@ -21,6 +22,7 @@ class V4ReviewVC: FlowedViewController,
   var viewModel: V4ReviewViewModel?
   
   @IBOutlet var tableView: UITableView!
+  var tableViewDragger: TableViewDragger?
  
   // MARK: - ► Object lifecycle
   
@@ -42,6 +44,9 @@ class V4ReviewVC: FlowedViewController,
     
     // Register Table Cells
     registerTableCells()
+    
+    // Initialize Table Dragger
+    setupTableViewDragger()
     
     // Configure Navigation Bar
     configureNavigationController()
@@ -407,6 +412,39 @@ class V4ReviewVC: FlowedViewController,
 }
 
 
+// MARK: - TableViewDragger DataSource/Delegate
+extension V4ReviewVC: TableViewDraggerDataSource,
+TableViewDraggerDelegate {
+  
+  func setupTableViewDragger() {
+    tableViewDragger = {
+      let dragger = TableViewDragger(tableView: tableView)
+      dragger.availableHorizontalScroll = false
+      dragger.dataSource = self
+      dragger.delegate = self
+      dragger.alphaForCell = 0.7
+      return dragger
+    }()
+  }
+  
+  func dragger(_ dragger: TableViewDragger, moveDraggingAt indexPath: IndexPath, newIndexPath: IndexPath) -> Bool {
+    guard tableSectionType(indexPath.section) == .dishReviews,
+          tableSectionType(newIndexPath.section) == .dishReviews
+    else { return false }
+    
+    let result = viewModel?.reorderDishReview(from: indexPath.row,
+                                              to: newIndexPath.row)
+  
+    if result == true {
+      tableView.moveRow(at: indexPath, to: newIndexPath)
+    }
+    
+    return result ?? false
+  }
+  
+}
+
+// MARK: -
 protocol V4ReviewVCFlowDelegate {
   func answerContinueLastUnsavedReview(_ yesOrNo: Bool)
   func leave()

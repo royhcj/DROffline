@@ -25,7 +25,7 @@
                                     <outlet property="delegate" destination="gsQ-WV-xd4" id="gZJ-nV-cII"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oog-Qq-GSO">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oog-Qq-GSO" userLabel="AddPhotoDishReview">
                                 <rect key="frame" x="305" y="607" width="60" height="60"/>
                                 <state key="normal" image="Add"/>
                                 <connections>

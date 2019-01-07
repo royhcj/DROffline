@@ -15,10 +15,14 @@ class V4ReviewViewModel {
   
   var review: KVORestReviewV4? {
                 didSet {
+                  // 清除observer
+                  if observe != nil {
+                    observe?.cancelObserve()
+                    observe = nil
+                  }
+                  // 製造observer
                   if let review = review {
                     observe = RestReviewObserve(object: review)
-                  } else {
-                    observe = nil
                   }
                 }
               }
@@ -196,6 +200,21 @@ class V4ReviewViewModel {
     
     dishReview.rank = String(format: "%.1f", rank)
     setDirty(true, forDishReview: dishReview)
+  }
+  
+  func reorderDishReview(from indexA: Int, to indexB: Int) -> Bool {
+    guard let review = review,
+          UInt(indexA) < review.dishReviews.count,
+          UInt(indexB) < review.dishReviews.count
+    else { return false}
+    
+    let dishReview = review.dishReviews[indexA]
+    review.dishReviews.remove(at: indexA)
+    review.dishReviews.insert(dishReview, at: indexB)
+    
+    setDirty(true)
+    
+    return true
   }
   
   func deleteDishReview(for dishReviewUUID: String) {

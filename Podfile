@@ -49,6 +49,9 @@ target 'DesignFlower' do
   # IQ Keyboard Manager
   pod 'IQKeyboardManagerSwift'
   
+  # Table View Dragger
+  pod 'TableViewDragger'
+  
 end
 
 post_install do |installer|

@@ -33,6 +33,7 @@ PODS:
   - SwiftLocation (3.2.3):
     - SwiftyJSON (~> 4.0.0-alpha.1)
   - SwiftyJSON (4.0.0)
+  - TableViewDragger (1.3.0)
   - YCRateView (1.1.9)
 
 DEPENDENCIES:
@@ -49,6 +50,7 @@ DEPENDENCIES:
   - SnapKit (~> 4.0.0)
   - SVProgressHUD
   - SwiftLocation (~> 3.2.3)
+  - TableViewDragger
   - YCRateView
 
 SPEC CHECKSUMS:
@@ -70,8 +72,9 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftLocation: a3c3bc2023118171ef3572188a31def94aa0892c
   SwiftyJSON: 070dabdcb1beb81b247c65ffa3a79dbbfb3b48aa
+  TableViewDragger: 5933729a18d1606e16388d72f6d4fe5f3a0bcaf4
   YCRateView: 2d9d6b151616d5186dc253681b76fb7ef76e2840
 
-PODFILE CHECKSUM: d171284a90ce1b8e904678c5681203a6bed139f6
+PODFILE CHECKSUM: 1baf403edf86aa4d70f9eafd9da219c68899ebee
 
 COCOAPODS: 1.4.0
