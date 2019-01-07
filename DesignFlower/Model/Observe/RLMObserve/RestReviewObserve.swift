@@ -17,6 +17,8 @@ class RestReviewObserve: RLMObserveDelegate {
 
   private var dishObservers = [DishReviewObserve]()
   private var restObservers = [RestaurantObserve]()
+  
+  private weak var kvoObject: KVOType?
 
   required init(object: KVORestReviewV4) {
     bindRLM(uuid: object.uuid)
@@ -36,6 +38,8 @@ class RestReviewObserve: RLMObserveDelegate {
     guard let dbObject = self.dbObject else {
       return
     }
+    kvoObject = object
+    
     observers =
     [
       object.observe(\.serviceRank, options: [.initial, .old, .new]) { (restReview, change) in
@@ -145,21 +149,36 @@ class RestReviewObserve: RLMObserveDelegate {
     }
     let willBeAdded = Set(news).subtracting(Set(olds))
     let willBeDeleted = Set(olds).subtracting(Set(news))
+    
+    // 加入新的DishReview
     for dishReview in willBeAdded {
       RLMServiceV4.shared.create(from: dbObject, dishReview: dishReview)
       dishObservers.append(DishReviewObserve.init(object: dishReview))
     }
+    // 刪除多出來的dishReview
     for dishReview in willBeDeleted {
+      // 刪除該dishReview的observer
       let dishObserveIndex = dishObservers.index(where: {
           $0.dbObject?.uuid == dishReview.uuid
         })
       if let dishObserveIndex = dishObserveIndex{
         dishObservers[dishObserveIndex].cancelObserve()
         dishObservers.remove(at: dishObserveIndex)
-        print("test")
       }
       RLMServiceV4.shared.delete(dishReviewUUID: dishReview.uuid)
     }
+    
+    // Reorder
+    guard let kvoObject = kvoObject
+    else { return }
+    
+    for (index, dishReview) in kvoObject.dishReviews.enumerated() {
+      if index != dishReview.order {
+        dishReview.order = index
+      }
+    }
+    
+    RLMServiceV4.shared.sortDishReviewsByOrder(for: dbObject)
   }
 
   deinit {

@@ -217,25 +217,35 @@ internal class RLMServiceV4 {
        print("RLMServiceV4 file's no.15 func error")
     }
   }
+  
+  // no.15-1
+  internal func sortDishReviewsByOrder(for restReview: RLMRestReviewV4) {
+    let needSort: Bool = {
+      for (index, dishReview) in restReview.dishReviews.enumerated() {
+        if dishReview.order.value != index {
+          return true
+        }
+      }
+      return false
+    }()
+    guard needSort else { return }
+    
+    do {
+      try realm.write {
+        restReview.dishReviews.sort {
+          $0.order.value ?? 0 < $1.order.value ?? 0
+        }
+      }
+    } catch {
+      print("RLMServiceV4 file's no. 15-1 func error")
+    }
+  }
 
   // no.16
   internal func getRestReview(uuid: String) -> RLMRestReviewV4? {
     let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
     let restReview = realm.objects(RLMRestReviewV4.self).filter(predicate).first
     return restReview
-    /*
-    do {
-      var restReview: RLMRestReviewV4?
-      try realm.write { // TODO: 應該不需要write?
-        let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
-        restReview = realm.objects(RLMRestReviewV4.self).filter(predicate).first
-      }
-      return restReview
-    } catch {
-      print("RLMServiceV4 file's no.16 func error")
-      return nil
-    }
-     */
   }
   
   // no. 17
