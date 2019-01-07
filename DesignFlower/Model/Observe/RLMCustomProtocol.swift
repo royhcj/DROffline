@@ -44,6 +44,7 @@ protocol RLMObserveDelegate: class {
   var observers: [NSKeyValueObservation] { get set }
   func bindRLM(uuid: String)
   func observe(object: KVOType)
+  func cancelObserve()
   init(object: KVOType)
 }
 
@@ -63,6 +64,13 @@ extension RLMObserveDelegate {
       return
     }
     self.dbObject = rlmObject
+  }
+  
+  /// 停止Observe
+  /// - 移除observe物件前須先移除observers以免物件無法被釋放。
+  /// - 如果有子obersers，應該撰寫此function，並取消子observers。
+  func cancelObserve() {
+    observers = []
   }
 }
 

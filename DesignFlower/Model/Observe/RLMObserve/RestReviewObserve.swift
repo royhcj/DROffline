@@ -22,6 +22,12 @@ class RestReviewObserve: RLMObserveDelegate {
     bindRLM(uuid: object.uuid)
     observe(object: object)
   }
+  
+  func cancelObserve() {
+    dishObservers.forEach { $0.cancelObserve() }
+    restObservers.forEach { $0.cancelObserve() }
+    observers = []
+  }
 
   /// 將變數全部加入observe，除了物件類型的變數
   ///
@@ -144,6 +150,14 @@ class RestReviewObserve: RLMObserveDelegate {
       dishObservers.append(DishReviewObserve.init(object: dishReview))
     }
     for dishReview in willBeDeleted {
+      let dishObserveIndex = dishObservers.index(where: {
+          $0.dbObject?.uuid == dishReview.uuid
+        })
+      if let dishObserveIndex = dishObserveIndex{
+        dishObservers[dishObserveIndex].cancelObserve()
+        dishObservers.remove(at: dishObserveIndex)
+        print("test")
+      }
       RLMServiceV4.shared.delete(dishReviewUUID: dishReview.uuid)
     }
   }

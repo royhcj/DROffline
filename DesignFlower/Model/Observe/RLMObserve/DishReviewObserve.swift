@@ -20,6 +20,12 @@ class DishReviewObserve: RLMObserveDelegate {
     bindRLM(uuid: object.uuid)
     observe(object: object)
   }
+  
+  func cancelObserve() {
+    imageObservers.forEach { $0.cancelObserve() }
+    dishObserves.forEach { $0.cancelObserve() }
+    observers = []
+  }
 
   internal func observe(object: KVODishReviewV4) {
     guard let dbObject = self.dbObject else {
