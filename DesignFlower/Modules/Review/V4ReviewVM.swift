@@ -208,10 +208,12 @@ class V4ReviewViewModel {
           UInt(indexB) < review.dishReviews.count
     else { return false}
     
-    let dishReview = review.dishReviews[indexA]
-    review.dishReviews.remove(at: indexA)
-    review.dishReviews.insert(dishReview, at: indexB)
-    
+    let orderA = review.dishReviews[indexA].order
+    review.dishReviews[indexA].order = review.dishReviews[indexB].order
+    review.dishReviews[indexB].order = orderA
+    review.dishReviews.sort {
+      $0.order < $1.order
+    }
     setDirty(true)
     
     return true
