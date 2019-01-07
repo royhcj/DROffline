@@ -51,6 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       AutoLogin.login()
     } else {
       print("token: \(String(describing: UserDefaults.standard.value(forKey: "token")!))")
+      RestList.getRestList(strat: nil, end: nil, paramaters: nil)
     }
     
     IQKeyboardManager.shared.enable = true
