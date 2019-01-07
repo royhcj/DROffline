@@ -13,6 +13,7 @@ extension RLMServiceV4 {
   // no.1
   internal func create(from restReview: RLMRestReviewV4, dishReview: KVODishReviewV4) {
     do {
+      var rlmNewDishReview: RLMDishReviewV4?
       try realm.write {
         let rlmDishReview = realm.create(RLMDishReviewV4.self)
         rlmDishReview.uuid = dishReview.uuid
@@ -25,6 +26,11 @@ extension RLMServiceV4 {
         rlmDishReview.isLike.value = dishReview.isLike
         rlmDishReview.order.value = dishReview.order
         restReview.dishReviews.append(rlmDishReview)
+        
+        rlmNewDishReview = rlmDishReview
+      }
+      
+      if let rlmDishReview = rlmNewDishReview {
         for kvoImage in dishReview.images {
           RLMServiceV4.shared.createRLMImage(in: rlmDishReview, kvoImage: kvoImage)
         }
@@ -32,6 +38,7 @@ extension RLMServiceV4 {
           RLMServiceV4.shared.createRLMDish(in: rlmDishReview, kvoDish: dish)
         }
       }
+
     } catch {
       print("RLMServiceV4+DihsReview file's no.1 func error")
     }
