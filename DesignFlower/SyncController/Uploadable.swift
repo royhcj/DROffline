@@ -72,6 +72,15 @@ extension Uploadable where Self: SubObject {
     return identification
   }
 
+  static func uploadInitial(collection: Results<Self>, callback: @escaping (Update) -> Void) {
+    var insertedObjects = [Syncable]()
+    collection.forEach({ (object) in
+      insertedObjects.append(object)
+    })
+    let update = Update(insertions: insertedObjects, modifications: [], deletedIds: [], type: Self.self)
+    callback(update)
+  }
+
   static func registerNotificationObserver(for realm: Realm,factory:  SyncServiceFactory = .addToQueue, callback: @escaping (Update) -> Void) -> NotificationToken {
     let objects = realm.objects(self)
     var objectIds: [Identification]!
@@ -84,12 +93,7 @@ extension Uploadable where Self: SubObject {
         case .addToQueue:
           break
         case .upload:
-          var insertedObjects = [Syncable]()
-          collection.forEach({ (object) in
-            insertedObjects.append(object)
-          })
-          let update = Update(insertions: insertedObjects, modifications: [], deletedIds: [], type: Self.self)
-          callback(update)
+          self.uploadInitial(collection: collection, callback: callback)
           break
         }
       case .update(let collection, let deletions, let insertions, let modifications):

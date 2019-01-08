@@ -9,7 +9,7 @@ import RealmSwift
 
 enum SyncServiceFactory {
   case upload
-  case addToQueue
+  case addToQueue //加入待上傳的Queue
 }
 
 class SyncService {

@@ -64,6 +64,7 @@ extension RLMServiceV4 {
         let predicate = NSPredicate.init(format: "uuid == '\(dishUUID)'")
         if let dish = realm.objects(RLMDishV4.self).filter(predicate).first {
           realm.delete(dish)
+
         }
       }
     } catch {

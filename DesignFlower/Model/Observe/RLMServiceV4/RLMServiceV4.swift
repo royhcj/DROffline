@@ -210,12 +210,52 @@ internal class RLMServiceV4 {
           predicate = NSPredicate.init(format: "uuid == '\(dishReviewUUID)'")
         }
         if let dishReview = realm.objects(RLMDishReviewV4.self).filter(predicate).first {
+
+          var uuids = [String]() //記錄刪除後關聯的image uuid
+          for image in dishReview.images {
+            if let uuid = image.uuid {
+              uuids.append(uuid)
+            }
+          }
+
           realm.delete(dishReview)
+
+          guard uuids.count > 0  else {
+            return
+          }
+          // 判斷是否有其他菜餚筆記使用，若無則刪除
+          uuids.forEach({ (uuid) in
+
+          guard self.isDishReviewContainImage(uuid: uuid) else {
+            if let image = RLMServiceV4.shared.getImage(uuid: uuid) {
+                realm.delete(image)
+              }
+            return
+            }
+            
+          })
         }
       }
     } catch {
        print("RLMServiceV4 file's no.15 func error")
     }
+  }
+
+  func isDishReviewContainImage(uuid: String) -> Bool {
+    let dishReviews = realm.objects(RLMDishReviewV4.self)
+    for (i, dishReview)in dishReviews.enumerated() {
+      if dishReview.images.contains(where: { (image) -> Bool in
+        return image.uuid == uuid
+      }) {
+        return true
+      } else {
+        if i == ( dishReviews.count - 1 ) {
+          return false
+        }
+        continue
+      }
+    }
+    return false
   }
   
   // no.15-1
