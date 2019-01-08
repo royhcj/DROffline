@@ -414,7 +414,7 @@ class V4ReviewVC: FlowedViewController,
 
 // MARK: - TableViewDragger DataSource/Delegate
 extension V4ReviewVC: TableViewDraggerDataSource,
-TableViewDraggerDelegate {
+                      TableViewDraggerDelegate {
   
   func setupTableViewDragger() {
     tableViewDragger = {
@@ -440,6 +440,10 @@ TableViewDraggerDelegate {
     }
     
     return result ?? false
+  }
+  
+  func dragger(_ dragger: TableViewDragger, shouldDragAt indexPath: IndexPath) -> Bool {
+    return tableSectionType(indexPath.section) == .dishReviews
   }
   
 }
