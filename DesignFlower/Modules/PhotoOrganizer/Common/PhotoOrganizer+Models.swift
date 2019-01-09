@@ -27,6 +27,7 @@ class PhotoOrganizer {
   enum ImageRepresentation {
     case image(_ image: UIImage?)
     case url(_ url: String?)
+    case localFile(_ path: String?)
     case phAsset(_ asset: PHAsset?)
   }
 }
@@ -60,6 +61,18 @@ extension PhotoOrganizer.ImageRepresentation {
                                              progressBlock: nil) {
           (image, error, cacheType, url) in
         completion(image)
+      }
+    case .localFile(let path):
+      guard let url = URL(string: path ?? "")
+      else { completion(nil); break }
+
+      do {
+        let data = try Data.init(contentsOf: url)
+        let image = UIImage.init(data: data, scale: 1)
+        completion(image)
+      } catch(let error) {
+        print(error)
+        completion(nil)
       }
     }
   }

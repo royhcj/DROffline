@@ -101,7 +101,7 @@ class DishPhotoOrganizerVC: UIViewController,
           }
           
           switch imageRepresentation {
-          case .image, .url:
+          case .image, .url, .localFile:
             self?.downloadButton.isEnabled = true
           case .phAsset:
             self?.downloadButton.isEnabled = false
@@ -125,11 +125,9 @@ class DishPhotoOrganizerVC: UIViewController,
         })
         
         switch imageRepresentation {
-        case .image(_):
+        case .image, .url, .localFile:
           self?.downloadButton.isEnabled = true
-        case .url(_):
-          self?.downloadButton.isEnabled = true
-        case .phAsset(_):
+        case .phAsset:
           self?.downloadButton.isEnabled = false
         }
       }).disposed(by: disposeBag)

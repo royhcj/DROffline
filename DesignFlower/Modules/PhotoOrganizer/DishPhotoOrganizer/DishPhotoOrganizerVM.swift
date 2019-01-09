@@ -106,7 +106,11 @@ class DishPhotoOrganizerVM: NSObject {
     }
 
 //    if let urlString = dishItem.value?.dishReview?.url {
-    if let urlString = dishItem.value?.dishReview?.images.first?.url {
+    
+    if let localName = dishItem.value?.dishReview?.images.first?.localName {
+      let url = KVOImageV4.localFolder.appendingPathComponent(localName)
+      return .localFile(url.absoluteString)
+    } else if let urlString = dishItem.value?.dishReview?.images.first?.url {
       return .url(urlString)
     }
     
