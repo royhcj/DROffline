@@ -305,6 +305,16 @@ class V4ReviewVC: FlowedViewController,
     viewModel?.addDishReview()
   }
   
+  func showPhotoOrganizer(for dishReviewUUID: String) {
+    guard let dishReviews = viewModel?.review?.dishReviews
+    else { return }
+    
+    let initialDisplayIndex = dishReviews.firstIndex(where: { $0.uuid == dishReviewUUID})
+    flowDelegate?.showPhotoOrganizer(dishReviewUUID: dishReviewUUID,
+                                     dishReviews: dishReviews,
+                                     initialDisplayIndex: initialDisplayIndex)
+  }
+  
   func toggleDishReviewSelection(dishReviewUUID: String) {
   }
   
@@ -455,4 +465,7 @@ protocol V4ReviewVCFlowDelegate {
   func showShare(originalReviewUUID: String)
   func showChooseShare(originalReviewUUID: String)
   func showAddDishReviewWithPhoto()
+  func showPhotoOrganizer(dishReviewUUID: String,
+                          dishReviews: [KVODishReviewV4],
+                          initialDisplayIndex: Int?)
 }

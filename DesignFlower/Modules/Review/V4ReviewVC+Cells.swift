@@ -135,6 +135,12 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell, UITextFieldDeleg
     delegate?.deleteDishReview(for: uuid)
   }
   
+  @IBAction func clickedImage(_ sender: Any) {
+    guard let uuid = dishReviewUUID else { return }
+    delegate?.showPhotoOrganizer(for: uuid)
+  }
+  
+  
   override func clickedSelectionButton(_ sender: Any) {
     guard let dishReviewUUID = dishReviewUUID else { return }
     delegate?.toggleDishReviewSelection(dishReviewUUID: dishReviewUUID)
@@ -373,6 +379,7 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func showMoreForDishReview(_ dishReviewUUID: String)
   func deleteDishReview(for dishReviewUUID: String)
   func addDishReview()
+  func showPhotoOrganizer(for dishReviewUUID: String)
   
   // Selection Related
   func toggleDishReviewSelection(dishReviewUUID: String)

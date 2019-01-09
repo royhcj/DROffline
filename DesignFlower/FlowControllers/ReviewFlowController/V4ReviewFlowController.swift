@@ -213,5 +213,32 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
   func showAddDishReviewWithPhoto() {
     showPhotoPicker(.addMorePhotos)
   }
+  
+  func showPhotoOrganizer(dishReviewUUID: String,
+                          dishReviews: [KVODishReviewV4],
+                          initialDisplayIndex: Int?) {
+    guard let reviewVC = reviewVC else { return }
+    
+    let displayContext = DisplayContext.present(vc: reviewVC,
+                                                animated: true,
+                                                style: .fullScreen)
+    let dishItems: [PhotoOrganizerVC.DishItem] = {
+      var items: [PhotoOrganizerVC.DishItem] = []
+      for (index, dishReview) in dishReviews.enumerated() {
+        let item = PhotoOrganizerVC.DishItem.init(dishReview: dishReview, itemIndex: index)
+        items.append(item)
+      }
+      return items
+    }()
+    
+    
+    let photoOrganizerFlowController
+          = V4PhotoOrganizerFlowController(sourceDisplayContext: displayContext,
+                                           initialDishItems: dishItems,
+                                           initialDisplayIndex: initialDisplayIndex)
+    addChild(flowController: photoOrganizerFlowController)
+    photoOrganizerFlowController.prepare()
+    photoOrganizerFlowController.start()
+  }
 
 }

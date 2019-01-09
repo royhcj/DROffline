@@ -3,7 +3,9 @@ PODS:
   - CameraManager (4.3.0)
   - CountryAndCity (0.1.7)
   - HTTPStatusCodes (3.1.2)
+  - iCarousel (1.8.3)
   - IQKeyboardManagerSwift (6.2.0)
+  - Kingfisher (4.8.1)
   - Moya/Core (12.0.1):
     - Alamofire (~> 4.1)
     - Result (~> 4.0)
@@ -40,7 +42,9 @@ DEPENDENCIES:
   - CameraManager (~> 4.2)
   - CountryAndCity
   - HTTPStatusCodes (~> 3.1.1)
+  - iCarousel
   - IQKeyboardManagerSwift
+  - Kingfisher (~> 4.8.0)
   - Moya/RxSwift
   - PromiseKit/Alamofire
   - RealmSwift
@@ -58,7 +62,9 @@ SPEC CHECKSUMS:
   CameraManager: 607b60ad5c84bfa481ebf82eb4cd77a8d1f0bc39
   CountryAndCity: 9456fa93940a58ca261bef96bed3c4aece4f9de1
   HTTPStatusCodes: 88155ba36826366a898a7b4f34d311f49083d546
+  iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
+  Kingfisher: 868c1149679a7ab6869be118faa9b5aed154aaf0
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   PromiseKit: 453ddcc947fe7b302f3ef41882b81d31c554df7f
   Realm: cdaef23c4ddb36ab1ddffed23f5a7f3332fc5585
@@ -75,6 +81,6 @@ SPEC CHECKSUMS:
   TableViewDragger: 5933729a18d1606e16388d72f6d4fe5f3a0bcaf4
   YCRateView: 2d9d6b151616d5186dc253681b76fb7ef76e2840
 
-PODFILE CHECKSUM: 1baf403edf86aa4d70f9eafd9da219c68899ebee
+PODFILE CHECKSUM: 9d16aacda9b2b770102dcdb07ca20b3201333dc8
 
 COCOAPODS: 1.4.0

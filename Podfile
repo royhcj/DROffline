@@ -52,6 +52,12 @@ target 'DesignFlower' do
   # Table View Dragger
   pod 'TableViewDragger'
   
+  # Kingfisher
+  pod 'Kingfisher', '~> 4.8.0'
+  
+  # 'iCarousel'
+  pod 'iCarousel'
+  
 end
 
 post_install do |installer|

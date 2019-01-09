@@ -117,6 +117,18 @@
 		B0A0AFB121C162CB005BE7AB /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AFAF21C162CB005BE7AB /* Media.swift */; };
 		B0A0AFB421C16305005BE7AB /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AFB221C16305005BE7AB /* Dish.swift */; };
 		B0F810E921E25C9100BEE91C /* V4Review_DeleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F810E821E25C9100BEE91C /* V4Review_DeleteCell.xib */; };
+		B0F810FA21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810EC21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift */; };
+		B0F810FB21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810ED21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift */; };
+		B0F810FC21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F810EE21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard */; };
+		B0F810FD21E4B60B00BEE91C /* PhotoOrganizerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810F021E4B60B00BEE91C /* PhotoOrganizerVC.swift */; };
+		B0F810FE21E4B60B00BEE91C /* PhotoOrganizer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F810F121E4B60B00BEE91C /* PhotoOrganizer.storyboard */; };
+		B0F810FF21E4B60B00BEE91C /* PhotoOrganizerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810F221E4B60B00BEE91C /* PhotoOrganizerVM.swift */; };
+		B0F8110021E4B60B00BEE91C /* PhotoOrganizer+Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810F421E4B60B00BEE91C /* PhotoOrganizer+Models.swift */; };
+		B0F8110121E4B60B00BEE91C /* PhotoOrganizer+DishModificationRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810F521E4B60B00BEE91C /* PhotoOrganizer+DishModificationRequest.swift */; };
+		B0F8110221E4B60B00BEE91C /* BaseToolVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810F721E4B60B00BEE91C /* BaseToolVC.swift */; };
+		B0F8110321E4B60B00BEE91C /* XformToolVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810F821E4B60B00BEE91C /* XformToolVC.swift */; };
+		B0F8110421E4B60B00BEE91C /* ImageEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810F921E4B60B00BEE91C /* ImageEditorViewController.swift */; };
+		B0F8110721E4CEE900BEE91C /* V4PhotoOrganizerFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F8110621E4CEE900BEE91C /* V4PhotoOrganizerFlowController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -233,6 +245,18 @@
 		B0A0AFAF21C162CB005BE7AB /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		B0A0AFB221C16305005BE7AB /* Dish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
 		B0F810E821E25C9100BEE91C /* V4Review_DeleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DeleteCell.xib; sourceTree = "<group>"; };
+		B0F810EC21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishPhotoOrganizerVM.swift; sourceTree = "<group>"; };
+		B0F810ED21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishPhotoOrganizerVC.swift; sourceTree = "<group>"; };
+		B0F810EE21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = DishPhotoOrganizer.storyboard; sourceTree = "<group>"; };
+		B0F810F021E4B60B00BEE91C /* PhotoOrganizerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoOrganizerVC.swift; sourceTree = "<group>"; };
+		B0F810F121E4B60B00BEE91C /* PhotoOrganizer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PhotoOrganizer.storyboard; sourceTree = "<group>"; };
+		B0F810F221E4B60B00BEE91C /* PhotoOrganizerVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoOrganizerVM.swift; sourceTree = "<group>"; };
+		B0F810F421E4B60B00BEE91C /* PhotoOrganizer+Models.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoOrganizer+Models.swift"; sourceTree = "<group>"; };
+		B0F810F521E4B60B00BEE91C /* PhotoOrganizer+DishModificationRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PhotoOrganizer+DishModificationRequest.swift"; sourceTree = "<group>"; };
+		B0F810F721E4B60B00BEE91C /* BaseToolVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseToolVC.swift; sourceTree = "<group>"; };
+		B0F810F821E4B60B00BEE91C /* XformToolVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = XformToolVC.swift; sourceTree = "<group>"; };
+		B0F810F921E4B60B00BEE91C /* ImageEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditorViewController.swift; sourceTree = "<group>"; };
+		B0F8110621E4CEE900BEE91C /* V4PhotoOrganizerFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4PhotoOrganizerFlowController.swift; sourceTree = "<group>"; };
 		C833031ED5861E5302BE059F /* Pods-DesignFlower.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DesignFlower.debug.xcconfig"; path = "Pods/Target Support Files/Pods-DesignFlower/Pods-DesignFlower.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -324,6 +348,7 @@
 				7219796521D3724A00FD6435 /* ChooseShare */,
 				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 				7287026021BF8FAE000E1116 /* RestaurantPicker */,
+				B0F810EA21E4B60B00BEE91C /* PhotoOrganizer */,
 			);
 			name = "(Modules)";
 			path = Modules;
@@ -516,6 +541,7 @@
 				7287025D21BF6EE8000E1116 /* RestaurantPickerFlowController */,
 				7219796D21D4750C00FD6435 /* ShareFlowController */,
 				7219797021DDF44900FD6435 /* ChooseShareFlowController */,
+				B0F8110521E4CEBF00BEE91C /* PhotoOrganizerFlowController */,
 			);
 			name = "(FlowControllers)";
 			path = FlowControllers;
@@ -620,6 +646,64 @@
 			path = AddRestaurant;
 			sourceTree = "<group>";
 		};
+		B0F810EA21E4B60B00BEE91C /* PhotoOrganizer */ = {
+			isa = PBXGroup;
+			children = (
+				B0F810EF21E4B60B00BEE91C /* Organizer */,
+				B0F810EB21E4B60B00BEE91C /* DishPhotoOrganizer */,
+				B0F810F321E4B60B00BEE91C /* Common */,
+				B0F810F621E4B60B00BEE91C /* ImageEditor */,
+			);
+			path = PhotoOrganizer;
+			sourceTree = "<group>";
+		};
+		B0F810EB21E4B60B00BEE91C /* DishPhotoOrganizer */ = {
+			isa = PBXGroup;
+			children = (
+				B0F810EC21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift */,
+				B0F810ED21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift */,
+				B0F810EE21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard */,
+			);
+			path = DishPhotoOrganizer;
+			sourceTree = "<group>";
+		};
+		B0F810EF21E4B60B00BEE91C /* Organizer */ = {
+			isa = PBXGroup;
+			children = (
+				B0F810F021E4B60B00BEE91C /* PhotoOrganizerVC.swift */,
+				B0F810F121E4B60B00BEE91C /* PhotoOrganizer.storyboard */,
+				B0F810F221E4B60B00BEE91C /* PhotoOrganizerVM.swift */,
+			);
+			path = Organizer;
+			sourceTree = "<group>";
+		};
+		B0F810F321E4B60B00BEE91C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B0F810F421E4B60B00BEE91C /* PhotoOrganizer+Models.swift */,
+				B0F810F521E4B60B00BEE91C /* PhotoOrganizer+DishModificationRequest.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B0F810F621E4B60B00BEE91C /* ImageEditor */ = {
+			isa = PBXGroup;
+			children = (
+				B0F810F721E4B60B00BEE91C /* BaseToolVC.swift */,
+				B0F810F821E4B60B00BEE91C /* XformToolVC.swift */,
+				B0F810F921E4B60B00BEE91C /* ImageEditorViewController.swift */,
+			);
+			path = ImageEditor;
+			sourceTree = "<group>";
+		};
+		B0F8110521E4CEBF00BEE91C /* PhotoOrganizerFlowController */ = {
+			isa = PBXGroup;
+			children = (
+				B0F8110621E4CEE900BEE91C /* V4PhotoOrganizerFlowController.swift */,
+			);
+			path = PhotoOrganizerFlowController;
+			sourceTree = "<group>";
+		};
 		D7052C4C933E4E5122EE0C41 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -699,6 +783,7 @@
 				7287027421BFB05A000E1116 /* NoteV3PhotoPicker.storyboard in Resources */,
 				7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell.xib in Resources */,
 				B0F810E921E25C9100BEE91C /* V4Review_DeleteCell.xib in Resources */,
+				B0F810FC21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard in Resources */,
 				72061D6D21AE8A950098FFFD /* Assets.xcassets in Resources */,
 				7287027021BFB05A000E1116 /* NoteV3Camera.storyboard in Resources */,
 				7219795921D3665B00FD6435 /* V4Review_DiningTimeCell.xib in Resources */,
@@ -709,6 +794,7 @@
 				7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */,
 				7219797821DDF88400FD6435 /* V4ChooseShare.storyboard in Resources */,
 				723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */,
+				B0F810FE21E4B60B00BEE91C /* PhotoOrganizer.storyboard in Resources */,
 				7219797C21E1060000FD6435 /* V4CustomDatePicker.xib in Resources */,
 				B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */,
 			);
@@ -772,6 +858,7 @@
 				"${BUILT_PRODUCTS_DIR}/CountryAndCity/CountryAndCity.framework",
 				"${BUILT_PRODUCTS_DIR}/HTTPStatusCodes/HTTPStatusCodes.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
@@ -787,6 +874,7 @@
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 				"${BUILT_PRODUCTS_DIR}/TableViewDragger/TableViewDragger.framework",
 				"${BUILT_PRODUCTS_DIR}/YCRateView/YCRateView.framework",
+				"${BUILT_PRODUCTS_DIR}/iCarousel/iCarousel.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -797,6 +885,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountryAndCity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HTTPStatusCodes.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
@@ -812,6 +901,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/TableViewDragger.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YCRateView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/iCarousel.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -833,7 +923,10 @@
 				B0A0AFAD21C15AE5005BE7AB /* Array+Extension.swift in Sources */,
 				6488430721DF507A00B7510C /* DishRankService.swift in Sources */,
 				72061D6821AE8A950098FFFD /* ViewController.swift in Sources */,
+				B0F8110321E4B60B00BEE91C /* XformToolVC.swift in Sources */,
 				7219797621DDF69B00FD6435 /* V4ChooseShareVM.swift in Sources */,
+				B0F810FB21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift in Sources */,
+				B0F8110021E4B60B00BEE91C /* PhotoOrganizer+Models.swift in Sources */,
 				723B1F8421B4D3AA00CF91F3 /* DisplayContext.swift in Sources */,
 				7219797421DDF68D00FD6435 /* V4ChooseShareVC.swift in Sources */,
 				B0A0AFA921C13BC2005BE7AB /* AddRestaurantVM.swift in Sources */,
@@ -853,16 +946,19 @@
 				B0A0AF9821C11095005BE7AB /* CustomSearchBar.swift in Sources */,
 				B0A0AFB121C162CB005BE7AB /* Media.swift in Sources */,
 				72061DAB21AFE0DA0098FFFD /* DishReviewObserve.swift in Sources */,
+				B0F8110121E4B60B00BEE91C /* PhotoOrganizer+DishModificationRequest.swift in Sources */,
 				72061DB421AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift in Sources */,
 				723B1F8C21B5081200CF91F3 /* V4ReviewFlows-AddNewPhoto.swift in Sources */,
 				B0A0AF9221C10ED2005BE7AB /* LocationService+Message.swift in Sources */,
 				72061DAA21AFE0DA0098FFFD /* ImageObserve.swift in Sources */,
 				72061D9A21AFDF080098FFFD /* KVODishReviewV4.swift in Sources */,
 				B0A0AF9321C10ED2005BE7AB /* LocationService.swift in Sources */,
+				B0F8110421E4B60B00BEE91C /* ImageEditorViewController.swift in Sources */,
 				723B1F9721B532E900CF91F3 /* V4PhotoPickerModule.swift in Sources */,
 				B0A0AF9E21C13972005BE7AB /* Restaurant.swift in Sources */,
 				64F5A98221E3060500237E4C /* RLMImageObserve.swift in Sources */,
 				B0A0AFA421C13AD3005BE7AB /* UIColor+Extension.swift in Sources */,
+				B0F810FD21E4B60B00BEE91C /* PhotoOrganizerVC.swift in Sources */,
 				72061D8621AFDD090098FFFD /* V4ReviewVM.swift in Sources */,
 				723B1F8621B4E30700CF91F3 /* V4ReviewFlows-WriteBegin.swift in Sources */,
 				7219797221DDF45B00FD6435 /* V4ChooseShareFlowController.swift in Sources */,
@@ -896,6 +992,8 @@
 				B0A0AFB021C162CB005BE7AB /* OpenHour.swift in Sources */,
 				7287026221BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift in Sources */,
 				648842FC21CDD9B700B7510C /* RLMServiceV4+Queue.swift in Sources */,
+				B0F8110721E4CEE900BEE91C /* V4PhotoOrganizerFlowController.swift in Sources */,
+				B0F810FA21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift in Sources */,
 				B0A0AF9721C11095005BE7AB /* CustomSearchController.swift in Sources */,
 				6488430B21DF528C00B7510C /* RestList.swift in Sources */,
 				B0A0AF9C21C11147005BE7AB /* UIImage+Extension.swift in Sources */,
@@ -908,9 +1006,11 @@
 				7287027121BFB05A000E1116 /* NoteV3PhotoLibrarySelectionViewController.swift in Sources */,
 				7287027921BFB734000E1116 /* PhotoSelectionViewController.swift in Sources */,
 				72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */,
+				B0F8110221E4B60B00BEE91C /* BaseToolVC.swift in Sources */,
 				723B1F7D21B4D03A00CF91F3 /* Flow.swift in Sources */,
 				72061D9921AFDF080098FFFD /* KVODishV4.swift in Sources */,
 				723B1F9D21B65E7900CF91F3 /* V4ReviewVC+Cells.swift in Sources */,
+				B0F810FF21E4B60B00BEE91C /* PhotoOrganizerVM.swift in Sources */,
 				72061D9221AFDF080098FFFD /* RLMDishV4.swift in Sources */,
 				723B1F9321B5246300CF91F3 /* V4PhotoPickerVC.swift in Sources */,
 			);
