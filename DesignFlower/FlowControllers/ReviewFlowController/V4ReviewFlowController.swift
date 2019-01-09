@@ -225,7 +225,8 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
     let dishItems: [PhotoOrganizerVC.DishItem] = {
       var items: [PhotoOrganizerVC.DishItem] = []
       for (index, dishReview) in dishReviews.enumerated() {
-        let item = PhotoOrganizerVC.DishItem.init(dishReview: dishReview, itemIndex: index)
+        let item = PhotoOrganizerVC.DishItem(dishReview: dishReview,
+                                             itemIndex: index)
         items.append(item)
       }
       return items

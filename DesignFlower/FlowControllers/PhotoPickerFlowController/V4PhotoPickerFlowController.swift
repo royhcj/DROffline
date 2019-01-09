@@ -53,11 +53,13 @@ class V4PhotoPickerFlowController: ViewBasedFlowController,
   func photoPickerVCPicked(assets: [PHAsset]) {
     delegate?.photoPicker(self, picked: assets, scenario: scenario)
     sourceDisplayContext.undisplay(photoPickerVC)
+    V4PhotoService.shared.deleteAllPhotoSelections()
   }
   
   func photoPickerVCDidCancel() {
     delegate?.photoPickerDidCancel(self)
     sourceDisplayContext.undisplay(photoPickerVC)
+    V4PhotoService.shared.deleteAllPhotoSelections()
   }
   
   // MARK: - Type Definitions
