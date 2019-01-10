@@ -36,8 +36,6 @@ class PhotoOrganizerVC: UIViewController,
   var deleteDishItem = PublishSubject<DishItem>()
   var undoLastDeletedDishItem = PublishSubject<Void>()
   
-  // Cross Module Communication
-  weak var modificationRequestDelegate: ModificationRequestDelegate?
   
   // MARK: - Object lifecycle
   static func make(flowDelegate: V4PhotoOrganizerVCFlowDelegate,
@@ -141,11 +139,8 @@ class PhotoOrganizerVC: UIViewController,
         }
         
         // 傳回所有更動
-        strongSelf.modificationRequestDelegate?
-          .photoOrganizer(self, requestDishModifications: requests)
-        
-        // 關閉
-        strongSelf.dismiss(animated: true, completion: nil)
+        strongSelf.flowDelegate?
+            .photoOrganizer(self, requestDishModifications: requests)
       }).disposed(by: disposeBag)
     
     leftPageButton.rx.tap
@@ -264,14 +259,9 @@ class PhotoOrganizerVC: UIViewController,
   // MARK: - Type Definitions
   typealias DishItem = PhotoOrganizer.DishItem
   typealias DishModificationRequest = PhotoOrganizer.DishModificationRequest
-  typealias ModificationRequestDelegate = PhotoOrganizerModificationRequestDelegate
-}
-
-
-protocol PhotoOrganizerModificationRequestDelegate: class {
-  func photoOrganizer(_ sender: PhotoOrganizerVC?,
-          requestDishModifications:[PhotoOrganizer.DishModificationRequest])
 }
 
 protocol V4PhotoOrganizerVCFlowDelegate: class {
+  func photoOrganizer(_ sender: PhotoOrganizerVC?,
+                      requestDishModifications:[PhotoOrganizer.DishModificationRequest])
 }

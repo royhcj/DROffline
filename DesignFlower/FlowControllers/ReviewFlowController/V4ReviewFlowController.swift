@@ -240,6 +240,65 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
     addChild(flowController: photoOrganizerFlowController)
     photoOrganizerFlowController.prepare()
     photoOrganizerFlowController.start()
+    
+    photoOrganizerFlowController.requestModifications = photoOrganizer(requestModifications:)
+  }
+  
+  func photoOrganizer(requestModifications requests: [PhotoOrganizerVC.DishModificationRequest]) {
+    for request in requests {
+      guard let itemIndex = request.itemIndex,
+            let review = reviewVC?.viewModel?.review,
+            itemIndex < review.dishReviews.count
+      else { continue }
+
+      let dishReview = review.dishReviews[itemIndex]
+      
+      for modification in request.modifications {
+        switch modification {
+        case .changeDishName(let dishName):
+          if let dishName = dishName {
+            reviewVC?.changeDishReviewDish(for: dishReview.uuid, name: dishName, dishID: nil) // TODO: Dish ID
+          }
+        case .changeComment(let comment):
+          if let comment = comment {
+            reviewVC?.changeDishReviewComment(for: dishReview.uuid, comment: comment)
+          }
+        case .changePhoto(let imageRepresentation):
+          if let imageRepresentation = imageRepresentation,
+             case .phAsset(let newAsset) = imageRepresentation,
+             let asset = newAsset {
+            // TODO: Replace image
+          } // TODO: 其他類型的imageRepresentation尚不支援
+        case .changeRating(let rating):
+          if let rating = rating {
+            reviewVC?.changeDishReviewRank(for: dishReview.uuid,
+                                           rank: rating)
+          }
+        case .deleteDishReview:
+          break
+        }
+      }
+    }
+    
+    // 處理刪除事件
+    var deletingDishReviewUUIDs: [String] = []
+    for request in requests {
+      guard let itemIndex = request.itemIndex,
+        let review = reviewVC?.viewModel?.review,
+        itemIndex < review.dishReviews.count
+        else { continue }
+      
+      let dishReview = review.dishReviews[itemIndex]
+      
+      for modification in request.modifications {
+        if case .deleteDishReview = modification {
+          deletingDishReviewUUIDs.append(dishReview.uuid)
+        }
+      }
+    }
+    deletingDishReviewUUIDs.forEach {
+      reviewVC?.deleteDishReview(for: $0)
+    }
   }
 
 }

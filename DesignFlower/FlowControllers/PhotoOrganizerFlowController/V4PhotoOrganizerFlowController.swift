@@ -10,11 +10,13 @@ import Foundation
 import UIKit
 
 class V4PhotoOrganizerFlowController: ViewBasedFlowController,
-                                      V4PhotoOrganizerVCFlowDelegate {
+V4PhotoOrganizerVCFlowDelegate {
   var photoOrganizerVC: PhotoOrganizerVC?
   var sourceDisplayContext: DisplayContext
   var initialDishItems: [PhotoOrganizerVC.DishItem] = []
   var initialDisplayIndex: Int?
+  
+  public var requestModifications: (([PhotoOrganizer.DishModificationRequest]) -> Void)?
   
   init(sourceDisplayContext: DisplayContext,
        initialDishItems: [PhotoOrganizerVC.DishItem],
@@ -42,5 +44,16 @@ class V4PhotoOrganizerFlowController: ViewBasedFlowController,
     
     sourceDisplayContext.display(photoOrganizerVC)
   }
+  
+  // MARK: - Photo Organizer VC Flow Delegate
+  func photoOrganizer(_ sender: PhotoOrganizerVC?, requestDishModifications: [PhotoOrganizer.DishModificationRequest]) {
+    guard let photoOrganizerVC = photoOrganizerVC
+    else { return }
+    
+    self.requestModifications?(requestDishModifications)
+    
+    sourceDisplayContext.undisplay(photoOrganizerVC)
+  }
+
 }
 
