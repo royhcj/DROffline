@@ -10,6 +10,46 @@ import UIKit
 import RealmSwift
 import IQKeyboardManagerSwift
 
+var dateStyle = "yyyy-MM-dd hh:mm:ss"
+
+enum UserDefaultKey: String {
+  case rdUtimeMax
+  case rdUtimeMin // 上次更新的時間
+  case token
+}
+
+class CustomDateFormatter {
+
+  let dateFormatter = DateFormatter()
+
+  init() {
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+  }
+
+  func getDate(string: String) -> Date? {
+    return dateFormatter.date(from: string)
+  }
+
+  func getDate(any: Any?) -> Date? {
+    guard let string = any as? String else {
+      return nil
+    }
+    return dateFormatter.date(from: string)
+  }
+
+  func getString(date: Date) -> String {
+    return dateFormatter.string(from: date)
+  }
+
+  func getString(any: Any?) -> String? {
+    guard let date = any as? Date else {
+      return nil
+    }
+    return dateFormatter.string(from: date)
+  }
+
+}
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -17,9 +57,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var rootVC: UIViewController?
   var mainFlower: V4ReviewFlowController?
   var syncService = [SyncService]()
+
+
   
   
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
     // Setup Realm
     let config = Realm.Configuration(
       // Set the new schema version. This must be greater than the previously used
@@ -47,11 +90,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //start syncService
     syncService.append(SyncService.init(modelTypes: [RLMRestReviewV4.self]))
     syncService.append(SyncService.init(modelTypes: [RLMQueue.self], factory: .upload))
-    if UserDefaults.standard.value(forKey: "token") == nil {
+    if UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue) == nil {
       AutoLogin.login()
     } else {
-      print("token: \(String(describing: UserDefaults.standard.value(forKey: "token")!))")
-      RestList.getRestList(strat: nil, end: nil, paramaters: nil)
+//      print("token: \(String(describing: UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue)!))")
+
+      let min = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMin.rawValue) as? Date
+      let max = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMax.rawValue) as? Date
+      RestList.getRestList(strat: min, end: max, paramaters: nil)
     }
     
     IQKeyboardManager.shared.enable = true

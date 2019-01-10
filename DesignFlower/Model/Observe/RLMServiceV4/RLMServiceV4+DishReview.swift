@@ -134,7 +134,7 @@ extension RLMServiceV4 {
   
   // no. 10
   internal func getDishReview(uuid: String) -> RLMDishReviewV4? {
-    let predicate = NSPredicate(format: "uuid == \(uuid)'")
+    let predicate = NSPredicate(format: "uuid == '\(uuid)'")
     let dishReview = realm.objects(RLMDishReviewV4.self).filter(predicate).first
     return dishReview
   }
