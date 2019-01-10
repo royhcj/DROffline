@@ -15,6 +15,7 @@
 		6488430B21DF528C00B7510C /* RestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488430A21DF528C00B7510C /* RestList.swift */; };
 		64D8363321C8F01A003E5ACC /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363121C8F01A003E5ACC /* SyncService.swift */; };
 		64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363221C8F01A003E5ACC /* Uploadable.swift */; };
+		64DF218621E73A7100C660AC /* RLMRestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218521E73A7100C660AC /* RLMRestaurantList.swift */; };
 		64F5A98621E58C8D00237E4C /* RLMServiceV4+RestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */; };
 		72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6521AE8A940098FFFD /* AppDelegate.swift */; };
 		72061D6821AE8A950098FFFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6721AE8A950098FFFD /* ViewController.swift */; };
@@ -141,6 +142,7 @@
 		6488430A21DF528C00B7510C /* RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestList.swift; sourceTree = "<group>"; };
 		64D8363121C8F01A003E5ACC /* SyncService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		64D8363221C8F01A003E5ACC /* Uploadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
+		64DF218521E73A7100C660AC /* RLMRestaurantList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RLMRestaurantList.swift; path = ../../../../../RLMRestaurantList.swift; sourceTree = "<group>"; };
 		64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+RestList.swift"; sourceTree = "<group>"; };
 		72061D6221AE8A940098FFFD /* DesignFlower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignFlower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72061D6521AE8A940098FFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -386,6 +388,7 @@
 				72061D8F21AFDF080098FFFD /* KVODishV4.swift */,
 				72061D9021AFDF080098FFFD /* KVODishReviewV4.swift */,
 				7287026721BFA4C7000E1116 /* Location.swift */,
+				64DF218521E73A7100C660AC /* RLMRestaurantList.swift */,
 			);
 			name = "(Models)";
 			path = Model;
@@ -922,6 +925,7 @@
 				B0F8110321E4B60B00BEE91C /* XformToolVC.swift in Sources */,
 				7219797621DDF69B00FD6435 /* V4ChooseShareVM.swift in Sources */,
 				B0F810FB21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift in Sources */,
+				64DF218621E73A7100C660AC /* RLMRestaurantList.swift in Sources */,
 				B0F8110021E4B60B00BEE91C /* PhotoOrganizer+Models.swift in Sources */,
 				723B1F8421B4D3AA00CF91F3 /* DisplayContext.swift in Sources */,
 				7219797421DDF68D00FD6435 /* V4ChooseShareVC.swift in Sources */,
