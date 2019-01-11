@@ -80,9 +80,27 @@ extension Date {
     return formatter.string(from: self)
   }
 
-  static func dateWithString(_ string: String, format: String) -> Date {
+  static func getDate(any: Any?) -> Date? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    guard let string = any as? String else {
+      return nil
+    }
+    return dateFormatter.date(from: string)
+  }
+
+  static func getString(any: Any?) -> String? {
+    let dateFormatter = DateFormatter()
+    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+    guard let date = any as? Date else {
+      return nil
+    }
+    return dateFormatter.string(from: date)
+  }
+
+  static func dateWithString(_ string: String, format: String?) -> Date {
     let formatter = DateFormatter()
-    formatter.dateFormat = format
+    formatter.dateFormat = format ?? "yyyy-MM-dd HH:mm:ss"
     if let date = formatter.date(from: string) {
       return date
     } else {

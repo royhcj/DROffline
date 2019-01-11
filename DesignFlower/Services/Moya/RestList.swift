@@ -67,24 +67,21 @@ extension DishRankService.RestList: MoyaProvidable {
 
   var task: Task {
     switch self {
-    case .getList(let start, let end, let paramaters, let url):
-      let dateFormatter = DateFormatter.init()
-      dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:ss"
+    case .getList(let start, let end, let paramaters, _):
 
       var dic: [String: String] = [:]
 
       if let startDate = start {
-        dic["rd_utime_min"] = dateFormatter.string(from: startDate)
+        dic["rd_utime_min"] = Date.getString(any: startDate)
       }
       if let endF = end {
-        dic["rd_utime_max"] = dateFormatter.string(from: endF)
+        dic["rd_utime_max"] = Date.getString(any: endF)
       }
 
       if let para = paraToString(para: paramaters) {
         dic["fields[restaurant]"] = para
       }
       return .requestParameters(parameters: dic, encoding: URLEncoding.default)
-//      return .requestJSONEncodable(dic)
     }
   }
 
@@ -123,16 +120,17 @@ class RestList {
         do {
           let decoder = JSONDecoder()
           let list = try decoder.decode(RestaurantList.self, from: response.data)
+           SVProgressHUD.show(withStatus: "更新中...\(list.meta?.currentPage ?? 0)/\(list.meta?.lastPage ?? 0)")
           if let next = list.links?.next, next != "" {
-            SVProgressHUD.show(withStatus: "更新中...\(list.meta?.currentPage ?? 0)/\(list.meta?.lastPage ?? 0)")
             updateRestaurantList(list: list, completion: { (finish) in
               if finish {
                 RestList.getRestList(strat: nil, end: nil, paramaters: nil, next: list.links?.next)
               }
             })
           } else {
+            // 最後一筆進來這
             updateRestaurantList(list: list, completion: nil)
-            let min = CustomDateFormatter().getDate(any: list.meta?.rdUtimeMax)
+            let min = Date.getDate(any: list.meta?.rdUtimeMax)
             UserDefaults.standard.set(min, forKey: UserDefaultKey.rdUtimeMin.rawValue)
             UserDefaults.standard.set(nil, forKey: UserDefaultKey.rdUtimeMax.rawValue)
             SVProgressHUD.show(withStatus: "更新完成")

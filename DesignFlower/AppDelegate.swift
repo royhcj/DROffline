@@ -10,44 +10,12 @@ import UIKit
 import RealmSwift
 import IQKeyboardManagerSwift
 
-var dateStyle = "yyyy-MM-dd hh:mm:ss"
+var dateStyle = "yyyy-MM-dd HH:mm:ss"
 
 enum UserDefaultKey: String {
   case rdUtimeMax
   case rdUtimeMin // 上次更新的時間
   case token
-}
-
-class CustomDateFormatter {
-
-  let dateFormatter = DateFormatter()
-
-  init() {
-    dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-  }
-
-  func getDate(string: String) -> Date? {
-    return dateFormatter.date(from: string)
-  }
-
-  func getDate(any: Any?) -> Date? {
-    guard let string = any as? String else {
-      return nil
-    }
-    return dateFormatter.date(from: string)
-  }
-
-  func getString(date: Date) -> String {
-    return dateFormatter.string(from: date)
-  }
-
-  func getString(any: Any?) -> String? {
-    guard let date = any as? Date else {
-      return nil
-    }
-    return dateFormatter.string(from: date)
-  }
-
 }
 
 @UIApplicationMain

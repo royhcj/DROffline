@@ -15,6 +15,7 @@ extension RLMServiceV4 {
     do {
       try realm.write {
         let restList = realm.create(RLMRestaurantList.self)
+        restList.id.value = attributes.rdAnum
         restList.rdAnum.value = attributes.rdAnum
         restList.createdBy.value = attributes.createdBy
         restList.mdAnum.value = attributes.mdAnum
@@ -79,9 +80,12 @@ extension RLMServiceV4 {
     }
   }
 
+
+  // no.2
   internal func updateList(attributes: Attributes, to restList: RLMRestaurantList) {
     do {
       try realm.write {
+        restList.id.value = attributes.rdAnum
         restList.rdAnum.value = attributes.rdAnum
         restList.createdBy.value = attributes.createdBy
         restList.mdAnum.value = attributes.mdAnum
@@ -132,7 +136,7 @@ extension RLMServiceV4 {
         restList.views.value = attributes.views
       }
     } catch {
-
+      print("RLMServiceV4+RestList file's no.2 func error")
     }
   }
 }
