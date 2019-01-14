@@ -195,6 +195,31 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
   }
   
   // MARK: - Drop Delegate
+  func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {
+    return UIDropProposal(operation: .move)
+  }
+  
+  func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
+    return session.canLoadObjects(ofClass: NSString.self)
+  }
+  
+  func dropInteraction(_ interaction: UIDropInteraction,
+                       performDrop session: UIDropSession) {
+    for dragItem in session.items {
+      dragItem.itemProvider.loadObject(ofClass: NSString.self) { [weak self] (object, error) in
+        guard error == nil,
+              let draggedDishReviewUUID = object as? NSString,
+              let targetDishReviewUUID = self?.dishReviewUUID
+        else { return print("Failed loading dragged item.") }
+        
+        DispatchQueue.main.async {
+          self?.delegate?.mergeDishReview(from: draggedDishReviewUUID as String,
+                                          to: targetDishReviewUUID)
+        }
+      }
+      
+    }
+  }
 }
 
 class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextViewDelegate {
@@ -416,6 +441,7 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func changeDishReviewComment(for dishReviewUUID: String, comment: String)
   func changeDishReviewRank(for dishReviewUUID: String, rank: Float)
   func showMoreForDishReview(_ dishReviewUUID: String)
+  func mergeDishReview(from sourceDishReviewUUID: String, to targetDishReviewUUID: String)
   func deleteDishReview(for dishReviewUUID: String)
   func addDishReview()
   func showPhotoOrganizer(for dishReviewUUID: String)

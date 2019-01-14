@@ -297,6 +297,11 @@ class V4ReviewVC: FlowedViewController,
     // TODO:
   }
   
+  func mergeDishReview(from sourceDishReviewUUID: String,
+                       to targetDishReviewUUID: String) {
+    viewModel?.mergeDishReview(from: sourceDishReviewUUID, to: targetDishReviewUUID)
+  }
+  
   func deleteDishReview(for dishReviewUUID: String) {
     viewModel?.deleteDishReview(for: dishReviewUUID)
   }

@@ -202,6 +202,17 @@ class V4ReviewViewModel {
     setDirty(true, forDishReview: dishReview)
   }
   
+  func mergeDishReview(from sourceDishReviewUUID: String, to targetDishReviewUUID: String) {
+    guard let source = getDishReview(sourceDishReviewUUID),
+          let target = getDishReview(targetDishReviewUUID)
+    else { return }
+    
+    // merge photos
+    target.images.append(contentsOf: source.images)
+
+    deleteDishReview(for: sourceDishReviewUUID)
+  }
+  
   func reorderDishReview(from indexA: Int, to indexB: Int) -> Bool {
     guard let review = review,
           UInt(indexA) < review.dishReviews.count,
