@@ -30,6 +30,12 @@ class PhotoOrganizer {
     case localFile(_ path: String?)
     case phAsset(_ asset: PHAsset?)
   }
+  
+  struct ImageReplacement {
+    var imageRepresentation: ImageRepresentation
+    var sourceImageUUID: String
+  }
+
 }
 
 

@@ -30,7 +30,7 @@ class DishPhotoOrganizerVM: NSObject {
   struct Input {
     let changeDishName: Observable<String?>
     let changeComment: Observable<String?>
-    let changePhoto: Observable<ImageRepresentation?>
+    let changePhoto: Observable<ImageReplacement?>
     let addPhoto: Observable<ImageRepresentation?>
     let changeRating: Observable<Float?>
     let deleteDishReview: Observable<Void>
@@ -39,7 +39,7 @@ class DishPhotoOrganizerVM: NSObject {
   
   struct Output {
     let dishItem: Observable<DishItem?>
-    let changedPhoto: PublishSubject<ImageRepresentation?>
+    let changedPhoto: PublishSubject<ImageReplacement?>
     let addedPhoto: PublishSubject<ImageRepresentation?>
     let savedPhoto: PublishSubject<Bool>
   }
@@ -53,18 +53,40 @@ class DishPhotoOrganizerVM: NSObject {
     
     //
     let output = Output(dishItem: dishItem.asObservable(),
-                        changedPhoto: PublishSubject<ImageRepresentation?>(),
+                        changedPhoto: PublishSubject<ImageReplacement?>(),
                         addedPhoto: PublishSubject<ImageRepresentation?>(),
                         savedPhoto: PublishSubject<Bool>())
     self.output = output
     
     // Bind Input
     input.changePhoto
-      .subscribe(onNext: { [weak self] imageRepresentation in
-// TODO: later
-//        let modification = DishModification.changePhoto(imageRepresentation)
-//        self?.dishModificationRequest.append(modification: modification)
-        self?.output?.changedPhoto.onNext(imageRepresentation)
+      .subscribe(onNext: { [weak self] imageReplacement in
+
+        guard let imageReplacement = imageReplacement
+        else { return }
+        
+        // 目前只支援從PHAsset加圖，其他來源尚未撰寫
+        var foundAsset: PHAsset?
+        if case .phAsset(let asset) = imageReplacement.imageRepresentation {
+          foundAsset = asset
+        }
+        
+        guard let asset = foundAsset
+        else { return }
+        
+        V4PhotoService.shared.createKVOImage(with: asset) { [weak self] image in
+          guard let image = image
+          else { return }
+          
+          if let index = self?.dishReview?.images.firstIndex(where: { $0.uuid == imageReplacement.sourceImageUUID }) {
+            self?.dishReview?.images.remove(at: index)
+            
+            self?.dishReview?.images.append(image)
+            self?.output?.changedPhoto.onNext(imageReplacement)
+          }
+        }
+        
+        self?.output?.changedPhoto.onNext(imageReplacement)
       }).disposed(by: disposeBag)
     
     input.addPhoto
@@ -184,4 +206,5 @@ class DishPhotoOrganizerVM: NSObject {
   typealias DishModification = PhotoOrganizer.DishModification
   typealias DishModificationRequest = PhotoOrganizer.DishModificationRequest
   typealias ImageRepresentation = PhotoOrganizer.ImageRepresentation
+  typealias ImageReplacement = PhotoOrganizer.ImageReplacement  
 }

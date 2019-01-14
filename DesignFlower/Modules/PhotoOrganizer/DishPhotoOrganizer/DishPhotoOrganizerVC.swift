@@ -35,7 +35,7 @@ class DishPhotoOrganizerVC: UIViewController,
   var disposeBag = DisposeBag()
   
   var dishRating = PublishSubject<Float?>()
-  var changePhoto = PublishSubject<ImageRepresentation?>()
+  var changePhoto = PublishSubject<ImageReplacement?>()
   var addPhoto = PublishSubject<ImageRepresentation?>()
   
   // Delegate
@@ -125,15 +125,17 @@ class DishPhotoOrganizerVC: UIViewController,
       }).disposed(by: disposeBag)
 
     output?.changedPhoto
-      .subscribe(onNext: { [weak self] imageRepresentation in
-        guard let imageRepresentation = imageRepresentation
+      .subscribe(onNext: { [weak self] imageReplacement in
+        guard let imageReplacement = imageReplacement
         else { self?.photoImageView.image = nil; return }
         
-        imageRepresentation.fetchImage(completion: { [weak self] (image) in
-          self?.photoImageView.image = image
-        })
+// TODO: update current image
+//        imageReplacement.imageRepresentation.fetchImage(completion: { [weak self] (image) in
+//          self?.photoImageView.image = image
+//        })
+        self?.photosCollectionView.reloadData()
         
-        switch imageRepresentation {
+        switch imageReplacement.imageRepresentation {
         case .image, .url, .localFile:
           self?.downloadButton.isEnabled = true
         case .phAsset:
@@ -291,6 +293,7 @@ class DishPhotoOrganizerVC: UIViewController,
   // MARK: - Type Definitions
   typealias DishItem = PhotoOrganizer.DishItem
   typealias ImageRepresentation = PhotoOrganizer.ImageRepresentation
+  typealias ImageReplacement = PhotoOrganizer.ImageReplacement
   typealias Delegate = DishPhotoOrganizerVCDelegate
 }
 
