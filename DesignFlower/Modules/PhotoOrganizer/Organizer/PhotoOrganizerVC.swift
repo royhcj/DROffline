@@ -123,9 +123,10 @@ class PhotoOrganizerVC: UIViewController,
         
         // 縮起鍵盤，打到一半的字才會被紀錄
         self?.view.endEditing(true)
-        
+
         // 蒐集各DishOrganizer的更動
         var requests: [DishModificationRequest] = []
+/* MARKOFF - no need anymore. removing modifications
         for (_, vc) in strongSelf.dishOrganizerVCs {
           guard let request = vc.vm?.dishModificationRequest
           else { continue }
@@ -137,7 +138,7 @@ class PhotoOrganizerVC: UIViewController,
         if let deleteRequests = self?.vm?.dishDeleteRequests {
           requests.append(contentsOf: deleteRequests)
         }
-        
+*/
         // 傳回所有更動
         strongSelf.flowDelegate?
             .photoOrganizer(self, requestDishModifications: requests)

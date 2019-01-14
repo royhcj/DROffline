@@ -13,7 +13,7 @@ import YCRateView
 import Photos
 
 class DishPhotoOrganizerVC: UIViewController,
-                            NoteV3PhotoPickerViewControllerDelegate,
+                            V4PhotoPickerVC.FlowDelegate,
                             ImageEditorDelegate {
   
   @IBOutlet var dishNameTextField: UITextField!
@@ -28,11 +28,15 @@ class DishPhotoOrganizerVC: UIViewController,
   
   var vm: DishPhotoOrganizerVM?
   
+  // Photo Picker Related
+  var photoPickerVC: NoteV3PhotoPickerViewController?
+  
   // Rx Members
   var disposeBag = DisposeBag()
   
   var dishRating = PublishSubject<Float?>()
   var changePhoto = PublishSubject<ImageRepresentation?>()
+  var addPhoto = PublishSubject<ImageRepresentation?>()
   
   // Delegate
   weak var delegate: Delegate?
@@ -87,6 +91,7 @@ class DishPhotoOrganizerVC: UIViewController,
         .map { [weak self] in self?.dishCommentTextField.text }
         .asObservable(),
       changePhoto: changePhoto,
+      addPhoto: addPhoto,
       changeRating: dishRating,
       deleteDishReview: deleteDishReview.asObservable(),
       savePhoto: downloadButton.rx.tap.asObservable())
@@ -134,6 +139,11 @@ class DishPhotoOrganizerVC: UIViewController,
         case .phAsset:
           self?.downloadButton.isEnabled = false
         }
+      }).disposed(by: disposeBag)
+    
+    output?.addedPhoto
+      .subscribe(onNext: { [weak self] imageRepresentation in
+        self?.photosCollectionView.reloadData()
       }).disposed(by: disposeBag)
     
     output?.savedPhoto
@@ -186,37 +196,25 @@ class DishPhotoOrganizerVC: UIViewController,
   
   // MARK: - Photo Picker Manipulation
   func showPhotoPicker() {
-/* TODO: later
-    guard let itemIndex = vm?.dishItem.value?.itemIndex
-    else { return }
-    
-    let indexPath = IndexPath(item: itemIndex, section: 0)
-          // indexPath應該沒用處
-    
-    let vc = NoteV3PhotoPickerViewController
-              .make(scenario: .choosePhoto(indexPath: indexPath),
-                    isPresented: true, photoLimit: 1)
-    vc?.modalPresentationStyle = .overFullScreen
-    vc?.pickerDelegate = self
-    
-    if let vc = vc {
+    photoPickerVC = NoteV3PhotoPickerViewController.make(scenario: .addNewPhotos, isPresented: true, photoLimit: 10)
+    photoPickerVC?.flowDelegate = self
+    photoPickerVC?.modalPresentationStyle = .overFullScreen
+    if let vc = photoPickerVC {
       present(vc, animated: true, completion: nil)
     }
- */
   }
   
-  func notePhotoPikcerViewController(_ sender: NoteV3PhotoPickerViewController,
-                                     choosed asset: PHAsset,
-                                     for indexPath: IndexPath) {
-/* TODO: later
-    changePhoto.onNext(.phAsset(asset))
-    NoteV3Service.shared.deleteAllNotePhotoSelections()
-    sender.dismiss(animated: true, completion: nil)
- */
+  func photoPickerVCPicked(assets: [PHAsset]) {
+    for asset in assets {
+      addPhoto.onNext(.phAsset(asset))
+    }
+    photoPickerVC?.dismiss(animated: true, completion: nil)
+    V4PhotoService.shared.deleteAllPhotoSelections()
   }
   
-  func notePhotoPickerViewController(_ sender: NoteV3PhotoPickerViewController, dismissWithAbort: Bool, wasPresented: Bool) {
-    sender.dismiss(animated: true, completion: nil)
+  func photoPickerVCDidCancel() {
+    photoPickerVC?.dismiss(animated: true, completion: nil)
+    V4PhotoService.shared.deleteAllPhotoSelections()
   }
   
   // MARK: - Download-related methods

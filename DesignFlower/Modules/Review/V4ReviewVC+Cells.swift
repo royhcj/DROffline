@@ -128,6 +128,9 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
     } else {
       photoImageView.image = UIImage(named: "菜餚預設圖片")
     }
+    
+    dishNameTextField.text = dishReview?.dish?.name
+    commentTextView.text = dishReview?.comment
   }
   
   @objc func dishRankValueChanged(sender: UISlider, value: Float) {

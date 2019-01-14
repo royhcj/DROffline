@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 import RxSwift
 import RxCocoa
+import Photos
 
 
 class DishPhotoOrganizerVM: NSObject {
@@ -17,9 +18,12 @@ class DishPhotoOrganizerVM: NSObject {
   var disposeBag = DisposeBag()
   
   var dishItem = BehaviorRelay<DishItem?>(value: nil)
+  var dishReview: KVODishReviewV4? {
+    return dishItem.value?.dishReview
+  }
   
   // Modification Members
-  var dishModificationRequest = DishModificationRequest()
+//  var dishModificationRequest = DishModificationRequest()
   
   var output: Output?
   
@@ -27,6 +31,7 @@ class DishPhotoOrganizerVM: NSObject {
     let changeDishName: Observable<String?>
     let changeComment: Observable<String?>
     let changePhoto: Observable<ImageRepresentation?>
+    let addPhoto: Observable<ImageRepresentation?>
     let changeRating: Observable<Float?>
     let deleteDishReview: Observable<Void>
     let savePhoto: Observable<Void>
@@ -35,58 +40,82 @@ class DishPhotoOrganizerVM: NSObject {
   struct Output {
     let dishItem: Observable<DishItem?>
     let changedPhoto: PublishSubject<ImageRepresentation?>
+    let addedPhoto: PublishSubject<ImageRepresentation?>
     let savedPhoto: PublishSubject<Bool>
   }
   
   func bind(input: Input) -> Output {
     
     // Self binding
-    dishItem.subscribe(onNext: { [weak self] (dishItem) in
-      self?.dishModificationRequest.itemIndex = dishItem?.itemIndex
-    }).disposed(by: disposeBag)
+//    dishItem.subscribe(onNext: { [weak self] (dishItem) in
+//      self?.dishModificationRequest.itemIndex = dishItem?.itemIndex
+//    }).disposed(by: disposeBag)
     
     //
     let output = Output(dishItem: dishItem.asObservable(),
                         changedPhoto: PublishSubject<ImageRepresentation?>(),
+                        addedPhoto: PublishSubject<ImageRepresentation?>(),
                         savedPhoto: PublishSubject<Bool>())
     self.output = output
     
     // Bind Input
     input.changePhoto
       .subscribe(onNext: { [weak self] imageRepresentation in
-        let modification = DishModification.changePhoto(imageRepresentation)
-        self?.dishModificationRequest.append(modification: modification)
-        
+// TODO: later
+//        let modification = DishModification.changePhoto(imageRepresentation)
+//        self?.dishModificationRequest.append(modification: modification)
         self?.output?.changedPhoto.onNext(imageRepresentation)
+      }).disposed(by: disposeBag)
+    
+    input.addPhoto
+      .subscribe(onNext: { [weak self] imageRepresentation in
+        guard let imageRepresentation = imageRepresentation
+        else { return }
+        
+        // 目前只支援從PHAsset加圖，其他來源尚未撰寫
+        var foundAsset: PHAsset?
+        if case .phAsset(let asset) = imageRepresentation {
+          foundAsset = asset
+        }
+        
+        guard let asset = foundAsset
+        else { return }
+        
+        
+        V4PhotoService.shared.createKVOImage(with: asset) { [weak self] image in
+          guard let image = image
+          else { return }
+          
+          self?.dishReview?.images.append(image)
+          self?.output?.addedPhoto.onNext(imageRepresentation)
+        }
       }).disposed(by: disposeBag)
     
     input.changeDishName
       .skipUntil(dishItem.skip(1))
       .subscribe(onNext: { [weak self] name in
         print("Adding changeDishName(\(name ?? ""))")
-        let modification = DishModification.changeDishName(name)
-        self?.dishModificationRequest.append(modification: modification)
+        self?.dishReview?.dish?.name = name
       }).disposed(by: disposeBag)
     
     input.changeComment
       .skipUntil(dishItem.skip(1))
       .subscribe(onNext: { [weak self] comment in
-        let modification = DishModification.changeComment(comment)
-        self?.dishModificationRequest.append(modification: modification)
+        self?.dishReview?.comment = comment
       }).disposed(by: disposeBag)
     
     input.changeRating
       .skipUntil(dishItem.skip(1))
       .subscribe(onNext: { [weak self] rating in
-        let modification = DishModification.changeRating(rating)
-        self?.dishModificationRequest.append(modification: modification)
+        self?.dishReview?.rank = String(format: "%.01f", rating ?? 0)
       }).disposed(by: disposeBag)
     
     input.deleteDishReview
       .skipUntil(dishItem.skip(1))
       .subscribe(onNext: { [weak self] _ in
-        let modification = DishModification.deleteDishReview
-        self?.dishModificationRequest.append(modification: modification)
+// TODO: later
+//        let modification = DishModification.deleteDishReview
+//        self?.dishModificationRequest.append(modification: modification)
       }).disposed(by: disposeBag)
     
     input.savePhoto
@@ -99,6 +128,17 @@ class DishPhotoOrganizerVM: NSObject {
   
   // MARK: - Dish Image
   func getCurrentDishImageRepresentation() -> ImageRepresentation? {
+// TODO: later
+    if let localName = dishItem.value?.dishReview?.images.first?.localName {
+      let url = KVOImageV4.localFolder.appendingPathComponent(localName)
+      return .localFile(url.absoluteString)
+    } else if let urlString = dishItem.value?.dishReview?.images.first?.url {
+      return .url(urlString)
+    }
+    
+    return nil
+
+/* MARKEDOFF: no use
     for modification in dishModificationRequest.modifications.reversed() {
       if case .changePhoto(let imageRepresentation) = modification {
         return imageRepresentation
@@ -115,6 +155,7 @@ class DishPhotoOrganizerVM: NSObject {
     }
     
     return nil
+ */
   }
   
   // MARK: - Save Image
