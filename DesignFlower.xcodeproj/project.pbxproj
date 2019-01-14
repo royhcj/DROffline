@@ -142,7 +142,7 @@
 		6488430A21DF528C00B7510C /* RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestList.swift; sourceTree = "<group>"; };
 		64D8363121C8F01A003E5ACC /* SyncService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		64D8363221C8F01A003E5ACC /* Uploadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
-		64DF218521E73A7100C660AC /* RLMRestaurantList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RLMRestaurantList.swift; path = ../../../../../RLMRestaurantList.swift; sourceTree = "<group>"; };
+		64DF218521E73A7100C660AC /* RLMRestaurantList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMRestaurantList.swift; sourceTree = "<group>"; };
 		64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+RestList.swift"; sourceTree = "<group>"; };
 		72061D6221AE8A940098FFFD /* DesignFlower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignFlower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72061D6521AE8A940098FFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };

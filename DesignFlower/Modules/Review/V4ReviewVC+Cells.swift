@@ -86,13 +86,17 @@ class V4Review_DishReviewHeaderCell: V4ReviewVC.CommonCell {
   }
 }
 
-class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell, UITextFieldDelegate, UITextViewDelegate {
-  
+class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
+                               UITextFieldDelegate,
+                               UITextViewDelegate,
+                               UIDragInteractionDelegate,
+                               UIDropInteractionDelegate {
   var dishReviewUUID: String?
   @IBOutlet var dishNameTextField: UITextField!
   @IBOutlet var dishRateView: YCRateView!
   @IBOutlet var commentTextView: UITextView!
   @IBOutlet var photoImageView: UIImageView!
+  @IBOutlet var photoButton: UIButton!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -104,6 +108,12 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell, UITextFieldDeleg
     dishNameTextField.delegate = self
     
     commentTextView.delegate = self
+    
+    let dragInteraction = UIDragInteraction(delegate: self)
+    let dropInteraction = UIDropInteraction(delegate: self)
+    photoButton.addInteraction(dragInteraction)
+    selectionContainer?.addInteraction(dropInteraction)
+    dragInteraction.isEnabled = true
   }
   
   func configure(with dishReview: KVODishReviewV4?) {
@@ -140,7 +150,6 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell, UITextFieldDeleg
     delegate?.showPhotoOrganizer(for: uuid)
   }
   
-  
   override func clickedSelectionButton(_ sender: Any) {
     guard let dishReviewUUID = dishReviewUUID else { return }
     delegate?.toggleDishReviewSelection(dishReviewUUID: dishReviewUUID)
@@ -156,6 +165,36 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell, UITextFieldDeleg
     delegate?.changeDishReviewDish(for: uuid, name: dishNameTextField.text ?? "", dishID: nil)
   }
   
+  // MARK: - Drag Delegate
+  func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+    guard let dishReviewUUID = dishReviewUUID
+    else { return [] }
+    
+    //PhotoDraggingItem(dishReviewUUID: dishReviewUUID, image: photoImageView.image)
+    let provider = NSItemProvider(object: dishReviewUUID as NSString)
+    let item = UIDragItem(itemProvider: provider)
+    return [item]
+  }
+  
+  func dragInteraction(_ interaction: UIDragInteraction,
+                       previewForLifting item: UIDragItem,
+                       session: UIDragSession)
+    -> UITargetedDragPreview? {
+      
+      guard let dragView = interaction.view
+        else { return nil }
+      let dragPoint = session.location(in: dragView)
+      let target = UIDragPreviewTarget(container: dragView,
+                                       center: dragPoint)
+      
+      let previewImageView = UIImageView(image: photoImageView.image)
+      previewImageView.frame = CGRect(x: 0, y: 0, width: 50, height: 50)
+      return UITargetedDragPreview(view: previewImageView,
+                                   parameters:UIDragPreviewParameters(),
+                                   target:target)
+  }
+  
+  // MARK: - Drop Delegate
 }
 
 class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextViewDelegate {

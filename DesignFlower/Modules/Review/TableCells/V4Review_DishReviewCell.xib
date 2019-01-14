@@ -78,11 +78,12 @@
                                     <view clipsSubviews="YES" contentMode="scaleAspectFill" translatesAutoresizingMaskIntoConstraints="NO" id="LwW-TC-c61">
                                         <rect key="frame" x="0.0" y="60" width="228.5" height="25"/>
                                         <subviews>
-                                            <view contentMode="left" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rZ0-dS-nqG" customClass="YCRateView" customModule="YCRateView">
+                                            <view contentMode="left" translatesAutoresizingMaskIntoConstraints="NO" id="rZ0-dS-nqG" customClass="YCRateView" customModule="YCRateView">
                                                 <rect key="frame" x="10" y="0.5" width="98" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="98" id="387-4c-guh"/>
+                                                    <constraint firstAttribute="height" constant="30" id="46c-az-NpT"/>
                                                 </constraints>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="image" keyPath="frontImage" value="star_full_large"/>
@@ -141,7 +142,7 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <view hidden="YES" alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5XL-Dy-uYZ">
+                            <view hidden="YES" alpha="0.69999998807907104" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5XL-Dy-uYZ" userLabel="RatingOverlay">
                                 <rect key="frame" x="15" y="15" width="89.5" height="89.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1xU-hj-cng">
@@ -166,14 +167,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="rVX-tv-Ggm" firstAttribute="bottom" secondItem="hVi-yr-poZ" secondAttribute="bottom" id="3vN-bg-4Mj"/>
                             <constraint firstItem="rVX-tv-Ggm" firstAttribute="top" secondItem="hVi-yr-poZ" secondAttribute="top" id="9jr-eF-0R3"/>
+                            <constraint firstItem="5XL-Dy-uYZ" firstAttribute="trailing" secondItem="hVi-yr-poZ" secondAttribute="trailing" id="Aeg-qM-w0M"/>
                             <constraint firstItem="hVi-yr-poZ" firstAttribute="width" secondItem="pZn-3v-LoN" secondAttribute="width" multiplier="90:350" id="BWf-ZV-4Lr"/>
                             <constraint firstAttribute="bottom" secondItem="hlJ-fU-0Iu" secondAttribute="bottom" id="Bqj-BL-vZO"/>
-                            <constraint firstItem="rVX-tv-Ggm" firstAttribute="height" secondItem="hVi-yr-poZ" secondAttribute="height" id="GXh-AB-7jf"/>
-                            <constraint firstItem="5XL-Dy-uYZ" firstAttribute="height" secondItem="hVi-yr-poZ" secondAttribute="height" id="Gpj-O7-pmk"/>
                             <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="hVi-yr-poZ" secondAttribute="bottom" constant="15" id="JAZ-jm-iY2"/>
-                            <constraint firstItem="5XL-Dy-uYZ" firstAttribute="width" secondItem="hVi-yr-poZ" secondAttribute="width" id="UnJ-nh-q6b"/>
-                            <constraint firstItem="rVX-tv-Ggm" firstAttribute="width" secondItem="hVi-yr-poZ" secondAttribute="width" id="ViQ-n4-GJs"/>
+                            <constraint firstItem="5XL-Dy-uYZ" firstAttribute="bottom" secondItem="hVi-yr-poZ" secondAttribute="bottom" id="Pwu-tm-KVe"/>
+                            <constraint firstItem="rVX-tv-Ggm" firstAttribute="trailing" secondItem="hVi-yr-poZ" secondAttribute="trailing" id="RDB-55-oMz"/>
                             <constraint firstItem="hVi-yr-poZ" firstAttribute="top" secondItem="pZn-3v-LoN" secondAttribute="top" constant="15" id="cVc-hA-Rah"/>
                             <constraint firstItem="hlJ-fU-0Iu" firstAttribute="top" secondItem="pZn-3v-LoN" secondAttribute="top" id="eUS-cc-gde"/>
                             <constraint firstItem="5XL-Dy-uYZ" firstAttribute="top" secondItem="hVi-yr-poZ" secondAttribute="top" id="jCE-Ni-trC"/>
@@ -219,6 +220,7 @@
                 <outlet property="commentTextView" destination="5xM-OS-xsT" id="xG1-tn-xsE"/>
                 <outlet property="dishNameTextField" destination="oHj-5J-fk9" id="0A8-jQ-P4A"/>
                 <outlet property="dishRateView" destination="rZ0-dS-nqG" id="0fU-mZ-7J5"/>
+                <outlet property="photoButton" destination="rVX-tv-Ggm" id="7HI-cB-vjD"/>
                 <outlet property="photoImageView" destination="hVi-yr-poZ" id="Orx-DK-Tcg"/>
                 <outlet property="selectionContainer" destination="pZn-3v-LoN" id="W6M-OX-l2V"/>
             </connections>
