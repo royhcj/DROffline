@@ -27,17 +27,13 @@ class AutoLogin {
     provider.request(.login(email: account, password: password)) { (result) in
       switch result {
       case .success(let response):
-        do {
-          if let json = try? JSON.init(data: response.data) {
-             let token = json["accessToken"].stringValue
-            let userDefault = UserDefaults.standard
-            userDefault.set(token, forKey: "token")
-          }
-
-        } catch {
+        if let json = try? JSON.init(data: response.data) {
+          let token = json["accessToken"].stringValue
+          let userDefault = UserDefaults.standard
+          userDefault.set(token, forKey: "token")
+        } else {
           print("transfer to json error")
         }
-
       case .failure(let error):
         print(error.localizedDescription)
       }

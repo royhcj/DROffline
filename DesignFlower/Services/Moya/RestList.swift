@@ -105,75 +105,77 @@ extension DishRankService.RestList: MoyaProvidable {
   }
 }
 
+extension DishRankService {
+    static func getRestList(strat: Date? = nil, end: Date? = nil, paramaters: [RestaurantListParamater]? = nil, next url: String? = nil) {
 
-class RestList {
-  static func getRestList(strat: Date? = nil, end: Date? = nil, paramaters: [RestaurantListParamater]? = nil, next url: String? = nil) {
+      if !SVProgressHUD.isVisible() {
+        UserDefaults.standard.set(Date(), forKey: UserDefaultKey.rdUtimeMax.rawValue)
+        SVProgressHUD.show(withStatus: "檢查資料是否需要更新...")
+      }
 
-    if !SVProgressHUD.isVisible() {
-       SVProgressHUD.show(withStatus: "檢查資料是否需要更新...")
-    }
+      let provider = DishRankService.RestList.provider
+      provider.request(.getList(start: strat, end: end, paramaters: paramaters, next: url)) { (response) in
+        switch response {
+        case .success(let response):
+          do {
+            let decoder = JSONDecoder()
+            let list = try decoder.decode(RestaurantList.self, from: response.data)
+            SVProgressHUD.show(withStatus: "更新中...\(list.meta?.currentPage ?? 0)/\(list.meta?.lastPage ?? 0)")
+            if let next = list.links?.next, next != "" {
+              updateRestaurantList(list: list, completion: { (finish) in
+                if finish {
+                  let max = Date.getDate(any: list.meta?.rdUtimeMax)
+                  UserDefaults.standard.set(max, forKey: UserDefaultKey.rdUtimeMax.rawValue)
+                  DishRankService.getRestList(strat: nil, end: nil, paramaters: nil, next: list.links?.next)
+                }
+              })
+            } else {
+              // 最後一筆進來這
+              updateRestaurantList(list: list, completion: nil)
+              let min = Date.getDate(any: list.meta?.rdUtimeMax)
+              UserDefaults.standard.set(min, forKey: UserDefaultKey.rdUtimeMin.rawValue)
+              UserDefaults.standard.set(nil, forKey: UserDefaultKey.rdUtimeMax.rawValue)
+              SVProgressHUD.show(withStatus: "更新完成")
+              SVProgressHUD.dismiss(withDelay: 1)
+            }
 
-    let provider = DishRankService.RestList.provider
-    provider.request(.getList(start: strat, end: end, paramaters: paramaters, next: url)) { (response) in
-      switch response {
-      case .success(let response):
-        do {
-          let decoder = JSONDecoder()
-          let list = try decoder.decode(RestaurantList.self, from: response.data)
-           SVProgressHUD.show(withStatus: "更新中...\(list.meta?.currentPage ?? 0)/\(list.meta?.lastPage ?? 0)")
-          if let next = list.links?.next, next != "" {
-            updateRestaurantList(list: list, completion: { (finish) in
-              if finish {
-                RestList.getRestList(strat: nil, end: nil, paramaters: nil, next: list.links?.next)
-              }
-            })
-          } else {
-            // 最後一筆進來這
-            updateRestaurantList(list: list, completion: nil)
-            let min = Date.getDate(any: list.meta?.rdUtimeMax)
-            UserDefaults.standard.set(min, forKey: UserDefaultKey.rdUtimeMin.rawValue)
-            UserDefaults.standard.set(nil, forKey: UserDefaultKey.rdUtimeMax.rawValue)
-            SVProgressHUD.show(withStatus: "更新完成")
+          } catch {
+            SVProgressHUD.show(withStatus: "更新失敗")
             SVProgressHUD.dismiss(withDelay: 1)
+            print("transfer to json error")
           }
-
-        } catch {
-          SVProgressHUD.show(withStatus: "更新失敗")
-          SVProgressHUD.dismiss(withDelay: 1)
-          print("transfer to json error")
+        case .failure(let error):
+          print(error)
         }
-      case .failure(let error):
-        print(error)
       }
     }
-  }
-  private static func update(RdUtimeMax: String) {
-    let formatter = DateFormatter()
-    formatter.dateFormat = dateStyle
-    if let date = formatter.date(from: RdUtimeMax) {
-      UserDefaults.standard.set(date, forKey: "rdUtimeMax")
-    }
-  }
-  static func updateRestaurantList(list: RestaurantList, completion: ((Bool) -> ())?) {
-
-    guard let restlist = list.data else {
-      return
-    }
-
-    for rest in restlist {
-      guard let attributes = rest.attributes else {
-        break
+    private static func update(RdUtimeMax: String) {
+      let formatter = DateFormatter()
+      formatter.dateFormat = dateStyle
+      if let date = formatter.date(from: RdUtimeMax) {
+        UserDefaults.standard.set(date, forKey: "rdUtimeMax")
       }
-     if let existRest = RLMServiceV4.shared.getRestaurantList(id: rest.id).first {
-      // 有就更新
-      RLMServiceV4.shared.updateList(attributes: attributes, to: existRest)
-     } else {
-      // 沒有就新增
-      RLMServiceV4.shared.restListToRLMRestList(copyBy: attributes)
-     }
     }
-    completion?(true)
+    private static func updateRestaurantList(list: RestaurantList, completion: ((Bool) -> ())?) {
 
-  }
+      guard let restlist = list.data else {
+        return
+      }
 
+      for rest in restlist {
+        guard let attributes = rest.attributes else {
+          break
+        }
+        if let existRest = RLMServiceV4.shared.getRestaurantList(id: rest.id).first {
+          // 有就更新
+          RLMServiceV4.shared.updateList(attributes: attributes, to: existRest)
+        } else {
+          // 沒有就新增
+          RLMServiceV4.shared.restListToRLMRestList(copyBy: attributes)
+        }
+      }
+      completion?(true)
+
+    }
 }
+

@@ -14,8 +14,10 @@ var dateStyle = "yyyy-MM-dd HH:mm:ss"
 
 enum UserDefaultKey: String {
   case rdUtimeMax
-  case rdUtimeMin // 上次更新的時間
+  case rdUtimeMin // 餐廳列表上次更新的時間
   case token
+  case updateDateMin // 筆記上次下載時間
+  case updateDateMax
 }
 
 @UIApplicationMain
@@ -26,9 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   var mainFlower: V4ReviewFlowController?
   var syncService = [SyncService]()
 
-
-  
-  
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     // Setup Realm
@@ -61,11 +60,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     if UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue) == nil {
       AutoLogin.login()
     } else {
-//      print("token: \(String(describing: UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue)!))")
-
+      // 取得餐廳列表
       let min = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMin.rawValue) as? Date
       let max = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMax.rawValue) as? Date
-      RestList.getRestList(strat: min, end: max, paramaters: nil)
+      DishRankService.getRestList(strat: min, end: max, paramaters: nil)
+      // 取得歷史筆記
+      DishRankService.getRestaurantReview(updateDateMin: nil, updateDateMax: nil, url: nil)
     }
     
     IQKeyboardManager.shared.enable = true

@@ -9,6 +9,12 @@ import Foundation
 import Realm
 import RealmSwift
 
+struct Restaurants: Codable {
+  let data: [RLMRestReviewV4]?
+  let link: Links?
+  let meta: Meta
+}
+
 class RLMRestReviewV4: SubObject, Uploadable {
 
   @objc dynamic var serviceRank: String? // 服務分數
