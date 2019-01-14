@@ -95,6 +95,7 @@
 		7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027F21BFB9FE000E1116 /* Date+Extension.swift */; };
 		7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287028121C750F6000E1116 /* UIView+Extension.swift */; };
 		825146A2F2CB641CB8B874DA /* Pods_DesignFlower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */; };
+		B08BC46121EC7735008838D6 /* DishPhotoOrganizer+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BC46021EC7735008838D6 /* DishPhotoOrganizer+Cells.swift */; };
 		B0A0AF8921C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */; };
 		B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */; };
 		B0A0AF8B21C107F5005BE7AB /* V4RestaurantPickerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8821C107F5005BE7AB /* V4RestaurantPickerVC.swift */; };
@@ -223,6 +224,7 @@
 		7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		7287027F21BFB9FE000E1116 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		7287028121C750F6000E1116 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		B08BC46021EC7735008838D6 /* DishPhotoOrganizer+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DishPhotoOrganizer+Cells.swift"; sourceTree = "<group>"; };
 		B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "V4RestaurantPickerVC+Cells.swift"; sourceTree = "<group>"; };
 		B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = V4RestaurantPicker.storyboard; sourceTree = "<group>"; };
 		B0A0AF8821C107F5005BE7AB /* V4RestaurantPickerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerVC.swift; sourceTree = "<group>"; };
@@ -662,6 +664,7 @@
 			children = (
 				B0F810EC21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift */,
 				B0F810ED21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift */,
+				B08BC46021EC7735008838D6 /* DishPhotoOrganizer+Cells.swift */,
 				B0F810EE21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard */,
 			);
 			path = DishPhotoOrganizer;
@@ -1008,6 +1011,7 @@
 				72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */,
 				B0F8110221E4B60B00BEE91C /* BaseToolVC.swift in Sources */,
 				723B1F7D21B4D03A00CF91F3 /* Flow.swift in Sources */,
+				B08BC46121EC7735008838D6 /* DishPhotoOrganizer+Cells.swift in Sources */,
 				72061D9921AFDF080098FFFD /* KVODishV4.swift in Sources */,
 				723B1F9D21B65E7900CF91F3 /* V4ReviewVC+Cells.swift in Sources */,
 				B0F810FF21E4B60B00BEE91C /* PhotoOrganizerVM.swift in Sources */,

@@ -24,6 +24,7 @@ class DishPhotoOrganizerVC: UIViewController,
   @IBOutlet var downloadButton: UIButton!
   @IBOutlet var editButton: UIButton!
   @IBOutlet var changeButton: UIButton!
+  @IBOutlet weak var photosCollectionView: UICollectionView!
   
   var vm: DishPhotoOrganizerVM?
   
@@ -52,6 +53,9 @@ class DishPhotoOrganizerVC: UIViewController,
     
     // Initialize
     photoImageView.image = nil
+    
+    // Setup Photo Collection View
+    setupPhotoCollectionView()
     
     // Setup Dish Rate View
     setupDishRateView()
@@ -290,6 +294,79 @@ class DishPhotoOrganizerVC: UIViewController,
   typealias DishItem = PhotoOrganizer.DishItem
   typealias ImageRepresentation = PhotoOrganizer.ImageRepresentation
   typealias Delegate = DishPhotoOrganizerVCDelegate
+}
+
+// MARK: - Photo Collection View Extension
+extension DishPhotoOrganizerVC: UICollectionViewDataSource,
+                                UICollectionViewDelegate {
+  
+  func setupPhotoCollectionView() {
+    let gesture = UILongPressGestureRecognizer(target: self, action: #selector(handlePhotoCollectionViewLongPress(gesture:)))
+    gesture.minimumPressDuration = 0.2
+    
+    photosCollectionView.addGestureRecognizer(gesture)
+    
+    if let flowLayout = photosCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+      flowLayout.scrollDirection = .horizontal
+    }
+  }
+  
+  func numberOfSections(in collectionView: UICollectionView) -> Int {
+    return 1
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    guard let dishReview = vm?.dishItem.value?.dishReview
+    else { return 0 }
+    
+    return dishReview.images.count
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "PhotoCell", for: indexPath)
+    
+    if let cell = cell as? PhotoCell,
+       let dishReview = vm?.dishItem.value?.dishReview,
+       let image = dishReview.images.at(indexPath.item) {
+      image.fetchUIImage {
+        cell.photoImageView.image = $0
+      }
+    }
+    
+    return cell
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
+    return true
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    guard let dishReview = vm?.dishItem.value?.dishReview
+    else { return }
+    
+    let kvoImage = dishReview.images[sourceIndexPath.item]
+    dishReview.images.remove(at: sourceIndexPath.item)
+    dishReview.images.insert(kvoImage, at: destinationIndexPath.item)
+  }
+  
+  @objc func handlePhotoCollectionViewLongPress(gesture: UILongPressGestureRecognizer) {
+    switch(gesture.state) {
+      
+    case .began:
+      guard let selectedIndexPath = photosCollectionView.indexPathForItem(at: gesture.location(in: photosCollectionView))
+        else {
+          break
+      }
+      photosCollectionView.beginInteractiveMovementForItem(at: selectedIndexPath)
+    case .changed:
+      photosCollectionView.updateInteractiveMovementTargetPosition(gesture.location(in: gesture.view!))
+    case .ended:
+      photosCollectionView.endInteractiveMovement()
+    default:
+      photosCollectionView.cancelInteractiveMovement()
+    }
+  }
+  
 }
 
 
