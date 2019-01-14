@@ -80,7 +80,7 @@
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="wjq-Au-dlK">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="80"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="EN4-xE-JzL">
+                                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="EN4-xE-JzL">
                                                     <size key="itemSize" width="70" height="70"/>
                                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -88,22 +88,30 @@
                                                 </collectionViewFlowLayout>
                                                 <cells>
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="2go-i3-tbu" customClass="DishPhotoOrganizer_PhotoCell" customModule="DesignFlower" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                        <rect key="frame" x="0.0" y="5" width="70" height="70"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                                             <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <subviews>
-                                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discover2_dish" translatesAutoresizingMaskIntoConstraints="NO" id="da5-rK-Uph">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="70" height="70"/>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="discover2_dish" translatesAutoresizingMaskIntoConstraints="NO" id="da5-rK-Uph">
+                                                                    <rect key="frame" x="2" y="2" width="66" height="66"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                            <real key="value" value="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                            <color key="value" red="0.72941176470000002" green="0.56078431370000004" blue="0.36078431370000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
                                                                 </imageView>
                                                             </subviews>
                                                         </view>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="da5-rK-Uph" secondAttribute="trailing" id="KMr-kw-3rx"/>
-                                                            <constraint firstItem="da5-rK-Uph" firstAttribute="leading" secondItem="2go-i3-tbu" secondAttribute="leading" id="SUr-zt-j4J"/>
-                                                            <constraint firstItem="da5-rK-Uph" firstAttribute="top" secondItem="2go-i3-tbu" secondAttribute="top" id="rU6-GR-GHn"/>
-                                                            <constraint firstAttribute="bottom" secondItem="da5-rK-Uph" secondAttribute="bottom" id="zTa-fC-p2p"/>
+                                                            <constraint firstAttribute="trailing" secondItem="da5-rK-Uph" secondAttribute="trailing" constant="2" id="KMr-kw-3rx"/>
+                                                            <constraint firstItem="da5-rK-Uph" firstAttribute="leading" secondItem="2go-i3-tbu" secondAttribute="leading" constant="2" id="SUr-zt-j4J"/>
+                                                            <constraint firstItem="da5-rK-Uph" firstAttribute="top" secondItem="2go-i3-tbu" secondAttribute="top" constant="2" id="rU6-GR-GHn"/>
+                                                            <constraint firstAttribute="bottom" secondItem="da5-rK-Uph" secondAttribute="bottom" constant="2" id="zTa-fC-p2p"/>
                                                         </constraints>
                                                         <connections>
                                                             <outlet property="photoImageView" destination="da5-rK-Uph" id="k4g-eP-IJw"/>

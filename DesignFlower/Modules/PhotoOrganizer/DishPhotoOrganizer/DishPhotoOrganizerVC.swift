@@ -37,6 +37,7 @@ class DishPhotoOrganizerVC: UIViewController,
   var dishRating = PublishSubject<Float?>()
   var changePhoto = PublishSubject<ImageReplacement?>()
   var addPhoto = PublishSubject<ImageRepresentation?>()
+  var selectImageAtIndex = PublishSubject<Int?>() // Image Index
   
   // Delegate
   weak var delegate: Delegate?
@@ -71,6 +72,10 @@ class DishPhotoOrganizerVC: UIViewController,
   // MARK: -
   func setDishItem(_ dishItem: DishItem?) {
     vm?.dishItem.accept(dishItem)
+    
+    if dishItem?.dishReview?.images.isEmpty == false {
+      selectImageAtIndex.onNext(0)
+    }
   }
   
   // MARK: - MVVM Bindings
@@ -94,8 +99,9 @@ class DishPhotoOrganizerVC: UIViewController,
       addPhoto: addPhoto,
       changeRating: dishRating,
       deleteDishReview: deleteDishReview.asObservable(),
-      savePhoto: downloadButton.rx.tap.asObservable())
-    
+      savePhoto: downloadButton.rx.tap.asObservable(),
+      selectImageAtIndex: selectImageAtIndex)
+
     // Bind Output
     let output = vm?.bind(input: input)
     
@@ -104,21 +110,10 @@ class DishPhotoOrganizerVC: UIViewController,
         guard let dishReview = dishItem?.dishReview
         else { return }
         
-        if let imageRepresentation = self?.vm?.getCurrentDishImageRepresentation() {
-          imageRepresentation.fetchImage { image in
-              self?.photoImageView.image = image
-          }
-          
-          switch imageRepresentation {
-          case .image, .url, .localFile:
-            self?.downloadButton.isEnabled = true
-          case .phAsset:
-            self?.downloadButton.isEnabled = false
-          }
-        } else {
-          self?.photoImageView.image = nil
+        if self?.vm?.dishReview?.images.isEmpty == true {
+          self?.selectImageAtIndex.onNext(0)
         }
-
+        
         self?.dishNameTextField.text = dishReview.dish?.name
         self?.dishCommentTextField.text = dishReview.comment
         self?.dishRateView.yc_InitValue = Float(dishReview.rank ?? "0.0")!
@@ -155,6 +150,24 @@ class DishPhotoOrganizerVC: UIViewController,
         }
         
         self?.showPhotoSavedMessage(successful: successful)
+      }).disposed(by: disposeBag)
+    
+    output?.selectedImage
+      .subscribe(onNext: { [weak self] imageUUID in
+        if let imageRepresentation = self?.vm?.getCurrentDishImageRepresentation() {
+          imageRepresentation.fetchImage { image in
+            self?.photoImageView.image = image
+          }
+          
+          switch imageRepresentation {
+          case .image, .url, .localFile:
+            self?.downloadButton.isEnabled = true
+          case .phAsset:
+            self?.downloadButton.isEnabled = false
+          }
+        } else {
+          self?.photoImageView.image = nil
+        }
       }).disposed(by: disposeBag)
     
     // Self binding
@@ -256,6 +269,8 @@ class DishPhotoOrganizerVC: UIViewController,
   
   func imageEditor(_ sender: ImageEditorViewController, commit image: UIImage) {
     // 存入library
+    guard let imageUUID = vm?.selectedImageUUID.value
+    else { return print("Error! Failed getting selected image UUID") }
     let library = PHPhotoLibrary.shared()
     let creationDate = Date()
     library.performChanges({
@@ -268,7 +283,7 @@ class DishPhotoOrganizerVC: UIViewController,
         let location = LocationService.shared.coordinate {
         request.location = CLLocation(latitude: location.latitude, longitude: location.longitude)
       }
-    }, completionHandler: { (success, error) in
+    }, completionHandler: { [weak self] (success, error) in
       if !success || error != nil {
         DispatchQueue.main.async { [weak self] in
           self?.showAlert(title: "無法儲存相片",
@@ -277,6 +292,13 @@ class DishPhotoOrganizerVC: UIViewController,
           return
         }
       }
+      
+      V4PhotoService.shared.getAssets(withCreationDates: [creationDate], completion: { [weak self] assets in
+        guard let asset = assets?.firstObject else { return }
+        
+        self?.changePhoto.onNext(ImageReplacement(imageRepresentation: .phAsset(asset), sourceImageUUID: imageUUID))
+      })
+      
 /* TODO: later
       NoteV3Service.shared.getAssets(creationDates: [creationDate], completion: { [weak self] assets in
         guard let asset = assets?.firstObject else { return }
@@ -335,6 +357,10 @@ extension DishPhotoOrganizerVC: UICollectionViewDataSource,
     }
     
     return cell
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    selectImageAtIndex.onNext(indexPath.item)
   }
   
   func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {

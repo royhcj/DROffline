@@ -22,6 +22,14 @@ class DishPhotoOrganizerVM: NSObject {
     return dishItem.value?.dishReview
   }
   
+  var selectedImageUUID = BehaviorRelay<String?>(value: nil)
+  var selectedImageIndex: Int? {
+    let index = dishReview?.images.firstIndex(where: {
+      $0.uuid == selectedImageUUID.value
+    })
+    return index
+  }
+  
   // Modification Members
 //  var dishModificationRequest = DishModificationRequest()
   
@@ -35,6 +43,7 @@ class DishPhotoOrganizerVM: NSObject {
     let changeRating: Observable<Float?>
     let deleteDishReview: Observable<Void>
     let savePhoto: Observable<Void>
+    let selectImageAtIndex: Observable<Int?> // Image Index
   }
   
   struct Output {
@@ -42,6 +51,7 @@ class DishPhotoOrganizerVM: NSObject {
     let changedPhoto: PublishSubject<ImageReplacement?>
     let addedPhoto: PublishSubject<ImageRepresentation?>
     let savedPhoto: PublishSubject<Bool>
+    let selectedImage: Observable<String?> // Image UUID
   }
   
   func bind(input: Input) -> Output {
@@ -55,7 +65,8 @@ class DishPhotoOrganizerVM: NSObject {
     let output = Output(dishItem: dishItem.asObservable(),
                         changedPhoto: PublishSubject<ImageReplacement?>(),
                         addedPhoto: PublishSubject<ImageRepresentation?>(),
-                        savedPhoto: PublishSubject<Bool>())
+                        savedPhoto: PublishSubject<Bool>(),
+                        selectedImage: selectedImageUUID.asObservable() )
     self.output = output
     
     // Bind Input
@@ -81,7 +92,7 @@ class DishPhotoOrganizerVM: NSObject {
           if let index = self?.dishReview?.images.firstIndex(where: { $0.uuid == imageReplacement.sourceImageUUID }) {
             self?.dishReview?.images.remove(at: index)
             
-            self?.dishReview?.images.append(image)
+            self?.dishReview?.images.insert(image, at: index)
             self?.output?.changedPhoto.onNext(imageReplacement)
           }
         }
@@ -145,16 +156,28 @@ class DishPhotoOrganizerVM: NSObject {
         self?.saveImageToPhotoAlbum()
       }).disposed(by: disposeBag)
     
+    input.selectImageAtIndex
+      .subscribe(onNext: { [weak self] index in
+        var imageUUID: String?
+        if let index = index {
+          imageUUID = self?.dishReview?.images.at(index)?.uuid
+        }
+        self?.selectedImageUUID.accept(imageUUID)
+      }).disposed(by: disposeBag)
+    
     return output
   }
   
   // MARK: - Dish Image
   func getCurrentDishImageRepresentation() -> ImageRepresentation? {
-// TODO: later
-    if let localName = dishItem.value?.dishReview?.images.first?.localName {
+    guard let selectedImageIndex = self.selectedImageIndex,
+          let image = dishReview?.images.at(selectedImageIndex)
+    else { return nil }
+    
+    if let localName = image.localName {
       let url = KVOImageV4.localFolder.appendingPathComponent(localName)
       return .localFile(url.absoluteString)
-    } else if let urlString = dishItem.value?.dishReview?.images.first?.url {
+    } else if let urlString = image.url {
       return .url(urlString)
     }
     

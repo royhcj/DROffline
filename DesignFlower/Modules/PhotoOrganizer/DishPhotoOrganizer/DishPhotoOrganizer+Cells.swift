@@ -14,6 +14,15 @@ class DishPhotoOrganizer_PhotoCell: UICollectionViewCell {
   
   @IBOutlet weak var photoImageView: UIImageView!
 
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    
+    selectedBackgroundView = {
+      let view = UIView()
+      view.backgroundColor = DishRankColor.darkTan
+      return view
+    }()
+  }
 }
 
 extension DishPhotoOrganizerVC {
