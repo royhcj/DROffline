@@ -146,7 +146,8 @@ class V4ShareVC: V4ReviewVC,
   
   // MARK: - ► Common Cell Delegate
   override func showChooseFriend() {
-    flowDelegate?.showChooseFriend()
+    let friendIDs = viewModel?.review?.allowedReaders ?? []
+    flowDelegate?.showChooseFriend(initialFriendIDs: friendIDs)
   }
   
   // MARK: - ► Friend Related
@@ -160,7 +161,7 @@ class V4ShareVC: V4ReviewVC,
 
 protocol V4ShareVCFlowDelegate: class {
   func leave()
-  func showChooseFriend()
+  func showChooseFriend(initialFriendIDs: [Int])
 }
 
 enum ShareScenario {

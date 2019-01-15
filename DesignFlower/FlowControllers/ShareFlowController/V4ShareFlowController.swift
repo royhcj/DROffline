@@ -70,14 +70,14 @@ class V4ShareFlowController: ViewBasedFlowController,
   }
   
   // Choose Friend
-  func showChooseFriend() {
+  func showChooseFriend(initialFriendIDs: [Int]) {
     guard let sourceVC = navigationVC ?? shareVC
     else { return }
     
     let displayContext: DisplayContext = .present(vc: sourceVC, animated: true, style: .overCurrentContext)
     let chooseFriendFlowController = V4ChooseFriendFlowController(delegate: self,
                                           sourceDisplayContext: displayContext,
-                                          initialChosenFriendIDs: [])
+                                          initialChosenFriendIDs: initialFriendIDs)
     
     addChild(flowController: chooseFriendFlowController)
     

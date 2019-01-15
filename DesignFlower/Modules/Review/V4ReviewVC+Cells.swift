@@ -319,6 +319,8 @@ class V4Review_SharedFriendCell: V4ReviewVC.CommonCell {
     if let view = friendListVC?.view {
       friendListContainer.addSubview(view)
     }
+    
+    friendListContainer.isUserInteractionEnabled = false
   }
   
   func configure(chosenFriends: [FriendListViewController.Friend]) {

@@ -39,6 +39,10 @@ class V4ChooseFriendFlowController: ViewBasedFlowController,
       vc.modalPresentationStyle = UIModalPresentationStyle.overCurrentContext
       vc.flowDelegate = self
       
+      vc.loadViewIfNeeded()
+      
+      vc.viewModel.selectedFriendIDs = initialChosenFriendIDs.map { String($0) }
+      
       chooseFriendVC = vc
     }
   }
