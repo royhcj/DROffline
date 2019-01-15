@@ -25,7 +25,7 @@ class V4ShareViewModel: V4ReviewViewModel {
   // MARK: - ► Friend Related
   func changeSharedFriends(_ friends: [FriendListViewController.Friend]) {
     sharedFriends = friends
-    review?.allowedReaders = friends.map { String($0.id) }
+    review?.allowedReaders = friends.compactMap { Int($0.id) }
     //review?.shareType = 2
     self.output?.refreshReview()
   }
