@@ -164,7 +164,7 @@ extension DishRankService {
 
       for rest in restlist {
         guard let attributes = rest.attributes else {
-          break
+          continue
         }
         if let existRest = RLMServiceV4.shared.getRestaurantList(id: rest.id).first {
           // 有就更新
