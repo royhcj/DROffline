@@ -18,7 +18,7 @@ extension RLMServiceV4 {
         let rlmRest = realm.create(RLMRestaurantV4.self)
         rlmRest.uuid = kvoRest.uuid
         rlmRest.address = kvoRest.address
-        rlmRest.area = kvoRest.area
+        rlmRest.area.value = kvoRest.area
         rlmRest.country = kvoRest.country
         rlmRest.id.value = kvoRest.id
         for image in kvoRest.images {
@@ -104,10 +104,10 @@ extension RLMServiceV4 {
 
   // no.7
   internal func update(_ restaurant: RLMRestaurantV4,
-                       area: String?) {
+                       area: Int?) {
     do {
       try realm.write {
-        restaurant.area = area
+        restaurant.area.value = area
       }
     } catch {
       print("RLMServiceV4+Restaurant file's no.7 func error")

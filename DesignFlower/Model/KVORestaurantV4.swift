@@ -15,7 +15,7 @@ class KVORestaurantV4: NSObject {
   @objc dynamic var longitude: Float = -1.0 // 存放longitude
   @objc dynamic var address: String? // 存放subtitle
   @objc dynamic var country: String? // 存放國家
-  @objc dynamic var area: String? // 存放區域
+  @objc dynamic var area: Int = -1 // 存放區域
   @objc dynamic var phoneNumber: String? //電話
   @objc dynamic var openHour: String? //營業時間
   @objc dynamic var images = [KVOImageV4]() //餐廳圖片
@@ -42,18 +42,18 @@ class KVORestaurantV4: NSObject {
     longitude = rlmRestaurant.longitude.value ?? -1
     address = rlmRestaurant.address
     country = rlmRestaurant.country
-    area = rlmRestaurant.area
+    area = rlmRestaurant.area.value ?? -1
     phoneNumber = rlmRestaurant.phoneNumber
     openHour = rlmRestaurant.openHour
     if let uuid = rlmRestaurant.uuid {
       self.uuid = uuid
     }
-    self.images = []
-    for rlmImage in rlmRestaurant.images {
-      let image = KVOImageV4(with: rlmImage)
-      self.images.append(image)
-    }
-    
+//    self.images = []
+//    for rlmImage in rlmRestaurant.images {
+//      let image = KVOImageV4(with: rlmImage)
+//      self.images.append(image)
+//    }
+
   }
   
   func load(withUUID uuid: String) {

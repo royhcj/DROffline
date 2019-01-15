@@ -16,7 +16,7 @@ public class KVORestReviewV4: NSObject {
   @objc dynamic var comment: String? // 評比內容
   @objc dynamic var id: Int = -1
   @objc dynamic var isScratch = false // 是否為草稿
-  @objc dynamic var allowedReaders = [String]() // 白名單
+  @objc dynamic var allowedReaders = [Int]() // 白名單
   @objc dynamic var createDate: Date = Date() // 創造日期
   @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
   @objc dynamic var parentID: Int = -1 // 複製品紀錄本尊的ID
@@ -49,7 +49,7 @@ public class KVORestReviewV4: NSObject {
     priceRank = rlmRestReview.priceRank
     title = rlmRestReview.title
     comment = rlmRestReview.comment
-    isScratch = rlmRestReview.isScratch
+    isScratch = rlmRestReview.isScratch.value ?? false
     allowedReaders = []
     rlmRestReview.allowedReaders.forEach {
       self.allowedReaders.append($0)

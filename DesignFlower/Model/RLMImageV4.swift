@@ -65,7 +65,7 @@ class RLMImageV4: SubObject, Uploadable {
     let localName = try container.decodeIfPresent(String.self, forKey: .localName)
     let imageID = try container.decodeIfPresent(String.self, forKey: .photoLatitude)
     let url = try container.decodeIfPresent(String.self, forKey: .url)
-    let imageStatus = try container.decode(Int.self, forKey: .imageStatus)
+//    let imageStatus = try container.decode(Int.self, forKey: .imageStatus)
     let photoLongtitude = try container.decodeIfPresent(Float.self, forKey: .photoLongtitude)
     let photoLatitude = try container.decodeIfPresent(Float.self, forKey: .photoLatitude)
     let order = try container.decodeIfPresent(Int.self, forKey: .order)
@@ -75,6 +75,7 @@ class RLMImageV4: SubObject, Uploadable {
     longtitude.value = photoLongtitude
     let ord = RealmOptional<Int>()
     ord.value = order
+    let imageStatus = 4
     self.init(phassetID: phassetID,
               localName: localName,
               imageID: imageID,
@@ -92,7 +93,7 @@ class RLMImageV4: SubObject, Uploadable {
     try container.encode(localName, forKey: .localName)
     try container.encode(imageID, forKey: .imageID)
     try container.encode(url, forKey: .url)
-    try container.encode(imageStatus, forKey: .imageStatus)
+//    try container.encode(imageStatus, forKey: .imageStatus)
     try container.encode(photoLongtitude.value, forKey: .photoLongtitude)
     try container.encode(photoLatitude.value, forKey: .photoLatitude)
     try container.encode(order.value, forKey: .order)

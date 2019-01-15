@@ -25,7 +25,7 @@ extension RLMServiceV4 {
         rlmImage.photoLatitude.value = kvoImage.photoLatitude
         rlmImage.photoLongtitude.value = kvoImage.photoLongtitude
         rlmImage.order.value = kvoImage.order
-        rlmRestaurant.images.append(rlmImage)
+//        rlmRestaurant.images.append(rlmImage)
       }
     } catch {
       print("RLMServiceV4+Image file's no.0 func error")

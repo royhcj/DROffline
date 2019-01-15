@@ -17,6 +17,7 @@
 		64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363221C8F01A003E5ACC /* Uploadable.swift */; };
 		64DF218621E73A7100C660AC /* RLMRestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218521E73A7100C660AC /* RLMRestaurantList.swift */; };
 		64DF218821EC29AC00C660AC /* DishRankService+Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218721EC29AC00C660AC /* DishRankService+Review.swift */; };
+		64DF218A21EC5F8700C660AC /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218921EC5F8700C660AC /* Double+Extension.swift */; };
 		64F5A98621E58C8D00237E4C /* RLMServiceV4+RestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */; };
 		72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6521AE8A940098FFFD /* AppDelegate.swift */; };
 		72061D6821AE8A950098FFFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6721AE8A950098FFFD /* ViewController.swift */; };
@@ -146,6 +147,7 @@
 		64D8363221C8F01A003E5ACC /* Uploadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
 		64DF218521E73A7100C660AC /* RLMRestaurantList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RLMRestaurantList.swift; path = ../../../../../RLMRestaurantList.swift; sourceTree = "<group>"; };
 		64DF218721EC29AC00C660AC /* DishRankService+Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DishRankService+Review.swift"; sourceTree = "<group>"; };
+		64DF218921EC5F8700C660AC /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+RestList.swift"; sourceTree = "<group>"; };
 		72061D6221AE8A940098FFFD /* DesignFlower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignFlower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72061D6521AE8A940098FFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -589,6 +591,7 @@
 		7287027A21BFB8A4000E1116 /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				64DF218921EC5F8700C660AC /* Double+Extension.swift */,
 				7287028121C750F6000E1116 /* UIView+Extension.swift */,
 				B0A0AFAC21C15AE5005BE7AB /* Array+Extension.swift */,
 				B0A0AFA321C13AD3005BE7AB /* UIColor+Extension.swift */,
@@ -969,6 +972,7 @@
 				723B1F8621B4E30700CF91F3 /* V4ReviewFlows-WriteBegin.swift in Sources */,
 				7219797221DDF45B00FD6435 /* V4ChooseShareFlowController.swift in Sources */,
 				B0A0AFA221C13A47005BE7AB /* DishRankColor.swift in Sources */,
+				64DF218A21EC5F8700C660AC /* Double+Extension.swift in Sources */,
 				7287027721BFB6EF000E1116 /* NewPhotoSelectionViewController.swift in Sources */,
 				648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */,
 				72061D9321AFDF080098FFFD /* RLMImageV4.swift in Sources */,

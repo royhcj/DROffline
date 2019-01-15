@@ -19,7 +19,7 @@ class RLMQueue: SubObject, Uploadable {
   @objc dynamic var comment: String? // 評比內容
   var id = RealmOptional<Int>() // reviewID
   @objc dynamic var isScratch = false // 是否為草稿
-  var allowedReaders = List<String>() // 白名單
+  var allowedReaders = List<Int>() // 白名單
   @objc dynamic var createDate: Date = Date() // 創造日期
   @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
   var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
@@ -43,7 +43,7 @@ class RLMQueue: SubObject, Uploadable {
                    comment: String?,
                    id: RealmOptional<Int>,
                    isScratch: Bool = false,
-                   allowedReaders: List<String>,
+                   allowedReaders: List<Int>,
                    createDate: Date = Date(),
                    eatingDate: Date? = Date(),
                    parentID: RealmOptional<Int>,
@@ -107,7 +107,7 @@ class RLMQueue: SubObject, Uploadable {
     let comment =  try container.decodeIfPresent(String.self, forKey: .comment)
     let id =  try container.decodeIfPresent(Int.self, forKey: .id)
     let isScratch =  try container.decode(Bool.self, forKey: .isScratch)
-    let allowedReaders =  try container.decode([String].self, forKey: .allowedReaders)
+    let allowedReaders =  try container.decode([Int].self, forKey: .allowedReaders)
     let createDate =  try container.decode(Date.self, forKey: .createDate)
     let eatingDate =  try container.decodeIfPresent(Date.self, forKey: .eatingDate)
     let parentID =  try container.decodeIfPresent(Int.self, forKey: .parentID)
@@ -120,7 +120,7 @@ class RLMQueue: SubObject, Uploadable {
 
     let realmID = RealmOptional<Int>()
     realmID.value = id
-    let realmAllowedReaders = List<String>()
+    let realmAllowedReaders = List<Int>()
     realmAllowedReaders.append(objectsIn: allowedReaders)
     let realmParentID = RealmOptional<Int>()
     realmParentID.value = parentID
@@ -156,7 +156,7 @@ class RLMQueue: SubObject, Uploadable {
     try continer.encode(comment, forKey: .comment)
     try continer.encode(id.value, forKey: .id)
     try continer.encode(isScratch, forKey: .isScratch)
-    var allR = [String]()
+    var allR = [Int]()
     allR.append(contentsOf: allowedReaders)
     try continer.encode(allR, forKey: .allowedReaders)
     try continer.encode(createDate, forKey: .createDate)

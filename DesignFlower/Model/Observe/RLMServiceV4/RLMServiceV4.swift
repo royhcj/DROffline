@@ -100,14 +100,14 @@ internal class RLMServiceV4 {
   internal func update(_ restReview: RLMRestReviewV4, isScratch: Bool) {
     do {
       try realm.write {
-        restReview.isScratch = isScratch
+        restReview.isScratch.value = isScratch
       }
     } catch {
       print("RLMServiceV4 file's no.6 func error")
     }
   }
   // no.7
-  internal func update(_ restReview: RLMRestReviewV4, allowedReaders: [String]) {
+  internal func update(_ restReview: RLMRestReviewV4, allowedReaders: [Int]) {
     do {
       try realm.write {
         restReview.allowedReaders.removeAll()

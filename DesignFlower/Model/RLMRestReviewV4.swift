@@ -23,8 +23,9 @@ class RLMRestReviewV4: SubObject, Uploadable {
   @objc dynamic var title: String? // 標題
   @objc dynamic var comment: String? // 評比內容
   var id = RealmOptional<Int>() // reviewID
-  @objc dynamic var isScratch = false // 是否為草稿
-  var allowedReaders = List<String>() // 白名單
+  var isScratch = RealmOptional<Bool>() // 是否為草稿
+//  @objc dynamic var isScratch = false
+  var allowedReaders = List<Int>() // 白名單
   @objc dynamic var createDate: Date = Date() // 創造日期
   @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
   var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
@@ -44,8 +45,8 @@ class RLMRestReviewV4: SubObject, Uploadable {
                    title: String?,
                    comment: String?,
                    id: RealmOptional<Int>,
-                   isScratch: Bool = false,
-                   allowedReaders: List<String>,
+                   isScratch: RealmOptional<Bool> = RealmOptional<Bool>.init(false),
+                   allowedReaders: List<Int>,
                    createDate: Date = Date(),
                    eatingDate: Date? = Date(),
                    parentID: RealmOptional<Int>,
@@ -101,73 +102,84 @@ class RLMRestReviewV4: SubObject, Uploadable {
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
-    let serviceRank = try container.decodeIfPresent(String.self, forKey: .serviceRank)
+    let serviceRank = try container.decodeIfPresent(Float.self, forKey: .serviceRank)
     let uuid = try container.decodeIfPresent(String.self, forKey: .uuid)
-    let environmentRank =  try container.decodeIfPresent(String.self, forKey: .environmentRank)
-    let priceRank =  try container.decodeIfPresent(String.self, forKey: .priceRank)
+    let environmentRank =  try container.decodeIfPresent(Float.self, forKey: .environmentRank)
+    let priceRank =  try container.decodeIfPresent(Float.self, forKey: .priceRank)
     let title =  try container.decodeIfPresent(String.self, forKey: .title)
     let comment =  try container.decodeIfPresent(String.self, forKey: .comment)
     let id =  try container.decodeIfPresent(Int.self, forKey: .id)
-    let isScratch =  try container.decode(Bool.self, forKey: .isScratch)
-    let allowedReaders =  try container.decode([String].self, forKey: .allowedReaders)
+//    let isScratch =  try container.decode(Bool.self, forKey: .isScratch)
+    let allowedReaders =  try container.decode([Int].self, forKey: .allowedReaders)
     let createDate =  try container.decode(Date.self, forKey: .createDate)
     let eatingDate =  try container.decodeIfPresent(Date.self, forKey: .eatingDate)
     let parentID =  try container.decodeIfPresent(Int.self, forKey: .parentID)
-    let isShowComment =  try container.decode(Bool.self, forKey: .isShowComment)
-    let isSync =  try container.decode(Bool.self, forKey: .isSync)
+    let isShowComment =  try container.decode(Int.self, forKey: .isShowComment)
+//    let isSync =  try container.decode(Bool.self, forKey: .isSync)
     let updateDate =  try container.decodeIfPresent(Date.self, forKey: .updateDate)
-    let isFirst =  try container.decode(Bool.self, forKey: .isFirst)
+//    let isFirst =  try container.decode(Bool.self, forKey: .isFirst)
     let dishReviews =  try container.decode([RLMDishReviewV4].self, forKey: .dishReviews)
     let restaurant =  try container.decode(RLMRestaurantV4.self, forKey: .restaurant)
 
     let realmID = RealmOptional<Int>()
     realmID.value = id
-    let realmAllowedReaders = List<String>()
+    let realmAllowedReaders = List<Int>()
     realmAllowedReaders.append(objectsIn: allowedReaders)
     let realmParentID = RealmOptional<Int>()
     realmParentID.value = parentID
     let realmDishReviews = List<RLMDishReviewV4>()
     realmDishReviews.append(objectsIn: dishReviews)
+    let serviceRankString = serviceRank?.toString()
+    let environmentRankString = environmentRank?.toString()
+    let priceRankString = priceRank?.toString()
+    let isScra = RealmOptional<Bool>()
+    isScra.value = false
+    let isShowCommentBool = isShowComment == 1 ? true : false
 
     self.init(uuid: uuid,
-              serviceRank: serviceRank,
-              environmentRank: environmentRank,
-              priceRank: priceRank,
+              serviceRank: serviceRankString,
+              environmentRank: environmentRankString,
+              priceRank: priceRankString,
               title: title,
               comment: comment,
               id: realmID,
-              isScratch: isScratch,
+              isScratch: isScra,
               allowedReaders: realmAllowedReaders,
               createDate: createDate,
               eatingDate: eatingDate,
               parentID: realmParentID,
-              isShowComment: isShowComment,
-              isSync: isSync,
+              isShowComment: isShowCommentBool,
+              isSync: false,
               updateDate: updateDate,
-              isFirst: isFirst,
+              isFirst: false,
               dishReviews: realmDishReviews,
               restaurant: restaurant)
   }
 
   override func encode(to encoder: Encoder) throws {
     var continer = encoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
-    try continer.encode(serviceRank, forKey: .serviceRank)
-    try continer.encode(environmentRank, forKey: .environmentRank)
-    try continer.encode(priceRank, forKey: .priceRank)
+    let sRank = Float(serviceRank ?? "0.0")
+    try continer.encode(sRank, forKey: .serviceRank)
+    let eRank = Float(environmentRank ?? "0.0")
+    try continer.encode(eRank, forKey: .environmentRank)
+    let pRank = Float(priceRank ?? "0.0")
+    try continer.encode(pRank, forKey: .priceRank)
     try continer.encode(title, forKey: .title)
     try continer.encode(comment, forKey: .comment)
     try continer.encode(id.value, forKey: .id)
-    try continer.encode(isScratch, forKey: .isScratch)
-    var allR = [String]()
+//    let isScra = isScratch.value
+//    try continer.encode(isScra, forKey: .isScratch)
+    var allR = [Int]()
     allR.append(contentsOf: allowedReaders)
     try continer.encode(allR, forKey: .allowedReaders)
     try continer.encode(createDate, forKey: .createDate)
     try continer.encode(eatingDate, forKey: .eatingDate)
     try continer.encode(parentID.value, forKey: .parentID)
-    try continer.encode(isShowComment, forKey: .isShowComment)
-    try continer.encode(isSync, forKey: .isSync)
+    let isShowCommentInt = isShowComment ? 1 : 0
+    try continer.encode(isShowCommentInt, forKey: .isShowComment)
+//    try continer.encode(isSync, forKey: .isSync)
     try continer.encode(updateDate, forKey: .updateDate)
-    try continer.encode(isFirst, forKey: .isFirst)
+//    try continer.encode(isFirst, forKey: .isFirst)
     var dishR = [RLMDishReviewV4]()
     dishR.append(contentsOf: dishReviews)
     try continer.encode(dishR, forKey: .dishReviews)

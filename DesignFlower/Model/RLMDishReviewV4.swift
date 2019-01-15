@@ -64,10 +64,10 @@ class RLMDishReviewV4: SubObject, Uploadable {
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMDishReviewV4DecodeKey.self)
-    let rank = try container.decodeIfPresent(String.self, forKey: .rank)
+    let rank = try container.decodeIfPresent(Float.self, forKey: .rank)
     let comment = try container.decodeIfPresent(String.self, forKey: .comment)
     let id = try container.decodeIfPresent(Int.self, forKey: .id)
-    let isCreate = try container.decode(Bool.self, forKey: .isCreate)
+//    let isCreate = try container.decode(Bool.self, forKey: .isCreate)
     let createDate = try container.decode(Date.self, forKey: .createDate)
     let parentID = try container.decodeIfPresent(Int.self, forKey: .parentID)
     let isLike = try container.decodeIfPresent(Bool.self, forKey: .isLike)
@@ -85,11 +85,11 @@ class RLMDishReviewV4: SubObject, Uploadable {
     realmImages.append(objectsIn: images)
     let realmIsLike = RealmOptional<Bool>()
     realmIsLike.value = isLike
+    let rankString = rank?.toString()
 
-    self.init(rank: rank,
+    self.init(rank: rankString,
               comment: comment,
               id: realmID,
-              isCreate: isCreate,
               createDate: createDate,
               parentID: realmParentID,
               isLike: realmIsLike,
@@ -100,9 +100,10 @@ class RLMDishReviewV4: SubObject, Uploadable {
 
   override func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMDishReviewV4DecodeKey.self)
-    try container.encode(rank, forKey: .rank)
+    let rankFloat = Float(rank ?? "0.0")
+    try container.encode(rankFloat, forKey: .rank)
     try container.encode(comment, forKey: .comment)
-    try container.encode(isCreate, forKey: .isCreate)
+//    try container.encode(isCreate, forKey: .isCreate)
     try container.encode(parentID.value, forKey: .parentID)
     try container.encode(createDate, forKey: .createDate)
     try container.encode(isLike.value, forKey: .isLike)

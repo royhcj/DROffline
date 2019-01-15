@@ -28,7 +28,7 @@ extension RLMServiceV4 {
         queueReview.environmentRank = restReview.environmentRank
         queueReview.id = restReview.id
         queueReview.isFirst = restReview.isFirst
-        queueReview.isScratch = restReview.isScratch
+        queueReview.isScratch = restReview.isScratch.value ?? false
         queueReview.isShowComment = restReview.isShowComment
         queueReview.isSync = restReview.isSync
         queueReview.parentID = restReview.parentID
