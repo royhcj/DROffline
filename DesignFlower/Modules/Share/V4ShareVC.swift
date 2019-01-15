@@ -138,7 +138,9 @@ class V4ShareVC: V4ReviewVC,
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = super.tableView(tableView, cellForRowAt: indexPath)
     
-    if let cell = cell as? SharedFriendCell {
+    if let cell = cell as? DishReviewHeaderCell {
+      cell.addDishReviewButton.isHidden = true
+    } else if let cell = cell as? SharedFriendCell {
       cell.configure(chosenFriends: shareViewModel?.sharedFriends ?? [])
     }
     return cell

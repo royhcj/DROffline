@@ -14,6 +14,9 @@ class V4ShareViewModel: V4ReviewViewModel {
   
   var sharedFriends: [FriendListViewController.Friend] = []
   
+  override var restaurantState: V4ReviewVC.RestaurantNameCell.RestaurantState {
+    return .canView
+  }
   
   override init(output: Output?, reviewUUID: String?) {
     super.init(output: output, reviewUUID: reviewUUID)

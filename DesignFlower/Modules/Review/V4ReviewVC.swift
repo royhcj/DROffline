@@ -201,7 +201,8 @@ class V4ReviewVC: FlowedViewController,
     }
     
     if let cell = cell as? RestaurantNameCell {
-      cell.configure(with: viewModel?.review)
+      cell.configure(with: viewModel?.review,
+                     restaurantState: viewModel?.restaurantState)
     } else if let cell = cell as? DiningTimeCell {
       cell.configure(with: viewModel?.review)
     } else if let cell = cell as? ReviewTitleCell {

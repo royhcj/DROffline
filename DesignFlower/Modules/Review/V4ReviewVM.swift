@@ -30,6 +30,10 @@ class V4ReviewViewModel {
   var dirty: Bool = false
   
   var lastBlankDishReviewUUID: String?
+  
+  open var restaurantState: V4ReviewVC.RestaurantNameCell.RestaurantState {
+    return .canChange
+  }
 
   init(output: Output?, reviewUUID: String?) {
     review = {

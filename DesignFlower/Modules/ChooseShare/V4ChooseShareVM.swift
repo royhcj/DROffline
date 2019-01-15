@@ -15,6 +15,10 @@ class V4ChooseShareViewModel: V4ReviewViewModel {
   var selectedDishReviewUUIDs: [String] = []
   var selectedRestaurantReview: Bool = false
   
+  override var restaurantState: V4ReviewVC.RestaurantNameCell.RestaurantState {
+    return .noAction
+  }
+  
   override init(output: Output?, reviewUUID: String?) {
     super.init(output: output, reviewUUID: reviewUUID)
     if let output = output as? V4ChooseShareViewModelOutput {

@@ -13,11 +13,42 @@ import SnapKit
 
 class V4Review_RestaurantNameCell: V4ReviewVC.CommonCell {
   
-  @IBOutlet var restaurantNameButton: UIButton!
+  @IBOutlet weak var restaurantNameButton: UIButton!
+  @IBOutlet weak var arrowIcon: UIImageView!
   
-  func configure(with review: KVORestReviewV4?) {
-    let title = "\(review?.restaurant?.name ?? "") >"
+  var restaurantState: RestaurantState = .canChange
+  
+  func configure(with review: KVORestReviewV4?,
+                 restaurantState: RestaurantState?) {
+    let title = review?.restaurant?.name
     restaurantNameButton.setTitle(title, for: .normal)
+    
+    setRestaurantState(restaurantState ?? .noAction)
+  }
+  
+  func setRestaurantState(_ restaurantState: RestaurantState) {
+    self.restaurantState = restaurantState
+    
+    switch restaurantState {
+    case .canChange:
+      restaurantNameButton.isEnabled = true
+      arrowIcon.image = UIImage(named: "jumpToThePage")
+    case .canView:
+      restaurantNameButton.isEnabled = true
+      arrowIcon.isHidden = false
+      arrowIcon.image = UIImage(named: "jumpToThePage")
+      restaurantNameButton.setTitleColor(DishRankColor.lightBrownColor, for: .normal)
+    case .noAction:
+      restaurantNameButton.isEnabled = false
+      arrowIcon.isHidden = true
+      break
+    }
+  }
+  
+  enum RestaurantState {
+    case canChange
+    case canView
+    case noAction
   }
 }
 
