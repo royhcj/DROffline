@@ -282,10 +282,20 @@ internal class RLMServiceV4 {
   }
 
   // no.16
-  internal func getRestReview(uuid: String) -> RLMRestReviewV4? {
-    let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
-    let restReview = realm.objects(RLMRestReviewV4.self).filter(predicate).first
-    return restReview
+  internal func getRestReview(uuid: String?, id: Int? = nil) -> RLMRestReviewV4? {
+
+    var predicate: NSPredicate
+    var review: RLMRestReviewV4?
+    if let uuid = uuid {
+      predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
+      review = realm.objects(RLMRestReviewV4.self).filter(predicate).first
+    }
+
+    if let id = id {
+      predicate = NSPredicate.init(format: "id == \(id)")
+      review = review != nil ? review : realm.objects(RLMRestReviewV4.self).filter(predicate).first
+    }
+    return review
   }
   
   // no. 17
@@ -307,4 +317,56 @@ internal class RLMServiceV4 {
     }
   }
 
+  // no. 17
+  internal func isExist(reviewUUID: String?, reviewID: Int?) -> Bool {
+    var predicate: NSPredicate
+    if let uuid = reviewUUID {
+      predicate = NSPredicate(format: "uuid == '\(uuid)'")
+      guard realm.objects(RLMRestReviewV4.self).filter(predicate).count == 0 else {
+        return true
+      }
+    }
+    if let id = reviewID {
+      predicate = NSPredicate(format: "id == \(id)")
+      guard realm.objects(RLMRestReviewV4.self).filter(predicate).count == 0 else {
+        return true
+      }
+    }
+    return false
+  }
+
+
+
+  internal func createRLM(with remoteReview: RLMRestReviewV4) {
+    do {
+      try realm.write {
+        var localRestReview = realm.create(RLMRestReviewV4.self)
+        localRestReview.allowedReaders = remoteReview.allowedReaders
+        localRestReview.comment = remoteReview.comment
+        localRestReview.createDate = remoteReview.createDate
+        localRestReview.id.value = remoteReview.id.value
+        localRestReview.uuid = remoteReview.uuid
+        localRestReview.dishReviews.append(objectsIn: remoteReview.dishReviews)
+      }
+    } catch {
+
+    }
+  }
+
+  internal func update(_ localRestReview: RLMRestReviewV4, with remoteReview: RLMRestReviewV4) {
+    do {
+      try realm.write {
+//        localRestReview = remoteReview
+        localRestReview.allowedReaders = remoteReview.allowedReaders
+        localRestReview.comment = remoteReview.comment
+        localRestReview.createDate = remoteReview.createDate
+        localRestReview.id.value = remoteReview.id.value
+        localRestReview.uuid = remoteReview.uuid
+        localRestReview.dishReviews.append(objectsIn: remoteReview.dishReviews)
+
+      }
+    } catch {
+
+    }
+  }
 }

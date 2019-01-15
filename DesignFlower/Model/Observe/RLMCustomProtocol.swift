@@ -22,7 +22,7 @@ import RealmSwift
  */
 
 class SubObject: Object, Codable {
-  @objc dynamic var uuid: String?
+  @objc dynamic var uuid: String? = UUID().uuidString.lowercased()
 
   static func uuidKey() -> String? {
     return "uuid"

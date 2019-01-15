@@ -92,15 +92,32 @@ extension DishRankService {
       switch result {
       case .success(let response):
         do {
-          let json = try JSONSerialization.jsonObject(with: response.data, options: [])
           let decoder = JSONDecoder()
-          let list = try decoder.decode(Restaurants.self, from: response.data)
-          print(list)
+          let restaurants = try decoder.decode(Restaurants.self, from: response.data)
+          update(restaurants: restaurants)
         } catch {
           print(error.localizedDescription)
         }
       case .failure(let error):
         print("get restaurant review error: \(error.localizedDescription)")
+      }
+    }
+  }
+
+  private static func analysis() {
+
+  }
+
+  private static func update(restaurants: Restaurants) {
+    if let restaurantReviews = restaurants.data {
+      for remoteReview in restaurantReviews {
+        guard let localReview = RLMServiceV4.shared.getRestReview(uuid: remoteReview.uuid, id: remoteReview.id.value) else {
+          //TODO: create
+          RLMServiceV4.shared.createRLM(with: remoteReview)
+          continue
+        }
+               //TODO: update
+        RLMServiceV4.shared.update(localReview, with: remoteReview)
       }
     }
   }

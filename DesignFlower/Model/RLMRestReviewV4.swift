@@ -76,7 +76,7 @@ class RLMRestReviewV4: SubObject, Uploadable {
     self.restaurant = restaurant
     if let uuid = uuid {
       self.uuid = uuid
-    }
+    } 
   }
 
   enum RLMRestReviewV4DecoderKey: String, CodingKey {
