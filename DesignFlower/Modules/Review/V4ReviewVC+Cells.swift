@@ -300,6 +300,39 @@ class V4Review_DeleteCell: V4ReviewVC.CommonCell {
   }
 }
 
+
+class V4Review_SharedFriendCell: V4ReviewVC.CommonCell {
+
+  @IBOutlet weak var friendListContainer: UIView!
+  
+  var friendListVC: FriendListViewController?
+  
+  override func awakeFromNib() {
+    super.awakeFromNib()
+    
+    friendListVC = FriendListViewController.make(style: .horizontal,
+                                                 allowsSelection: false,
+                                                 isShowName: false,
+                                                 horiZentalAlignment: .right)
+    friendListVC?.view.frame = friendListContainer.bounds
+    friendListVC?.view.translatesAutoresizingMaskIntoConstraints = true
+    if let view = friendListVC?.view {
+      friendListContainer.addSubview(view)
+    }
+  }
+  
+  func configure(chosenFriends: [FriendListViewController.Friend]) {
+    friendListVC?.friends = chosenFriends
+    friendListContainer.isHidden = chosenFriends.isEmpty
+  }
+  
+  @IBAction func clickedChooseFriend(_ sender: Any) {
+    delegate?.showChooseFriend()
+  }
+  
+}
+
+
 class V4Review_CommonCell: UITableViewCell {
   weak var delegate: V4ReviewVCCommonCellDelegate?
 }
@@ -425,6 +458,7 @@ extension V4ReviewVC {
   typealias DishReviewCell = V4Review_DishReviewCell
   typealias RestaurantRatingCell = V4Review_RestaurantRatingCell
   typealias DeleteCell = V4Review_DeleteCell
+  typealias SharedFriendCell = V4Review_SharedFriendCell
 }
 
 
@@ -452,4 +486,7 @@ protocol V4ReviewVCCommonCellDelegate: class {
   // Selection Related
   func toggleDishReviewSelection(dishReviewUUID: String)
   func toggleRestaurantRatingSelection()
+  
+  // Share Related
+  func showChooseFriend()
 }

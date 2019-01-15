@@ -97,6 +97,29 @@
 		7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027F21BFB9FE000E1116 /* Date+Extension.swift */; };
 		7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287028121C750F6000E1116 /* UIView+Extension.swift */; };
 		825146A2F2CB641CB8B874DA /* Pods_DesignFlower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */; };
+		B04302F421ED838400196E9A /* V4Review_SharedFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */; };
+		B04302FE21ED896300196E9A /* ChooseFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */; };
+		B04302FF21ED896300196E9A /* ChooseFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04302FA21ED896300196E9A /* ChooseFriendViewController.swift */; };
+		B043030021ED896300196E9A /* ChooseFriend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04302FB21ED896300196E9A /* ChooseFriend.storyboard */; };
+		B043030121ED896300196E9A /* FriendList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B04302FC21ED896300196E9A /* FriendList.storyboard */; };
+		B043030221ED896300196E9A /* FriendListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04302FD21ED896300196E9A /* FriendListViewController.swift */; };
+		B043032021ED90A200196E9A /* JSONable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043030421ED90A200196E9A /* JSONable.swift */; };
+		B043032221ED90A200196E9A /* FriendAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043030721ED90A200196E9A /* FriendAPI.swift */; };
+		B043032721ED90A200196E9A /* AddRatingAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043030C21ED90A200196E9A /* AddRatingAPI.swift */; };
+		B043033421ED90A200196E9A /* NoteV3ReviewAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043031921ED90A200196E9A /* NoteV3ReviewAPI.swift */; };
+		B043033A21ED90A200196E9A /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043031F21ED90A200196E9A /* Configuration.swift */; };
+		B043033C21ED91EF00196E9A /* WebService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043033B21ED91EF00196E9A /* WebService.swift */; };
+		B043034721ED927300196E9A /* Friend.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043033E21ED927300196E9A /* Friend.swift */; };
+		B043034821ED927300196E9A /* FriendJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043033F21ED927300196E9A /* FriendJSON.swift */; };
+		B043034921ED927300196E9A /* WaitAcceptCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034021ED927300196E9A /* WaitAcceptCode.swift */; };
+		B043034A21ED927300196E9A /* Quota.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034121ED927300196E9A /* Quota.swift */; };
+		B043034B21ED927300196E9A /* QuotaInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034221ED927300196E9A /* QuotaInfo.swift */; };
+		B043034C21ED927300196E9A /* AcceptedInvitation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034321ED927300196E9A /* AcceptedInvitation.swift */; };
+		B043034D21ED927300196E9A /* PendingCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034421ED927300196E9A /* PendingCode.swift */; };
+		B043034E21ED927300196E9A /* AcceptedMember.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034521ED927300196E9A /* AcceptedMember.swift */; };
+		B043034F21ED927300196E9A /* InactiveCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034621ED927300196E9A /* InactiveCode.swift */; };
+		B043035121ED9C2C00196E9A /* LoggedInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043035021ED9C2C00196E9A /* LoggedInUser.swift */; };
+		B043035421EDB1DE00196E9A /* V4ChooseFriendFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043035321EDB1DE00196E9A /* V4ChooseFriendFlowController.swift */; };
 		B08BC46121EC7735008838D6 /* DishPhotoOrganizer+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BC46021EC7735008838D6 /* DishPhotoOrganizer+Cells.swift */; };
 		B0A0AF8921C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */; };
 		B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */; };
@@ -228,6 +251,29 @@
 		7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		7287027F21BFB9FE000E1116 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		7287028121C750F6000E1116 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_SharedFriendCell.xib; sourceTree = "<group>"; };
+		B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseFriendViewModel.swift; sourceTree = "<group>"; };
+		B04302FA21ED896300196E9A /* ChooseFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseFriendViewController.swift; sourceTree = "<group>"; };
+		B04302FB21ED896300196E9A /* ChooseFriend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ChooseFriend.storyboard; sourceTree = "<group>"; };
+		B04302FC21ED896300196E9A /* FriendList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FriendList.storyboard; sourceTree = "<group>"; };
+		B04302FD21ED896300196E9A /* FriendListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendListViewController.swift; sourceTree = "<group>"; };
+		B043030421ED90A200196E9A /* JSONable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JSONable.swift; sourceTree = "<group>"; };
+		B043030721ED90A200196E9A /* FriendAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendAPI.swift; sourceTree = "<group>"; };
+		B043030C21ED90A200196E9A /* AddRatingAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddRatingAPI.swift; sourceTree = "<group>"; };
+		B043031921ED90A200196E9A /* NoteV3ReviewAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NoteV3ReviewAPI.swift; sourceTree = "<group>"; };
+		B043031F21ED90A200196E9A /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Configuration.swift; sourceTree = "<group>"; };
+		B043033B21ED91EF00196E9A /* WebService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WebService.swift; sourceTree = "<group>"; };
+		B043033E21ED927300196E9A /* Friend.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Friend.swift; sourceTree = "<group>"; };
+		B043033F21ED927300196E9A /* FriendJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendJSON.swift; sourceTree = "<group>"; };
+		B043034021ED927300196E9A /* WaitAcceptCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WaitAcceptCode.swift; sourceTree = "<group>"; };
+		B043034121ED927300196E9A /* Quota.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Quota.swift; sourceTree = "<group>"; };
+		B043034221ED927300196E9A /* QuotaInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuotaInfo.swift; sourceTree = "<group>"; };
+		B043034321ED927300196E9A /* AcceptedInvitation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedInvitation.swift; sourceTree = "<group>"; };
+		B043034421ED927300196E9A /* PendingCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PendingCode.swift; sourceTree = "<group>"; };
+		B043034521ED927300196E9A /* AcceptedMember.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptedMember.swift; sourceTree = "<group>"; };
+		B043034621ED927300196E9A /* InactiveCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InactiveCode.swift; sourceTree = "<group>"; };
+		B043035021ED9C2C00196E9A /* LoggedInUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedInUser.swift; sourceTree = "<group>"; };
+		B043035321EDB1DE00196E9A /* V4ChooseFriendFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ChooseFriendFlowController.swift; sourceTree = "<group>"; };
 		B08BC46021EC7735008838D6 /* DishPhotoOrganizer+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DishPhotoOrganizer+Cells.swift"; sourceTree = "<group>"; };
 		B0A0AF8621C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "V4RestaurantPickerVC+Cells.swift"; sourceTree = "<group>"; };
 		B0A0AF8721C107F5005BE7AB /* V4RestaurantPicker.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = V4RestaurantPicker.storyboard; sourceTree = "<group>"; };
@@ -354,6 +400,7 @@
 				7219796521D3724A00FD6435 /* ChooseShare */,
 				723B1F8D21B50BBC00CF91F3 /* PhotoPicker */,
 				7287026021BF8FAE000E1116 /* RestaurantPicker */,
+				B04302F521ED896300196E9A /* FriendList */,
 				B0F810EA21E4B60B00BEE91C /* PhotoOrganizer */,
 			);
 			name = "(Modules)";
@@ -377,6 +424,8 @@
 		72061D8721AFDF070098FFFD /* (Models) */ = {
 			isa = PBXGroup;
 			children = (
+				B043035021ED9C2C00196E9A /* LoggedInUser.swift */,
+				B043033D21ED927300196E9A /* Friend */,
 				B0A0AFB221C16305005BE7AB /* Dish.swift */,
 				B0A0AFAF21C162CB005BE7AB /* Media.swift */,
 				B0A0AFAE21C162CB005BE7AB /* OpenHour.swift */,
@@ -447,6 +496,7 @@
 				7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */,
 				7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */,
 				B0F810E821E25C9100BEE91C /* V4Review_DeleteCell.xib */,
+				B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */,
 			);
 			path = TableCells;
 			sourceTree = "<group>";
@@ -548,6 +598,7 @@
 				7287025D21BF6EE8000E1116 /* RestaurantPickerFlowController */,
 				7219796D21D4750C00FD6435 /* ShareFlowController */,
 				7219797021DDF44900FD6435 /* ChooseShareFlowController */,
+				B043035221EDB1B500196E9A /* ChooseFriendFlowController */,
 				B0F8110521E4CEBF00BEE91C /* PhotoOrganizerFlowController */,
 			);
 			name = "(FlowControllers)";
@@ -607,6 +658,87 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
+		B04302F521ED896300196E9A /* FriendList */ = {
+			isa = PBXGroup;
+			children = (
+				B04302F621ED896300196E9A /* Friend */,
+				B04302FC21ED896300196E9A /* FriendList.storyboard */,
+				B04302FD21ED896300196E9A /* FriendListViewController.swift */,
+			);
+			path = FriendList;
+			sourceTree = "<group>";
+		};
+		B04302F621ED896300196E9A /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				B04302F721ED896300196E9A /* ViewModel */,
+				B04302F921ED896300196E9A /* View */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
+		B04302F721ED896300196E9A /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		B04302F921ED896300196E9A /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B04302FA21ED896300196E9A /* ChooseFriendViewController.swift */,
+				B04302FB21ED896300196E9A /* ChooseFriend.storyboard */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		B043030321ED90A200196E9A /* WebService */ = {
+			isa = PBXGroup;
+			children = (
+				B043033B21ED91EF00196E9A /* WebService.swift */,
+				B043030421ED90A200196E9A /* JSONable.swift */,
+				B043030521ED90A200196E9A /* DishrankAPI */,
+				B043031F21ED90A200196E9A /* Configuration.swift */,
+			);
+			path = WebService;
+			sourceTree = "<group>";
+		};
+		B043030521ED90A200196E9A /* DishrankAPI */ = {
+			isa = PBXGroup;
+			children = (
+				B043030721ED90A200196E9A /* FriendAPI.swift */,
+				B043030C21ED90A200196E9A /* AddRatingAPI.swift */,
+				B043031921ED90A200196E9A /* NoteV3ReviewAPI.swift */,
+			);
+			path = DishrankAPI;
+			sourceTree = "<group>";
+		};
+		B043033D21ED927300196E9A /* Friend */ = {
+			isa = PBXGroup;
+			children = (
+				B043033E21ED927300196E9A /* Friend.swift */,
+				B043033F21ED927300196E9A /* FriendJSON.swift */,
+				B043034021ED927300196E9A /* WaitAcceptCode.swift */,
+				B043034121ED927300196E9A /* Quota.swift */,
+				B043034221ED927300196E9A /* QuotaInfo.swift */,
+				B043034321ED927300196E9A /* AcceptedInvitation.swift */,
+				B043034421ED927300196E9A /* PendingCode.swift */,
+				B043034521ED927300196E9A /* AcceptedMember.swift */,
+				B043034621ED927300196E9A /* InactiveCode.swift */,
+			);
+			path = Friend;
+			sourceTree = "<group>";
+		};
+		B043035221EDB1B500196E9A /* ChooseFriendFlowController */ = {
+			isa = PBXGroup;
+			children = (
+				B043035321EDB1DE00196E9A /* V4ChooseFriendFlowController.swift */,
+			);
+			path = ChooseFriendFlowController;
+			sourceTree = "<group>";
+		};
 		B0A0AF8421C107F5005BE7AB /* no_use */ = {
 			isa = PBXGroup;
 			children = (
@@ -619,6 +751,7 @@
 		B0A0AF8C21C10E5C005BE7AB /* (Services) */ = {
 			isa = PBXGroup;
 			children = (
+				B043030321ED90A200196E9A /* WebService */,
 				6488430521DF504900B7510C /* Moya */,
 				B0A0AF8F21C10ED2005BE7AB /* Location */,
 			);
@@ -789,16 +922,19 @@
 				72061D7021AE8A950098FFFD /* LaunchScreen.storyboard in Resources */,
 				7219795721D361B200FD6435 /* V4Review_RestaurantNameCell.xib in Resources */,
 				7287026421BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard in Resources */,
+				B043030121ED896300196E9A /* FriendList.storyboard in Resources */,
 				7287027421BFB05A000E1116 /* NoteV3PhotoPicker.storyboard in Resources */,
 				7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell.xib in Resources */,
 				B0F810E921E25C9100BEE91C /* V4Review_DeleteCell.xib in Resources */,
 				B0F810FC21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard in Resources */,
 				72061D6D21AE8A950098FFFD /* Assets.xcassets in Resources */,
+				B043030021ED896300196E9A /* ChooseFriend.storyboard in Resources */,
 				7287027021BFB05A000E1116 /* NoteV3Camera.storyboard in Resources */,
 				7219795921D3665B00FD6435 /* V4Review_DiningTimeCell.xib in Resources */,
 				7219795D21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib in Resources */,
 				72061D8221AE96350098FFFD /* V4Review.storyboard in Resources */,
 				7219795F21D3668700FD6435 /* V4Review_DishReviewCell.xib in Resources */,
+				B04302F421ED838400196E9A /* V4Review_SharedFriendCell.xib in Resources */,
 				72061D6B21AE8A950098FFFD /* Main.storyboard in Resources */,
 				7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */,
 				7219797821DDF88400FD6435 /* V4ChooseShare.storyboard in Resources */,
@@ -863,6 +999,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-DesignFlower/Pods-DesignFlower-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/AlignedCollectionViewFlowLayout/AlignedCollectionViewFlowLayout.framework",
 				"${BUILT_PRODUCTS_DIR}/CameraManager/CameraManager.framework",
 				"${BUILT_PRODUCTS_DIR}/CountryAndCity/CountryAndCity.framework",
 				"${BUILT_PRODUCTS_DIR}/HTTPStatusCodes/HTTPStatusCodes.framework",
@@ -890,6 +1027,7 @@
 			);
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlignedCollectionViewFlowLayout.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CameraManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CountryAndCity.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HTTPStatusCodes.framework",
@@ -934,8 +1072,11 @@
 				72061D6821AE8A950098FFFD /* ViewController.swift in Sources */,
 				B0F8110321E4B60B00BEE91C /* XformToolVC.swift in Sources */,
 				7219797621DDF69B00FD6435 /* V4ChooseShareVM.swift in Sources */,
+				B043033A21ED90A200196E9A /* Configuration.swift in Sources */,
 				B0F810FB21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift in Sources */,
+				B043034E21ED927300196E9A /* AcceptedMember.swift in Sources */,
 				64DF218621E73A7100C660AC /* RLMRestaurantList.swift in Sources */,
+				B043032721ED90A200196E9A /* AddRatingAPI.swift in Sources */,
 				B0F8110021E4B60B00BEE91C /* PhotoOrganizer+Models.swift in Sources */,
 				723B1F8421B4D3AA00CF91F3 /* DisplayContext.swift in Sources */,
 				7219797421DDF68D00FD6435 /* V4ChooseShareVC.swift in Sources */,
@@ -946,22 +1087,29 @@
 				723B1F8F21B50BD500CF91F3 /* V4PhotoPickerFlowController.swift in Sources */,
 				B0A0AFB421C16305005BE7AB /* Dish.swift in Sources */,
 				6488430921DF527800B7510C /* Login.swift in Sources */,
+				B043034C21ED927300196E9A /* AcceptedInvitation.swift in Sources */,
 				7287025F21BF8B1F000E1116 /* V4RestaurantPickerFlowController.swift in Sources */,
+				B043033421ED90A200196E9A /* NoteV3ReviewAPI.swift in Sources */,
 				64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */,
 				7219797D21E1060000FD6435 /* V4CustomDatePicker.swift in Sources */,
 				72061D7E21AE8E130098FFFD /* FlowedViewController.swift in Sources */,
 				723B1F8A21B4E51A00CF91F3 /* V4ReviewFlows-CheckLastUnsaved.swift in Sources */,
+				B043032021ED90A200196E9A /* JSONable.swift in Sources */,
 				64D8363321C8F01A003E5ACC /* SyncService.swift in Sources */,
+				B043035121ED9C2C00196E9A /* LoggedInUser.swift in Sources */,
 				B0A0AF8E21C10EBE005BE7AB /* TipBar.swift in Sources */,
 				B0A0AF9821C11095005BE7AB /* CustomSearchBar.swift in Sources */,
 				B0A0AFB121C162CB005BE7AB /* Media.swift in Sources */,
+				B043034B21ED927300196E9A /* QuotaInfo.swift in Sources */,
 				72061DAB21AFE0DA0098FFFD /* DishReviewObserve.swift in Sources */,
+				B04302FF21ED896300196E9A /* ChooseFriendViewController.swift in Sources */,
 				B0F8110121E4B60B00BEE91C /* PhotoOrganizer+DishModificationRequest.swift in Sources */,
 				72061DB421AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift in Sources */,
 				723B1F8C21B5081200CF91F3 /* V4ReviewFlows-AddNewPhoto.swift in Sources */,
 				B0A0AF9221C10ED2005BE7AB /* LocationService+Message.swift in Sources */,
 				72061DAA21AFE0DA0098FFFD /* ImageObserve.swift in Sources */,
 				72061D9A21AFDF080098FFFD /* KVODishReviewV4.swift in Sources */,
+				B043034821ED927300196E9A /* FriendJSON.swift in Sources */,
 				B0A0AF9321C10ED2005BE7AB /* LocationService.swift in Sources */,
 				B0F8110421E4B60B00BEE91C /* ImageEditorViewController.swift in Sources */,
 				723B1F9721B532E900CF91F3 /* V4PhotoPickerModule.swift in Sources */,
@@ -993,6 +1141,9 @@
 				7287027E21BFB90E000E1116 /* UIAlertController+Extension.swift in Sources */,
 				72061D9521AFDF080098FFFD /* KVORestReviewV4.swift in Sources */,
 				723E17F221D07B6700E50E25 /* V4PhotoService.swift in Sources */,
+				B043035421EDB1DE00196E9A /* V4ChooseFriendFlowController.swift in Sources */,
+				B043034A21ED927300196E9A /* Quota.swift in Sources */,
+				B043030221ED896300196E9A /* FriendListViewController.swift in Sources */,
 				7287027221BFB05A000E1116 /* NoteV3CameraViewController.swift in Sources */,
 				72061DAE21AFE0DA0098FFFD /* RestaurantObserve.swift in Sources */,
 				72061DB321AFE0DA0098FFFD /* RLMServiceV4+Image.swift in Sources */,
@@ -1001,16 +1152,22 @@
 				B0A0AF8921C107F5005BE7AB /* V4RestaurantPickerVC+Cells.swift in Sources */,
 				72061D9421AFDF080098FFFD /* RLMRestReviewV4.swift in Sources */,
 				B0A0AFB021C162CB005BE7AB /* OpenHour.swift in Sources */,
+				B04302FE21ED896300196E9A /* ChooseFriendViewModel.swift in Sources */,
 				7287026221BF8FD9000E1116 /* V4RestaurantPickerVCTemp.swift in Sources */,
 				648842FC21CDD9B700B7510C /* RLMServiceV4+Queue.swift in Sources */,
 				B0F8110721E4CEE900BEE91C /* V4PhotoOrganizerFlowController.swift in Sources */,
 				B0F810FA21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift in Sources */,
+				B043034721ED927300196E9A /* Friend.swift in Sources */,
 				B0A0AF9721C11095005BE7AB /* CustomSearchController.swift in Sources */,
+				B043033C21ED91EF00196E9A /* WebService.swift in Sources */,
 				6488430B21DF528C00B7510C /* RestList.swift in Sources */,
+				B043032221ED90A200196E9A /* FriendAPI.swift in Sources */,
+				B043034F21ED927300196E9A /* InactiveCode.swift in Sources */,
 				B0A0AF9C21C11147005BE7AB /* UIImage+Extension.swift in Sources */,
 				7287026821BFA4C7000E1116 /* Location.swift in Sources */,
 				72061D9721AFDF080098FFFD /* KVORestaurantV4.swift in Sources */,
 				B0A0AFA021C139BA005BE7AB /* CityModel.swift in Sources */,
+				B043034D21ED927300196E9A /* PendingCode.swift in Sources */,
 				7219796F21D4776B00FD6435 /* V4ShareFlowController.swift in Sources */,
 				7219796A21D3747100FD6435 /* V4ShareVC.swift in Sources */,
 				7287027C21BFB8A4000E1116 /* UIViewController+Alert.swift in Sources */,
@@ -1025,6 +1182,7 @@
 				B0F810FF21E4B60B00BEE91C /* PhotoOrganizerVM.swift in Sources */,
 				72061D9221AFDF080098FFFD /* RLMDishV4.swift in Sources */,
 				723B1F9321B5246300CF91F3 /* V4PhotoPickerVC.swift in Sources */,
+				B043034921ED927300196E9A /* WaitAcceptCode.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

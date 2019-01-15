@@ -8,7 +8,8 @@
 
 import UIKit
 
-class V4ShareVC: V4ReviewVC {
+class V4ShareVC: V4ReviewVC,
+                 V4ShareViewModelOutput {
   
   var flowDelegate: V4ShareVCFlowDelegate?
   
@@ -101,7 +102,7 @@ class V4ShareVC: V4ReviewVC {
   
   // MARK: - ► Table DataSource / Delegate
   override func numberOfSections(in tableView: UITableView) -> Int {
-    var number = 5
+    var number = 6
     if viewModel?.review?.isShowComment == true {
       number += 1
     }
@@ -110,27 +111,47 @@ class V4ShareVC: V4ReviewVC {
   
   override func tableSectionType(_ section: Int) -> V4ReviewVC.TableSection {
     switch section {
-    case 0: return .restaurantName
-    case 1: return .diningTime
-    case 2: return .reviewTitle
-    case 3: return .dishReviewHeader
-    case 4: return .dishReviews
-    case 5: return .restaurantRating
+    case 0: return .sharedFriend
+    case 1: return .restaurantName
+    case 2: return .diningTime
+    case 3: return .reviewTitle
+    case 4: return .dishReviewHeader
+    case 5: return .dishReviews
+    case 6: return .restaurantRating
     default: return .delete // TODO: other default
     }
   }
   
   override func tableSectionIndex(_ sectionType: V4ReviewVC.TableSection) -> Int {
     switch sectionType {
-      case .restaurantName:   return 0
-      case .diningTime:       return 1
-      case .reviewTitle:      return 2
-      case .dishReviewHeader: return 3
-      case .dishReviews:      return 4
-      case .restaurantRating: return 5
-      //case .delete:           return 6
+      case .sharedFriend:     return 0
+      case .restaurantName:   return 1
+      case .diningTime:       return 2
+      case .reviewTitle:      return 3
+      case .dishReviewHeader: return 4
+      case .dishReviews:      return 5
+      case .restaurantRating: return 6
       default:                return -1
     }
+  }
+  
+  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    let cell = super.tableView(tableView, cellForRowAt: indexPath)
+    
+    if let cell = cell as? SharedFriendCell {
+      cell.configure(chosenFriends: shareViewModel?.sharedFriends ?? [])
+    }
+    return cell
+  }
+  
+  // MARK: - ► Common Cell Delegate
+  override func showChooseFriend() {
+    flowDelegate?.showChooseFriend()
+  }
+  
+  // MARK: - ► Friend Related
+  func changeSharedFriends(_ friends: [FriendListViewController.Friend]) {
+    shareViewModel?.changeSharedFriends(friends)
   }
 
   // MARK: - ► Type Definitions
@@ -139,6 +160,7 @@ class V4ShareVC: V4ReviewVC {
 
 protocol V4ShareVCFlowDelegate: class {
   func leave()
+  func showChooseFriend()
 }
 
 enum ShareScenario {

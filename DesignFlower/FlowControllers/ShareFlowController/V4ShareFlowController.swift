@@ -68,7 +68,32 @@ class V4ShareFlowController: ViewBasedFlowController,
       sourceDisplayContext.undisplay(navigationVC)
     }
   }
+  
+  // Choose Friend
+  func showChooseFriend() {
+    guard let sourceVC = navigationVC ?? shareVC
+    else { return }
+    
+    let displayContext: DisplayContext = .present(vc: sourceVC, animated: true, style: .overCurrentContext)
+    let chooseFriendFlowController = V4ChooseFriendFlowController(delegate: self,
+                                          sourceDisplayContext: displayContext,
+                                          initialChosenFriendIDs: [])
+    
+    addChild(flowController: chooseFriendFlowController)
+    
+    chooseFriendFlowController.prepare()
+    chooseFriendFlowController.start()
+  }
+  
+
 
   
   // MARK: - Type Definitions
+}
+
+
+extension V4ShareFlowController: V4ChooseFriendFlowControllerDelegate {
+  func choseFriends(_ friends: [FriendListViewController.Friend]) {
+    shareVC?.changeSharedFriends(friends)
+  }
 }

@@ -116,6 +116,7 @@ class V4ReviewVC: FlowedViewController,
     tableView.register(UINib(nibName: "V4Review_DishReviewCell", bundle: nil), forCellReuseIdentifier: "DishReview")
     tableView.register(UINib(nibName: "V4Review_RestaurantRatingCell", bundle: nil), forCellReuseIdentifier: "RestaurantRating")
     tableView.register(UINib(nibName: "V4Review_DeleteCell", bundle: nil), forCellReuseIdentifier: "Delete")
+    tableView.register(UINib(nibName: "V4Review_SharedFriendCell", bundle: nil), forCellReuseIdentifier: "SharedFriend")
     
   }
   
@@ -141,7 +142,7 @@ class V4ReviewVC: FlowedViewController,
       case .dishReviews:      return 4
       case .restaurantRating: return 5
       case .delete:           return 6
-      //default:                return -1
+      default:                return -1 // TODO: other default
     }
   }
   
@@ -169,6 +170,10 @@ class V4ReviewVC: FlowedViewController,
       return 1
     case .delete:
       return 1
+    case .sharedFriend:
+      return 1
+    default:
+      return 0
     }
   }
   
@@ -186,6 +191,8 @@ class V4ReviewVC: FlowedViewController,
     case .dishReviews:      cellID = "DishReview"
     case .restaurantRating: cellID = "RestaurantRating"
     case .delete:           cellID = "Delete"
+    case .sharedFriend:     cellID = "SharedFriend"
+    default:                return UITableViewCell()
     }
     let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
     
@@ -326,6 +333,9 @@ class V4ReviewVC: FlowedViewController,
   func toggleRestaurantRatingSelection() {
   }
   
+  func showChooseFriend() {
+  }
+  
 //  // MARK: - ► PhotoOrganizer Modifications
 //  public func
   
@@ -426,6 +436,7 @@ class V4ReviewVC: FlowedViewController,
     case dishReviews
     case restaurantRating
     case delete
+    case sharedFriend
   }
 }
 

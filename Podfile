@@ -17,8 +17,8 @@ target 'DesignFlower' do
   pod 'Moya/RxSwift'
   
   # PromiseKit/Alamofire
-  #pod 'PromiseKit', '~> 4.0'
-  pod 'PromiseKit/Alamofire'
+  pod 'PromiseKit', '~> 4.0'
+  pod 'PromiseKit/Alamofire', '~> 4.0'
   
   # HTTP Status Code Enum
   pod 'HTTPStatusCodes', '~> 3.1.1'
@@ -57,6 +57,9 @@ target 'DesignFlower' do
   
   # 'iCarousel'
   pod 'iCarousel'
+  
+  # Collection align
+  pod 'AlignedCollectionViewFlowLayout'
   
 end
 

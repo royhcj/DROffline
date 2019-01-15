@@ -31,6 +31,9 @@ class AutoLogin {
           let token = json["accessToken"].stringValue
           let userDefault = UserDefaults.standard
           userDefault.set(token, forKey: "token")
+
+          // 測試用
+          LoggedInUser.sharedInstance().accessToken = token
         } else {
           print("transfer to json error")
         }

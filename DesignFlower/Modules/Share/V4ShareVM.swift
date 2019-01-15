@@ -12,6 +12,8 @@ class V4ShareViewModel: V4ReviewViewModel {
   
   weak var output: V4ShareViewModelOutput?
   
+  var sharedFriends: [FriendListViewController.Friend] = []
+  
   
   override init(output: Output?, reviewUUID: String?) {
     super.init(output: output, reviewUUID: reviewUUID)
@@ -20,9 +22,15 @@ class V4ShareViewModel: V4ReviewViewModel {
     }
   }
   
-  
+  // MARK: - ► Friend Related
+  func changeSharedFriends(_ friends: [FriendListViewController.Friend]) {
+    sharedFriends = friends
+    review?.allowedReaders = friends.map { String($0.id) }
+    //review?.shareType = 2
+    self.output?.refreshReview()
+  }
 }
 
 protocol V4ShareViewModelOutput: class {
-  
+  func refreshReview()
 }
