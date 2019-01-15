@@ -446,7 +446,7 @@ class V4ReviewVC: FlowedViewController,
 extension V4ReviewVC: TableViewDraggerDataSource,
                       TableViewDraggerDelegate {
   
-  func setupTableViewDragger() {
+  @objc func setupTableViewDragger() {
     tableViewDragger = {
       let dragger = TableViewDragger(tableView: tableView)
       dragger.availableHorizontalScroll = false

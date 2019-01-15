@@ -131,6 +131,10 @@ class V4ChooseShareVC: V4ReviewVC,
     return cell
   }
   
+  override func setupTableViewDragger() {
+    // Do nothing. 因為不需要拖曳
+  }
+  
   // MARK: - ► Cell Delegate
   override func toggleDishReviewSelection(dishReviewUUID: String) {
     chooseShareViewModel?.toggleDishReviewSelection(dishReviewUUID: dishReviewUUID)
