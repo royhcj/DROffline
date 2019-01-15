@@ -207,7 +207,8 @@ class V4ReviewViewModel {
   }
   
   func mergeDishReview(from sourceDishReviewUUID: String, to targetDishReviewUUID: String) {
-    guard let source = getDishReview(sourceDishReviewUUID),
+    guard sourceDishReviewUUID != targetDishReviewUUID,
+          let source = getDishReview(sourceDishReviewUUID),
           let target = getDishReview(targetDishReviewUUID)
     else { return }
     
