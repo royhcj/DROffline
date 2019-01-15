@@ -54,7 +54,7 @@
 		7219795B21D3667100FD6435 /* V4Review_ReviewTitleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795A21D3667100FD6435 /* V4Review_ReviewTitleCell.xib */; };
 		7219795D21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795C21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib */; };
 		7219795F21D3668700FD6435 /* V4Review_DishReviewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */; };
-		7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */; };
+		7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell_old.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell_old.xib */; };
 		7219796821D373B500FD6435 /* V4Share.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7219796721D373B500FD6435 /* V4Share.storyboard */; };
 		7219796A21D3747100FD6435 /* V4ShareVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796921D3747100FD6435 /* V4ShareVC.swift */; };
 		7219796C21D3796D00FD6435 /* V4ShareVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7219796B21D3796D00FD6435 /* V4ShareVM.swift */; };
@@ -97,6 +97,7 @@
 		7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027F21BFB9FE000E1116 /* Date+Extension.swift */; };
 		7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287028121C750F6000E1116 /* UIView+Extension.swift */; };
 		825146A2F2CB641CB8B874DA /* Pods_DesignFlower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */; };
+		B01B05C821EE242300F49C20 /* V4Review_RestaurantRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */; };
 		B04302F421ED838400196E9A /* V4Review_SharedFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */; };
 		B04302FE21ED896300196E9A /* ChooseFriendViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */; };
 		B04302FF21ED896300196E9A /* ChooseFriendViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B04302FA21ED896300196E9A /* ChooseFriendViewController.swift */; };
@@ -209,7 +210,7 @@
 		7219795A21D3667100FD6435 /* V4Review_ReviewTitleCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_ReviewTitleCell.xib; sourceTree = "<group>"; };
 		7219795C21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DishReviewHeaderCell.xib; sourceTree = "<group>"; };
 		7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DishReviewCell.xib; sourceTree = "<group>"; };
-		7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell.xib; sourceTree = "<group>"; };
+		7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell_old.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell_old.xib; sourceTree = "<group>"; };
 		7219796721D373B500FD6435 /* V4Share.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4Share.storyboard; sourceTree = "<group>"; };
 		7219796921D3747100FD6435 /* V4ShareVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareVC.swift; sourceTree = "<group>"; };
 		7219796B21D3796D00FD6435 /* V4ShareVM.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ShareVM.swift; sourceTree = "<group>"; };
@@ -251,6 +252,7 @@
 		7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		7287027F21BFB9FE000E1116 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		7287028121C750F6000E1116 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
+		B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell.xib; sourceTree = "<group>"; };
 		B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_SharedFriendCell.xib; sourceTree = "<group>"; };
 		B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseFriendViewModel.swift; sourceTree = "<group>"; };
 		B04302FA21ED896300196E9A /* ChooseFriendViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseFriendViewController.swift; sourceTree = "<group>"; };
@@ -494,7 +496,8 @@
 				7219795A21D3667100FD6435 /* V4Review_ReviewTitleCell.xib */,
 				7219795C21D3667B00FD6435 /* V4Review_DishReviewHeaderCell.xib */,
 				7219795E21D3668700FD6435 /* V4Review_DishReviewCell.xib */,
-				7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell.xib */,
+				7219796021D3669100FD6435 /* V4Review_RestaurantRatingCell_old.xib */,
+				B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */,
 				B0F810E821E25C9100BEE91C /* V4Review_DeleteCell.xib */,
 				B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */,
 			);
@@ -924,7 +927,7 @@
 				7287026421BF8FF7000E1116 /* V4RestaurantPickerTemp.storyboard in Resources */,
 				B043030121ED896300196E9A /* FriendList.storyboard in Resources */,
 				7287027421BFB05A000E1116 /* NoteV3PhotoPicker.storyboard in Resources */,
-				7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell.xib in Resources */,
+				7219796121D3669100FD6435 /* V4Review_RestaurantRatingCell_old.xib in Resources */,
 				B0F810E921E25C9100BEE91C /* V4Review_DeleteCell.xib in Resources */,
 				B0F810FC21E4B60B00BEE91C /* DishPhotoOrganizer.storyboard in Resources */,
 				72061D6D21AE8A950098FFFD /* Assets.xcassets in Resources */,
@@ -941,6 +944,7 @@
 				723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */,
 				B0F810FE21E4B60B00BEE91C /* PhotoOrganizer.storyboard in Resources */,
 				7219797C21E1060000FD6435 /* V4CustomDatePicker.xib in Resources */,
+				B01B05C821EE242300F49C20 /* V4Review_RestaurantRatingCell.xib in Resources */,
 				B0A0AF8A21C107F5005BE7AB /* V4RestaurantPicker.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

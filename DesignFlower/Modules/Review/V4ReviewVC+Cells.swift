@@ -258,47 +258,82 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
 
 class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextViewDelegate {
   
-  @IBOutlet var commentTextView: UITextView!
-  @IBOutlet var priceRatingView: YCRateView!
-  @IBOutlet var serviceRatingView: YCRateView!
-  @IBOutlet var environmentRatingView: YCRateView!
+  @IBOutlet weak var restaurantNameButton: UIButton!
+  @IBOutlet weak var commentTextView: UITextView!
+  @IBOutlet weak var priceRatingView: YCRateView!
+  @IBOutlet weak var serviceRatingView: YCRateView!
+  @IBOutlet weak var environmentRatingView: YCRateView!
+  @IBOutlet weak var priceRatingLabel: UILabel!
+  @IBOutlet weak var serviceRatingLabel: UILabel!
+  @IBOutlet weak var environmentRatingLabel: UILabel!
+  
   
   override func awakeFromNib() {
     super.awakeFromNib()
     commentTextView.delegate = self
+
     priceRatingView.sliderAddTarget(target: self, selector: #selector(priceRankValueChanged), event: .valueChanged)
     serviceRatingView.sliderAddTarget(target: self, selector: #selector(serviceRankValueChanged), event: .valueChanged)
     environmentRatingView.sliderAddTarget(target: self, selector: #selector(environmentRankValueChanged), event: .valueChanged)
+    
+    
+    priceRatingLabel.text = String(format: "%.1f", priceRatingView.yc_InitValue)
+    priceRatingView.sliderAddTarget(target: self, selector: #selector(priceRankValueChanged), event: .valueChanged)
+    priceRatingView.yc_IsSliderEnabled = true
+    priceRatingView.yc_IsTextHidden = true
+    //
+    
+    serviceRatingLabel.text = String(format: "%.1f", serviceRatingView.yc_InitValue)
+    serviceRatingView.sliderAddTarget(target: self, selector: #selector(serviceRankValueChanged), event: .valueChanged)
+    serviceRatingView.yc_IsSliderEnabled = true
+    serviceRatingView.yc_IsTextHidden = true
+    
+    environmentRatingLabel.text = String(format: "%.1f", environmentRatingView.yc_InitValue)
+    environmentRatingView.sliderAddTarget(target: self, selector: #selector(environmentRankValueChanged), event: .valueChanged)
+    environmentRatingView.yc_IsSliderEnabled = true
+    environmentRatingView.yc_IsTextHidden = true
+    
+    restaurantNameButton.semanticContentAttribute = UIApplication.shared
+      .userInterfaceLayoutDirection == .rightToLeft ? .forceLeftToRight : .forceRightToLeft
+    
   }
   
   func configure(with review: KVORestReviewV4?) {
     commentTextView.text = review?.comment
     
-    priceRatingView.yc_IsSliderEnabled = true
-    priceRatingView.yc_IsTextHidden = false
     priceRatingView.yc_InitValue = Float(review?.priceRank ?? "0.0") ?? 0
     priceRatingView.setNeedsDisplay()
+    priceRatingLabel.text = review?.priceRank ?? "0.0"
     
-    serviceRatingView.yc_IsSliderEnabled = true
-    serviceRatingView.yc_IsTextHidden = false
     serviceRatingView.yc_InitValue = Float(review?.serviceRank ?? "0.0") ?? 0
     serviceRatingView.setNeedsDisplay()
+    serviceRatingLabel.text = review?.serviceRank ?? "0.0"
     
-    environmentRatingView.yc_IsSliderEnabled = true
-    environmentRatingView.yc_IsTextHidden = false
     environmentRatingView.yc_InitValue = Float(review?.environmentRank ?? "0.0") ?? 0
     environmentRatingView.setNeedsDisplay()
+    environmentRatingLabel.text = review?.environmentRank ?? "0.0"
+    
+    if let restaurantName = review?.restaurant?.name {
+      restaurantNameButton.setTitle(restaurantName, for: .normal)
+      restaurantNameButton.setImage(UIImage(named: "jumpToThePage"), for: .normal)
+    } else {
+      restaurantNameButton.setTitle("評論", for: .normal)
+      restaurantNameButton.setImage(nil, for: .normal)
+    }
   }
   
   @objc func priceRankValueChanged(sender: UISlider, value: Float) {
+    priceRatingLabel.text = String(format: "%.1f", sender.value)
     delegate?.changePriceRank(value)
   }
   
   @objc func serviceRankValueChanged(sender: UISlider, value: Float) {
+    serviceRatingLabel.text = String(format: "%.1f", sender.value)
     delegate?.changeServiceRank(value)
   }
   
   @objc func environmentRankValueChanged(sender: UISlider, value: Float) {
+    environmentRatingLabel.text = String(format: "%.1f", sender.value)
     delegate?.changeEnvironmentRank(value)
   }
   
