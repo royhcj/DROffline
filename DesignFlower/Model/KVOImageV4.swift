@@ -48,7 +48,7 @@ class KVOImageV4: NSObject {
   }
 
   func load(withUUID uuid: String) {
-    guard let rlmImage = RLMServiceV4.shared.getImage(uuid: uuid)
+    guard let rlmImage = RLMServiceV4.shared.image.getImage(uuid: uuid)
     else { return }
     
     set(with: rlmImage)

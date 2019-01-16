@@ -21,8 +21,9 @@ import RealmSwift
 
  */
 
-class SubObject: Object, Codable {
+class SubObject: Object {
   @objc dynamic var uuid: String? = UUID().uuidString.lowercased()
+  var id = RealmOptional<Int>()
 
   static func uuidKey() -> String? {
     return "uuid"
@@ -35,6 +36,22 @@ class SubObject: Object, Codable {
   static func idKey() -> String? {
     return "id"
   }
+
+ func filter(remoteObject: SubObject, localObjects: [SubObject]) -> SubObject? {
+    if let localObject = localObjects.filter({ (localDishReview) -> Bool in
+      if let localID = localDishReview.id.value, let remoteID = remoteObject.id.value {
+        return localID == remoteID
+      }
+      if let localUUID = localDishReview.uuid, let remoteUUID = remoteObject.uuid {
+        return localUUID == remoteUUID
+      }
+      return false
+    }).first {
+      return localObject
+    }
+    return nil
+  }
+
 }
 
 protocol RLMObserveDelegate: class {

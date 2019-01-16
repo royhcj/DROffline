@@ -29,42 +29,42 @@ class ImageObserve: RLMObserveDelegate {
       [
         object.observe(\.phassetID, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-             RLMServiceV4.shared.update(dbObject, phassetID: newValue)
+             RLMServiceV4.shared.image.update(dbObject, phassetID: newValue)
           }
         },
         object.observe(\.localName, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.update(dbObject, localName: newValue)
+            RLMServiceV4.shared.image.update(dbObject, localName: newValue)
           }
         },
         object.observe(\.imageID, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.update(dbObject, imageID: newValue)
+            RLMServiceV4.shared.image.update(dbObject, imageID: newValue)
           }
         },
         object.observe(\.url, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.update(dbObject, url: newValue)
+            RLMServiceV4.shared.image.update(dbObject, url: newValue)
           }
         },
         object.observe(\.imageStatus, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.update(dbObject, imageStatus: newValue)
+            RLMServiceV4.shared.image.update(dbObject, imageStatus: newValue)
           }
         },
         object.observe(\.photoLatitude, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.update(dbObject, photoLatitude: newValue)
+            RLMServiceV4.shared.image.update(dbObject, photoLatitude: newValue)
           }
         },
         object.observe(\.photoLongtitude, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.update(dbObject, photoLongtitude: newValue)
+            RLMServiceV4.shared.image.update(dbObject, photoLongtitude: newValue)
           }
         },
         object.observe(\.order, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.update(dbObject, order: newValue)
+            RLMServiceV4.shared.image.update(dbObject, order: newValue)
           }
         }
     ]

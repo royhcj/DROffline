@@ -152,7 +152,7 @@ class RestReviewObserve: RLMObserveDelegate {
     
     // 加入新的DishReview
     for dishReview in willBeAdded {
-      RLMServiceV4.shared.create(from: dbObject, dishReview: dishReview)
+      RLMServiceV4.shared.dishReview.create(from: dbObject, dishReview: dishReview)
       dishObservers.append(DishReviewObserve.init(object: dishReview))
     }
     // 刪除多出來的dishReview

@@ -13,14 +13,14 @@ class RLMDishReviewV4: SubObject, Uploadable {
 
   @objc dynamic var rank: String? // 分數
   @objc dynamic var comment: String? // 評比
-  var id = RealmOptional<Int>() // 評比ID
+//  var id = RealmOptional<Int>() // 評比ID
   @objc dynamic var isCreate = false // 不透過圖片直接建立新的評比
   @objc dynamic var createDate: Date = Date()
   var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
   var isLike = RealmOptional<Bool>() // 是否為使用者蒐藏
   var order = RealmOptional<Int>() // 順序
   var images = List<RLMImageV4>() // 圖片
-  var dish = RLMDishV4()  // 菜餚
+  @objc dynamic var dish: RLMDishV4?  // 菜餚
   //  @objc dynamic var uuid: String? // dish uuid
 
   // 自動會管理
@@ -35,7 +35,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
                    isLike: RealmOptional<Bool>,
                    order: RealmOptional<Int>,
                    images: List<RLMImageV4>,
-                   dish: RLMDishV4) {
+                   dish: RLMDishV4?) {
     self.init()
     self.rank = rank
     self.comment = comment
@@ -98,7 +98,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
               dish: dish)
   }
 
-  override func encode(to encoder: Encoder) throws {
+  func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMDishReviewV4DecodeKey.self)
     let rankFloat = Float(rank ?? "0.0")
     try container.encode(rankFloat, forKey: .rank)
@@ -113,6 +113,19 @@ class RLMDishReviewV4: SubObject, Uploadable {
     try container.encode(imgs, forKey: .images)
     try container.encode(dish, forKey: .dish)
 
+  }
+
+  func update(from dishReview: RLMDishReviewV4) {
+    self.rank = dishReview.rank
+    self.comment = dishReview.comment
+    self.id = dishReview.id
+    self.isCreate = dishReview.isCreate
+    self.createDate = dishReview.createDate
+    self.parentID = dishReview.parentID
+    self.isLike = dishReview.isLike
+    self.order = dishReview.order
+//    self.images = dishReview.images
+//    self.dish = dishReview.dish
   }
 
 }

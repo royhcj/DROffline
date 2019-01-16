@@ -35,7 +35,7 @@ class KVODishV4: NSObject {
   }
   
   func load(withUUID uuid: String) {
-    guard let rlmDish = RLMServiceV4.shared.getDish(uuid: uuid)
+    guard let rlmDish = RLMServiceV4.shared.dish.getDish(uuid: uuid)
     else { return }
     
     set(with: rlmDish)

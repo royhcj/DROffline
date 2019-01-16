@@ -11,7 +11,7 @@ import RealmSwift
 
 class RLMRestaurantV4: SubObject, Uploadable {
 
-  var id = RealmOptional<Int>() // 餐廳ID
+//  var id = RealmOptional<Int>() // 餐廳ID
   @objc dynamic var name: String? // 餐廳名字
   var latitude = RealmOptional<Float>() // 存放latitude
   var longitude = RealmOptional<Float>() // 存放longitude
@@ -95,7 +95,7 @@ class RLMRestaurantV4: SubObject, Uploadable {
               )
   }
 
-  override func encode(to encoder: Encoder) throws {
+  func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMRestReviewV4DecodeKey.self)
     try container.encode(id.value, forKey: .id)
     try container.encode(name, forKey: .name)

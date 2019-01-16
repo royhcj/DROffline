@@ -13,9 +13,15 @@ internal class RLMServiceV4 {
   static var shared = RLMServiceV4()
 
   internal var realm: Realm
+  internal var dishReview: DishReview
+  internal var dish: Dish
+  internal var image: RLMServiceV4.Image
 
   private init() {
     realm = try! Realm()
+    dishReview = RLMServiceV4.DishReview(realm: realm)
+    dish = RLMServiceV4.Dish(realm: realm)
+    image = RLMServiceV4.Image(realm: realm)
   }
 
   internal func createRLM<T: SubObject>(uuid: String, type: T.Type) -> T? {
@@ -85,7 +91,7 @@ internal class RLMServiceV4 {
       print("RLMServiceV4 file's no.4-2 func error")
     }
   }
-  
+
   // no.5
   internal func update(_ restReview: RLMRestReviewV4, id: Int?) {
     do {
@@ -157,7 +163,7 @@ internal class RLMServiceV4 {
       print("RLMServiceV4 file's no.11 func error")
     }
   }
-  
+
   // no.11
   internal func update(_ restReview: RLMRestReviewV4, isShowComment: Bool) {
     do {
@@ -226,18 +232,18 @@ internal class RLMServiceV4 {
           // 判斷是否有其他菜餚筆記使用，若無則刪除
           uuids.forEach({ (uuid) in
 
-          guard self.isDishReviewContainImage(uuid: uuid) else {
-            if let image = RLMServiceV4.shared.getImage(uuid: uuid) {
+            guard self.isDishReviewContainImage(uuid: uuid) else {
+              if let image = RLMServiceV4.shared.image.getImage(uuid: uuid) {
                 realm.delete(image)
               }
-            return
+              return
             }
-            
+
           })
         }
       }
     } catch {
-       print("RLMServiceV4 file's no.15 func error")
+      print("RLMServiceV4 file's no.15 func error")
     }
   }
 
@@ -257,7 +263,7 @@ internal class RLMServiceV4 {
     }
     return false
   }
-  
+
   // no.15-1
   internal func sortDishReviewsByOrder(for restReview: RLMRestReviewV4) {
     let needSort: Bool = {
@@ -269,7 +275,7 @@ internal class RLMServiceV4 {
       return false
     }()
     guard needSort else { return }
-    
+
     do {
       try realm.write {
         restReview.dishReviews.sort {
@@ -297,7 +303,7 @@ internal class RLMServiceV4 {
     }
     return review
   }
-  
+
   // no. 17
   internal func delete(reviewUUID: String, forScratch: Bool? = nil) {
     do {
@@ -317,7 +323,7 @@ internal class RLMServiceV4 {
     }
   }
 
-  // no. 17
+  // no. 18
   internal func isExist(reviewUUID: String?, reviewID: Int?) -> Bool {
     var predicate: NSPredicate
     if let uuid = reviewUUID {
@@ -335,38 +341,84 @@ internal class RLMServiceV4 {
     return false
   }
 
-
-
-  internal func createRLM(with remoteReview: RLMRestReviewV4) {
+  internal func createRLMRestReviewV4() -> RLMRestReviewV4? {
     do {
+      var review: RLMRestReviewV4?
       try realm.write {
-        var localRestReview = realm.create(RLMRestReviewV4.self)
-        localRestReview.allowedReaders = remoteReview.allowedReaders
-        localRestReview.comment = remoteReview.comment
-        localRestReview.createDate = remoteReview.createDate
-        localRestReview.id.value = remoteReview.id.value
-        localRestReview.uuid = remoteReview.uuid
-        localRestReview.dishReviews.append(objectsIn: remoteReview.dishReviews)
+        review = realm.create(RLMRestReviewV4.self)
       }
+      return review
     } catch {
-
+      return nil
     }
+    return nil
+  }
+
+  // no.19
+  internal func createRLM(with remoteRestReview: RLMRestReviewV4) {
+    guard let localRestReview = createRLMRestReviewV4() else {
+      return
+    }
+    RLMServiceV4.shared.update(localRestReview, with: remoteRestReview)
   }
 
   internal func update(_ localRestReview: RLMRestReviewV4, with remoteReview: RLMRestReviewV4) {
     do {
       try realm.write {
-//        localRestReview = remoteReview
         localRestReview.allowedReaders = remoteReview.allowedReaders
         localRestReview.comment = remoteReview.comment
         localRestReview.createDate = remoteReview.createDate
         localRestReview.id.value = remoteReview.id.value
         localRestReview.uuid = remoteReview.uuid
-        localRestReview.dishReviews.append(objectsIn: remoteReview.dishReviews)
+        localRestReview.eatingDate = remoteReview.eatingDate
+        localRestReview.environmentRank = remoteReview.environmentRank
+        localRestReview.isFirst = remoteReview.isFirst
+        localRestReview.isScratch.value = remoteReview.isScratch.value
+        localRestReview.isShowComment = remoteReview.isShowComment
+        localRestReview.isSync = remoteReview.isSync
+        localRestReview.parentID.value = remoteReview.parentID.value
+        localRestReview.parentUUID = remoteReview.parentUUID
+        localRestReview.priceRank = remoteReview.priceRank
+        localRestReview.restaurant = remoteReview.restaurant
+        localRestReview.serviceRank = remoteReview.serviceRank
+        localRestReview.title = remoteReview.title
+        localRestReview.updateDate = remoteReview.updateDate
+      }
 
+      for remoteDishReview in remoteReview.dishReviews {
+        if let localDishReview = localRestReview.filter(remoteObject: remoteDishReview, localObjects:  Array(localRestReview.dishReviews)) as? RLMDishReviewV4 {
+          // TODO: 更新
+          RLMServiceV4.shared.dishReview.update(remoteDishReview: remoteDishReview, to: localDishReview)
+        } else {
+          // TODO: 新增
+          do {
+            try realm.write {
+               localRestReview.dishReviews.append(remoteDishReview)
+            }
+          } catch {
+
+          }
+        }
       }
     } catch {
 
     }
   }
+
+//  func filter(remoteObject: SubObject, localObjects: [SubObject]) -> SubObject? {
+//    if let localObject = localObjects.filter({ (localDishReview) -> Bool in
+//      if let localID = localDishReview.id.value, let remoteID = remoteObject.id.value {
+//        return localID == remoteID
+//      }
+//      if let localUUID = localDishReview.uuid, let remoteUUID = remoteObject.uuid {
+//        return localUUID == remoteUUID
+//      }
+//      return false
+//    }).first {
+//      return localObject
+//    }
+//    return nil
+//  }
 }
+
+

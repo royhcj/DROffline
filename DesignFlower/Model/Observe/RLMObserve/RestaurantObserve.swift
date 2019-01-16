@@ -87,11 +87,11 @@ class RestaurantObserve: RLMObserveDelegate {
     let willBeAdded = Set(news).subtracting(Set(olds))
     let willBeDeleted = Set(olds).subtracting(Set(news))
     for kvoImage in willBeAdded {
-      RLMServiceV4.shared.createRLMImage(in: dbObject, kvoImage: kvoImage)
+      RLMServiceV4.shared.image.createRLMImage(in: dbObject, kvoImage: kvoImage)
       imageObservers.append(ImageObserve(object: kvoImage))
     }
     for kvoImage in willBeDeleted {
-      RLMServiceV4.shared.delete(imageUUID: kvoImage.uuid)
+      RLMServiceV4.shared.image.delete(imageUUID: kvoImage.uuid)
     }
   }
 

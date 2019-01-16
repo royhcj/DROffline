@@ -17,7 +17,7 @@ class RLMQueue: SubObject, Uploadable {
   @objc dynamic var priceRank: String? // 環境分數
   @objc dynamic var title: String? // 標題
   @objc dynamic var comment: String? // 評比內容
-  var id = RealmOptional<Int>() // reviewID
+//  var id = RealmOptional<Int>() // reviewID
   @objc dynamic var isScratch = false // 是否為草稿
   var allowedReaders = List<Int>() // 白名單
   @objc dynamic var createDate: Date = Date() // 創造日期
@@ -147,7 +147,7 @@ class RLMQueue: SubObject, Uploadable {
               restaurant: restaurant)
   }
 
-  override func encode(to encoder: Encoder) throws {
+  func encode(to encoder: Encoder) throws {
     var continer = encoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
     try continer.encode(serviceRank, forKey: .serviceRank)
     try continer.encode(environmentRank, forKey: .environmentRank)

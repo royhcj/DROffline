@@ -35,42 +35,42 @@ class DishReviewObserve: RLMObserveDelegate {
     [
       object.observe(\.comment, options: [.initial, .old, .new]) { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, comment: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, comment: newValue)
         }
       },
       object.observe(\.rank, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, rank: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, rank: newValue)
         }
       }),
       object.observe(\.id, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, id: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, id: newValue)
         }
       }),
       object.observe(\.isCreate, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, isCreate: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, isCreate: newValue)
         }
       }),
       object.observe(\.createDate, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, createDate: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, createDate: newValue)
         }
       }),
       object.observe(\.parentID, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, parentID: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, parentID: newValue)
         }
       }),
       object.observe(\.isLike, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, isLike: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, isLike: newValue)
         }
       }),
       object.observe(\.order, options: [.initial, .old, .new], changeHandler: { (dishReview, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, order: newValue)
+          RLMServiceV4.shared.dishReview.update(dbObject, order: newValue)
         }
       }),
       object.observe(\.images, options: [.initial, .old, .new]) { (dishReview, change) in
@@ -86,7 +86,7 @@ class DishReviewObserve: RLMObserveDelegate {
             let dishUUID = oldValue?.uuid,
             let newValue = change.newValue,
             newValue == nil {
-            RLMServiceV4.shared.delete(dishUUID: dishUUID)
+            RLMServiceV4.shared.dish.delete(dishUUID: dishUUID)
         }
       }
     ]
@@ -100,11 +100,11 @@ class DishReviewObserve: RLMObserveDelegate {
     let willBeAdded = Set(news).subtracting(Set(olds))
     let willBeDeleted = Set(olds).subtracting(Set(news))
     for kvoImage in willBeAdded {
-      RLMServiceV4.shared.createRLMImage(in: dbObject, kvoImage: kvoImage)
+      RLMServiceV4.shared.image.createRLMImage(in: dbObject, kvoImage: kvoImage)
       imageObservers.append(ImageObserve(object: kvoImage))
     }
     for kvoImage in willBeDeleted {
-      RLMServiceV4.shared.delete(imageUUID: kvoImage.uuid)
+      RLMServiceV4.shared.image.delete(imageUUID: kvoImage.uuid)
     }
   }
 

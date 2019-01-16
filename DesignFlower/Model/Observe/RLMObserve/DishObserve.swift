@@ -26,11 +26,11 @@ class DishObserve: RLMObserveDelegate {
     observers = [
       object.observe(\.name, options: [.initial, .old,  .new], changeHandler: { (dish, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, name: newValue)
+          RLMServiceV4.shared.dish.update(dbObject, name: newValue)
         }
       }),
       object.observe(\.id, options: [.initial, .old, .new], changeHandler: { (dish, change) in
-          RLMServiceV4.shared.update(dbObject, id: change.newValue)
+          RLMServiceV4.shared.dish.update(dbObject, id: change.newValue)
       })
     ]
   }

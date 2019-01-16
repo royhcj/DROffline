@@ -22,7 +22,7 @@ class RLMRestReviewV4: SubObject, Uploadable {
   @objc dynamic var priceRank: String? // 環境分數
   @objc dynamic var title: String? // 標題
   @objc dynamic var comment: String? // 評比內容
-  var id = RealmOptional<Int>() // reviewID
+//  var id = RealmOptional<Int>() // reviewID
   var isScratch = RealmOptional<Bool>() // 是否為草稿
 //  @objc dynamic var isScratch = false
   var allowedReaders = List<Int>() // 白名單
@@ -156,7 +156,7 @@ class RLMRestReviewV4: SubObject, Uploadable {
               restaurant: restaurant)
   }
 
-  override func encode(to encoder: Encoder) throws {
+  func encode(to encoder: Encoder) throws {
     var continer = encoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
     let sRank = Float(serviceRank ?? "0.0")
     try continer.encode(sRank, forKey: .serviceRank)

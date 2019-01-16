@@ -44,6 +44,7 @@ class RLMImageV4: SubObject, Uploadable {
     self.imageStatus = imageStatus
     self.photoLatitude = photoLatitude
     self.photoLongtitude = photoLongtitude
+    self.url = url
     self.order = order
 
   }
@@ -51,7 +52,7 @@ class RLMImageV4: SubObject, Uploadable {
   enum RLMImageV4CodingKey: String, CodingKey {
     case phassetID
     case localName
-    case imageID
+    case imageID = "id"
     case url
     case imageStatus
     case photoLatitude
@@ -63,7 +64,7 @@ class RLMImageV4: SubObject, Uploadable {
     let container = try decoder.container(keyedBy: RLMImageV4CodingKey.self)
     let phassetID = try container.decodeIfPresent(String.self, forKey: .phassetID)
     let localName = try container.decodeIfPresent(String.self, forKey: .localName)
-    let imageID = try container.decodeIfPresent(String.self, forKey: .photoLatitude)
+    let imageID = try container.decodeIfPresent(String.self, forKey: .imageID)
     let url = try container.decodeIfPresent(String.self, forKey: .url)
 //    let imageStatus = try container.decode(Int.self, forKey: .imageStatus)
     let photoLongtitude = try container.decodeIfPresent(Float.self, forKey: .photoLongtitude)
@@ -87,7 +88,7 @@ class RLMImageV4: SubObject, Uploadable {
 
   }
 
-  override func encode(to encoder: Encoder) throws {
+  func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMImageV4CodingKey.self)
     try container.encode(phassetID, forKey: .phassetID)
     try container.encode(localName, forKey: .localName)

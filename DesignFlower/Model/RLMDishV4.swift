@@ -12,7 +12,7 @@ import RealmSwift
 class RLMDishV4: SubObject, Uploadable {
 
   @objc dynamic var name: String? // 菜餚名稱
-  var id = RealmOptional<Int>() // 菜餚ID
+//  var id = RealmOptional<Int>() // 菜餚ID
 
   convenience init(name: String?, id: RealmOptional<Int>) {
     self.init()
@@ -34,7 +34,7 @@ class RLMDishV4: SubObject, Uploadable {
     self.init(name: name, id: realmID)
   }
 
-  override func encode(to encoder: Encoder) throws {
+  func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMDishV4CodingKeys.self)
     try container.encode(name, forKey: .name)
     try container.encode(self.id.value, forKey: .id)

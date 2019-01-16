@@ -149,7 +149,7 @@ extension SyncService {
       review.dishReviews.forEach {
         // TODO: 上傳圖片
         $0.images.forEach({
-          RLMServiceV4.shared.update($0, url: "http://xxx.xxx.xxx")
+          RLMServiceV4.shared.image.update($0, url: "http://xxx.xxx.xxx")
         })
       }
       completion(true)
