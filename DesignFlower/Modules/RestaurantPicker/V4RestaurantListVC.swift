@@ -72,6 +72,7 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
   private var fbSearchCitys = Array<CityModel>()
   weak var flowDelegate: V4RestaurantListVCFlowDelegate?
 //  weak var dismissDelegate: ChooseRestaurantViewControllerDismissDelegate?
+  private var currentSearchResult = RestaurantSearchResult()
   private let firstSearchCompleter = MKLocalSearchCompleter()
   private let secondSearchCompleter = MKLocalSearchCompleter()
   private var localSearch: MKLocalSearch?
@@ -174,7 +175,7 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
   }
   
   @IBAction func clickedReload(_ sender: Any) {
-    autoCompleterSearch(at: lastReloadedCoordinate)
+    startSearch(at: lastReloadedCoordinate)
   }
   
   @IBAction func closeButton(_ sender: UIButton) {
@@ -214,9 +215,10 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
       // 第一次AutoComplete -> 第二次AutoComplete ->
       // 兩次AutoComplete結果跟API Data結果做Filter(假如address一樣就過濾) ->
       // filterRestaurantArray = API Data + 兩次AutoComplete(address過濾)
-      if completer == firstSearchCompleter {
+      if completer == firstSearchCompleter {  // 第一次
+        // 加入apple 第一次結果
         var appleRestaurants = [Restaurant]()
-        filterRestaurantArray.removeAll()
+
         for result in completer.results {
           let rest = Restaurant(shopID: nil,
                                 shopName: result.title,
@@ -229,7 +231,9 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
             appleRestaurants.append(rest)
           }
         }
-        filterRestaurantArray = appleRestaurants
+        appleRestaurants.forEach {
+          self.currentSearchResult.insert(restaurant: $0, condition: .none)
+        }
         
         let secondCoordinate = CLLocationCoordinate2D(latitude: coordinate.latitude + V4RestaurantListVC.searchDisplacementDistances,
                                                       longitude: coordinate.longitude)
@@ -237,7 +241,7 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
                                                                           searchDistance,
                                                                           searchDistance)
         secondSearchCompleter.queryFragment = completer.queryFragment
-      } else {
+      } else { // 第二次
         var isGoogleQuery = false
         let completerFilterResults = completer.results.compactMap { (completion) -> (MKLocalSearchCompletion?) in
           if !completion.subtitle.contains("搜索附近") {
@@ -245,7 +249,29 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
           }
           return nil
         }
-        if (completerFilterResults.count + filterRestaurantArray.count) == 0 {
+        
+        // 加入apple 第二次結果
+        var appleRestaurants = [Restaurant]()
+        for result in completer.results {
+          let rest = Restaurant(shopID: nil,
+                                shopName: result.title,
+                                address: result.subtitle,
+                                addressSource: .apple,
+                                latitude: nil,
+                                longitude: nil,
+                                shopPhone: nil)
+          if !result.subtitle.contains("搜索附近") {
+            appleRestaurants.append(rest)
+          }
+        }
+        appleRestaurants.forEach {
+          self.currentSearchResult.insert(restaurant: $0,
+                                          condition: .byAddressAndName, // 濾掉相同地址與名稱
+                                          policy: .ignore)
+        }
+        
+        // 判斷是否要用google search
+        if currentSearchResult.count == 0 {
           isGoogleQuery = true
         }
         let searchText = customSearchController.customSearchBar.text
@@ -260,50 +286,23 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
                                             filter: searchText,
                                             googleQuery: isGoogleQuery
           ).then { [weak self] restaurants -> Void in
-            var appleRestaurants = [Restaurant]()
-            for result in completer.results {
-              let rest = Restaurant(shopID: nil,
-                                    shopName: result.title,
-                                    address: result.subtitle,
-                                    addressSource: .apple,
-                                    latitude: nil,
-                                    longitude: nil,
-                                    shopPhone: nil)
-              if !result.subtitle.contains("搜索附近") {
-                appleRestaurants.append(rest)
-              }
+            restaurants.forEach { [weak self] in
+              self?.currentSearchResult.insert(restaurant: $0,
+                                               condition: .byAddressAndName,
+                                               policy: .overwrite) // 蓋過相同地址與名稱
             }
-            // appleRestaurants 兩次autoComplete結果
-            appleRestaurants.forEach({ (appleRestaurant) in
-              if self?.filterRestaurantArray.filter({ (filterRest) -> Bool in
-                appleRestaurant.address == filterRest.address && appleRestaurant.shopName == filterRest.shopName
-              }).count == 0 {
-                appleRestaurants.append(appleRestaurant)
-              }
-            })
-            
-            // filterRestaurantArray = 後台回傳restaurants
-            self?.filterRestaurantArray = restaurants
-            
-            // 過濾appleRestaurants address to filterRestaurantArray
-            appleRestaurants.forEach({ (appleRestaurant) in
-              if self?.filterRestaurantArray.filter({ (filterRest) -> Bool in
-                appleRestaurant.address == filterRest.address && appleRestaurant.shopName == filterRest.shopName
-              }).count == 0 {
-                self?.filterRestaurantArray.append(appleRestaurant)
-              }
-            })
+            self?.filterRestaurantArray = self?.currentSearchResult.restaurants ?? []
             self?.restaurantTableView.reloadData()
           }.catch { [weak self] error in
             self?.failedGettingRestaurantArray = true
-            self?.filterRestaurantArray.removeAll()
+            self?.filterRestaurantArray = self?.currentSearchResult.restaurants ?? []
             self?.restaurantTableView.reloadData()
           }.always {
             SVProgressHUD.dismiss()
             self.waitLoadingTimer?.invalidate();
             self.waitLoadingTimer = nil
             self.timeoutView.removeFromSuperview()
-        }
+          } // end call API
       }
     }
   }
@@ -579,12 +578,62 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
     guard let coordinate = cityCoordinate ?? fixedCoordinate ?? coordinate ?? LocationService.shared.coordinate, lastReloadedCoordinate == nil
       else { restaurantTableView.reloadData(); return }
     lastReloadedCoordinate = coordinate
+
+    startSearch(at: coordinate)
+  }
+  
+  func startSearch(at coordinate: CLLocationCoordinate2D?) {
+    
+    // 清空搜尋資料
+    currentSearchResult.clearAll()
+    
+    // 推算起始位置
+    guard let coordinate = cityCoordinate ?? fixedCoordinate ?? coordinate ?? LocationService.shared.coordinate
+    else {
+      filterRestaurantArray = currentSearchResult.restaurants
+      restaurantTableView.reloadData()
+      return
+    }
+    
+    // 1. 搜尋local
+    let rlmRestaurants = RLMServiceV4.shared.getRestaurantList()
+    for rlmRestaurant in rlmRestaurants {
+      guard let restaurantLatitude = rlmRestaurant.latitude.value,
+            let restaurantLongitude = rlmRestaurant.longitude.value
+      else { continue }
+      
+      let restaurantCoordinate
+        = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurantLatitude),
+                                 longitude: CLLocationDegrees(restaurantLongitude))
+      let distance = RestaurantSearchResult.calculateDistance(coordinateA: coordinate,
+                                                              coordinateB: restaurantCoordinate)
+
+      if distance < 1000 { // TODO: 距離從後台取得
+        let restaurant = Restaurant(shopID: rlmRestaurant.id.value,
+                                    shopName: rlmRestaurant.rdName ?? "",
+                                    address: rlmRestaurant.rdFullAddress ?? "",
+                                    addressSource: .manual,
+                                    latitude: String(restaurantLatitude),
+                                    longitude: String(restaurantLongitude),
+                                    shopPhone: rlmRestaurant.rdTel)
+        currentSearchResult.insert(restaurant: restaurant, condition: .none)
+      }
+      if currentSearchResult.count > 10 {
+        break
+      }
+    }
+    
+    // 先刷新local的餐廳列表
+    filterRestaurantArray = currentSearchResult.restaurants
+    restaurantTableView.reloadData()
+    
+    // 2. 搜尋autoCompleter
     autoCompleterSearch(at: coordinate)
   }
   
-  private func autoCompleterSearch(at coordinate: CLLocationCoordinate2D? = nil) {
+  private func autoCompleterSearch(at coordinate: CLLocationCoordinate2D?) {
     guard let coordinate = cityCoordinate ?? fixedCoordinate ?? coordinate ?? LocationService.shared.coordinate
-      else { restaurantTableView.reloadData(); return }
+    else { restaurantTableView.reloadData(); return }
     
     SVProgressHUD.show(withStatus: "正在探索周邊餐廳")
     timeoutView.removeFromSuperview()

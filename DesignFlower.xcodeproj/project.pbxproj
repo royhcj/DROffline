@@ -140,6 +140,7 @@
 		B0F2408521EF16E90021FC3F /* V4RestaurantListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F2408221EF16E80021FC3F /* V4RestaurantListVC.swift */; };
 		B0F2408621EF16E90021FC3F /* V4RestaurantListVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F2408321EF16E90021FC3F /* V4RestaurantListVC+Cells.swift */; };
 		B0F2408721EF16E90021FC3F /* V4RestaurantList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F2408421EF16E90021FC3F /* V4RestaurantList.storyboard */; };
+		B0F2408921EF32C00021FC3F /* RestaurantSearchResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F2408821EF32C00021FC3F /* RestaurantSearchResult.swift */; };
 		B0F810E921E25C9100BEE91C /* V4Review_DeleteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0F810E821E25C9100BEE91C /* V4Review_DeleteCell.xib */; };
 		B0F810FA21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810EC21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift */; };
 		B0F810FB21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F810ED21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift */; };
@@ -295,6 +296,7 @@
 		B0F2408221EF16E80021FC3F /* V4RestaurantListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = V4RestaurantListVC.swift; sourceTree = "<group>"; };
 		B0F2408321EF16E90021FC3F /* V4RestaurantListVC+Cells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "V4RestaurantListVC+Cells.swift"; sourceTree = "<group>"; };
 		B0F2408421EF16E90021FC3F /* V4RestaurantList.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = V4RestaurantList.storyboard; sourceTree = "<group>"; };
+		B0F2408821EF32C00021FC3F /* RestaurantSearchResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestaurantSearchResult.swift; sourceTree = "<group>"; };
 		B0F810E821E25C9100BEE91C /* V4Review_DeleteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_DeleteCell.xib; sourceTree = "<group>"; };
 		B0F810EC21E4B60B00BEE91C /* DishPhotoOrganizerVM.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishPhotoOrganizerVM.swift; sourceTree = "<group>"; };
 		B0F810ED21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DishPhotoOrganizerVC.swift; sourceTree = "<group>"; };
@@ -618,6 +620,7 @@
 				B0F2408421EF16E90021FC3F /* V4RestaurantList.storyboard */,
 				B0F2408221EF16E80021FC3F /* V4RestaurantListVC.swift */,
 				B0F2408321EF16E90021FC3F /* V4RestaurantListVC+Cells.swift */,
+				B0F2408821EF32C00021FC3F /* RestaurantSearchResult.swift */,
 				B0F2407E21EF16C30021FC3F /* no_use */,
 			);
 			path = RestaurantPicker;
@@ -1107,6 +1110,7 @@
 				723B1F8C21B5081200CF91F3 /* V4ReviewFlows-AddNewPhoto.swift in Sources */,
 				B0A0AF9221C10ED2005BE7AB /* LocationService+Message.swift in Sources */,
 				72061DAA21AFE0DA0098FFFD /* ImageObserve.swift in Sources */,
+				B0F2408921EF32C00021FC3F /* RestaurantSearchResult.swift in Sources */,
 				B0F2408521EF16E90021FC3F /* V4RestaurantListVC.swift in Sources */,
 				72061D9A21AFDF080098FFFD /* KVODishReviewV4.swift in Sources */,
 				B043034821ED927300196E9A /* FriendJSON.swift in Sources */,
