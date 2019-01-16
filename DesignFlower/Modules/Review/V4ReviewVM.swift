@@ -164,6 +164,10 @@ class V4ReviewViewModel {
     output?.refreshReview()
   }
   
+  func changeRestaurant(_ restaurant: KVORestaurantV4?) {
+    review?.restaurant = restaurant
+  }
+  
   func deleteReview() {
     if let oldReviewUUID = self.review?.uuid {
       RLMServiceV4.shared.delete(reviewUUID: oldReviewUUID)

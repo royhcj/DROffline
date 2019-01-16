@@ -267,6 +267,10 @@ class V4ReviewVC: FlowedViewController,
     present(picker, animated: true, completion: nil)
   }
   
+  func changeRestaurant(_ restaurant: KVORestaurantV4) {
+    viewModel?.changeRestaurant(restaurant)
+  }
+  
   func findShare() {
     
   }

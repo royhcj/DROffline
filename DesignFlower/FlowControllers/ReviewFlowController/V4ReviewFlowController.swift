@@ -150,9 +150,20 @@ extension V4ReviewFlowController: V4RestaurantPickerFlowController.Delegate {
   }
 
   func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
-                        selected: Restaurant,
+                        selected restaurant: Restaurant,
                         locationInfo: V4RestaurantListVC.LocationInfo?) {
+    let kvoRestaurant = KVORestaurantV4(uuid: nil)
+    kvoRestaurant.id = restaurant.shopID ?? -1
+    kvoRestaurant.name = restaurant.shopName
+    kvoRestaurant.latitude = restaurant.latitude != nil ? Float(restaurant.latitude!) ?? -1.0 : -1.0
+    kvoRestaurant.latitude = restaurant.longtitude != nil ? Float(restaurant.longtitude!) ?? -1.0 : -1.0
+    kvoRestaurant.address = restaurant.address
+    kvoRestaurant.country = restaurant.country
+    //kvoRestaurant.area = restaurant.city // What is area?
+    kvoRestaurant.phoneNumber = restaurant.shopPhone
+    //kvoRestaurant.openHour = restaurant // not available
     
+    reviewVC?.changeRestaurant(kvoRestaurant)
   }
   
   func restaurantPicker(_ sender: V4RestaurantPickerFlowController,

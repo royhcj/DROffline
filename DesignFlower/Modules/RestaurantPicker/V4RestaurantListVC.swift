@@ -608,10 +608,10 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
       let distance = RestaurantSearchResult.calculateDistance(coordinateA: coordinate,
                                                               coordinateB: restaurantCoordinate)
 
-      if distance < 1000 { // TODO: 距離從後台取得
+      if distance < 3000 { // TODO: 距離從後台取得
         let restaurant = Restaurant(shopID: rlmRestaurant.id.value,
                                     shopName: rlmRestaurant.rdName ?? "",
-                                    address: rlmRestaurant.rdFullAddress ?? "",
+                                    address: rlmRestaurant.rdFullAddress ?? rlmRestaurant.appleAddress ?? "",
                                     addressSource: .manual,
                                     latitude: String(restaurantLatitude),
                                     longitude: String(restaurantLongitude),
