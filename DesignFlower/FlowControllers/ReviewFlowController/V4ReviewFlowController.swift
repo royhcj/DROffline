@@ -151,12 +151,12 @@ extension V4ReviewFlowController: V4RestaurantPickerFlowController.Delegate {
 
   func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
                         selected: Restaurant,
-                        locationInfo: V4RestaurantPickerVC.LocationInfo?) {
+                        locationInfo: V4RestaurantListVC.LocationInfo?) {
     
   }
   
   func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
-                        dismissedWithLocationInfo: V4RestaurantPickerVC.LocationInfo?) {
+                        dismissedWithLocationInfo: V4RestaurantListVC.LocationInfo?) {
     
   }
   

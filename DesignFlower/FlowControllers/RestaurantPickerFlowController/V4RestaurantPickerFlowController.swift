@@ -13,7 +13,7 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
   weak var delegate: Delegate?
   
   var sourceDisplayContext: DisplayContext
-  var restaurantPickerVC: V4RestaurantPickerVC?
+  var restaurantListVC: V4RestaurantListVC?
   var initialLocation: Location?
   
   // MARK: - Object lifecycle
@@ -28,13 +28,13 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
   
   // MARK: - Flow Execution
   override func prepare() {
-    restaurantPickerVC = V4RestaurantPickerVC.make(flowDelegate: self,
+    restaurantListVC = V4RestaurantListVC.make(flowDelegate: self,
                                                    initialLocation: initialLocation)
     
   }
   
   override func start() {
-    showRestaurantPickerVC()
+    showRestaurantListVC()
   }
   
   // MARK: - Type definitions
@@ -42,30 +42,30 @@ class V4RestaurantPickerFlowController: ViewBasedFlowController {
 }
 
 // MARK: - RestaurantVC Manipulation
-extension V4RestaurantPickerFlowController: V4RestaurantPickerVC.FlowDelegate {
+extension V4RestaurantPickerFlowController: V4RestaurantListVC.FlowDelegate {
   
-  func showRestaurantPickerVC() {
-    guard let vc = restaurantPickerVC
+  func showRestaurantListVC() {
+    guard let vc = restaurantListVC
     else { return }
     
     sourceDisplayContext.display(vc)
   }
   
-  func selectRest(restaurant: Restaurant, locationInfo: V4RestaurantPickerVC.LocationInfo?) {
+  func selectRest(restaurant: Restaurant, locationInfo: V4RestaurantListVC.LocationInfo?) {
     delegate?.restaurantPicker(self, selected: restaurant, locationInfo: locationInfo)
-    sourceDisplayContext.undisplay(restaurantPickerVC)
+    sourceDisplayContext.undisplay(restaurantListVC)
   }
   
-  func restaurantListDismissed(locationInfo: V4RestaurantPickerVC.LocationInfo?) {
+  func restaurantListDismissed(locationInfo: V4RestaurantListVC.LocationInfo?) {
     delegate?.restaurantPicker(self, dismissedWithLocationInfo: locationInfo)
-    sourceDisplayContext.undisplay(restaurantPickerVC)
+    sourceDisplayContext.undisplay(restaurantListVC)
   }
 }
 
 protocol V4RestaurantPickerFlowControllerDelegate: class {
   func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
                         selected: Restaurant,
-                        locationInfo: V4RestaurantPickerVC.LocationInfo?)
+                        locationInfo: V4RestaurantListVC.LocationInfo?)
   func restaurantPicker(_ sender: V4RestaurantPickerFlowController,
-                        dismissedWithLocationInfo: V4RestaurantPickerVC.LocationInfo?)
+                        dismissedWithLocationInfo: V4RestaurantListVC.LocationInfo?)
 }
