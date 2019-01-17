@@ -66,7 +66,7 @@ class RLMRestaurantV4: SubObject, Uploadable {
     let latitude = try container.decodeIfPresent(Float.self, forKey: .latitude)
     let longitude = try container.decodeIfPresent(Float.self, forKey: .longitude)
     let address = try container.decodeIfPresent(String.self, forKey: .address)
-    let country = try container.decodeIfPresent(String.self, forKey: .country)
+    let country = try container.decodeIfPresent(Int.self, forKey: .country)
     let area = try container.decodeIfPresent(Int.self, forKey: .area)
     let phoneNumber = try container.decodeIfPresent(String.self, forKey: .phoneNumber)
     let openHour = try container.decodeIfPresent(String.self, forKey: .openHour)
@@ -82,13 +82,16 @@ class RLMRestaurantV4: SubObject, Uploadable {
 //    realmImages.append(objectsIn: images)
     let areaR = RealmOptional<Int>()
     areaR.value = area
+
+    // TODO:
+    let countryString = "\(country)"
     
     self.init(id: realmID,
               name: name,
               latitude: realmLatitude,
               longitude: realmLongitude,
               address: address,
-              country: country,
+              country: countryString,
               area: areaR,
               phoneNumber: phoneNumber,
               openHour: openHour

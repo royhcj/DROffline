@@ -120,7 +120,7 @@ extension DishRankService {
           do {
             let decoder = JSONDecoder()
             let list = try decoder.decode(RestaurantList.self, from: response.data)
-            SVProgressHUD.show(withStatus: "更新中...\(list.meta?.currentPage ?? 0)/\(list.meta?.lastPage ?? 0)")
+            SVProgressHUD.show(withStatus: "餐廳列表更新中...\(list.meta?.currentPage ?? 0)/\(list.meta?.lastPage ?? 0)")
             if let next = list.links?.next, next != "" {
               updateRestaurantList(list: list, completion: { (finish) in
                 if finish {
@@ -131,12 +131,23 @@ extension DishRankService {
               })
             } else {
               // 最後一筆進來這
-              updateRestaurantList(list: list, completion: nil)
-              let min = Date.getDate(any: list.meta?.rdUtimeMax)
-              UserDefaults.standard.set(min, forKey: UserDefaultKey.rdUtimeMin.rawValue)
-              UserDefaults.standard.set(nil, forKey: UserDefaultKey.rdUtimeMax.rawValue)
-              SVProgressHUD.show(withStatus: "更新完成")
-              SVProgressHUD.dismiss(withDelay: 1)
+              updateRestaurantList(list: list) {
+                guard $0 else {
+                  SVProgressHUD.show(withStatus: "更新失敗")
+                  SVProgressHUD.dismiss(withDelay: 1)
+                    return
+                }
+                let min = Date.getDate(any: list.meta?.rdUtimeMax)
+                UserDefaults.standard.set(min, forKey: UserDefaultKey.rdUtimeMin.rawValue)
+                UserDefaults.standard.set(nil, forKey: UserDefaultKey.rdUtimeMax.rawValue)
+                SVProgressHUD.show(withStatus: "餐廳列表更新完成")
+                // 取得歷史筆記
+                SVProgressHUD.show(withStatus: "開始下載舊有筆記")
+                let upMin = UserDefaults.standard.value(forKey: UserDefaultKey.updateDateMin.rawValue) as? Date
+                let upMax = UserDefaults.standard.value(forKey: UserDefaultKey.updateDateMax.rawValue) as? Date
+                DishRankService.getRestaurantReview(updateDateMin: upMin, updateDateMax: upMax, url: nil)
+              }
+
             }
 
           } catch {
@@ -159,6 +170,7 @@ extension DishRankService {
     private static func updateRestaurantList(list: RestaurantList, completion: ((Bool) -> ())?) {
 
       guard let restlist = list.data else {
+        completion?(false)
         return
       }
 

@@ -11,10 +11,11 @@ import Moya
 import SwiftyJSON
 import Alamofire
 import Result
+import SVProgressHUD
 
 extension DishRankService {
   enum RestaurantReview {
-    case get(updateDateMin: String?, updateDateMax: String?, url: String?)
+    case get(updateDateMin: Date?, updateDateMax: Date?, url: String?)
   }
 }
 
@@ -86,16 +87,36 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
 }
 
 extension DishRankService {
-  static func getRestaurantReview(updateDateMin: String?, updateDateMax: String?, url: String?) {
-     let provider = DishRankService.RestaurantReview.provider
+  static func getRestaurantReview(updateDateMin: Date?, updateDateMax: Date?, url: String?) {
+
+    let provider = DishRankService.RestaurantReview.provider
     provider.request(DishRankService.RestaurantReview.get(updateDateMin: updateDateMin, updateDateMax: updateDateMax, url: url)) { ( result) in
       switch result {
       case .success(let response):
         do {
           let decoder = JSONDecoder()
           let restaurants = try decoder.decode(Restaurants.self, from: response.data)
-          update(restaurants: restaurants)
+          SVProgressHUD.show(withStatus: "筆記更新中...\(restaurants.meta.currentPage ?? 0)/\(restaurants.meta.lastPage ?? 0)")
+          if let next = restaurants.links?.next, next != "" {
+            update(restaurants: restaurants) {
+              if $0 {
+                let max = Date.getDate(any: restaurants.meta.updateDateMax)
+                UserDefaults.standard.set(max, forKey: UserDefaultKey.updateDateMax.rawValue)
+                DishRankService.getRestaurantReview(updateDateMin: nil, updateDateMax: nil, url: restaurants.links?.next)
+              }
+            }
+          } else {
+            let min = Date.getDate(any: restaurants.meta.updateDateMax)
+            UserDefaults.standard.set(min, forKey: UserDefaultKey.updateDateMin.rawValue)
+            UserDefaults.standard.set(nil, forKey: UserDefaultKey.updateDateMax.rawValue)
+            update(restaurants: restaurants)
+            SVProgressHUD.show(withStatus: "下載完成")
+            SVProgressHUD.dismiss(withDelay: 1)
+          }
+
         } catch {
+          SVProgressHUD.show(withStatus: "更新失敗")
+          SVProgressHUD.dismiss(withDelay: 1)
           print(error.localizedDescription)
         }
       case .failure(let error):
@@ -104,21 +125,23 @@ extension DishRankService {
     }
   }
 
-  private static func analysis() {
+  private static func update(restaurants: Restaurants, completion: ((Bool) -> ())? = nil) {
 
-  }
+    guard let restaurantReviews = restaurants.data else {
+      return
+    }
 
-  private static func update(restaurants: Restaurants) {
-    if let restaurantReviews = restaurants.data {
-      for remoteReview in restaurantReviews {
-        guard let localReview = RLMServiceV4.shared.getRestReview(uuid: remoteReview.uuid, id: remoteReview.id.value) else {
+
+    for remoteReview in restaurantReviews {
+      guard let localReview = RLMServiceV4.shared.getRestReview(uuid: remoteReview.uuid, id: remoteReview.id.value) else {
           //TODO: create
           RLMServiceV4.shared.createRLM(with: remoteReview)
           continue
         }
-               //TODO: update
+      //TODO: update
         RLMServiceV4.shared.update(localReview, with: remoteReview)
       }
-    }
+    completion?(true)
+
   }
 }

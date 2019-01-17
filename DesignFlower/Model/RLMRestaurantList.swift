@@ -213,7 +213,7 @@ struct Meta: Codable {
   let currentPage, from, lastPage: Int?
   let path: String?
   let perPage, to, total: Int?
-  let rdUtimeMax: String?
+  let updateDateMax, rdUtimeMax: String?
 
   enum CodingKeys: String, CodingKey {
     case currentPage = "current_page"
@@ -223,5 +223,6 @@ struct Meta: Codable {
     case perPage = "per_page"
     case to, total
     case rdUtimeMax = "rd_utime_max"
+    case updateDateMax = "update_date_max"
   }
 }

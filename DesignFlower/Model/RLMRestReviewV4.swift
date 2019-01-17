@@ -11,7 +11,7 @@ import RealmSwift
 
 struct Restaurants: Codable {
   let data: [RLMRestReviewV4]?
-  let link: Links?
+  let links: Links?
   let meta: Meta
 }
 

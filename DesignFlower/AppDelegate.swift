@@ -64,10 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       let min = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMin.rawValue) as? Date
       let max = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMax.rawValue) as? Date
       DishRankService.getRestList(strat: min, end: max, paramaters: nil)
-      // 取得歷史筆記
-      DishRankService.getRestaurantReview(updateDateMin: nil, updateDateMax: nil, url: nil)
     }
-    
+
     IQKeyboardManager.shared.enable = true
     
     return true
