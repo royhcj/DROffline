@@ -36,7 +36,7 @@ class RLMRestReviewV4: SubObject, Uploadable {
 //  @objc dynamic var uuid: String? // uuid 與 KVO內的一樣
   @objc dynamic var isFirst = false //判斷是不是第一次建立
   var dishReviews = List<RLMDishReviewV4>()
-  var restaurant = RLMRestaurantV4()
+  @objc dynamic var restaurant: RLMRestaurantV4?
 
   convenience init(uuid: String?,
                    serviceRank: String?,

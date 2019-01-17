@@ -45,6 +45,10 @@ class V4Review_RestaurantNameCell: V4ReviewVC.CommonCell {
     }
   }
   
+  @IBAction func clickedRestaurantName(_ sender: Any) {
+    delegate?.showRestaurantPicker()
+  }
+  
   enum RestaurantState {
     case canChange
     case canView
@@ -539,6 +543,7 @@ protocol V4ReviewVCCommonCellDelegate: class {
   func changeDiningTime(_ date: Date?)
   func pickDiningTime()
   func findShare()
+  func showRestaurantPicker()
   func deleteReview()
   
   // Dish Review Related

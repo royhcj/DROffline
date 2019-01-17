@@ -30,9 +30,11 @@ class KVORestaurantV4: NSObject {
     }
   }
   
-  init(with rlmRestaurant: RLMRestaurantV4) {
+  init(with rlmRestaurant: RLMRestaurantV4?) {
     super.init()
-    set(with: rlmRestaurant)
+    if let rlmRestaurant = rlmRestaurant {
+      set(with: rlmRestaurant)
+    }
   }
   
   func set(with rlmRestaurant: RLMRestaurantV4) {

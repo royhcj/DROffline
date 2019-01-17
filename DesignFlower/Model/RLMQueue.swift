@@ -29,7 +29,7 @@ class RLMQueue: SubObject, Uploadable {
   //  @objc dynamic var uuid: String? // uuid 與 KVO內的一樣
   @objc dynamic var isFirst = false //判斷是不是第一次建立
   var dishReviews = List<RLMDishReviewV4>()
-  var restaurant = RLMRestaurantV4()
+  @objc dynamic var restaurant: RLMRestaurantV4?
   // -------- only for queue
   @objc dynamic var queueDate: Date = Date() // 加入排成時間
   @objc dynamic var isDelete: Bool = false // 創造日期

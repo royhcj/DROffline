@@ -126,6 +126,7 @@ class RestReviewObserve: RLMObserveDelegate {
       object.observe(\.restaurant, options: [.initial, .old, .new]) { (restReview, change) in
         if let newValue = change.newValue, let restaurant = newValue {
           self.restObservers.append(RestaurantObserve(object: restaurant))
+          RLMServiceV4.shared.update(dbObject, restaurant: restaurant)
         } else if
           let oldValue = change.oldValue,
           let restUUID = oldValue?.uuid,

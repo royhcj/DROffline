@@ -204,6 +204,34 @@ internal class RLMServiceV4 {
       print("RLMServiceV4 file's no.14 func error")
     }
   }
+  
+  // no.
+  internal func update(_ restReview: RLMRestReviewV4, restaurant: KVORestaurantV4) {
+    let rlmRestaurant = realm.objects(RLMRestaurantV4.self).filter {
+      $0.uuid == restaurant.uuid
+    }.first
+    
+    do {
+      try realm.write {
+        if let rlmRestaurant = rlmRestaurant {
+          restReview.restaurant = rlmRestaurant
+        } else {
+          let rlmRestaurant = RLMRestaurantV4()
+          rlmRestaurant.name = restaurant.name
+          rlmRestaurant.latitude.value = restaurant.latitude
+          rlmRestaurant.longitude.value = restaurant.longitude
+          rlmRestaurant.address = restaurant.address
+          rlmRestaurant.country = restaurant.country
+          rlmRestaurant.area.value = restaurant.area
+          rlmRestaurant.phoneNumber = restaurant.phoneNumber
+          rlmRestaurant.openHour = restaurant.openHour
+          restReview.restaurant = rlmRestaurant
+        }
+      }
+    } catch {
+      print(error)
+    }
+  }
 
   // no.15
   internal func delete(dishReviewUUID: String, forScratch: Bool? = nil) {

@@ -275,6 +275,10 @@ class V4ReviewVC: FlowedViewController,
     
   }
   
+  func showRestaurantPicker() {
+    flowDelegate?.showRestaurantPicker()
+  }
+  
   func deleteReview() {
     let alert: UIAlertController = {
       let alert = UIAlertController(title: "刪除整則筆記", message: nil, preferredStyle: .alert)
@@ -492,4 +496,5 @@ protocol V4ReviewVCFlowDelegate {
   func showPhotoOrganizer(dishReviewUUID: String,
                           dishReviews: [KVODishReviewV4],
                           initialDisplayIndex: Int?)
+  func showRestaurantPicker()
 }

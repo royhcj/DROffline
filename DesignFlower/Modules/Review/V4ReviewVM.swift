@@ -166,6 +166,8 @@ class V4ReviewViewModel {
   
   func changeRestaurant(_ restaurant: KVORestaurantV4?) {
     review?.restaurant = restaurant
+    setDirty(true)
+    output?.refreshReview()
   }
   
   func deleteReview() {
@@ -220,6 +222,7 @@ class V4ReviewViewModel {
     target.images.append(contentsOf: source.images)
 
     deleteDishReview(for: sourceDishReviewUUID)
+    setDirty(true, forDishReview: target)
   }
   
   func reorderDishReview(from indexA: Int, to indexB: Int) -> Bool {
