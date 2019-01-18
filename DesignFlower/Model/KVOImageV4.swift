@@ -98,6 +98,7 @@ class KVOImageV4: NSObject {
       return url
     } catch {
       assert(false, "Error: Failed getting local image folder URL")
+      return try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
     }
   }()
 }

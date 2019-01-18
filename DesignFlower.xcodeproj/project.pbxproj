@@ -871,6 +871,7 @@
 				72061D6021AE8A940098FFFD /* Resources */,
 				FA6FEB1738B242D399035AFC /* [CP] Embed Pods Frameworks */,
 				A870C0914834129FD891D5B3 /* [CP] Copy Pods Resources */,
+				728B127021F1B979001094C0 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -950,6 +951,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		728B127021F1B979001094C0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" 30e5a49ab6c50f68d21a924761967ce6093e5af9  5a58a1cf3de7665f30fb7d9a29a97afe50e37c6c455b3965510b1c5302a55588\n";
+		};
 		A870C0914834129FD891D5B3 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1332,6 +1350,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = F2B98TH8BY;
 				INFOPLIST_FILE = DesignFlower/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1352,7 +1372,9 @@
 			baseConfigurationReference = 4557ABFD1D8B0ED822560300 /* Pods-DesignFlower.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = F2B98TH8BY;
 				INFOPLIST_FILE = DesignFlower/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
@@ -1362,7 +1384,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dishrank.droffline;
 				PRODUCT_NAME = DROffline;
-				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.dishrank.droffline";
+				PROVISIONING_PROFILE_SPECIFIER = "match AdHoc com.dishrank.droffline";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

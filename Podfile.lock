@@ -3,6 +3,9 @@ PODS:
   - AlignedCollectionViewFlowLayout (1.1.2)
   - CameraManager (4.3.0)
   - CountryAndCity (0.1.7)
+  - Crashlytics (3.12.0):
+    - Fabric (~> 1.9.0)
+  - Fabric (1.9.0)
   - HTTPStatusCodes (3.1.2)
   - iCarousel (1.8.3)
   - IQKeyboardManagerSwift (6.2.0)
@@ -53,6 +56,8 @@ DEPENDENCIES:
   - AlignedCollectionViewFlowLayout
   - CameraManager (~> 4.2)
   - CountryAndCity
+  - Crashlytics
+  - Fabric
   - HTTPStatusCodes (~> 3.1.1)
   - iCarousel
   - IQKeyboardManagerSwift
@@ -75,6 +80,8 @@ SPEC CHECKSUMS:
   AlignedCollectionViewFlowLayout: ee2ef451e741ec08f8e0967d828001e2f051c20a
   CameraManager: 607b60ad5c84bfa481ebf82eb4cd77a8d1f0bc39
   CountryAndCity: 9456fa93940a58ca261bef96bed3c4aece4f9de1
+  Crashlytics: 07fb167b1694128c1c9a5a5cc319b0e9c3ca0933
+  Fabric: f988e33c97f08930a413e08123064d2e5f68d655
   HTTPStatusCodes: 88155ba36826366a898a7b4f34d311f49083d546
   iCarousel: d782f635afac190c49bb8ee455882284cff8b85f
   IQKeyboardManagerSwift: b07ccf9d8cafe993dcd6cb794eb4ba34611a0c4e
@@ -95,6 +102,6 @@ SPEC CHECKSUMS:
   TableViewDragger: 5933729a18d1606e16388d72f6d4fe5f3a0bcaf4
   YCRateView: 2d9d6b151616d5186dc253681b76fb7ef76e2840
 
-PODFILE CHECKSUM: 8160cfc35e6ed55400ca41ec9b72ec3c21049ed4
+PODFILE CHECKSUM: 3287f6d48c75a39cd7f30905a0a408f9acfecf6a
 
 COCOAPODS: 1.4.0

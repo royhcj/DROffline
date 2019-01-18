@@ -55,11 +55,15 @@ target 'DesignFlower' do
   # Kingfisher
   pod 'Kingfisher', '~> 4.8.0'
   
-  # 'iCarousel'
+  # iCarousel
   pod 'iCarousel'
   
   # Collection align
   pod 'AlignedCollectionViewFlowLayout'
+  
+  # Fabric
+  pod 'Fabric'
+  pod 'Crashlytics'
   
 end
 
