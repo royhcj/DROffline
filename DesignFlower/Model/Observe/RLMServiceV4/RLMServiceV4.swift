@@ -433,6 +433,10 @@ internal class RLMServiceV4 {
     }
   }
 
+  // no.20
+  internal func getRestReviewList() -> [RLMRestReviewV4]? {
+    return Array(realm.objects(RLMRestReviewV4.self).sorted(byKeyPath: "updateDate", ascending: false))
+  }
 //  func filter(remoteObject: SubObject, localObjects: [SubObject]) -> SubObject? {
 //    if let localObject = localObjects.filter({ (localDishReview) -> Bool in
 //      if let localID = localDishReview.id.value, let remoteID = remoteObject.id.value {
