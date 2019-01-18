@@ -1,0 +1,4 @@
+app_identifier "com.dishrank.droffline" # The bundle identifier of your app
+apple_id "drc.con01@dishrank.com" # Your Apple email address
+
+team_id "F2B98TH8BY" # Developer Portal Team ID

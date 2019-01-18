@@ -171,7 +171,7 @@
 		64DF218721EC29AC00C660AC /* DishRankService+Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DishRankService+Review.swift"; sourceTree = "<group>"; };
 		64DF218921EC5F8700C660AC /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
 		64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+RestList.swift"; sourceTree = "<group>"; };
-		72061D6221AE8A940098FFFD /* DesignFlower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DesignFlower.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		72061D6221AE8A940098FFFD /* DROffline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DROffline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72061D6521AE8A940098FFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		72061D6721AE8A950098FFFD /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		72061D6A21AE8A950098FFFD /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -366,7 +366,7 @@
 		72061D6321AE8A940098FFFD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				72061D6221AE8A940098FFFD /* DesignFlower.app */,
+				72061D6221AE8A940098FFFD /* DROffline.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -878,7 +878,7 @@
 			);
 			name = DesignFlower;
 			productName = DesignFlower;
-			productReference = 72061D6221AE8A940098FFFD /* DesignFlower.app */;
+			productReference = 72061D6221AE8A940098FFFD /* DROffline.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -1331,17 +1331,19 @@
 			baseConfigurationReference = C833031ED5861E5302BE059F /* Pods-DesignFlower.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TR6HP65TF9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = F2B98TH8BY;
 				INFOPLIST_FILE = DesignFlower/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.DesignFlower;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dishrank.droffline;
+				PRODUCT_NAME = DROffline;
+				PROVISIONING_PROFILE_SPECIFIER = "match Development com.dishrank.droffline";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -1350,17 +1352,19 @@
 			baseConfigurationReference = 4557ABFD1D8B0ED822560300 /* Pods-DesignFlower.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = TR6HP65TF9;
+				CODE_SIGN_STYLE = Manual;
+				DEVELOPMENT_TEAM = F2B98TH8BY;
 				INFOPLIST_FILE = DesignFlower/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = test.DesignFlower;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dishrank.droffline;
+				PRODUCT_NAME = DROffline;
+				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.dishrank.droffline";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
