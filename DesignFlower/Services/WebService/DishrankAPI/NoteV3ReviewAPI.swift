@@ -165,10 +165,10 @@ extension WebService {
     }
 */
 
-/* TODO: add back later
-    // 104 新增 餐廳，菜餚，其他，評比
-    class func postNewRestaurantReview(accessToken: String,
-                                       restaurantReview review: RLMRestReviewV3,
+
+    // 104 新增 餐廳，菜餚，其他，評比 (share專用)
+    class func postNewRestaurantShare(accessToken: String,
+                                       restaurantReview review: KVORestReviewV4,
                                        latitude: String?,
                                        longitude: String?,
                                        phoneNumber: String?
@@ -176,21 +176,24 @@ extension WebService {
       let url = "\(configuration.environment.apiURL)/v1/reviews/restaurant/review" 
       return response(url: url, method: .post, headerParameters: nil) {
         var parameters: [String: Any] = ["accessToken": accessToken]
-        parameters["shareType"] = review.sharedType
+        parameters["shareType"] = 2 // TODO: check share type是什麼
         parameters["allowedReaders"] = Array(review.allowedReaders).map { Int($0) }
-        parameters["parentID"] = review.parentID.value
+        parameters["parentID"] = review.parentID
 
         var rreview: [String: Any] = [:]
-        if let shopID = review.shopID.value {
+        if let shopID = review.restaurant?.id {
           rreview["restaurantID"] = String(shopID) // api用string
-        } else if let placeID = review.placeID, !placeID.isEmpty {
+        }
+        /* TODO: V4目前沒有placeID
+        else if let placeID = review.placeID, !placeID.isEmpty {
           rreview["placeID"] = placeID
-        } else {
-          rreview["shopName"] = review.shop
+        } */
+        else {
+          rreview["shopName"] = review.restaurant?.name
         }
 
         rreview["title"] = review.title
-        rreview["recommandRank"] = review.recommandRank
+        rreview["recommandRank"] = review.priceRank
         rreview["serviceRank"] = review.serviceRank
         rreview["environmentRank"] = review.environmentRank
         rreview["comment"] = review.comment
@@ -199,21 +202,26 @@ extension WebService {
         }
         rreview["uploadMedia"] = []
         rreview["shareBlock"] = review.isShowComment
-        if let address = review.address {
+        if let address = review.restaurant?.address {
+/* TODO: 地址來源
           var addressKey = "address"
-          
+
           if let addressSource = RLMRestReviewV3.AddressSource(rawValue: review.addressSource) {
             switch addressSource {
             case .manual: addressKey = "address"
             case .apple: addressKey = "appleAddress"
             }
           }
+
           rreview[addressKey] = address
+ */
         }
+/* TODO: country city
         rreview["country"] = review.countryName
         rreview["city"] = review.cityName
-        if review.phoneNumber != nil {
-          rreview["phoneNumber"] = review.phoneNumber
+*/
+        if review.restaurant?.phoneNumber != nil {
+          rreview["phoneNumber"] = review.restaurant?.phoneNumber
         } else {
           rreview["phoneNumber"] = phoneNumber
         }
@@ -235,19 +243,21 @@ extension WebService {
 //          if let dishID = dishReview.dishID.value {
 //            dreview["dishID"] = String(dishID) // api用string
 //          }
-          if let dishName = dishReview.name {
+          if let dishName = dishReview.dish?.name {
             dreview["dishName"] = dishName
           }
           dreview["dishRank"] = dishReview.rank
           dreview["comment"] = dishReview.comment
-          if let imageID = dishReview.imageID {
-            dreview["uploadMedia"] = [imageID]
-          }
+
+          dreview["uploadMedia"] = dishReview.images.compactMap({
+            $0.imageID
+          })
 
           dreviews.append(dreview)
         }
         parameters["dishReview"] = dreviews
 
+/* no use
         let otherReviews = Array(review.dishReviews).filter { $0.type == 0 }
         var oreviews = [[String: Any]]()
         for otherReview in otherReviews {
@@ -266,11 +276,11 @@ extension WebService {
           oreviews.append(oreview)
         }
 //        parameters["otherReview"] = oreviews
-
+*/
         return parameters
       }
     }
-
+/*
     // 105 新版更新評比
     class func putWholeRestaurantReview(accessToken: String,
                                         restaurantReviewID: Int,
