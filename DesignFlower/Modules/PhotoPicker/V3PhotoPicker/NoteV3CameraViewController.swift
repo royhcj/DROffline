@@ -316,22 +316,23 @@ class NoteV3CameraViewController: UIViewController {
           library.performChanges({
             let request = PHAssetChangeRequest.creationRequestForAsset(from: capturedImage)
             request.creationDate = creationDate
-#if false // TODO:
             if LocationService.shared.locationServiceAccessible(),
                LocationService.shared.coordinate?.isInvalid() == false,
                let location = LocationService.shared.coordinate {
               request.location = CLLocation(latitude: location.latitude, longitude: location.longitude)
             }
-#endif
           }, completionHandler: { (success, error) in
             DispatchQueue.main.async {
               if success {
-#if false // TODO:
-                let notePhotoSelection = NoteV3PhotoSelection(creationDate: creationDate,
-                                                            selectedDate: selectedDate)
-                NoteV3Service.shared.addNotePhotoSelection(notePhotoSelection,
-                                                           isSingle: self.photoLimit == 1)
-#endif
+                V4PhotoService.shared.getAssets(withCreationDates: [creationDate], completion: { result in
+                  guard let asset = result?.firstObject
+                  else { return }
+                  
+                  let selection = V4PhotoSelection(identifier: asset.localIdentifier, selectedDate: selectedDate)
+                  V4PhotoService.shared.addPhotoSelection(selection, isSingle: self.photoLimit == 1)
+                })
+
+
                 self.reloadThumbnail()
                 self.cameraButton.isEnabled = true
               } else {
@@ -356,29 +357,29 @@ class NoteV3CameraViewController: UIViewController {
   }
 
   func reloadThumbnail() {
-#if false // TODO:
-    var notePhotoSelections = Array(NoteV3Service.shared.getNotePhotoSelections())
-    photoCount = notePhotoSelections.count
 
-    notePhotoSelections = notePhotoSelections.sorted {
+    var photoSelections = Array(V4PhotoService.shared.getPhotoSelections())
+    photoCount = photoSelections.count
+
+    photoSelections = photoSelections.sorted {
       ($0.selectedDate ?? Date.date1970) > ($1.selectedDate ?? Date.date1970)
     }
 
-    let creationDates = notePhotoSelections.map { $0.creationDate ?? Date(timeIntervalSince1970: 0) }
+    let localIdentifiers = photoSelections.compactMap { $0.identifier }
 
-    NoteV3Service.shared.getAssets(creationDates: creationDates) { (result) in
-
+    V4PhotoService.shared.getAssets(withIdentifiers: localIdentifiers) { (result) in
       var assets: [PHAsset] = []
       result?.enumerateObjects({ (asset, _, _) in
         assets.append(asset)
       })
 
-      var selectionAssets: [(NoteV3PhotoSelection, PHAsset)] = []
-      for selection in notePhotoSelections {
-        if let asset = assets.first(where: { $0.creationDate == selection.creationDate }) {
+      // 清除照片已被刪除的selections
+      var selectionAssets: [(V4PhotoSelection, PHAsset)] = []
+      for selection in photoSelections {
+        if let asset = assets.first(where: { $0.localIdentifier == selection.identifier }) {
           selectionAssets.append((selection, asset))
-        } else if let date = selection.creationDate {
-          NoteV3Service.shared.deleteNotePhotoSelection(at: date)
+        } else if let localIdentifier = selection.identifier {
+          V4PhotoService.shared.deleteNotePhotoSelection(with: localIdentifier)
         }
       }
       self.photoCount = selectionAssets.count
@@ -389,14 +390,16 @@ class NoteV3CameraViewController: UIViewController {
         self.photoCountLabel.isHidden = true
         return
       }
-
-      let image = NoteV3Service.shared.getImage(for: asset, targetSize: CGSize(width: 256, height: 256))
-      self.thumbnail.image = image
-      self.thumbnailButton.setImage(image, for: .normal)
-      self.photoCountLabel.text = "\(self.photoCount)"
-      self.photoCountLabel.isHidden = self.photoCount == 0
+      
+      //let image = NoteV3Service.shared.getImage(for: asset, targetSize: CGSize(width: 256, height: 256))
+      // TODO: Target Size to (256x256)
+      V4PhotoService.shared.getUIImage(for: asset, completion: { image in
+        self.thumbnail.image = image
+        self.thumbnailButton.setImage(image, for: .normal)
+        self.photoCountLabel.text = "\(self.photoCount)"
+        self.photoCountLabel.isHidden = self.photoCount == 0
+      })
     }
-#endif
   }
 
   @IBAction func clickedThumbnail(_ sender: Any) {
@@ -419,7 +422,6 @@ class NoteV3CameraViewController: UIViewController {
 extension NoteV3CameraViewController {
   
   func setupLocationService() {
-#if false // TODO:
     LocationService.shared.authorizationStatusSubject
       .subscribe {
         guard let status = $0.element else { return }
@@ -434,7 +436,6 @@ extension NoteV3CameraViewController {
     
     LocationService.shared.requestWhenInUseAuthorization()
     LocationService.shared.updateDistrictName()
-#endif
   }
   
 }
