@@ -131,10 +131,9 @@ extension DishRankService.RestaurantReview {
       switch result {
       case .success:
         completion?(true)
-        print("下載完成")
       case .failure:
         completion?(false)
-        print("error")
+        print("download img error")
       }
 
 
