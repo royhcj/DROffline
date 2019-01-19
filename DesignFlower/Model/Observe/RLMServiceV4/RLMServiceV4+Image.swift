@@ -223,7 +223,7 @@ extension RLMServiceV4 {
 
     // no.13
     internal func getImgs() -> [RLMImageV4] {
-      let predicate = NSPredicate(format: "localName != '' OR localName != nil")
+      let predicate = NSPredicate(format: "localName == '' OR localName == nil")
       return Array(realm.objects(RLMImageV4.self).filter(predicate))
     }
   }

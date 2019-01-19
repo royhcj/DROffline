@@ -62,8 +62,10 @@ class MemoryNoteTableViewCell: UITableViewCell {
         
         if let localName = memoryNoteData.dishReviews.first?.images.first?.localName {
             let localImagePath = KVOImageV4.localFolder.appendingPathComponent(localName)
-            let image = UIImage(contentsOfFile: localImagePath.absoluteString)
-            dishImg.image = image
+          if let imgData = try? Data.init(contentsOf: localImagePath) {
+            let img = UIImage(data: imgData)
+            dishImg.image = img
+          }
         } else {
             dishImg.image = UIImage(named: "restaurant_placeholder")
         }

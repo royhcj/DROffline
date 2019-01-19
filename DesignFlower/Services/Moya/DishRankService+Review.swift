@@ -94,21 +94,23 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       let localLocation: URL = defaultDownloadDir.appendingPathComponent(fileName)
       let downloadDestination: DownloadDestination = { _, _ in
         return (localLocation, .removePreviousFile) }
-
-//      let defaultDownloadDestination: DownloadDestination = { temporaryURL, response in
-//        return (defaultDownloadDir.appendingPathComponent(response.suggestedFilename!), [])
-//      }
       return .downloadDestination(downloadDestination)
     }
   }
 
   var headers: [String : String]? {
-    // TODO: 需要更改取得Token
-    guard let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue) as? String else {
-      return ["Content-Type": "application/json"]
+    switch self {
+    case .get:
+      guard let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue) as? String else {
+        return ["Content-Type": "application/json"]
+      }
+      return ["Content-Type": "application/json",
+              "Authorization": "Bearer " + token]
+    case .download:
+      return nil
     }
-    return ["Content-Type": "application/json",
-            "Authorization": "Bearer " + token]
+    // TODO: 需要更改取得Token
+
   }
 
 
@@ -122,19 +124,19 @@ extension DishRankService.RestaurantReview {
                      callbackQueue: nil,
                      progress: { (progressResponse) in
                       // progress
-                      print(progressResponse.progress)
-                    SVProgressHUD.showProgress(Float(progressResponse.progress), status: "\(count)/\(total)")
-    }) { (response) in
+
+                SVProgressHUD.showProgress(Float(count)/Float(total), status: "\(count)/\(total)")
+    }) { (result) in
       // finish
-      switch response {
+      switch result {
       case .success:
-        let localLocation: URL = KVOImageV4.localFolder
-        let image = UIImage(contentsOfFile: localLocation.path)
-        print("下载完毕！保存地址：\(localLocation)")
+        completion?(true)
+        print("下載完成")
       case .failure:
+        completion?(false)
         print("error")
       }
-      completion?(true)
+
 
     }
   }
@@ -205,11 +207,15 @@ extension DishRankService.RestaurantReview {
         return
     }
 
-    DishRankService.RestaurantReview.downloadImgs(url: url, imageName: uuid + ".jpeg", count: count, total: total) {
+    let imgName = uuid + ".jpeg"
+
+    DishRankService.RestaurantReview.downloadImgs(url: url, imageName: imgName, count: count, total: total) {
       if $0 {
-        RLMServiceV4.shared.image.update(imgs[count], localName: uuid)
-        downloadImgQueue(count: count + 1, total: total, imgs: imgs)
+        RLMServiceV4.shared.image.update(imgs[count], localName: imgName)
+      } else {
+        RLMServiceV4.shared.image.update(imgs[count], imageID: nil)
       }
+      downloadImgQueue(count: count + 1, total: total, imgs: imgs)
     }
   }
 
