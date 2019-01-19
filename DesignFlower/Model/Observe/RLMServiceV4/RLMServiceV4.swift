@@ -411,6 +411,34 @@ internal class RLMServiceV4 {
         localRestReview.serviceRank = remoteReview.serviceRank
         localRestReview.title = remoteReview.title
         localRestReview.updateDate = remoteReview.updateDate
+
+        if let local = localRestReview.restaurant {
+         if let remote = remoteReview.restaurant {
+          updateRestaurant(local: local, remote: remote)
+         } else {
+          realm.delete(local)
+         }
+        } else {
+          localRestReview.restaurant = realm.create(RLMRestaurantV4.self)
+          updateRestaurant(local: localRestReview.restaurant!, remote: remoteReview.restaurant)
+        }
+      }
+
+
+      func updateRestaurant(local: RLMRestaurantV4, remote: RLMRestaurantV4?) {
+        guard let remote = remote else {
+          return
+        }
+
+        local.address = remote.address
+        local.area = remote.area
+        local.country = remote.country
+        local.latitude = remote.latitude
+        local.longitude = remote.longitude
+        local.name = remote.name
+        local.openHour = remote.openHour
+        local.phoneNumber = remote.phoneNumber
+
       }
 
       for remoteDishReview in remoteReview.dishReviews {

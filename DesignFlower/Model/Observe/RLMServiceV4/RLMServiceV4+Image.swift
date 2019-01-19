@@ -220,6 +220,12 @@ extension RLMServiceV4 {
         print("RLMServiceV4+Image file's no.12 func error")
       }
     }
+
+    // no.13
+    internal func getImgs() -> [RLMImageV4] {
+      let predicate = NSPredicate(format: "localName != '' OR localName != nil")
+      return Array(realm.objects(RLMImageV4.self).filter(predicate))
+    }
   }
 
 }

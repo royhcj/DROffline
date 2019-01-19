@@ -53,7 +53,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="title" destination="gWm-K9-TSa" id="2gi-gZ-4v3"/>
+                                            <outlet property="title" destination="gWm-K9-TSa" id="qYL-cZ-HjK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

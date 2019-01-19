@@ -27,9 +27,12 @@ class DishRankService {
 
   static var baseURL: URL { return URL(string: "http://api.larvatadish.work")! }
 
+  
+
   enum Note {
     case uploadIMG(image: UIImage)
   }
+
 
 
 }

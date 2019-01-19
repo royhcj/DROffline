@@ -105,7 +105,7 @@ extension DishRankService.RestList: MoyaProvidable {
   }
 }
 
-extension DishRankService {
+extension DishRankService.RestList {
     static func getRestList(strat: Date? = nil, end: Date? = nil, paramaters: [RestaurantListParamater]? = nil, next url: String? = nil) {
 
       if !SVProgressHUD.isVisible() {
@@ -126,7 +126,7 @@ extension DishRankService {
                 if finish {
                   let max = Date.getDate(any: list.meta?.rdUtimeMax)
                   UserDefaults.standard.set(max, forKey: UserDefaultKey.rdUtimeMax.rawValue)
-                  DishRankService.getRestList(strat: nil, end: nil, paramaters: nil, next: list.links?.next)
+                  DishRankService.RestList.getRestList(strat: nil, end: nil, paramaters: nil, next: list.links?.next)
                 }
               })
             } else {
@@ -145,7 +145,7 @@ extension DishRankService {
                 SVProgressHUD.show(withStatus: "開始下載舊有筆記")
                 let upMin = UserDefaults.standard.value(forKey: UserDefaultKey.updateDateMin.rawValue) as? Date
                 let upMax = UserDefaults.standard.value(forKey: UserDefaultKey.updateDateMax.rawValue) as? Date
-                DishRankService.getRestaurantReview(updateDateMin: upMin, updateDateMax: upMax, url: nil)
+                DishRankService.RestaurantReview.getRestaurantReview(updateDateMin: upMin, updateDateMax: upMax, url: nil)
               }
 
             }

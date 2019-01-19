@@ -16,10 +16,13 @@ import SVProgressHUD
 extension DishRankService {
   enum RestaurantReview {
     case get(updateDateMin: Date?, updateDateMax: Date?, url: String?)
+    case download(url: URL, fileName: String)
   }
 }
 
 extension DishRankService.RestaurantReview: MoyaProvidable {
+
+  
   var baseURL: URL {
     switch self {
     case .get(_, _, let url):
@@ -28,6 +31,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       } else {
         return DishRankService.baseURL
       }
+    case .download(let url, _):
+      return url
     }
   }
 
@@ -39,12 +44,16 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       } else {
         return "/v2/restaurant-review"
       }
+    case .download:
+      return ""
     }
   }
 
   var method: Moya.Method {
     switch self {
     case .get:
+      return .get
+    case .download:
       return .get
     }
   }
@@ -53,6 +62,10 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
     @objc class TestClass: NSObject { }
     switch self {
     case .get:
+      let bundle = Bundle(for: TestClass.self)
+      let path = bundle.path(forResource: "Login", ofType: "json")
+      return try! Data(contentsOf: URL(fileURLWithPath: path!))
+    case .download:
       let bundle = Bundle(for: TestClass.self)
       let path = bundle.path(forResource: "Login", ofType: "json")
       return try! Data(contentsOf: URL(fileURLWithPath: path!))
@@ -73,6 +86,19 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       }
 
       return .requestParameters(parameters: dic, encoding: URLEncoding.default)
+    case .download(_, let fileName):
+
+      //下载儲存位置
+      let defaultDownloadDir: URL = KVOImageV4.localFolder
+
+      let localLocation: URL = defaultDownloadDir.appendingPathComponent(fileName)
+      let downloadDestination: DownloadDestination = { _, _ in
+        return (localLocation, .removePreviousFile) }
+
+//      let defaultDownloadDestination: DownloadDestination = { temporaryURL, response in
+//        return (defaultDownloadDir.appendingPathComponent(response.suggestedFilename!), [])
+//      }
+      return .downloadDestination(downloadDestination)
     }
   }
 
@@ -84,9 +110,35 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
     return ["Content-Type": "application/json",
             "Authorization": "Bearer " + token]
   }
+
+
 }
 
-extension DishRankService {
+extension DishRankService.RestaurantReview {
+
+  static internal func downloadImgs(url: URL, imageName: String, count: Int, total: Int,completion: ((Bool) -> ())? = nil ) {
+    let privoder = DishRankService.RestaurantReview.provider
+    privoder.request(.download(url: url, fileName: imageName),
+                     callbackQueue: nil,
+                     progress: { (progressResponse) in
+                      // progress
+                      print(progressResponse.progress)
+                    SVProgressHUD.showProgress(Float(progressResponse.progress), status: "\(count)/\(total)")
+    }) { (response) in
+      // finish
+      switch response {
+      case .success:
+        let localLocation: URL = KVOImageV4.localFolder
+        let image = UIImage(contentsOfFile: localLocation.path)
+        print("下载完毕！保存地址：\(localLocation)")
+      case .failure:
+        print("error")
+      }
+      completion?(true)
+
+    }
+  }
+  
   static func getRestaurantReview(updateDateMin: Date?, updateDateMax: Date?, url: String?) {
 
     let provider = DishRankService.RestaurantReview.provider
@@ -102,7 +154,7 @@ extension DishRankService {
               if $0 {
                 let max = Date.getDate(any: restaurants.meta.updateDateMax)
                 UserDefaults.standard.set(max, forKey: UserDefaultKey.updateDateMax.rawValue)
-                DishRankService.getRestaurantReview(updateDateMin: nil, updateDateMax: nil, url: restaurants.links?.next)
+                DishRankService.RestaurantReview.getRestaurantReview(updateDateMin: nil, updateDateMax: nil, url: restaurants.links?.next)
               }
             }
           } else {
@@ -111,7 +163,12 @@ extension DishRankService {
             UserDefaults.standard.set(nil, forKey: UserDefaultKey.updateDateMax.rawValue)
             update(restaurants: restaurants)
             SVProgressHUD.show(withStatus: "下載完成")
-            SVProgressHUD.dismiss(withDelay: 1)
+
+            let imgs = RLMServiceV4.shared.image.getImgs()
+            if imgs.count > 0 {
+               DishRankService.RestaurantReview.download(imgs: imgs)
+            }
+
           }
 
         } catch {
@@ -121,6 +178,37 @@ extension DishRankService {
         }
       case .failure(let error):
         print("get restaurant review error: \(error.localizedDescription)")
+      }
+    }
+  }
+
+  static func download(imgs: [RLMImageV4]) {
+
+    let total = imgs.count
+    SVProgressHUD.show(withStatus: "開始下載圖片")
+    downloadImgQueue(count: 0, total: total, imgs: imgs)
+  }
+
+  static internal func downloadImgQueue(count: Int, total: Int, imgs: [RLMImageV4]) {
+
+    guard count != (total - 1) else {
+      SVProgressHUD.show(withStatus: "下載完成")
+      SVProgressHUD.dismiss(withDelay: 1)
+      return
+    }
+    guard
+      let urlString = imgs[count].url,
+      let uuid = imgs[count].uuid,
+      let url = URL.init(string: urlString)
+      else {
+        downloadImgQueue(count: count + 1, total: total, imgs: imgs)
+        return
+    }
+
+    DishRankService.RestaurantReview.downloadImgs(url: url, imageName: uuid + ".jpeg", count: count, total: total) {
+      if $0 {
+        RLMServiceV4.shared.image.update(imgs[count], localName: uuid)
+        downloadImgQueue(count: count + 1, total: total, imgs: imgs)
       }
     }
   }
