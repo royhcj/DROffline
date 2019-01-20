@@ -62,7 +62,7 @@ protocol RLMObserveDelegate: class {
   func bindRLM(uuid: String)
   func observe(object: KVOType)
   func cancelObserve()
-  init(object: KVOType)
+//  init(object: KVOType)
 }
 
 extension RLMObserveDelegate {

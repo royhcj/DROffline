@@ -22,7 +22,8 @@ class V4ReviewViewModel {
                   }
                   // 製造observer
                   if let review = review {
-                    observe = RestReviewObserve(object: review)
+                    observe = RestReviewObserve(object: review,
+                                                realmService: RLMScratchServiceV4.scratchShared)
                   }
                 }
               }
@@ -37,10 +38,17 @@ class V4ReviewViewModel {
 
   init(output: Output?, reviewUUID: String?) {
     review = {
-      let review = KVORestReviewV4(uuid: reviewUUID)
-      self.observe = RestReviewObserve(object: review)
+      var review: KVORestReviewV4
+      if let reviewUUID = reviewUUID {
+        review = ScratchManager.shared.getScratch(originalUUID: reviewUUID)
+      } else {
+        review = ScratchManager.shared.createNewScratch()
+      }
+//      let review = KVORestReviewV4(uuid: reviewUUID)
+      self.observe = RestReviewObserve(object: review,
+                                       realmService: RLMScratchServiceV4.scratchShared)
       print("new review: \(review.uuid))")
-      self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
+//      self.review?.isScratch = true
       return review
     }()
     
@@ -48,10 +56,12 @@ class V4ReviewViewModel {
   }
   
   func setReview(_ review: KVORestReviewV4) {
-    clearScratch()
-    
-    self.review = review
-    self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
+//    clearScratch()
+    if review.isScratch {
+      self.review = review
+    } else {
+      self.review = ScratchManager.shared.getScratch(originalUUID: review.uuid)
+    }
     
     output?.refreshReview()
   }

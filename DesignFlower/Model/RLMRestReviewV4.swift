@@ -55,7 +55,7 @@ class RLMRestReviewV4: SubObject, Uploadable {
                    updateDate: Date?,
                    isFirst: Bool = false,
                    dishReviews: List<RLMDishReviewV4>,
-                   restaurant: RLMRestaurantV4) {
+                   restaurant: RLMRestaurantV4?) {
     self.init()
     self.serviceRank = serviceRank
     self.environmentRank = environmentRank

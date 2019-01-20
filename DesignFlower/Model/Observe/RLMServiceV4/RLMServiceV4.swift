@@ -17,7 +17,7 @@ internal class RLMServiceV4 {
   internal var dish: Dish
   internal var image: RLMServiceV4.Image
 
-  private init() {
+  internal init() {
     realm = try! Realm()
     dishReview = RLMServiceV4.DishReview(realm: realm)
     dish = RLMServiceV4.Dish(realm: realm)
