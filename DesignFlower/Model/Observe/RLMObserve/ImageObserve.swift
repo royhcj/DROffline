@@ -14,7 +14,12 @@ class ImageObserve: RLMObserveDelegate {
   var dbObject: RLMImageV4?
   var observers = [NSKeyValueObservation]()
 
-  required init(object: KVOImageV4) {
+  internal var realmService = RLMServiceV4.shared
+  
+  required init(object: KVOImageV4, service: RLMServiceV4?) {
+    if let service = service {
+      self.realmService = service
+    }
     bindRLM(uuid: object.uuid)
     observe(object: object)
   }
@@ -29,42 +34,42 @@ class ImageObserve: RLMObserveDelegate {
       [
         object.observe(\.phassetID, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-             RLMServiceV4.shared.image.update(dbObject, phassetID: newValue)
+             self.realmService.image.update(dbObject, phassetID: newValue)
           }
         },
         object.observe(\.localName, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.image.update(dbObject, localName: newValue)
+            self.realmService.image.update(dbObject, localName: newValue)
           }
         },
         object.observe(\.imageID, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.image.update(dbObject, imageID: newValue)
+            self.realmService.image.update(dbObject, imageID: newValue)
           }
         },
         object.observe(\.url, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.image.update(dbObject, url: newValue)
+            self.realmService.image.update(dbObject, url: newValue)
           }
         },
         object.observe(\.imageStatus, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.image.update(dbObject, imageStatus: newValue)
+            self.realmService.image.update(dbObject, imageStatus: newValue)
           }
         },
         object.observe(\.photoLatitude, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.image.update(dbObject, photoLatitude: newValue)
+            self.realmService.image.update(dbObject, photoLatitude: newValue)
           }
         },
         object.observe(\.photoLongtitude, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.image.update(dbObject, photoLongtitude: newValue)
+            self.realmService.image.update(dbObject, photoLongtitude: newValue)
           }
         },
         object.observe(\.order, options: [.initial, .old, .new]) { (image, change) in
           if let newValue = change.newValue {
-            RLMServiceV4.shared.image.update(dbObject, order: newValue)
+            self.realmService.image.update(dbObject, order: newValue)
           }
         }
     ]

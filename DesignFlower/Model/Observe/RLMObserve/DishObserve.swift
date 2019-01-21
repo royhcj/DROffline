@@ -14,7 +14,12 @@ class DishObserve: RLMObserveDelegate {
   var dbObject: RLMDishV4?
   var observers: [NSKeyValueObservation] = []
 
-  required init(object: KVODishV4) {
+  internal var realmService = RLMServiceV4.shared
+  
+  required init(object: KVODishV4, service: RLMServiceV4?) {
+    if let service = service {
+      self.realmService = service
+    }
     bindRLM(uuid: object.uuid)
     observe(object: object)
   }
@@ -26,11 +31,11 @@ class DishObserve: RLMObserveDelegate {
     observers = [
       object.observe(\.name, options: [.initial, .old,  .new], changeHandler: { (dish, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.dish.update(dbObject, name: newValue)
+          self.realmService.dish.update(dbObject, name: newValue)
         }
       }),
       object.observe(\.id, options: [.initial, .old, .new], changeHandler: { (dish, change) in
-          RLMServiceV4.shared.dish.update(dbObject, id: change.newValue)
+          self.realmService.dish.update(dbObject, id: change.newValue)
       })
     ]
   }

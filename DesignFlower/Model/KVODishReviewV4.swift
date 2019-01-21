@@ -25,11 +25,11 @@ class KVODishReviewV4: NSObject {
   @objc dynamic var images = [KVOImageV4]() // 圖片
   var uuid = UUID().uuidString.lowercased() // local uuid
 
-  init(uuid: String? = nil) {
+  init(uuid: String? = nil, service: RLMServiceV4 = RLMServiceV4.shared) {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
-      load(withUUID: uuid)
+      load(withUUID: uuid, service: service)
     }
   }
   
@@ -63,8 +63,8 @@ class KVODishReviewV4: NSObject {
     }
   }
   
-  func load(withUUID uuid: String) {
-    guard let rlmDishReview = RLMServiceV4.shared.dishReview.getDishReview(uuid: uuid)
+  func load(withUUID uuid: String, service: RLMServiceV4) {
+    guard let rlmDishReview = service.dishReview.getDishReview(uuid: uuid)
     else { return }
     
     set(with: rlmDishReview)

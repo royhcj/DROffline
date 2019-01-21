@@ -21,12 +21,12 @@ class KVORestaurantV4: NSObject {
   @objc dynamic var images = [KVOImageV4]() //餐廳圖片
   var uuid = UUID().uuidString.lowercased() // local uuid
 
-  init(uuid: String? = nil) {
+  init(uuid: String? = nil, service: RLMServiceV4 = RLMServiceV4.shared) {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
       
-      load(withUUID: uuid)
+      load(withUUID: uuid, service: service)
     }
   }
   
@@ -58,8 +58,8 @@ class KVORestaurantV4: NSObject {
 
   }
   
-  func load(withUUID uuid: String) {
-    guard let rlmRestaurant = RLMServiceV4.shared.getRestaurant(uuid: uuid)
+  func load(withUUID uuid: String, service: RLMServiceV4) {
+    guard let rlmRestaurant = service.getRestaurant(uuid: uuid)
     else { return }
     
     set(with: rlmRestaurant)

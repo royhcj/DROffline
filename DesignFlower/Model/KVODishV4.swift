@@ -12,12 +12,12 @@ class KVODishV4: NSObject {
   @objc dynamic var id = -1 // 菜餚ID
   var uuid = UUID().uuidString.lowercased() // local uuid
 
-  init(uuid: String? = nil) {
+  init(uuid: String? = nil, service: RLMServiceV4 = RLMServiceV4.shared) {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
       
-      load(withUUID: uuid)
+      load(withUUID: uuid, service: service)
     }
   }
   
@@ -34,7 +34,7 @@ class KVODishV4: NSObject {
     }
   }
   
-  func load(withUUID uuid: String) {
+  func load(withUUID uuid: String, service: RLMServiceV4) {
     guard let rlmDish = RLMServiceV4.shared.dish.getDish(uuid: uuid)
     else { return }
     

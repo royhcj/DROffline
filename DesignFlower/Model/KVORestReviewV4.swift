@@ -30,11 +30,11 @@ public class KVORestReviewV4: NSObject {
   @objc dynamic var dishReviews = [KVODishReviewV4]() // 菜餚
   @objc dynamic var restaurant: KVORestaurantV4?
 
-  init(uuid: String? = nil) {
+  init(uuid: String? = nil, service: RLMServiceV4 = RLMServiceV4.shared) {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
-      load(withUUID: uuid)
+      load(withUUID: uuid, service: service)
     }
   }
 
@@ -70,9 +70,9 @@ public class KVORestReviewV4: NSObject {
     }
   }
   
-  func load(withUUID uuid: String) {
-    guard let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: uuid)
-      else { return }
+  func load(withUUID uuid: String, service: RLMServiceV4) {
+    guard let rlmRestReview = service.getRestReview(uuid: uuid)
+    else { return }
     
     set(with: rlmRestReview)
   }

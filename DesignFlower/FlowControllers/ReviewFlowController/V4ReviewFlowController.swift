@@ -62,7 +62,7 @@ class V4ReviewFlowController: ViewBasedFlowController {
   
   // MARK: - Review Manipulation
   func loadReview(_ reviewUUID: String) {
-    let review = KVORestReviewV4(uuid: reviewUUID)
+    let review = KVORestReviewV4(uuid: reviewUUID, service: RLMScratchServiceV4.scratchShared)
     reviewVC?.setReview(review)
   }
   

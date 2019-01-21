@@ -21,10 +21,11 @@ class KVOImageV4: NSObject {
   @objc dynamic var order: Int = -1// 圖片排序
   var uuid = UUID().uuidString.lowercased() // local uuid
     //所屬dishReview
-  init(uuid: String? = nil) {
+  init(uuid: String? = nil, service: RLMServiceV4 = RLMServiceV4.shared) {
     super.init()
     if let uuid = uuid {
       self.uuid = uuid
+      self.load(withUUID: uuid, service: service)
     }
   }
   
@@ -47,8 +48,8 @@ class KVOImageV4: NSObject {
     }
   }
 
-  func load(withUUID uuid: String) {
-    guard let rlmImage = RLMServiceV4.shared.image.getImage(uuid: uuid)
+  func load(withUUID uuid: String, service: RLMServiceV4) {
+    guard let rlmImage = service.image.getImage(uuid: uuid)
     else { return }
     
     set(with: rlmImage)

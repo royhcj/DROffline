@@ -16,7 +16,12 @@ class RestaurantObserve: RLMObserveDelegate {
   var observers = [NSKeyValueObservation]()
   var imageObservers = [ImageObserve]()
 
-  required init(object: KVORestaurantV4) {
+  internal var realmService = RLMServiceV4.shared
+  
+  required init(object: KVORestaurantV4, service: RLMServiceV4?) {
+    if let service = service {
+      self.realmService = service
+    }
     bindRLM(uuid: object.uuid)
     observe(object: object)
   }
@@ -29,47 +34,47 @@ class RestaurantObserve: RLMObserveDelegate {
     observers = [
       object.observe(\.name, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, name: newValue)
+          self.realmService.update(dbObject, name: newValue)
         }
       }),
       object.observe(\.id, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, id: newValue)
+          self.realmService.update(dbObject, id: newValue)
         }
       }),
       object.observe(\.latitude, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, latitude: newValue)
+          self.realmService.update(dbObject, latitude: newValue)
         }
       }),
       object.observe(\.longitude, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, longitude: newValue)
+          self.realmService.update(dbObject, longitude: newValue)
         }
       }),
       object.observe(\.address, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, address: newValue)
+          self.realmService.update(dbObject, address: newValue)
         }
       }),
       object.observe(\.country, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, country: newValue)
+          self.realmService.update(dbObject, country: newValue)
         }
       }),
       object.observe(\.area, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, area: newValue)
+          self.realmService.update(dbObject, area: newValue)
         }
       }),
       object.observe(\.phoneNumber, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, phoneNumber: newValue)
+          self.realmService.update(dbObject, phoneNumber: newValue)
         }
       }),
       object.observe(\.openHour, options: [.initial, .old, .new], changeHandler: { (restaurant, change) in
         if let newValue = change.newValue {
-          RLMServiceV4.shared.update(dbObject, openHour: newValue)
+          self.realmService.update(dbObject, openHour: newValue)
         }
       }),
       object.observe(\.images, options: [.initial, .old, .new]) { (dishReview, change) in
@@ -87,11 +92,12 @@ class RestaurantObserve: RLMObserveDelegate {
     let willBeAdded = Set(news).subtracting(Set(olds))
     let willBeDeleted = Set(olds).subtracting(Set(news))
     for kvoImage in willBeAdded {
-      RLMServiceV4.shared.image.createRLMImage(in: dbObject, kvoImage: kvoImage)
-      imageObservers.append(ImageObserve(object: kvoImage))
+      realmService.image.createRLMImage(in: dbObject, kvoImage: kvoImage)
+      imageObservers.append(ImageObserve(object: kvoImage,
+                                         service: realmService))
     }
     for kvoImage in willBeDeleted {
-      RLMServiceV4.shared.image.delete(imageUUID: kvoImage.uuid)
+      realmService.image.delete(imageUUID: kvoImage.uuid)
     }
   }
 

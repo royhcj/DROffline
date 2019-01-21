@@ -12,16 +12,17 @@ internal class RLMServiceV4 {
 
   static var shared = RLMServiceV4()
 
-  internal var realm: Realm
+  internal var realm: Realm { return _realm }
+  internal var _realm: Realm = { return try! Realm() }()
   internal var dishReview: DishReview
   internal var dish: Dish
   internal var image: RLMServiceV4.Image
 
-  private init() {
-    realm = try! Realm()
-    dishReview = RLMServiceV4.DishReview(realm: realm)
-    dish = RLMServiceV4.Dish(realm: realm)
-    image = RLMServiceV4.Image(realm: realm)
+  init() {
+    //realm = try! Realm()
+    dishReview = RLMServiceV4.DishReview(realm: _realm)
+    dish = RLMServiceV4.Dish(realm: _realm)
+    image = RLMServiceV4.Image(realm: _realm)
   }
 
   internal func createRLM<T: SubObject>(uuid: String, type: T.Type) -> T? {

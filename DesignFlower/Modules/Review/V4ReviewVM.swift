@@ -12,6 +12,7 @@ import Photos
 class V4ReviewViewModel {
   
   private weak var output: Output?
+  private var realmService: RLMServiceV4 = RLMScratchServiceV4.scratchShared
   
   var review: KVORestReviewV4? {
                 didSet {
@@ -22,7 +23,8 @@ class V4ReviewViewModel {
                   }
                   // 製造observer
                   if let review = review {
-                    observe = RestReviewObserve(object: review)
+                    observe = RestReviewObserve(object: review,
+                                                service: realmService)
                   }
                 }
               }
@@ -38,7 +40,8 @@ class V4ReviewViewModel {
   init(output: Output?, reviewUUID: String?) {
     review = {
       let review = KVORestReviewV4(uuid: reviewUUID)
-      self.observe = RestReviewObserve(object: review)
+      self.observe = RestReviewObserve(object: review,
+                                       service: self.realmService)
       print("new review: \(review.uuid))")
       self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
       return review
