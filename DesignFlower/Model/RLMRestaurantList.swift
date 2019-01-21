@@ -104,7 +104,7 @@ class RLMRestaurantList: Object {
 
 }
 
-struct RestaurantList: Codable {
+struct APIResponse: Codable {
   let data: [Datum]?
   let links: Links?
   let meta: Meta?

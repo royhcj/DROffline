@@ -20,6 +20,8 @@
 		64DF218621E73A7100C660AC /* RLMRestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218521E73A7100C660AC /* RLMRestaurantList.swift */; };
 		64DF218821EC29AC00C660AC /* DishRankService+Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218721EC29AC00C660AC /* DishRankService+Review.swift */; };
 		64DF218A21EC5F8700C660AC /* Double+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218921EC5F8700C660AC /* Double+Extension.swift */; };
+		64DF218E21F58AAC00C660AC /* UserService+RestReview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218D21F58AAC00C660AC /* UserService+RestReview.swift */; };
+		64DF219021F58D8300C660AC /* UserService+RestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218F21F58D8300C660AC /* UserService+RestaurantList.swift */; };
 		64F5A98621E58C8D00237E4C /* RLMServiceV4+RestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */; };
 		72061D6621AE8A940098FFFD /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6521AE8A940098FFFD /* AppDelegate.swift */; };
 		72061D6821AE8A950098FFFD /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72061D6721AE8A950098FFFD /* ViewController.swift */; };
@@ -176,6 +178,8 @@
 		64DF218521E73A7100C660AC /* RLMRestaurantList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMRestaurantList.swift; sourceTree = "<group>"; };
 		64DF218721EC29AC00C660AC /* DishRankService+Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DishRankService+Review.swift"; sourceTree = "<group>"; };
 		64DF218921EC5F8700C660AC /* Double+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Double+Extension.swift"; sourceTree = "<group>"; };
+		64DF218D21F58AAC00C660AC /* UserService+RestReview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserService+RestReview.swift"; sourceTree = "<group>"; };
+		64DF218F21F58D8300C660AC /* UserService+RestaurantList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserService+RestaurantList.swift"; sourceTree = "<group>"; };
 		64F5A98521E58C8D00237E4C /* RLMServiceV4+RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+RestList.swift"; sourceTree = "<group>"; };
 		72061D6221AE8A940098FFFD /* DROffline.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DROffline.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		72061D6521AE8A940098FFFD /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -359,6 +363,15 @@
 				64D8363221C8F01A003E5ACC /* Uploadable.swift */,
 			);
 			path = SyncController;
+			sourceTree = "<group>";
+		};
+		64DF218C21F58A7F00C660AC /* UserService */ = {
+			isa = PBXGroup;
+			children = (
+				64DF218D21F58AAC00C660AC /* UserService+RestReview.swift */,
+				64DF218F21F58D8300C660AC /* UserService+RestaurantList.swift */,
+			);
+			path = UserService;
 			sourceTree = "<group>";
 		};
 		72061D5921AE8A940098FFFD = {
@@ -764,6 +777,7 @@
 		B0A0AF8C21C10E5C005BE7AB /* (Services) */ = {
 			isa = PBXGroup;
 			children = (
+				64DF218C21F58A7F00C660AC /* UserService */,
 				B043030321ED90A200196E9A /* WebService */,
 				6488430521DF504900B7510C /* Moya */,
 				B0A0AF8F21C10ED2005BE7AB /* Location */,
@@ -1147,6 +1161,7 @@
 				B0F8110121E4B60B00BEE91C /* PhotoOrganizer+DishModificationRequest.swift in Sources */,
 				72061DB421AFE0DA0098FFFD /* RLMServiceV4+Restaurant.swift in Sources */,
 				723B1F8C21B5081200CF91F3 /* V4ReviewFlows-AddNewPhoto.swift in Sources */,
+				64DF219021F58D8300C660AC /* UserService+RestaurantList.swift in Sources */,
 				B0A0AF9221C10ED2005BE7AB /* LocationService+Message.swift in Sources */,
 				72061DAA21AFE0DA0098FFFD /* ImageObserve.swift in Sources */,
 				B0F2408921EF32C00021FC3F /* RestaurantSearchResult.swift in Sources */,
@@ -1158,6 +1173,7 @@
 				723B1F9721B532E900CF91F3 /* V4PhotoPickerModule.swift in Sources */,
 				B0A0AF9E21C13972005BE7AB /* Restaurant.swift in Sources */,
 				B0A0AFA421C13AD3005BE7AB /* UIColor+Extension.swift in Sources */,
+				64DF218E21F58AAC00C660AC /* UserService+RestReview.swift in Sources */,
 				B0F810FD21E4B60B00BEE91C /* PhotoOrganizerVC.swift in Sources */,
 				72061D8621AFDD090098FFFD /* V4ReviewVM.swift in Sources */,
 				723B1F8621B4E30700CF91F3 /* V4ReviewFlows-WriteBegin.swift in Sources */,

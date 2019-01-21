@@ -124,6 +124,7 @@ extension SyncService {
 //        let decoder = JSONDecoder()
         if let data = data {
 //          let review = try? decoder.decode(RLMRestReviewV4.self, from: data)
+
           print(String(decoding: data, as: UTF8.self))
           RLMServiceV4.shared.delete(queue: queueReview)
           var newObjects = objects
@@ -159,8 +160,8 @@ extension SyncService {
       //call API to delete
       print("uuid: \(String(describing: queueReview.uuid)), id:\(queueReview.id)")
       RLMServiceV4.shared.delete(queue: queueReview)
-      //      let url = type.resourceURL.appendingPathComponent("/\(id)")
-      //      performRequest(method: "DELETE", url: url)
+      //let url = type.resourceURL.appendingPathComponent("/\(id)")
+      // performRequest(method: "DELETE", url: url)
     }
   }
 
