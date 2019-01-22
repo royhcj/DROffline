@@ -156,7 +156,7 @@ extension V4ReviewFlowController: V4RestaurantPickerFlowController.Delegate {
     kvoRestaurant.id = restaurant.shopID ?? -1
     kvoRestaurant.name = restaurant.shopName
     kvoRestaurant.latitude = restaurant.latitude != nil ? Float(restaurant.latitude!) ?? -1.0 : -1.0
-    kvoRestaurant.latitude = restaurant.longtitude != nil ? Float(restaurant.longtitude!) ?? -1.0 : -1.0
+    kvoRestaurant.longitude = restaurant.longtitude != nil ? Float(restaurant.longtitude!) ?? -1.0 : -1.0
     kvoRestaurant.address = restaurant.address
     kvoRestaurant.country = restaurant.country
     //kvoRestaurant.area = restaurant.city // What is area?

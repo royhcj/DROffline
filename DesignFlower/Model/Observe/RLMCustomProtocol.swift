@@ -59,7 +59,7 @@ protocol RLMObserveDelegate: class {
   associatedtype KVOType: NSObject
   var dbObject: RLMType? { get set }
   var observers: [NSKeyValueObservation] { get set }
-  func bindRLM(uuid: String)
+  func bindRLM(uuid: String, service: RLMServiceV4)
   func observe(object: KVOType)
   func cancelObserve()
   init(object: KVOType, service: RLMServiceV4?)
@@ -72,11 +72,11 @@ extension RLMObserveDelegate {
   ///   - dbObject: 代表realm內的物件。
   /// - Parameters:
   ///   - uuid: SubObject物件，建立後帶的uuid
-  func bindRLM(uuid: String) {
-    let realm = try! Realm()
+  func bindRLM(uuid: String, service: RLMServiceV4 = RLMServiceV4.shared) {
+    let realm = service.realm
     let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
     guard let rlmObject = realm.objects(RLMType.self).filter(predicate).first else {
-      let rlmObject = RLMServiceV4.shared.createRLM(uuid: uuid, type: RLMType.self)
+      let rlmObject = service.createRLM(uuid: uuid, type: RLMType.self)
       self.dbObject = rlmObject
       return
     }

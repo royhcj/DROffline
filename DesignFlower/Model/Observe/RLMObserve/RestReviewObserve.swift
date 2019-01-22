@@ -26,7 +26,7 @@ class RestReviewObserve: RLMObserveDelegate {
     if let service = service {
       self.realmService = service
     }
-    bindRLM(uuid: object.uuid)
+    bindRLM(uuid: object.uuid, service: realmService)
     observe(object: object)
   }
   
