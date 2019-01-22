@@ -115,8 +115,11 @@ class V4ReviewViewModel {
   
   // MARK: - Save Review
   func saveReview() {
-    // TODO: Call Save
-    setDirty(false)
+    guard let review = review else { return }
+    
+    ScratchManager.shared.commitScratch(review, needSync: true) {
+      self.setDirty(false)
+    }
   }
   
   // MARK: - Dirty Manipulation

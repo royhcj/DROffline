@@ -13,6 +13,7 @@ class ScratchManager {
   static var shared = ScratchManager()
   var scratchService: RLMServiceV4 = RLMScratchServiceV4.scratchShared
   
+  // MARK: - Get Scratch Methods
   func getScratch(originalUUID: String?) -> KVORestReviewV4 {
     guard let originalUUID = originalUUID
     else {
@@ -50,6 +51,46 @@ class ScratchManager {
       let scratch = KVORestReviewV4(uuid: nil)
       scratch.isScratch = true
       return scratch
+    }
+  }
+  
+  // MARK: - Commit Scratch
+  func commitScratch(_ scratch: KVORestReviewV4,
+                     needSync: Bool,
+                     completion: @escaping (() -> ())) {
+    let reviewUUID = scratch.uuid
+    
+    // 先把id等資料寫回scratch, 避免等下原稿的id被洗掉
+    if RLMServiceV4.shared.isExist(reviewUUID: reviewUUID, reviewID: nil) {
+      let review = KVORestReviewV4(uuid: reviewUUID,
+                                   service: RLMServiceV4.shared)
+      scratch.id = review.id
+      scratch.restaurant?.id = review.id
+      for scratchDishReview in scratch.dishReviews {
+        if let dishReview = review.dishReviews.first(where: { $0.uuid == scratchDishReview.uuid }) {
+          scratchDishReview.id = dishReview.id
+          scratchDishReview.dish?.id = dishReview.dish?.id ?? -1
+          
+          for scratchImage in scratchDishReview.images {
+            if let rlmImage = RLMServiceV4.shared.image.getImage(uuid: scratchImage.uuid) {
+              scratchImage.imageID = rlmImage.imageID
+            }
+          }
+        }
+      } // end for scratch DishReviews
+    }
+    
+    // 利用observe寫回Database
+    let observe = RestReviewObserve(object: scratch,
+                                    service: RLMServiceV4.shared)
+
+    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+      observe.cancelObserve()
+      
+      if let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: reviewUUID, id: nil) {
+        RLMServiceV4.shared.update(rlmRestReview, isSync: needSync)
+      }
+      completion()
     }
   }
 }
