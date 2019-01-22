@@ -7,6 +7,7 @@
 
 import RealmSwift
 
+
 enum SyncServiceFactory {
   case upload
   case addToQueue //加入待上傳的Queue
@@ -40,6 +41,7 @@ class SyncService {
 
     static func add(_ object: Syncable) {
 
+      // TODO: isConnected internet
       guard object.isSync() else {
         return
       }
@@ -60,6 +62,7 @@ class SyncService {
 
     private static func addToRLMQueue(review: RLMRestReviewV4) {
       RLMServiceV4.shared.createRLMQueue(copyBy: review)
+      RLMServiceV4.shared.update(review, isSync: false)
     }
 
     private static func addToRLMQueue(delete uuid: String, id: Int?) {
@@ -108,7 +111,7 @@ extension SyncService {
 
       if object.getId().id != nil {
         // TODO: 更新筆記
-        // use post new review
+        // use put new review
 //        let decoder = JSONDecoder()
         if let data = data {
 //        let review = try? decoder.decode(RLMRestReviewV4.self, from: data)
@@ -120,16 +123,22 @@ extension SyncService {
         }
       } else {
         // TODO: 新增筆記 完成要回填id
-        // use put update review
+        // use post update review
 //        let decoder = JSONDecoder()
-        if let data = data {
+        if data != nil {
 //          let review = try? decoder.decode(RLMRestReviewV4.self, from: data)
-
-          print(String(decoding: data, as: UTF8.self))
-          RLMServiceV4.shared.delete(queue: queueReview)
-          var newObjects = objects
-          newObjects.remove(at: 0)
-          upload(newObjects)
+          UserService.RestReview.update(queueReview: queueReview) {
+            switch $0 {
+            case .success:
+              RLMServiceV4.shared.delete(queue: queueReview)
+              var newObjects = objects
+              newObjects.remove(at: 0)
+              upload(newObjects)
+            case .failure(let error):
+              upload(objects)
+              print(error.localizedDescription)
+            }
+          }
         }
       }
     }
@@ -145,15 +154,30 @@ extension SyncService {
       return false
     }
 
-    private static func uploadIMG(review: RLMQueue, completion: (Bool) -> ()) {
+    private static func uploadIMG(review: RLMQueue, completion: @escaping (Bool) -> ()) {
 
       review.dishReviews.forEach {
         // TODO: 上傳圖片
-        $0.images.forEach({
-          RLMServiceV4.shared.image.update($0, url: "http://xxx.xxx.xxx")
-        })
+        for image in $0.images {
+          let imgDocumentURLString = KVOImageV4.localFolder.path
+          let imgURLString = "\(imgDocumentURLString)/\(image.localName ?? "")"
+          guard let img = UIImage.init(contentsOfFile: imgURLString) else {
+            continue
+          }
+          RLMServiceV4.shared.image.update(image, imageStatus: 3)
+          UserService.RestReview.upload(img: img, completion: { (result) in
+            switch result {
+            case .success(let uploadIMGResponseAPI):
+              RLMServiceV4.shared.image.update(image, url: uploadIMGResponseAPI.link)
+              RLMServiceV4.shared.image.update(image, imageID: uploadIMGResponseAPI.id)
+              completion(true)
+            case .failure(let error):
+              print(error.localizedDescription)
+              completion(false)
+            }
+          })
+        }
       }
-      completion(true)
     }
 
     private static func delete(with queueReview: RLMQueue) {

@@ -17,9 +17,12 @@ extension DishRankService {
   enum RestaurantReview {
     case get(updateDateMin: Date?, updateDateMax: Date?, url: String?)
     case download(url: URL, fileName: String)
-    case post(restReview: RLMRestReviewV4)
+    case post(queueReview: RLMQueue)
+    case uploadIMG(fileData: Data)
   }
 }
+
+
 
 extension DishRankService.RestaurantReview: MoyaProvidable {
 
@@ -36,6 +39,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       return url
     case .post:
       return DishRankService.baseURL
+    case .uploadIMG:
+      return DishRankService.baseURL
     }
   }
 
@@ -51,6 +56,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       return ""
     case .post:
       return "/v2/restaurant-review"
+    case .uploadIMG:
+      return "/media/upload"
     }
   }
 
@@ -61,6 +68,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
     case .download:
       return .get
     case .post:
+      return .post
+    case .uploadIMG:
       return .post
     }
   }
@@ -77,6 +86,10 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       let path = bundle.path(forResource: "Login", ofType: "json")
       return try! Data(contentsOf: URL(fileURLWithPath: path!))
     case .post:
+      let bundle = Bundle(for: TestClass.self)
+      let path = bundle.path(forResource: "Login", ofType: "json")
+      return try! Data(contentsOf: URL(fileURLWithPath: path!))
+    case .uploadIMG:
       let bundle = Bundle(for: TestClass.self)
       let path = bundle.path(forResource: "Login", ofType: "json")
       return try! Data(contentsOf: URL(fileURLWithPath: path!))
@@ -107,19 +120,29 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
         return (localLocation, .removePreviousFile) }
       return .downloadDestination(downloadDestination)
     case .post(let restReview):
-      return .requestJSONEncodable(restReview)
+      struct MyData: Codable {
+        let data: RLMQueue
+      }
+      let myData = MyData.init(data: restReview)
+      return .requestJSONEncodable(myData)
+    case .uploadIMG(let fileData):
+      let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue)
+//      let parameters = ["accessToken": token ?? ""] 
+      // any additional body data or body parms
+      let imageMultipartFormData = MultipartFormData(provider: .data(fileData), name: "file", fileName: "avatar.jpg", mimeType: "image/jpeg")
+      return .uploadMultipart([imageMultipartFormData])
     }
   }
 
   var headers: [String : String]? {
     switch self {
-    case .get, .post:
+    case .get, .post, .uploadIMG:
       guard let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue) as? String else {
         return ["Content-Type": "application/json"]
       }
       return ["Content-Type": "application/json",
               "Authorization": "Bearer " + token]
-    case .download:
+    case .download :
       return nil
     }
     // TODO: 需要更改取得Token

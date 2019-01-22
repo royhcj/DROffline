@@ -102,11 +102,13 @@ class RLMRestaurantV4: SubObject, Uploadable {
     var container = encoder.container(keyedBy: RLMRestReviewV4DecodeKey.self)
     try container.encode(id.value, forKey: .id)
     try container.encode(name, forKey: .name)
-    try container.encode(latitude.value, forKey: .latitude)
-    try container.encode(longitude.value, forKey: .longitude)
+    let lat = latitude.value == -1 ? nil : latitude.value
+    try container.encode(lat, forKey: .latitude)
+    let long = longitude.value == -1 ? nil : longitude.value
+    try container.encode(long, forKey: .longitude)
     try container.encode(address, forKey: .address)
     try container.encode(country, forKey: .country)
-    let areaI = area.value
+    let areaI = area.value == -1 ? nil : area.value
     try container.encode(areaI, forKey: .area)
     try container.encode(phoneNumber, forKey: .phoneNumber)
     try container.encode(openHour, forKey: .openHour)

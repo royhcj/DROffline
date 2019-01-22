@@ -8,20 +8,80 @@
 
 import Foundation
 import SVProgressHUD
+import SwiftyJSON
+import Result
+import Moya
 
 class UserService {
 
 }
 
+struct UploadIMGResponseAPI: Codable {
+  var id: String?
+  var link: String?
+}
+
 extension UserService {
   class RestReview {
-    static func update(restReview: RLMRestReviewV4) {
+    static func upload(img: UIImage, completion: ((Result<UploadIMGResponseAPI, MoyaError>) -> ())? ) {
+      let data = UIImageJPEGRepresentation(img, 0.5)
+      guard let imgData = data else {
+        let result = Result<UploadIMGResponseAPI, MoyaError>(error: .requestMapping("img to data error"))
+        completion?(result)
+        return
+      }
       let provider = DishRankService.RestaurantReview.provider
-      provider.request(.post(restReview: restReview)) { (result) in
+      provider.request(.uploadIMG(fileData: imgData)) { result in
         switch result {
         case .success(let response):
-          print(response.data)
+          let decoder = JSONDecoder()
+          guard let uploadIMGResponseAPI = try? decoder.decode(UploadIMGResponseAPI.self, from: response.data) else {
+            completion?(Result<UploadIMGResponseAPI,MoyaError>(error: MoyaError.requestMapping("decode uploadIMGResponseAPI error")))
+            return
+          }
+          completion?(Result<UploadIMGResponseAPI,MoyaError>.init(value: uploadIMGResponseAPI))
         case .failure(let error):
+          completion?(Result<UploadIMGResponseAPI,MoyaError>.init(error: error))
+        }
+      }
+
+    }
+
+
+    static func update(queueReview: RLMQueue, completion: ((Result<String,MoyaError>) -> ())? = nil ) {
+      let provider = DishRankService.RestaurantReview.provider
+      provider.request(.post(queueReview: queueReview)) { (result) in
+        switch result {
+        case .success(let response):
+          let decoder = JSONDecoder()
+          struct MyData: Codable {
+            let data: RLMRestReviewV4
+          }
+          var myData: MyData?
+          do {
+            myData = try decoder.decode(MyData.self, from: response.data)
+          } catch {
+            print("decode error")
+          }
+
+          if
+            let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: myData?.data.uuid),
+            let remoteRestReview = myData?.data
+          {
+            RLMServiceV4.shared.update(rlmRestReview, id: remoteRestReview.id.value)
+            for remoteDishReview in remoteRestReview.dishReviews {
+              guard
+                let uuid = remoteDishReview.uuid,
+                let localDishReview = RLMServiceV4.shared.dishReview.getDishReview(uuid: uuid)
+              else {
+                continue
+              }
+              RLMServiceV4.shared.dishReview.update(localDishReview, id: remoteDishReview.id.value)
+            }
+          }
+          completion?(Result<String,MoyaError>(value: "success"))
+        case .failure(let error):
+          completion?(Result<String,MoyaError>(error: error))
           print(error.localizedDescription)
         }
       }

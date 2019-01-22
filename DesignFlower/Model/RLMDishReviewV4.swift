@@ -35,7 +35,8 @@ class RLMDishReviewV4: SubObject, Uploadable {
                    isLike: RealmOptional<Bool>,
                    order: RealmOptional<Int>,
                    images: List<RLMImageV4>,
-                   dish: RLMDishV4?) {
+                   dish: RLMDishV4?,
+                   uuid: String?) {
     self.init()
     self.rank = rank
     self.comment = comment
@@ -47,6 +48,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
     self.order = order
     self.images = images
     self.dish = dish
+    self.uuid = uuid
   }
 
   enum RLMDishReviewV4DecodeKey: String, CodingKey {
@@ -60,6 +62,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
     case order
     case images
     case dish
+    case uuid
   }
 
   convenience required init(from decoder: Decoder) throws {
@@ -74,6 +77,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
     let order = try container.decodeIfPresent(Int.self, forKey: .order)
     let images = try container.decode([RLMImageV4].self, forKey: .images)
     let dish = try container.decode(RLMDishV4.self, forKey: .dish)
+    let uuid = try container.decode(String.self, forKey: .uuid)
 
     let realmID = RealmOptional<Int>()
     realmID.value = id
@@ -95,7 +99,8 @@ class RLMDishReviewV4: SubObject, Uploadable {
               isLike: realmIsLike,
               order: realmOrder,
               images: realmImages,
-              dish: dish)
+              dish: dish,
+              uuid: uuid)
   }
 
   func encode(to encoder: Encoder) throws {
@@ -104,7 +109,9 @@ class RLMDishReviewV4: SubObject, Uploadable {
     try container.encode(rankFloat, forKey: .rank)
     try container.encode(comment, forKey: .comment)
 //    try container.encode(isCreate, forKey: .isCreate)
-    try container.encode(parentID.value, forKey: .parentID)
+    if let parentID = parentID.value, parentID != -1 {
+       try container.encode(parentID, forKey: .parentID)
+    }
     try container.encode(createDate, forKey: .createDate)
     try container.encode(isLike.value, forKey: .isLike)
     try container.encode(order.value, forKey: .order)
@@ -112,20 +119,24 @@ class RLMDishReviewV4: SubObject, Uploadable {
     imgs.append(contentsOf: images)
     try container.encode(imgs, forKey: .images)
     try container.encode(dish, forKey: .dish)
+    try container.encode(uuid, forKey: .uuid)
+    if let id = id.value, id != -1 {
+       try container.encode(id, forKey: .id)
+    }
 
   }
 
-  func update(from dishReview: RLMDishReviewV4) {
-    self.rank = dishReview.rank
-    self.comment = dishReview.comment
-    self.id = dishReview.id
-    self.isCreate = dishReview.isCreate
-    self.createDate = dishReview.createDate
-    self.parentID = dishReview.parentID
-    self.isLike = dishReview.isLike
-    self.order = dishReview.order
-//    self.images = dishReview.images
-//    self.dish = dishReview.dish
-  }
+//  func update(from dishReview: RLMDishReviewV4) {
+//    self.rank = dishReview.rank
+//    self.comment = dishReview.comment
+//    self.id = dishReview.id
+//    self.isCreate = dishReview.isCreate
+//    self.createDate = dishReview.createDate
+//    self.parentID = dishReview.parentID
+//    self.isLike = dishReview.isLike
+//    self.order = dishReview.order
+////    self.images = dishReview.images
+////    self.dish = dishReview.dish
+//  }
 
 }

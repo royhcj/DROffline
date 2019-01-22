@@ -90,15 +90,20 @@ class RLMImageV4: SubObject, Uploadable {
 
   func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMImageV4CodingKey.self)
-    try container.encode(phassetID, forKey: .phassetID)
-    try container.encode(localName, forKey: .localName)
+//    try container.encode(phassetID, forKey: .phassetID)
+//    try container.encode(localName, forKey: .localName)
     try container.encode(imageID, forKey: .imageID)
     try container.encode(url, forKey: .url)
 //    try container.encode(imageStatus, forKey: .imageStatus)
-    try container.encode(photoLongtitude.value, forKey: .photoLongtitude)
-    try container.encode(photoLatitude.value, forKey: .photoLatitude)
-    try container.encode(order.value, forKey: .order)
-    
+    if let long = photoLongtitude.value, long != -1 {
+      try container.encode(long, forKey: .photoLongtitude)
+    }
+    if let lat = photoLatitude.value, lat != -1 {
+      try container.encode(lat, forKey: .photoLatitude)
+    }
+    if let order = order.value, order != -1 {
+      try container.encode(order, forKey: .order)
+    }
   }
   
 }

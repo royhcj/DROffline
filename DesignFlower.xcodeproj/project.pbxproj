@@ -15,6 +15,7 @@
 		6488430721DF507A00B7510C /* DishRankService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488430621DF507A00B7510C /* DishRankService.swift */; };
 		6488430921DF527800B7510C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488430821DF527800B7510C /* Login.swift */; };
 		6488430B21DF528C00B7510C /* RestList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488430A21DF528C00B7510C /* RestList.swift */; };
+		64D13F5321F6C0E80059245E /* DishRankService+Alamofire.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D13F5221F6C0E80059245E /* DishRankService+Alamofire.swift */; };
 		64D8363321C8F01A003E5ACC /* SyncService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363121C8F01A003E5ACC /* SyncService.swift */; };
 		64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64D8363221C8F01A003E5ACC /* Uploadable.swift */; };
 		64DF218621E73A7100C660AC /* RLMRestaurantList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64DF218521E73A7100C660AC /* RLMRestaurantList.swift */; };
@@ -173,6 +174,7 @@
 		6488430621DF507A00B7510C /* DishRankService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DishRankService.swift; sourceTree = "<group>"; };
 		6488430821DF527800B7510C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		6488430A21DF528C00B7510C /* RestList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestList.swift; sourceTree = "<group>"; };
+		64D13F5221F6C0E80059245E /* DishRankService+Alamofire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DishRankService+Alamofire.swift"; sourceTree = "<group>"; };
 		64D8363121C8F01A003E5ACC /* SyncService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SyncService.swift; sourceTree = "<group>"; };
 		64D8363221C8F01A003E5ACC /* Uploadable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Uploadable.swift; sourceTree = "<group>"; };
 		64DF218521E73A7100C660AC /* RLMRestaurantList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RLMRestaurantList.swift; sourceTree = "<group>"; };
@@ -352,6 +354,7 @@
 				6488430821DF527800B7510C /* Login.swift */,
 				6488430A21DF528C00B7510C /* RestList.swift */,
 				64DF218721EC29AC00C660AC /* DishRankService+Review.swift */,
+				64D13F5221F6C0E80059245E /* DishRankService+Alamofire.swift */,
 			);
 			path = Moya;
 			sourceTree = "<group>";
@@ -1224,6 +1227,7 @@
 				B043034F21ED927300196E9A /* InactiveCode.swift in Sources */,
 				B0A0AF9C21C11147005BE7AB /* UIImage+Extension.swift in Sources */,
 				7287026821BFA4C7000E1116 /* Location.swift in Sources */,
+				64D13F5321F6C0E80059245E /* DishRankService+Alamofire.swift in Sources */,
 				72061D9721AFDF080098FFFD /* KVORestaurantV4.swift in Sources */,
 				B0A0AFA021C139BA005BE7AB /* CityModel.swift in Sources */,
 				B043034D21ED927300196E9A /* PendingCode.swift in Sources */,
