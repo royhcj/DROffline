@@ -39,11 +39,10 @@ class V4ReviewViewModel {
 
   init(output: Output?, reviewUUID: String?) {
     review = {
-      let review = KVORestReviewV4(uuid: reviewUUID)
+      let review = ScratchManager.shared.getScratch(originalUUID: reviewUUID)
       self.observe = RestReviewObserve(object: review,
                                        service: self.realmService)
       print("new review: \(review.uuid))")
-      self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
       return review
     }()
     
@@ -54,7 +53,6 @@ class V4ReviewViewModel {
     clearScratch()
     
     self.review = review
-    self.review?.isScratch = true // TODO: 暫時先這樣，稍後設計scratch機制
     
     output?.refreshReview()
   }
@@ -174,17 +172,18 @@ class V4ReviewViewModel {
   }
   
   func deleteReview() {
-    if let oldReviewUUID = self.review?.uuid {
-      RLMServiceV4.shared.delete(reviewUUID: oldReviewUUID)
+    if let reviewUUID = self.review?.uuid {
+      print("deleting review \(reviewUUID)")
+      RLMServiceV4.shared.delete(reviewUUID: reviewUUID)
     }
-    review = nil
+    clearScratch()
   }
   
   func clearScratch() {
-    if let oldReviewUUID = self.review?.uuid {
-      print("deleting \(oldReviewUUID) TODO: ***")
+    if let reviewUUID = self.review?.uuid {
+      print("deleting scratch \(reviewUUID)")
       DispatchQueue.main.asyncAfter(deadline: .now()) {
-        RLMServiceV4.shared.delete(reviewUUID: oldReviewUUID) // TODO: 應該只刪scratch
+        self.realmService.delete(reviewUUID: reviewUUID)
       }
     }
     review = nil

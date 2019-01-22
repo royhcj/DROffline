@@ -36,7 +36,7 @@ class V4ChooseShareFlowController: ViewBasedFlowController,
     chooseShareVC?.loadViewIfNeeded() // Force load to make sure view model created
 
     if let originalReviewUUID = originalReviewUUID {
-      let review = KVORestReviewV4(uuid: originalReviewUUID)
+      let review = KVORestReviewV4(uuid: originalReviewUUID, service: RLMServiceV4.shared) // 從原稿讀取
       chooseShareVC?.setReview(review)
     }
   }

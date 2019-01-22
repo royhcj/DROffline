@@ -96,6 +96,7 @@
 		7287028021BFB9FE000E1116 /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287027F21BFB9FE000E1116 /* Date+Extension.swift */; };
 		7287028221C750F6000E1116 /* UIView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7287028121C750F6000E1116 /* UIView+Extension.swift */; };
 		7288BDB421F5C2B7009A5D09 /* RLMScratchServiceV4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7288BDB321F5C2B7009A5D09 /* RLMScratchServiceV4.swift */; };
+		7288BDB621F6CBB7009A5D09 /* ScratchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7288BDB521F6CBB7009A5D09 /* ScratchManager.swift */; };
 		825146A2F2CB641CB8B874DA /* Pods_DesignFlower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */; };
 		B01B05C821EE242300F49C20 /* V4Review_RestaurantRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */; };
 		B04302F421ED838400196E9A /* V4Review_SharedFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */; };
@@ -253,6 +254,7 @@
 		7287027F21BFB9FE000E1116 /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		7287028121C750F6000E1116 /* UIView+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Extension.swift"; sourceTree = "<group>"; };
 		7288BDB321F5C2B7009A5D09 /* RLMScratchServiceV4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMScratchServiceV4.swift; sourceTree = "<group>"; };
+		7288BDB521F6CBB7009A5D09 /* ScratchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchManager.swift; sourceTree = "<group>"; };
 		B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell.xib; sourceTree = "<group>"; };
 		B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_SharedFriendCell.xib; sourceTree = "<group>"; };
 		B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseFriendViewModel.swift; sourceTree = "<group>"; };
@@ -673,6 +675,7 @@
 			isa = PBXGroup;
 			children = (
 				7288BDB321F5C2B7009A5D09 /* RLMScratchServiceV4.swift */,
+				7288BDB521F6CBB7009A5D09 /* ScratchManager.swift */,
 			);
 			path = RLMScratchServiceV4;
 			sourceTree = "<group>";
@@ -1182,6 +1185,7 @@
 				72061D9521AFDF080098FFFD /* KVORestReviewV4.swift in Sources */,
 				723E17F221D07B6700E50E25 /* V4PhotoService.swift in Sources */,
 				B043035421EDB1DE00196E9A /* V4ChooseFriendFlowController.swift in Sources */,
+				7288BDB621F6CBB7009A5D09 /* ScratchManager.swift in Sources */,
 				B043034A21ED927300196E9A /* Quota.swift in Sources */,
 				B043030221ED896300196E9A /* FriendListViewController.swift in Sources */,
 				7287027221BFB05A000E1116 /* NoteV3CameraViewController.swift in Sources */,

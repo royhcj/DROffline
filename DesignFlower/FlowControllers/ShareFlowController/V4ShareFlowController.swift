@@ -42,7 +42,7 @@ class V4ShareFlowController: ViewBasedFlowController,
     
     if let originalReviewUUID = originalReviewUUID {
       // Make a share copy
-      let review = KVORestReviewV4(uuid: originalReviewUUID)
+      let review = KVORestReviewV4(uuid: originalReviewUUID, service: RLMServiceV4.shared) // 從原稿讀取
       let shareReview = review.copyForShare(withSelections: shareSelections)
       print("shared copy: \(shareReview.uuid))")
       shareVC?.setReview(shareReview)
