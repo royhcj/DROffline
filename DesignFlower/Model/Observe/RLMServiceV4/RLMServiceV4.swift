@@ -344,6 +344,7 @@ internal class RLMServiceV4 {
           predicate = NSPredicate.init(format: "uuid == '\(reviewUUID)'")
         }
         if let review = realm.objects(RLMRestReviewV4.self).filter(predicate).first {
+          realm.delete(review.dishReviews)
           realm.delete(review)
         }
       }
