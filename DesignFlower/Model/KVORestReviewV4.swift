@@ -49,6 +49,7 @@ public class KVORestReviewV4: NSObject {
     priceRank = rlmRestReview.priceRank
     title = rlmRestReview.title
     comment = rlmRestReview.comment
+    id = rlmRestReview.id.value ?? -1
     isScratch = rlmRestReview.isScratch.value ?? false
     allowedReaders = []
     rlmRestReview.allowedReaders.forEach {
