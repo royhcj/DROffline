@@ -16,6 +16,12 @@ class UserService {
 
 }
 
+struct MyData: Codable {
+  
+  let data: RLMRestReviewV4
+
+}
+
 struct UploadIMGResponseAPI: Codable {
   var id: String?
   var link: String?
@@ -53,9 +59,6 @@ extension UserService {
         switch result {
         case .success(let response):
           let decoder = JSONDecoder()
-          struct MyData: Codable {
-            let data: RLMRestReviewV4
-          }
           var myData: MyData?
           do {
             myData = try decoder.decode(MyData.self, from: response.data)

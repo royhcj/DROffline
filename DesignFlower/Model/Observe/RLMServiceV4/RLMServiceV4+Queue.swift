@@ -57,17 +57,11 @@ extension RLMServiceV4 {
 
   // no.3
   internal func getQueueReview(uuid: String) -> RLMQueue? {
-    do {
-      var queueReview: RLMQueue?
-      try realm.write {
-        let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
-        queueReview = realm.objects(RLMQueue.self).filter(predicate).first
-      }
+  
+      let predicate = NSPredicate.init(format: "uuid == '\(uuid)'")
+      let queueReview = realm.objects(RLMQueue.self).filter(predicate).first
       return queueReview
-    } catch {
-      print("RLMServiceV4+Queue file's no.3 func error")
-      return nil
-    }
+
   }
 
   // no.4

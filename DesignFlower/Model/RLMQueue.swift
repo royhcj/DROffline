@@ -10,28 +10,28 @@ import Foundation
 import Realm
 import RealmSwift
 
-class RLMQueue: SubObject, Uploadable {
+class RLMQueue: RLMRestReviewV4 {
 
-  @objc dynamic var serviceRank: String? // 服務分數
-  @objc dynamic var environmentRank: String? // 環境分數
-  @objc dynamic var priceRank: String? // 環境分數
-  @objc dynamic var title: String? // 標題
-  @objc dynamic var comment: String? // 評比內容
-  //  var id = RealmOptional<Int>() // reviewID
-  var isScratch = RealmOptional<Bool>() // 是否為草稿
-  //  @objc dynamic var isScratch = false
-  var allowedReaders = List<Int>() // 白名單
-  @objc dynamic var createDate: Date = Date() // 創造日期
-  @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
-  var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
-  @objc dynamic var parentUUID: String? // 複製品紀錄本尊的UUID(本尊可能沒有ID)
-  @objc dynamic var isShowComment = true // 是否顯示餐廳評比
-  @objc dynamic var isSync = false //是否同步
-  @objc dynamic var updateDate: Date? //上次上傳日期
-  //  @objc dynamic var uuid: String? // uuid 與 KVO內的一樣
-  @objc dynamic var isFirst = false //判斷是不是第一次建立
-  var dishReviews = List<RLMDishReviewV4>()
-  @objc dynamic var restaurant: RLMRestaurantV4?
+//  @objc dynamic var serviceRank: String? // 服務分數
+//  @objc dynamic var environmentRank: String? // 環境分數
+//  @objc dynamic var priceRank: String? // 環境分數
+//  @objc dynamic var title: String? // 標題
+//  @objc dynamic var comment: String? // 評比內容
+//  //  var id = RealmOptional<Int>() // reviewID
+//  var isScratch = RealmOptional<Bool>() // 是否為草稿
+//  //  @objc dynamic var isScratch = false
+//  var allowedReaders = List<Int>() // 白名單
+//  @objc dynamic var createDate: Date = Date() // 創造日期
+//  @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
+//  var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
+//  @objc dynamic var parentUUID: String? // 複製品紀錄本尊的UUID(本尊可能沒有ID)
+//  @objc dynamic var isShowComment = true // 是否顯示餐廳評比
+//  @objc dynamic var isSync = false //是否同步
+//  @objc dynamic var updateDate: Date? //上次上傳日期
+//  //  @objc dynamic var uuid: String? // uuid 與 KVO內的一樣
+//  @objc dynamic var isFirst = false //判斷是不是第一次建立
+//  var dishReviews = List<RLMDishReviewV4>()
+//  @objc dynamic var restaurant: RLMRestaurantV4?
   // -------- only for queue
   @objc dynamic var queueDate: Date = Date() // 加入排成時間
   @objc dynamic var isDelete: Bool = false // 是刪除筆記
@@ -78,26 +78,26 @@ class RLMQueue: SubObject, Uploadable {
     }
   }
 
-  enum RLMRestReviewV4DecoderKey: String, CodingKey {
-    case serviceRank
-    case environmentRank
-    case priceRank
-    case title
-    case comment
-    case id
-    case isScratch
-    case allowedReaders
-    case createDate
-    case eatingDate
-    case parentID
-    case isShowComment
-    case isSync
-    case updateDate
-    case isFirst
-    case dishReviews
-    case restaurant
-    case uuid
-  }
+//  enum RLMRestReviewV4DecoderKey: String, CodingKey {
+//    case serviceRank
+//    case environmentRank
+//    case priceRank
+//    case title
+//    case comment
+//    case id
+//    case isScratch
+//    case allowedReaders
+//    case createDate
+//    case eatingDate
+//    case parentID
+//    case isShowComment
+//    case isSync
+//    case updateDate
+//    case isFirst
+//    case dishReviews
+//    case restaurant
+//    case uuid
+//  }
 
   convenience required init(from decoder: Decoder) throws {
     let container = try decoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
@@ -156,38 +156,38 @@ class RLMQueue: SubObject, Uploadable {
               restaurant: restaurant)
   }
 
-  func encode(to encoder: Encoder) throws {
-    var continer = encoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
-    let sRank = Float(serviceRank ?? "0.0")
-    try continer.encode(sRank, forKey: .serviceRank)
-    let eRank = Float(environmentRank ?? "0.0")
-    try continer.encode(eRank, forKey: .environmentRank)
-    let pRank = Float(priceRank ?? "0.0")
-    try continer.encode(pRank, forKey: .priceRank)
-    try continer.encode(title, forKey: .title)
-    try continer.encode(comment, forKey: .comment)
-    try continer.encode(id.value, forKey: .id)
-    //    let isScra = isScratch.value
-    //    try continer.encode(isScra, forKey: .isScratch)
-    var allR = [Int]()
-    allR.append(contentsOf: allowedReaders)
-    try continer.encode(allR, forKey: .allowedReaders)
-    let cDate = Date.getString(any: createDate)
-    try continer.encode(cDate, forKey: .createDate)
-    let eDate = Date.getString(any: eatingDate)
-    try continer.encode(eatingDate, forKey: .eatingDate)
-    try continer.encode(parentID.value, forKey: .parentID)
-    let isShowCommentInt = isShowComment ? 1 : 0
-    try continer.encode(isShowCommentInt, forKey: .isShowComment)
-    //    try continer.encode(isSync, forKey: .isSync)
-    let uDate = Date.getString(any: updateDate ?? Date())
-    try continer.encode(uDate, forKey: .updateDate)
-    //    try continer.encode(isFirst, forKey: .isFirst)
-    var dishR = [RLMDishReviewV4]()
-    dishR.append(contentsOf: dishReviews)
-    try continer.encode(dishR, forKey: .dishReviews)
-    try continer.encode(restaurant, forKey: .restaurant)
-    try continer.encode(uuid, forKey: .uuid)
-  }
+//  func encode(to encoder: Encoder) throws {
+//    var continer = encoder.container(keyedBy: RLMRestReviewV4DecoderKey.self)
+//    let sRank = Float(serviceRank ?? "0.0")
+//    try continer.encode(sRank, forKey: .serviceRank)
+//    let eRank = Float(environmentRank ?? "0.0")
+//    try continer.encode(eRank, forKey: .environmentRank)
+//    let pRank = Float(priceRank ?? "0.0")
+//    try continer.encode(pRank, forKey: .priceRank)
+//    try continer.encode(title, forKey: .title)
+//    try continer.encode(comment, forKey: .comment)
+//    try continer.encode(id.value, forKey: .id)
+//    //    let isScra = isScratch.value
+//    //    try continer.encode(isScra, forKey: .isScratch)
+//    var allR = [Int]()
+//    allR.append(contentsOf: allowedReaders)
+//    try continer.encode(allR, forKey: .allowedReaders)
+//    let cDate = Date.getString(any: createDate)
+//    try continer.encode(cDate, forKey: .createDate)
+//    let eDate = Date.getString(any: eatingDate)
+//    try continer.encode(eatingDate, forKey: .eatingDate)
+//    try continer.encode(parentID.value, forKey: .parentID)
+//    let isShowCommentInt = isShowComment ? 1 : 0
+//    try continer.encode(isShowCommentInt, forKey: .isShowComment)
+//    //    try continer.encode(isSync, forKey: .isSync)
+//    let uDate = Date.getString(any: updateDate ?? Date())
+//    try continer.encode(uDate, forKey: .updateDate)
+//    //    try continer.encode(isFirst, forKey: .isFirst)
+//    var dishR = [RLMDishReviewV4]()
+//    dishR.append(contentsOf: dishReviews)
+//    try continer.encode(dishR, forKey: .dishReviews)
+//    try continer.encode(restaurant, forKey: .restaurant)
+//    try continer.encode(uuid, forKey: .uuid)
+//  }
 
 }

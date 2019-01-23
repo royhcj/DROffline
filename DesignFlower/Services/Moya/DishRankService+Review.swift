@@ -125,14 +125,19 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       let downloadDestination: DownloadDestination = { _, _ in
         return (localLocation, .removePreviousFile) }
       return .downloadDestination(downloadDestination)
-    case .post(let restReview), .put(let restReview):
-      let review = restReview
-      struct MyData: Codable {
-        let data: RLMQueue
+    case .post(let restReview):
+      let customData: MyData = MyData.init(data: restReview)
+      return .requestJSONEncodable(customData)
+    case .put(let restReview):
+      let customData: MyData = MyData.init(data: restReview)
+      print(customData)
+      do {
+        let json = try JSONEncoder().encode(customData)
+        print(json)
+      } catch {
+        print(error.localizedDescription)
       }
-      let myData = MyData.init(data: review)
-      print(myData)
-      return .requestJSONEncodable(review)
+      return .requestParameters(parameters: ["data": restReview], encoding: URLEncoding.default)
     case .uploadIMG(let fileData):
       let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue)
 //      let parameters = ["accessToken": token ?? ""] 
@@ -147,7 +152,7 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
     case .get, .post, .uploadIMG, .put:
       guard let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue) as? String else {
         return ["Content-Type": "application/json"]
-      }
+      } 
       return ["Content-Type": "application/json",
               "Authorization": "Bearer " + token]
     case .download :
