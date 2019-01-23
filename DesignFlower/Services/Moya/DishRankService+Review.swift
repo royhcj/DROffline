@@ -121,6 +121,7 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       let defaultDownloadDir: URL = KVOImageV4.localFolder
 
       let localLocation: URL = defaultDownloadDir.appendingPathComponent(fileName)
+
       let downloadDestination: DownloadDestination = { _, _ in
         return (localLocation, .removePreviousFile) }
       return .downloadDestination(downloadDestination)

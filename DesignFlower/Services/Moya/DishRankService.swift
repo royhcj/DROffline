@@ -42,7 +42,10 @@ final class CustomPlugin: PluginType {
   }
 
   func process(_ result: Result<Response, MoyaError>, target: TargetType) -> Result<Response, MoyaError> {
-
+    guard target.headers != nil else {
+      // 下載圖片會進來這
+      return result
+    }
     switch result {
     case .success(let response):
     do {
