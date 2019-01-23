@@ -312,7 +312,10 @@ class V4ReviewVC: FlowedViewController,
   }
   
   func showMoreForDishReview(_ dishReviewUUID: String) {
-    // TODO:
+    guard let restaurantID = viewModel?.review?.restaurant?.id
+    else { return }
+    
+    flowDelegate?.showPickDish(restaurantID: restaurantID, dishReviewUUID: dishReviewUUID)
   }
   
   func mergeDishReview(from sourceDishReviewUUID: String,
@@ -499,4 +502,5 @@ protocol V4ReviewVCFlowDelegate {
                           dishReviews: [KVODishReviewV4],
                           initialDisplayIndex: Int?)
   func showRestaurantPicker()
+  func showPickDish(restaurantID: Int, dishReviewUUID: String)
 }

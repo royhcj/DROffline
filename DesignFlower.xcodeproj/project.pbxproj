@@ -144,6 +144,9 @@
 		B0A0AFB021C162CB005BE7AB /* OpenHour.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AFAE21C162CB005BE7AB /* OpenHour.swift */; };
 		B0A0AFB121C162CB005BE7AB /* Media.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AFAF21C162CB005BE7AB /* Media.swift */; };
 		B0A0AFB421C16305005BE7AB /* Dish.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AFB221C16305005BE7AB /* Dish.swift */; };
+		B0E5C4CF21F857AB004CBC61 /* V4PickDish.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E5C4CE21F857AB004CBC61 /* V4PickDish.storyboard */; };
+		B0E5C4D121F857F3004CBC61 /* V4PickDishVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E5C4D021F857F3004CBC61 /* V4PickDishVC.swift */; };
+		B0E5C4D321F86443004CBC61 /* V4PickDishFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0E5C4D221F86443004CBC61 /* V4PickDishFlowController.swift */; };
 		B0F2408521EF16E90021FC3F /* V4RestaurantListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F2408221EF16E80021FC3F /* V4RestaurantListVC.swift */; };
 		B0F2408621EF16E90021FC3F /* V4RestaurantListVC+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0F2408321EF16E90021FC3F /* V4RestaurantListVC+Cells.swift */; };
 		B0F2408721EF16E90021FC3F /* V4RestaurantList.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0F2408421EF16E90021FC3F /* V4RestaurantList.storyboard */; };
@@ -304,6 +307,9 @@
 		B0A0AFAE21C162CB005BE7AB /* OpenHour.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OpenHour.swift; sourceTree = "<group>"; };
 		B0A0AFAF21C162CB005BE7AB /* Media.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Media.swift; sourceTree = "<group>"; };
 		B0A0AFB221C16305005BE7AB /* Dish.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Dish.swift; sourceTree = "<group>"; };
+		B0E5C4CE21F857AB004CBC61 /* V4PickDish.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4PickDish.storyboard; sourceTree = "<group>"; };
+		B0E5C4D021F857F3004CBC61 /* V4PickDishVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4PickDishVC.swift; sourceTree = "<group>"; };
+		B0E5C4D221F86443004CBC61 /* V4PickDishFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4PickDishFlowController.swift; sourceTree = "<group>"; };
 		B0F2407F21EF16C30021FC3F /* V4RestaurantPickerVC+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V4RestaurantPickerVC+Cells.swift"; sourceTree = "<group>"; };
 		B0F2408021EF16C30021FC3F /* V4RestaurantPickerVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4RestaurantPickerVC.swift; sourceTree = "<group>"; };
 		B0F2408121EF16C30021FC3F /* V4RestaurantPicker.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = V4RestaurantPicker.storyboard; sourceTree = "<group>"; };
@@ -420,6 +426,7 @@
 		72061D7721AE8AAA0098FFFD /* (Modules) */ = {
 			isa = PBXGroup;
 			children = (
+				B0E5C4CD21F85722004CBC61 /* PickDish */,
 				7219797921E105FF00FD6435 /* CustomDatePicker */,
 				B0A0AFA521C13BC2005BE7AB /* AddRestaurant */,
 				723B1F9821B53A1300CF91F3 /* Review */,
@@ -624,6 +631,7 @@
 				723B1F8021B4D21C00CF91F3 /* ReviewFlowController */,
 				723B1F9021B50C6E00CF91F3 /* PhotoPickerFlowController */,
 				7287025D21BF6EE8000E1116 /* RestaurantPickerFlowController */,
+				B0E5C4CC21F8570D004CBC61 /* PickDishFlowController */,
 				7219796D21D4750C00FD6435 /* ShareFlowController */,
 				7219797021DDF44900FD6435 /* ChooseShareFlowController */,
 				B043035221EDB1B500196E9A /* ChooseFriendFlowController */,
@@ -817,6 +825,23 @@
 			path = AddRestaurant;
 			sourceTree = "<group>";
 		};
+		B0E5C4CC21F8570D004CBC61 /* PickDishFlowController */ = {
+			isa = PBXGroup;
+			children = (
+				B0E5C4D221F86443004CBC61 /* V4PickDishFlowController.swift */,
+			);
+			path = PickDishFlowController;
+			sourceTree = "<group>";
+		};
+		B0E5C4CD21F85722004CBC61 /* PickDish */ = {
+			isa = PBXGroup;
+			children = (
+				B0E5C4CE21F857AB004CBC61 /* V4PickDish.storyboard */,
+				B0E5C4D021F857F3004CBC61 /* V4PickDishVC.swift */,
+			);
+			path = PickDish;
+			sourceTree = "<group>";
+		};
 		B0F2407E21EF16C30021FC3F /* no_use */ = {
 			isa = PBXGroup;
 			children = (
@@ -979,6 +1004,7 @@
 				7287027521BFB05A000E1116 /* NoteV3PhotoLibrarySelection.storyboard in Resources */,
 				7219797821DDF88400FD6435 /* V4ChooseShare.storyboard in Resources */,
 				723B1F9521B5278F00CF91F3 /* V4PhotoPicker.storyboard in Resources */,
+				B0E5C4CF21F857AB004CBC61 /* V4PickDish.storyboard in Resources */,
 				B0F810FE21E4B60B00BEE91C /* PhotoOrganizer.storyboard in Resources */,
 				7219797C21E1060000FD6435 /* V4CustomDatePicker.xib in Resources */,
 				537320B421F1C6D800614DDC /* MemoryNoteTableViewCell.xib in Resources */,
@@ -1151,6 +1177,7 @@
 				64D8363421C8F01A003E5ACC /* Uploadable.swift in Sources */,
 				7219797D21E1060000FD6435 /* V4CustomDatePicker.swift in Sources */,
 				72061D7E21AE8E130098FFFD /* FlowedViewController.swift in Sources */,
+				B0E5C4D121F857F3004CBC61 /* V4PickDishVC.swift in Sources */,
 				723B1F8A21B4E51A00CF91F3 /* V4ReviewFlows-CheckLastUnsaved.swift in Sources */,
 				B043032021ED90A200196E9A /* JSONable.swift in Sources */,
 				64D8363321C8F01A003E5ACC /* SyncService.swift in Sources */,
@@ -1213,6 +1240,7 @@
 				72061DB321AFE0DA0098FFFD /* RLMServiceV4+Image.swift in Sources */,
 				723B1F8821B4E36A00CF91F3 /* V4ReviewFlows-Base.swift in Sources */,
 				72061DAC21AFE0DA0098FFFD /* DishObserve.swift in Sources */,
+				B0E5C4D321F86443004CBC61 /* V4PickDishFlowController.swift in Sources */,
 				72061D9421AFDF080098FFFD /* RLMRestReviewV4.swift in Sources */,
 				B0A0AFB021C162CB005BE7AB /* OpenHour.swift in Sources */,
 				B04302FE21ED896300196E9A /* ChooseFriendViewModel.swift in Sources */,

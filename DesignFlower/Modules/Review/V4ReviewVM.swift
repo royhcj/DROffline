@@ -202,6 +202,10 @@ class V4ReviewViewModel {
   func changeDishReviewDish(for dishReviewUUID: String, name: String, dishID: Int?) {
     guard let dishReview = getDishReview(dishReviewUUID) else { return }
     
+    if dishReview.dish == nil {
+      dishReview.dish = KVODishV4(uuid: nil)
+    }
+    
     dishReview.dish?.name = name
     if let dishID = dishID {
       dishReview.dish?.id = dishID

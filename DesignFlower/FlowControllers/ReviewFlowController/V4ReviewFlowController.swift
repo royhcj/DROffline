@@ -313,3 +313,29 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
   }
 
 }
+
+// MARK: - Pick Dish Manipulation
+extension V4ReviewFlowController: V4PickDishFlowController.Delegate {
+  func showPickDish(restaurantID: Int, dishReviewUUID: String) {
+    guard let reviewVC = reviewVC
+    else { return }
+    
+    let displayContext = DisplayContext.push(vc: reviewVC, animated: true)
+    
+    let pickDishFlowController = V4PickDishFlowController(delegate: self, sourceDisplayContext: displayContext, restaurantID: restaurantID, dishReviewUUID: dishReviewUUID)
+    addChild(flowController: pickDishFlowController)
+    pickDishFlowController.prepare()
+    pickDishFlowController.start()
+  }
+  
+  func pickedDish(for dishReviewUUID: String?, dishName: String?, dishID: Int?) {
+    guard let dishReviewUUID = dishReviewUUID,
+          let dishName = dishName
+    else {
+      print("Error! Picked Dish: dishReviewUUID or dishName is nil.")
+      return
+    }
+    
+    reviewVC?.changeDishReviewDish(for: dishReviewUUID, name: dishName, dishID: dishID)
+  }
+}
