@@ -204,6 +204,26 @@ extension RLMServiceV4 {
         print("RLMServiceV4+DihsReview file's no.11 func error")
       }
     }
+    
+    // no. 12
+    internal func update(_ dishReview: RLMDishReviewV4, dish: KVODishV4) {
+      let rlmDish = realm.objects(RLMDishV4.self).filter {
+        $0.uuid == dish.uuid
+      }.first
+      
+      do {
+        try realm.write {
+          if let rlmDish = rlmDish {
+            dishReview.dish = rlmDish
+          } else {
+            let rlmDish = RLMDishV4(name: dish.name, id: RealmOptional<Int>(dish.id))
+            dishReview.dish = rlmDish
+          }
+        }
+      } catch {
+        print("RLMServiceV4+DihsReview file's no.12 func error")
+      }
+    }
 
   }
 

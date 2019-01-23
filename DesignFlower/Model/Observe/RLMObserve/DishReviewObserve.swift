@@ -87,6 +87,7 @@ class DishReviewObserve: RLMObserveDelegate {
         if let newValue = change.newValue, let dish = newValue {
           self.dishObserves.append(DishObserve(object: dish,
                                                service: self.realmService))
+          self.realmService.dishReview.update(dbObject, dish: dish)
         } else if
             let oldValue = change.oldValue,
             let dishUUID = oldValue?.uuid,
