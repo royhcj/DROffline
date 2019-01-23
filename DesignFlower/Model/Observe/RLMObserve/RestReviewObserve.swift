@@ -143,8 +143,8 @@ class RestReviewObserve: RLMObserveDelegate {
         }
       },
       object.observe(\.dishReviews, options: [.initial, .old, .new]) { (restReview, change) in
-        if let newValue = change.newValue, let oldValue = change.oldValue {
-          self.restReviewLinkDishReview(olds: oldValue, news: newValue)
+        if let newValue = change.newValue {
+          self.restReviewLinkDishReview(olds: change.oldValue ?? [], news: newValue)
         }
       }
     ]
