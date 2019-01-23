@@ -212,7 +212,8 @@ class V4ReviewVC: FlowedViewController,
       
     } else if let cell = cell as? DishReviewCell {
       let dishReview = viewModel?.review?.dishReviews.at(indexPath.row)
-      cell.configure(with: dishReview)
+      let hasDishMenu = viewModel?.restaurantHasDishMenu
+      cell.configure(with: dishReview, hasDishMenu: hasDishMenu)
     } else if let cell = cell as? RestaurantRatingCell {
       cell.configure(with: viewModel?.review)
     } else if let _ = cell as? DeleteCell {

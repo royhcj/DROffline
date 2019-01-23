@@ -132,6 +132,7 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
   @IBOutlet var commentTextView: UITextView!
   @IBOutlet var photoImageView: UIImageView!
   @IBOutlet var photoButton: UIButton!
+  @IBOutlet weak var moreButton: UIButton!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -144,6 +145,8 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
     
     commentTextView.delegate = self
     
+    moreButton.isHidden = true
+    
     let dragInteraction = UIDragInteraction(delegate: self)
     let dropInteraction = UIDropInteraction(delegate: self)
     photoButton.addInteraction(dragInteraction)
@@ -151,7 +154,7 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
     dragInteraction.isEnabled = true
   }
   
-  func configure(with dishReview: KVODishReviewV4?) {
+  func configure(with dishReview: KVODishReviewV4?, hasDishMenu: Bool?) {
     dishReviewUUID = dishReview?.uuid
     dishRateView.yc_InitValue = Float(dishReview?.rank ?? "0.0") ?? 0
     dishRateView.setNeedsDisplay()
@@ -166,6 +169,8 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
     
     dishNameTextField.text = dishReview?.dish?.name
     commentTextView.text = dishReview?.comment
+    
+    moreButton.isHidden = hasDishMenu != true
   }
   
   @objc func dishRankValueChanged(sender: UISlider, value: Float) {

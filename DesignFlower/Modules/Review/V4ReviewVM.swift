@@ -30,6 +30,7 @@ class V4ReviewViewModel {
               }
   var observe: RestReviewObserve?
   var dirty: Bool = false
+  var restaurantHasDishMenu: Bool = false // 餐廳有沒有菜單
   
   var lastBlankDishReviewUUID: String?
   
@@ -53,6 +54,8 @@ class V4ReviewViewModel {
     clearScratch()
     
     self.review = review
+    
+    updateRestaurantHasDishMenu()
     
     output?.refreshReview()
   }
@@ -170,6 +173,9 @@ class V4ReviewViewModel {
   
   func changeRestaurant(_ restaurant: KVORestaurantV4?) {
     review?.restaurant = restaurant
+    
+    updateRestaurantHasDishMenu()
+    
     setDirty(true)
     output?.refreshReview()
   }
@@ -259,6 +265,29 @@ class V4ReviewViewModel {
     output?.refreshReview()
   }
   
+  
+  // MARK: - Restaurant Manipulation
+  func updateRestaurantHasDishMenu() {
+    guard let restaurantID = review?.restaurant?.id
+    else {
+      restaurantHasDishMenu = false
+      output?.refreshReview()
+      return
+    }
+    
+    WebService.AddRating.getDishList(accessToken: LoggedInUser.sharedInstance().accessToken!,
+                                     shopID: restaurantID)
+      .then { [weak self] json -> Void in
+        self?.restaurantHasDishMenu = json["dishData"].arrayValue.isEmpty == false
+      }.catch { [weak self] error in
+        print(error)
+        self?.restaurantHasDishMenu = false
+      }.always { [weak self] in
+        self?.output?.refreshReview() // TODO: Just refresh dish menu only for optimization
+      }
+  }
+  
+  // MARK: - Type Definitions
   typealias Output = V4ReviewViewModelOutput
 }
 
