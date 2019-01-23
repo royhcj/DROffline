@@ -77,7 +77,11 @@ class RLMDishReviewV4: SubObject, Uploadable {
     let order = try container.decodeIfPresent(Int.self, forKey: .order)
     let images = try container.decode([RLMImageV4].self, forKey: .images)
     let dish = try container.decode(RLMDishV4.self, forKey: .dish)
-    let uuid = try container.decode(String.self, forKey: .uuid)
+    var uuid = try? container.decode(String.self, forKey: .uuid)
+    if uuid == nil {
+      uuid = UUID().uuidString.lowercased()
+    }
+
 
     let realmID = RealmOptional<Int>()
     realmID.value = id

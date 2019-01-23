@@ -113,13 +113,20 @@ extension SyncService {
         // TODO: 更新筆記
         // use put new review
 //        let decoder = JSONDecoder()
-        if let data = data {
+        if data != nil {
 //        let review = try? decoder.decode(RLMRestReviewV4.self, from: data)
-          print(String(decoding: data, as: UTF8.self))
-          RLMServiceV4.shared.delete(queue: queueReview)
-          var newObjects = objects
-          newObjects.remove(at: 0)
-          upload(newObjects)
+          UserService.RestReview.put(queueReview: queueReview) {
+            switch $0 {
+            case .success:
+              RLMServiceV4.shared.delete(queue: queueReview)
+              var newObjects = objects
+              newObjects.remove(at: 0)
+              upload(newObjects)
+            case .failure(let error):
+              upload(objects)
+              print(error.localizedDescription)
+            }
+          }
         }
       } else {
         // TODO: 新增筆記 完成要回填id

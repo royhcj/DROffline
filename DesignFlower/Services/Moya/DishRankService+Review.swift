@@ -19,6 +19,7 @@ extension DishRankService {
     case download(url: URL, fileName: String)
     case post(queueReview: RLMQueue)
     case uploadIMG(fileData: Data)
+    case put(queueReview: RLMQueue)
   }
 }
 
@@ -37,7 +38,7 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       }
     case .download(let url, _):
       return url
-    case .post:
+    case .post, .put:
       return DishRankService.baseURL
     case .uploadIMG:
       return DishRankService.baseURL
@@ -58,6 +59,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       return "/v2/restaurant-review"
     case .uploadIMG:
       return "/media/upload"
+    case .put:
+      return "/v2/restaurant-review"
     }
   }
 
@@ -71,6 +74,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       return .post
     case .uploadIMG:
       return .post
+    case .put:
+      return .put
     }
   }
 
@@ -89,7 +94,7 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       let bundle = Bundle(for: TestClass.self)
       let path = bundle.path(forResource: "Login", ofType: "json")
       return try! Data(contentsOf: URL(fileURLWithPath: path!))
-    case .uploadIMG:
+    case .uploadIMG, .put:
       let bundle = Bundle(for: TestClass.self)
       let path = bundle.path(forResource: "Login", ofType: "json")
       return try! Data(contentsOf: URL(fileURLWithPath: path!))
@@ -119,12 +124,14 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       let downloadDestination: DownloadDestination = { _, _ in
         return (localLocation, .removePreviousFile) }
       return .downloadDestination(downloadDestination)
-    case .post(let restReview):
+    case .post(let restReview), .put(let restReview):
+      let review = restReview
       struct MyData: Codable {
         let data: RLMQueue
       }
-      let myData = MyData.init(data: restReview)
-      return .requestJSONEncodable(myData)
+      let myData = MyData.init(data: review)
+      print(myData)
+      return .requestJSONEncodable(review)
     case .uploadIMG(let fileData):
       let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue)
 //      let parameters = ["accessToken": token ?? ""] 
@@ -136,7 +143,7 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
 
   var headers: [String : String]? {
     switch self {
-    case .get, .post, .uploadIMG:
+    case .get, .post, .uploadIMG, .put:
       guard let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue) as? String else {
         return ["Content-Type": "application/json"]
       }

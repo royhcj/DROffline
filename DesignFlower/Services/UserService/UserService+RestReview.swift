@@ -47,6 +47,44 @@ extension UserService {
 
     }
 
+    static func put(queueReview: RLMQueue, completion: ((Result<String,MoyaError>) -> ())? = nil ) {
+      let provider = DishRankService.RestaurantReview.provider
+      provider.request(.put(queueReview: queueReview)) { (result) in
+        switch result {
+        case .success(let response):
+          let decoder = JSONDecoder()
+          struct MyData: Codable {
+            let data: RLMRestReviewV4
+          }
+          var myData: MyData?
+          do {
+            myData = try decoder.decode(MyData.self, from: response.data)
+          } catch {
+            print("decode error")
+          }
+          if
+            let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: myData?.data.uuid),
+            let remoteRestReview = myData?.data
+          {
+            RLMServiceV4.shared.update(rlmRestReview, id: remoteRestReview.id.value)
+            for remoteDishReview in remoteRestReview.dishReviews {
+              guard
+                let uuid = remoteDishReview.uuid,
+                let localDishReview = RLMServiceV4.shared.dishReview.getDishReview(uuid: uuid)
+                else {
+                  continue
+              }
+              RLMServiceV4.shared.dishReview.update(localDishReview, id: remoteDishReview.id.value)
+            }
+          }
+          completion?(Result<String,MoyaError>(value: "success"))
+        case .failure(let error):
+          completion?(Result<String,MoyaError>(error: error))
+          print(error.localizedDescription)
+        }
+      }
+    }
+
 
     static func update(queueReview: RLMQueue, completion: ((Result<String,MoyaError>) -> ())? = nil ) {
       let provider = DishRankService.RestaurantReview.provider
@@ -63,7 +101,6 @@ extension UserService {
           } catch {
             print("decode error")
           }
-
           if
             let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: myData?.data.uuid),
             let remoteRestReview = myData?.data
@@ -100,9 +137,9 @@ extension UserService {
         switch result {
         case .success:
           completion?(true)
-        case .failure:
+        case .failure(let error):
           completion?(false)
-          print("download img error")
+          print("download img error: \(error.localizedDescription)")
         }
 
 

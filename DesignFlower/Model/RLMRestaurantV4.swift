@@ -100,16 +100,21 @@ class RLMRestaurantV4: SubObject, Uploadable {
 
   func encode(to encoder: Encoder) throws {
     var container = encoder.container(keyedBy: RLMRestReviewV4DecodeKey.self)
-    try container.encode(id.value, forKey: .id)
+    if let id = id.value, id != -1 {
+       try container.encode(id, forKey: .id)
+    }
     try container.encode(name, forKey: .name)
-    let lat = latitude.value == -1 ? nil : latitude.value
-    try container.encode(lat, forKey: .latitude)
-    let long = longitude.value == -1 ? nil : longitude.value
-    try container.encode(long, forKey: .longitude)
+    if let lat = latitude.value == -1 ? nil : latitude.value {
+       try container.encode(lat, forKey: .latitude)
+    }
+    if let long = longitude.value == -1 ? nil : longitude.value {
+        try container.encode(long, forKey: .longitude)
+    }
     try container.encode(address, forKey: .address)
     try container.encode(country, forKey: .country)
-    let areaI = area.value == -1 ? nil : area.value
-    try container.encode(areaI, forKey: .area)
+    if let areaI = area.value, areaI != -1 {
+       try container.encode(areaI, forKey: .area)
+    }
     try container.encode(phoneNumber, forKey: .phoneNumber)
     try container.encode(openHour, forKey: .openHour)
 //    var imgs = [RLMImageV4]()

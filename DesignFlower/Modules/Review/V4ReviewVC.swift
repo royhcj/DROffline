@@ -80,7 +80,6 @@ class V4ReviewVC: FlowedViewController,
   }
   
   @objc func clickedSave(_ sender: Any) {
-    viewModel?.review?.isSync = true
     viewModel?.saveReview()
   }
   
