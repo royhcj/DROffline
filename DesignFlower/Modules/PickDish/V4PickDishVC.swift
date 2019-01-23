@@ -195,7 +195,7 @@ class V4PickDishVC: UIViewController, V4PickDish_AddCellDelegate, UITableViewDel
 //        self.navigationController?.popViewController(animated: true)
 //      }
       
-      flowDelegate?.pickDishVC(self, pickedDishName: dish.shopName, dishID: dish.dishID)
+      flowDelegate?.pickDishVC(self, pickedDishName: dish.title, dishID: dish.dishID)
     }
   }
   

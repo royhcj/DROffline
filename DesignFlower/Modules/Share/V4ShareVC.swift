@@ -50,7 +50,7 @@ class V4ShareVC: V4ReviewVC,
   }
   
   @objc func clickedSaveShare(_ sender: Any) {
-    viewModel?.saveReview()
+    shareViewModel?.share()
   }
   
   override func clickedCancel(_ sender: Any) {
@@ -98,6 +98,16 @@ class V4ShareVC: V4ReviewVC,
   // MARK: - ► ViewModel Manipulation
   override func createViewModel() {
     viewModel = V4ShareViewModel(output: self, reviewUUID: nil)
+  }
+  
+  // MARK: - ► ViewModel Output
+  func shareCompleted(successful: Bool, errorMessage: String?) {
+    if successful {
+      flowDelegate?.leave()
+    } else {
+      showAlert(title: "分享時發生錯誤", message: errorMessage,
+                buttonTitle: "確認", buttonAction: nil)
+    }
   }
   
   // MARK: - ► Table DataSource / Delegate

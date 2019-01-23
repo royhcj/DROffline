@@ -166,7 +166,7 @@ extension WebService {
 */
 
 
-    // 104 新增 餐廳，菜餚，其他，評比 (share專用)
+    // 104 新增 餐廳，菜餚，其他，評比 (V4只有share用到)
     class func postNewRestaurantShare(accessToken: String,
                                        restaurantReview review: KVORestReviewV4,
                                        latitude: String?,
@@ -181,7 +181,8 @@ extension WebService {
         parameters["parentID"] = review.parentID
 
         var rreview: [String: Any] = [:]
-        if let shopID = review.restaurant?.id {
+        
+        if let shopID = review.restaurant?.id { // 註：分享應該一定有restaurantID
           rreview["restaurantID"] = String(shopID) // api用string
         }
         /* TODO: V4目前沒有placeID
@@ -203,7 +204,7 @@ extension WebService {
         rreview["uploadMedia"] = []
         rreview["shareBlock"] = review.isShowComment
         if let address = review.restaurant?.address {
-/* TODO: 地址來源
+/* TODO: 地址來源 (已經有restaurantID了，也許分享不需要填地址？待確認)
           var addressKey = "address"
 
           if let addressSource = RLMRestReviewV3.AddressSource(rawValue: review.addressSource) {
@@ -277,6 +278,122 @@ extension WebService {
         }
 //        parameters["otherReview"] = oreviews
 */
+        return parameters
+      }
+    }
+    
+    // 105 新版更新評比 餐廳，菜餚，其他，評比 (V4只有share用到)
+    class func putNewRestaurantShare(accessToken: String,
+                                      restaurantReview review: KVORestReviewV4,
+                                      latitude: String?,
+                                      longitude: String?,
+                                      phoneNumber: String?
+      ) -> Promise<JSON> {
+      let url = "\(configuration.environment.apiURL)/v1/reviews/restaurant/review"
+      return response(url: url, method: .post, headerParameters: nil) {
+        var parameters: [String: Any] = ["accessToken": accessToken]
+        parameters["shareType"] = 2 // TODO: check share type是什麼
+        parameters["allowedReaders"] = Array(review.allowedReaders).map { Int($0) }
+        parameters["parentID"] = review.parentID
+        
+        var rreview: [String: Any] = [:]
+        
+        if let shopID = review.restaurant?.id { // 註：分享應該一定有restaurantID
+          rreview["restaurantID"] = String(shopID) // api用string
+        }
+          /* TODO: V4目前沒有placeID
+           else if let placeID = review.placeID, !placeID.isEmpty {
+           rreview["placeID"] = placeID
+           } */
+        else {
+          rreview["shopName"] = review.restaurant?.name
+        }
+        
+        rreview["title"] = review.title
+        rreview["recommandRank"] = review.priceRank
+        rreview["serviceRank"] = review.serviceRank
+        rreview["environmentRank"] = review.environmentRank
+        rreview["comment"] = review.comment
+        if let eatingTime = review.eatingDate?.timeIntervalSince1970 {
+          rreview["diningTime"] = Int(eatingTime)
+        }
+        rreview["uploadMedia"] = []
+        rreview["shareBlock"] = review.isShowComment
+        if let address = review.restaurant?.address {
+          /* TODO: 地址來源 (已經有restaurantID了，也許分享不需要填地址？待確認)
+           var addressKey = "address"
+           
+           if let addressSource = RLMRestReviewV3.AddressSource(rawValue: review.addressSource) {
+           switch addressSource {
+           case .manual: addressKey = "address"
+           case .apple: addressKey = "appleAddress"
+           }
+           }
+           
+           rreview[addressKey] = address
+           */
+        }
+        /* TODO: country city
+         rreview["country"] = review.countryName
+         rreview["city"] = review.cityName
+         */
+        if review.restaurant?.phoneNumber != nil {
+          rreview["phoneNumber"] = review.restaurant?.phoneNumber
+        } else {
+          rreview["phoneNumber"] = phoneNumber
+        }
+        
+        if let latitude = latitude {
+          rreview["latitude"] = latitude
+        }
+        if let longitude = longitude {
+          rreview["longitude"] = longitude
+        }
+        
+        
+        parameters["restaurantReview"] = rreview
+        
+        let dishReviews = Array(review.dishReviews)
+        var dreviews = [[String: Any]]()
+        for dishReview in dishReviews {
+          var dreview: [String: Any] = [:]
+          //          if let dishID = dishReview.dishID.value {
+          //            dreview["dishID"] = String(dishID) // api用string
+          //          }
+          if let dishName = dishReview.dish?.name {
+            dreview["dishName"] = dishName
+          }
+          dreview["dishRank"] = dishReview.rank
+          dreview["comment"] = dishReview.comment
+          
+          dreview["uploadMedia"] = dishReview.images.compactMap({
+            $0.imageID
+          })
+          
+          dreviews.append(dreview)
+        }
+        parameters["dishReview"] = dreviews
+        
+        /* no use
+         let otherReviews = Array(review.dishReviews).filter { $0.type == 0 }
+         var oreviews = [[String: Any]]()
+         for otherReview in otherReviews {
+         if otherReview.name == nil,
+         otherReview.rank == nil,
+         otherReview.comment == nil,
+         otherReview.imageID == nil { continue }
+         var oreview: [String: Any] = [:]
+         oreview["title"] = otherReview.name
+         oreview["dishRank"] = otherReview.rank
+         oreview["comment"] = otherReview.comment
+         if let imageID = otherReview.imageID {
+         oreview["uploadMedia"] = [imageID]
+         }
+         
+         oreviews.append(oreview)
+         }
+         //        parameters["otherReview"] = oreviews
+         */
         return parameters
       }
     }

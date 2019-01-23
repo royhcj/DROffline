@@ -80,6 +80,9 @@ class V4ReviewVC: FlowedViewController,
   }
   
   @objc func clickedSave(_ sender: Any) {
+    
+    self.view.endEditing(true) // 強制先結束編輯文字，確認文字寫入realm
+    
     // 檢查餐廳選了沒
     if viewModel?.review?.restaurant?.name == nil {
       showAlert(title: "請選取餐廳", message: nil, buttonTitle: "確認", buttonAction: nil)
