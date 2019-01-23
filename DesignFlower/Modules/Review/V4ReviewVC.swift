@@ -80,6 +80,13 @@ class V4ReviewVC: FlowedViewController,
   }
   
   @objc func clickedSave(_ sender: Any) {
+    // 檢查餐廳選了沒
+    if viewModel?.review?.restaurant?.name == nil {
+      showAlert(title: "請選取餐廳", message: nil, buttonTitle: "確認", buttonAction: nil)
+      return
+    }
+    
+    // 儲存review
     viewModel?.saveReview()
   }
   
@@ -278,6 +285,11 @@ class V4ReviewVC: FlowedViewController,
   }
   
   func showRestaurantPicker() {
+    // 確認可以改餐廳(安權檢查)
+    if viewModel?.restaurantState != .canChange {
+      return
+    }
+    
     flowDelegate?.showRestaurantPicker()
   }
   

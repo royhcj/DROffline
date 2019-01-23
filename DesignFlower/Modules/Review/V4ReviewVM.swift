@@ -35,6 +35,12 @@ class V4ReviewViewModel {
   var lastBlankDishReviewUUID: String?
   
   open var restaurantState: V4ReviewVC.RestaurantNameCell.RestaurantState {
+    guard let reviewUUID = review?.uuid
+    else { return .noAction }
+    
+    if RLMServiceV4.shared.isExist(reviewUUID: reviewUUID, reviewID: nil) {
+      return .canView // 如果存在原稿既表示已儲存過，引此不能改餐廳
+    }
     return .canChange
   }
 
@@ -122,6 +128,7 @@ class V4ReviewViewModel {
     
     ScratchManager.shared.commitScratch(review, needSync: true) {
       self.setDirty(false)
+      self.output?.refreshReview() // TODO: Just refresh restaurantState for optimization
     }
   }
   
