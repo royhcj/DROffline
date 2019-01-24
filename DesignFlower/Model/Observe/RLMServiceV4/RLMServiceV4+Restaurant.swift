@@ -22,7 +22,7 @@ extension RLMServiceV4 {
         rlmRest.country = kvoRest.country
         rlmRest.id.value = kvoRest.id
         for image in kvoRest.images {
-          RLMServiceV4.shared.image.createRLMImage(in: rlmRest, kvoImage: image)
+          self.image.createRLMImage(in: rlmRest, kvoImage: image)
         }
         rlmRestReview.restaurant = rlmRest
       }

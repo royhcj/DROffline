@@ -13,8 +13,11 @@ extension RLMServiceV4 {
   class Dish {
 
     internal var realm: Realm
-    init(realm: Realm) {
-       self.realm = realm
+    internal var realmService: RLMServiceV4
+    
+    init(realmService: RLMServiceV4) {
+      self.realmService = realmService
+      self.realm = realmService.realm
     }
 
 

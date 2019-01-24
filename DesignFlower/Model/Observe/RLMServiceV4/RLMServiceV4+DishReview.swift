@@ -12,9 +12,11 @@ extension RLMServiceV4 {
 
   internal class DishReview {
     internal var realm: Realm
+    internal var realmService: RLMServiceV4
 
-    init(realm: Realm) {
-      self.realm = realm
+    init(realmService: RLMServiceV4) {
+      self.realmService = realmService
+      self.realm = realmService.realm
     }
 
     // no.1
@@ -39,10 +41,10 @@ extension RLMServiceV4 {
 
         if let rlmDishReview = rlmNewDishReview {
           for kvoImage in dishReview.images {
-            RLMServiceV4.shared.image.createRLMImage(in: rlmDishReview, kvoImage: kvoImage)
+            realmService.image.createRLMImage(in: rlmDishReview, kvoImage: kvoImage)
           }
           if let dish = dishReview.dish {
-            RLMServiceV4.shared.dish.createRLMDish(in: rlmDishReview, kvoDish: dish)
+            realmService.dish.createRLMDish(in: rlmDishReview, kvoDish: dish)
           }
         }
 
@@ -163,7 +165,7 @@ extension RLMServiceV4 {
         // 更新菜餚資訊
 
         if let remoteDish = remoteDishReview.dish {
-           RLMServiceV4.shared.dish.update(remoteDish: remoteDish, to: localDishReview.dish)
+           realmService.dish.update(remoteDish: remoteDish, to: localDishReview.dish)
         }
 
 
@@ -179,10 +181,10 @@ extension RLMServiceV4 {
             }
             return false
           }).first  {
-            RLMServiceV4.shared.image.update(remote: remoteImage, to: localImage)
+            realmService.image.update(remote: remoteImage, to: localImage)
             uuid.append(localImage.uuid!)
           } else {
-            RLMServiceV4.shared.image.create(in: localDishReview, with: remoteImage)
+            realmService.image.create(in: localDishReview, with: remoteImage)
             uuid.append(remoteImage.uuid!)
           }
         }
@@ -197,7 +199,7 @@ extension RLMServiceV4 {
 
         // 移除沒有的
         for uuid in removedUUID {
-           RLMServiceV4.shared.image.delete(imageUUID: uuid)
+           realmService.image.delete(imageUUID: uuid)
         }
 
       } catch {

@@ -14,15 +14,15 @@ internal class RLMServiceV4 {
 
   internal var realm: Realm { return _realm }
   internal var _realm: Realm = { return try! Realm() }()
-  internal var dishReview: DishReview
-  internal var dish: Dish
-  internal var image: RLMServiceV4.Image
+  internal var dishReview: DishReview!
+  internal var dish: Dish!
+  internal var image: RLMServiceV4.Image!
 
   init() {
     //realm = try! Realm()
-    dishReview = RLMServiceV4.DishReview(realm: _realm)
-    dish = RLMServiceV4.Dish(realm: _realm)
-    image = RLMServiceV4.Image(realm: _realm)
+    dishReview = RLMServiceV4.DishReview(realmService: self)
+    dish = RLMServiceV4.Dish(realmService: self)
+    image = RLMServiceV4.Image(realmService: self)
   }
 
   internal func createRLM<T: SubObject>(uuid: String, type: T.Type) -> T? {
@@ -262,7 +262,7 @@ internal class RLMServiceV4 {
           uuids.forEach({ (uuid) in
 
             guard self.isDishReviewContainImage(uuid: uuid) else {
-              if let image = RLMServiceV4.shared.image.getImage(uuid: uuid) {
+              if let image = self.image.getImage(uuid: uuid) {
                 realm.delete(image)
               }
               return
@@ -389,7 +389,7 @@ internal class RLMServiceV4 {
     guard let localRestReview = createRLMRestReviewV4() else {
       return
     }
-    RLMServiceV4.shared.update(localRestReview, with: remoteRestReview)
+    self.update(localRestReview, with: remoteRestReview)
   }
 
   internal func update(_ localRestReview: RLMRestReviewV4, with remoteReview: RLMRestReviewV4) {
@@ -446,7 +446,7 @@ internal class RLMServiceV4 {
       for remoteDishReview in remoteReview.dishReviews {
         if let localDishReview = localRestReview.filter(remoteObject: remoteDishReview, localObjects:  Array(localRestReview.dishReviews)) as? RLMDishReviewV4 {
           // TODO: 更新
-          RLMServiceV4.shared.dishReview.update(remoteDishReview: remoteDishReview, to: localDishReview)
+          self.dishReview.update(remoteDishReview: remoteDishReview, to: localDishReview)
         } else {
           // TODO: 新增
           do {

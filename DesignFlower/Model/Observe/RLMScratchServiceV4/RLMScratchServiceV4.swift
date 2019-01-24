@@ -23,9 +23,9 @@ class RLMScratchServiceV4: RLMServiceV4 {
   
   override init() {
     super.init()
-    dishReview = RLMServiceV4.DishReview(realm: _scratchRealm)
-    dish = RLMServiceV4.Dish(realm: _scratchRealm)
-    image = RLMServiceV4.Image(realm: _scratchRealm)
+    dishReview = RLMServiceV4.DishReview(realmService: self)
+    dish = RLMServiceV4.Dish(realmService: self)
+    image = RLMServiceV4.Image(realmService: self)
   }
   
   
