@@ -112,7 +112,10 @@ class V4ReviewViewModel {
         }
       }
     }
-    setDirty(!assets.isEmpty)
+    if !assets.isEmpty {
+      setDirty(true)
+    }
+    
     output?.refreshReview()
   }
   

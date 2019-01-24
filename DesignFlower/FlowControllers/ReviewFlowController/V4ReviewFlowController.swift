@@ -51,6 +51,8 @@ class V4ReviewFlowController: ViewBasedFlowController,
     reviewVC = V4ReviewVC.make(flowDelegate: self)
     reviewVC?.viewBasedFlowController = self
     
+    reviewVC?.loadViewIfNeeded()
+    
     if let reviewVC = reviewVC {
       navigationVC = UINavigationController(rootViewController: reviewVC)
     }
@@ -64,6 +66,10 @@ class V4ReviewFlowController: ViewBasedFlowController,
   
   func askContinueUnsavedReview() {
     reviewVC?.askContinueUnsavedReview()
+  }
+  
+  func makeReviewDirty(_ dirty: Bool) {
+    reviewVC?.viewModel?.setDirty(dirty)
   }
   
   // MARK: - Review Manipulation
