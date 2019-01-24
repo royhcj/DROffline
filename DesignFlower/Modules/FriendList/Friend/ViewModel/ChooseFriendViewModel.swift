@@ -60,14 +60,19 @@ class ChooseFriendViewModel: NSObject {
 
   func getFriendList(sortBy: Arrange = .ascending) {
 
+    guard let accessToken = LoggedInUser.sharedInstance().accessToken
+    else {
+        return
+    }
+    
     guard friends.count < 1 else {
       self.sortFriends(sortBy: sortBy)
       self.pickSelected()
       return
     }
 
-    WebService.NoteV3FriendAPI.postFriends(accessToken: LoggedInUser.sharedInstance().accessToken!
-      ).then { friend -> Void in
+    WebService.NoteV3FriendAPI.postFriends(accessToken: accessToken)
+      .then { friend -> Void in
         if let friends = friend.friend {
           let firstFriend = FriendListViewController.Friend(id: "all",
                                                             type: .dishRankFriend,
@@ -78,7 +83,7 @@ class ChooseFriendViewModel: NSObject {
                                                             registerType: .email)
 
           for friend in friends {
-            guard let myFriend = friend.transfer(friend: friend) else { continue }
+            guard let myFriend = Friend.transfer(friend: friend) else { continue }
             if friend.isFriend ?? false {
               self.friends.append(myFriend)
             }
@@ -88,6 +93,9 @@ class ChooseFriendViewModel: NSObject {
           self.friends.insert(firstFriend, at: 0)
           self.pickSelected()
         }
+      }
+      .catch { error in
+        print(error)
       }
    }
 
@@ -151,17 +159,23 @@ class ChooseFriendViewModel: NSObject {
   }
 
   func getRecentList() {
-    WebService.NoteV3FriendAPI.getRecentFriends(accessToken: LoggedInUser.sharedInstance().accessToken!
-      ).then { (friendJSON) -> Void in
+    guard let accessToken = LoggedInUser.sharedInstance().accessToken
+    else { return }
+    
+    WebService.NoteV3FriendAPI.getRecentFriends(accessToken: accessToken)
+      .then { (friendJSON) -> Void in
         if let recentFriends = friendJSON.friend {
           for recentFriend in recentFriends {
-            guard var myFriend = recentFriend.transfer(friend: recentFriend) else { continue }
+            guard var myFriend = Friend.transfer(friend: recentFriend) else { continue }
             self.recentFriends.append(myFriend)
           }
           self.recentFriends = self.recentFriends.sorted { $0 < $1 }
           self.pickSelected()
         }
-    }
+      }
+      .catch { error in
+        print(error)
+      }
   }
 
 }

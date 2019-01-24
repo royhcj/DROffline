@@ -25,7 +25,7 @@ public class Friend: NSCoding, JSONable, ObjectToStringForSearch, Hashable {
 
   var image: UIImage = #imageLiteral(resourceName: "friend_avatar_large")
 
-  func transfer(friend: Friend) -> FriendListViewController.Friend? {
+  static func transfer(friend: Friend) -> FriendListViewController.Friend? {
     if let id = friend.friendID,
       let name = friend.friendName,
       let email = friend.friendEmail,

@@ -25,12 +25,75 @@ class V4ShareViewModel: V4ReviewViewModel {
     }
   }
   
+  // MARK: - ► Review Manipulation
+  override func setReview(_ review: KVORestReviewV4) {
+    super.setReview(review)
+    fetchSharedFriends(review.allowedReaders) { [weak self] in
+      self?.sharedFriends = $0
+      self?.output?.refreshReview() // TODO: just refresh shared friend for optimization
+    }
+  }
+  
   // MARK: - ► Friend Related
   func changeSharedFriends(_ friends: [FriendListViewController.Friend]) {
     sharedFriends = friends
     review?.allowedReaders = friends.compactMap { Int($0.id) }
     //review?.shareType = 2
     self.output?.refreshReview()
+  }
+  
+  func fetchSharedFriends(_ friendIDs: [Int],
+                          completion: @escaping (([FriendListViewController.Friend]) -> Void)) {
+    guard let accessToken = LoggedInUser.sharedInstance().accessToken
+    else { return }
+    
+    WebService.NoteV3FriendAPI.postFriends(accessToken: accessToken)
+      .then { [weak self] json -> Void in
+        guard json.statusCode == 0
+        else {
+          completion([])
+          return
+        }
+        var resultFriends: [FriendListViewController.Friend] = []
+        if let friends = json.friend {
+          for friend in friends {
+            if friendIDs.contains(where: { String($0) == friend.friendID }) {
+              guard let resultFriend = Friend.transfer(friend: friend)
+              else { continue }
+              
+              resultFriends.append(resultFriend)
+            }
+          }
+        }
+        completion(resultFriends)
+      }
+      .catch { (error) in
+        print(error)
+      }
+    
+#if false // old implementation
+    return WebService.NoteV3FriendAPI.postFriends(accessToken: LoggedInUser.sharedInstance().accessToken!
+      ).then { [unowned self] (friendJSON) -> [FriendListViewController.Friend]? in
+        guard friendJSON.statusCode == 0 else {
+          print("get friend error: \(friendJSON.statusMsg ?? "")")
+          return nil
+        }
+        if let friends = friendJSON.friend {
+          var selectedFriends = [FriendListViewController.Friend]()
+          for (index, friend) in friends.enumerated() {
+            if selectedFriendIDs.contains(where: { id -> Bool in
+              return friend.friendID == id
+            }) {
+              guard let myFriend = friends[index].transfer(friend:  friends[index]) else { continue }
+              selectedFriends.append(myFriend)
+            }
+          }
+          return selectedFriends
+        } else {
+          return nil
+        }
+    }
+#endif
   }
   
   // MARK: - ► Share Related
