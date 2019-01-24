@@ -125,7 +125,7 @@ class V4ReviewViewModel {
   // MARK: - Save Review
   func saveReview() {
     guard let review = review else { return }
-    
+    review.updateDate = Date.now
     ScratchManager.shared.commitScratch(review, needSync: true) {
       self.setDirty(false)
       self.output?.refreshReview() // TODO: Just refresh restaurantState for optimization

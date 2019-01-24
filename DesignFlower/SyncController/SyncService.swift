@@ -109,7 +109,7 @@ extension SyncService {
       let encoder = JSONEncoder()
       let data = try? encoder.encode(queueReview)
 
-      if object.getId().id != nil {
+      if let id = object.getId().id, id != -1 {
         // TODO: 更新筆記
         // use put new review
 //        let decoder = DRDecoder.decoder()

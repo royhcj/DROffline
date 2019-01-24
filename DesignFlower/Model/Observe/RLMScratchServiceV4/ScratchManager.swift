@@ -65,7 +65,7 @@ class ScratchManager {
       let review = KVORestReviewV4(uuid: reviewUUID,
                                    service: RLMServiceV4.shared)
       scratch.id = review.id
-      scratch.restaurant?.id = review.id
+      scratch.restaurant?.id = review.restaurant?.id ?? -1
       for scratchDishReview in scratch.dishReviews {
         if let dishReview = review.dishReviews.first(where: { $0.uuid == scratchDishReview.uuid }) {
           scratchDishReview.id = dishReview.id

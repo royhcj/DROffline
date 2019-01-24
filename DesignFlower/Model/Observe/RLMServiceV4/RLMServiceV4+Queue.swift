@@ -18,7 +18,10 @@ extension RLMServiceV4 {
         let queueReview = realm.create(RLMQueue.self)
         queueReview.queueDate = Date.now
 
-        queueReview.allowedReaders = restReview.allowedReaders
+        for allowReader in restReview.allowedReaders {
+          queueReview.allowedReaders.append(allowReader)
+        }
+
         queueReview.comment = restReview.comment
         queueReview.createDate = restReview.createDate
         for dishReview in restReview.dishReviews {
@@ -26,12 +29,12 @@ extension RLMServiceV4 {
         }
         queueReview.eatingDate = restReview.eatingDate
         queueReview.environmentRank = restReview.environmentRank
-        queueReview.id = restReview.id
+        queueReview.id.value = restReview.id.value
         queueReview.isFirst = restReview.isFirst
-        queueReview.isScratch = restReview.isScratch
+        queueReview.isScratch.value = restReview.isScratch.value
         queueReview.isShowComment = restReview.isShowComment
         queueReview.isSync = restReview.isSync
-        queueReview.parentID = restReview.parentID
+        queueReview.parentID.value = restReview.parentID.value
         queueReview.priceRank = restReview.priceRank
         queueReview.restaurant = restReview.restaurant
         queueReview.serviceRank = restReview.serviceRank

@@ -37,7 +37,7 @@ extension MoyaProvidable {
 
 final class CustomPlugin: PluginType {
   func prepare(_ request: URLRequest, target: TargetType) -> URLRequest {
-    print("prepare request: \(request)")
+    
     return request
   }
 

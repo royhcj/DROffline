@@ -110,8 +110,8 @@ class RLMRestaurantV4: SubObject, Uploadable {
     if let long = longitude.value == -1 ? nil : longitude.value {
         try container.encode(long, forKey: .longitude)
     }
-    try container.encode(address, forKey: .address)
-    try container.encode(country, forKey: .country)
+//    try container.encode(address, forKey: .address)
+//    try container.encode(country, forKey: .country)
     if let areaI = area.value, areaI != -1 {
        try container.encode(areaI, forKey: .area)
     }

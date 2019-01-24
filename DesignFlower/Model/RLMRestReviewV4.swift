@@ -166,7 +166,9 @@ class RLMRestReviewV4: SubObject, Uploadable {
     try continer.encode(pRank, forKey: .priceRank)
     try continer.encode(title, forKey: .title)
     try continer.encode(comment, forKey: .comment)
-    try continer.encode(id.value, forKey: .id)
+    if let id = id.value, id != -1 {
+        try continer.encode(id, forKey: .id)
+    }
 //    let isScra = isScratch.value
 //    try continer.encode(isScra, forKey: .isScratch)
     var allR = [Int]()
@@ -174,7 +176,9 @@ class RLMRestReviewV4: SubObject, Uploadable {
     try continer.encode(allR, forKey: .allowedReaders)
     try continer.encode(createDate.timeIntervalSince1970, forKey: .createDate)
     try continer.encode(eatingDate?.timeIntervalSince1970, forKey: .eatingDate)
-    try continer.encode(parentID.value, forKey: .parentID)
+    if let parentID = parentID.value, parentID != -1 {
+        try continer.encode(parentID, forKey: .parentID)
+    }
     let isShowCommentInt = isShowComment ? 1 : 0
     try continer.encode(isShowCommentInt, forKey: .isShowComment)
 //    try continer.encode(isSync, forKey: .isSync)
