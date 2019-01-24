@@ -59,8 +59,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       return "/v2/restaurant-review"
     case .uploadIMG:
       return "/media/upload"
-    case .put:
-      return "/v2/restaurant-review"
+    case .put(let review):
+      return "/v2/restaurant-review/\(review.id.value!)"
     }
   }
 
