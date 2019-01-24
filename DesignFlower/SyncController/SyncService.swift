@@ -53,7 +53,6 @@ class SyncService {
       }
       // 加入到Queue的列表
       self.addToRLMQueue(review: restReview)
-
     }
 
     static func delete(_ object: Identification) {
@@ -162,29 +161,51 @@ extension SyncService {
     }
 
     private static func uploadIMG(review: RLMQueue, completion: @escaping (Bool) -> ()) {
+      var images = [RLMImageV4]()
 
       review.dishReviews.forEach {
-        // TODO: 上傳圖片
-        for image in $0.images {
-          let imgDocumentURLString = KVOImageV4.localFolder.path
-          let imgURLString = "\(imgDocumentURLString)/\(image.localName ?? "")"
-          guard let img = UIImage.init(contentsOfFile: imgURLString) else {
-            continue
-          }
-          RLMServiceV4.shared.image.update(image, imageStatus: 3)
-          UserService.RestReview.upload(img: img, completion: { (result) in
-            switch result {
-            case .success(let uploadIMGResponseAPI):
-              RLMServiceV4.shared.image.update(image, url: uploadIMGResponseAPI.link)
-              RLMServiceV4.shared.image.update(image, imageID: uploadIMGResponseAPI.id)
-              completion(true)
-            case .failure(let error):
-              print(error.localizedDescription)
-              completion(false)
-            }
-          })
+        images.append(contentsOf: $0.images)
+      }
+      self.update(images: images) {
+        if $0 {
+          completion(true)
         }
       }
+
+    }
+
+    static private func update(images: [RLMImageV4], completion: @escaping ((Bool) -> ()) ) {
+      var imgs = images
+      guard let image = imgs.first else {
+        return
+      }
+      let imgDocumentURLString = KVOImageV4.localFolder.path
+      let imgURLString = "\(imgDocumentURLString)/\(image.localName ?? "")"
+      guard image.url == nil, image.imageID == nil else {
+        return
+      }
+      guard let img = UIImage.init(contentsOfFile: imgURLString) else {
+        return
+      }
+      RLMServiceV4.shared.image.update(image, imageStatus: 3)
+      UserService.RestReview.upload(img: img, completion: { (result) in
+        switch result {
+        case .success(let uploadIMGResponseAPI):
+          RLMServiceV4.shared.image.update(image, url: uploadIMGResponseAPI.link)
+          RLMServiceV4.shared.image.update(image, imageID: uploadIMGResponseAPI.id)
+        case .failure(let error):
+          print(error.localizedDescription)
+        }
+        imgs.remove(at: 0)
+        if imgs.count == 0 {
+          completion(true)
+        } else {
+          self.update(images: imgs) {
+            completion($0)
+          }
+        }
+
+      })
     }
 
     private static func delete(with queueReview: RLMQueue) {

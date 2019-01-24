@@ -137,10 +137,8 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
       } catch {
         print(error.localizedDescription)
       }
-      return .requestParameters(parameters: ["data": restReview], encoding: URLEncoding.default)
+      return .requestJSONEncodable(customData)
     case .uploadIMG(let fileData):
-      let token = UserDefaults.standard.value(forKey: UserDefaultKey.token.rawValue)
-//      let parameters = ["accessToken": token ?? ""] 
       // any additional body data or body parms
       let imageMultipartFormData = MultipartFormData(provider: .data(fileData), name: "file", fileName: "avatar.jpg", mimeType: "image/jpeg")
       return .uploadMultipart([imageMultipartFormData])

@@ -37,10 +37,11 @@ extension UserService {
         return
       }
       let provider = DishRankService.RestaurantReview.provider
-      provider.request(.uploadIMG(fileData: imgData)) { result in
+      provider.request(.uploadIMG(fileData: imgData), callbackQueue: nil, progress: { (progressResponse) in
+        print(progressResponse.progress)
+      }) { (result) in
         switch result {
         case .success(let response):
-          let decoder = DRDecoder.decoder()
           guard let uploadIMGResponseAPI = try? DRDecoder.decoder().decode(UploadIMGResponseAPI.self, from: response.data) else {
             completion?(Result<UploadIMGResponseAPI,MoyaError>(error: MoyaError.requestMapping("decode uploadIMGResponseAPI error")))
             return
@@ -50,7 +51,6 @@ extension UserService {
           completion?(Result<UploadIMGResponseAPI,MoyaError>.init(error: error))
         }
       }
-
     }
 
     static func put(queueReview: RLMQueue, completion: ((Result<String,MoyaError>) -> ())? = nil ) {
