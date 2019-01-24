@@ -53,7 +53,7 @@ final class CustomPlugin: PluginType {
       if json["errors"] == nil {
         return result
       } else {
-        print("moya process error: \(json["errors"].stringValue)")
+        print("moya process error: \(json["errors"])")
         return Result<Response, MoyaError>.init(nil, failWith: .jsonMapping(response))
       }
     } catch {

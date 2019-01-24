@@ -112,7 +112,7 @@ extension SyncService {
       if object.getId().id != nil {
         // TODO: 更新筆記
         // use put new review
-//        let decoder = JSONDecoder()
+//        let decoder = DRDecoder.decoder()
         if data != nil {
 //        let review = try? decoder.decode(RLMRestReviewV4.self, from: data)
           UserService.RestReview.put(queueReview: queueReview) {
@@ -131,7 +131,7 @@ extension SyncService {
       } else {
         // TODO: 新增筆記 完成要回填id
         // use post update review
-//        let decoder = JSONDecoder()
+//        let decoder = DRDecoder.decoder()
         if data != nil {
 //          let review = try? decoder.decode(RLMRestReviewV4.self, from: data)
           UserService.RestReview.update(queueReview: queueReview) {

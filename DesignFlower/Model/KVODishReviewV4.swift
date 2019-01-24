@@ -17,7 +17,7 @@ class KVODishReviewV4: NSObject {
   @objc dynamic var comment: String? // 評比
   @objc dynamic var id = -1 // 評比ID
   @objc dynamic var isCreate = false // 不透過圖片直接建立新的評比
-  @objc dynamic var createDate: Date = Date()
+  @objc dynamic var createDate: Date = Date.now
   @objc dynamic var parentID = -1// 複製品紀錄本尊的ID
   @objc dynamic var isLike = false // 是否為使用者蒐藏
   @objc dynamic var order = -1 // 順序

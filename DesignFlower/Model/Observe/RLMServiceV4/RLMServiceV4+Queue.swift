@@ -16,7 +16,7 @@ extension RLMServiceV4 {
     do {
       try realm.write {
         let queueReview = realm.create(RLMQueue.self)
-        queueReview.queueDate = Date()
+        queueReview.queueDate = Date.now
 
         queueReview.allowedReaders = restReview.allowedReaders
         queueReview.comment = restReview.comment
@@ -69,7 +69,7 @@ extension RLMServiceV4 {
     do {
       try realm.write {
         let queueReview = realm.create(RLMQueue.self)
-        queueReview.queueDate = Date()
+        queueReview.queueDate = Date.now
         queueReview.isDelete = true
         queueReview.uuid = uuid
         queueReview.id.value = id

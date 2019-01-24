@@ -118,6 +118,8 @@ extension Date {
   }
 
   static var date1970: Date = Date(timeIntervalSince1970: 0)
+
+  static var now: Date = Date()
 }
 
 class DateRange {

@@ -697,9 +697,9 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
       completion(threshold)
     })
     
-    let startDate = Date()
+    let startDate = Date.now
     Alamofire.request(url, method: .get).responseData().then { _ -> Void in
-      let endDate = Date()
+      let endDate = Date.now
       let timeInterval = endDate.timeIntervalSince(startDate)
       if timer.isValid {
         completion(timeInterval)

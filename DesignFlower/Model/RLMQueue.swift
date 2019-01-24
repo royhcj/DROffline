@@ -33,7 +33,7 @@ class RLMQueue: RLMRestReviewV4 {
 //  var dishReviews = List<RLMDishReviewV4>()
 //  @objc dynamic var restaurant: RLMRestaurantV4?
   // -------- only for queue
-  @objc dynamic var queueDate: Date = Date() // 加入排成時間
+  @objc dynamic var queueDate: Date = Date.now // 加入排成時間
   @objc dynamic var isDelete: Bool = false // 是刪除筆記
 
 
@@ -46,8 +46,8 @@ class RLMQueue: RLMRestReviewV4 {
                    id: RealmOptional<Int>,
                    isScratch: RealmOptional<Bool> = RealmOptional<Bool>.init(false),
                    allowedReaders: List<Int>,
-                   createDate: Date = Date(),
-                   eatingDate: Date? = Date(),
+                   createDate: Date = Date.now,
+                   eatingDate: Date? = Date.now,
                    parentID: RealmOptional<Int>,
                    isShowComment: Bool = true,
                    isSync: Bool = false,

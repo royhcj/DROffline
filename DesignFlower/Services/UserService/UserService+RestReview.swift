@@ -40,8 +40,8 @@ extension UserService {
       provider.request(.uploadIMG(fileData: imgData)) { result in
         switch result {
         case .success(let response):
-          let decoder = JSONDecoder()
-          guard let uploadIMGResponseAPI = try? decoder.decode(UploadIMGResponseAPI.self, from: response.data) else {
+          let decoder = DRDecoder.decoder()
+          guard let uploadIMGResponseAPI = try? DRDecoder.decoder().decode(UploadIMGResponseAPI.self, from: response.data) else {
             completion?(Result<UploadIMGResponseAPI,MoyaError>(error: MoyaError.requestMapping("decode uploadIMGResponseAPI error")))
             return
           }
@@ -58,7 +58,7 @@ extension UserService {
       provider.request(.put(queueReview: queueReview)) { (result) in
         switch result {
         case .success(let response):
-          let decoder = JSONDecoder()
+          let decoder = DRDecoder.decoder()
           var myData: MyData?
           do {
             myData = try decoder.decode(MyData.self, from: response.data)
@@ -94,7 +94,7 @@ extension UserService {
       provider.request(.post(queueReview: queueReview)) { (result) in
         switch result {
         case .success(let response):
-          let decoder = JSONDecoder()
+          let decoder = DRDecoder.decoder()
           struct MyData: Codable {
             let data: RLMRestReviewV4
           }
@@ -109,6 +109,7 @@ extension UserService {
             let remoteRestReview = myData?.data
           {
             RLMServiceV4.shared.update(rlmRestReview, id: remoteRestReview.id.value)
+            RLMServiceV4.shared.update(rlmRestReview, updateDate: remoteRestReview.updateDate)
             for remoteDishReview in remoteRestReview.dishReviews {
               guard
                 let uuid = remoteDishReview.uuid,
@@ -191,8 +192,7 @@ extension UserService {
         switch result {
         case .success(let response):
           do {
-            let decoder = JSONDecoder()
-            let restaurants = try decoder.decode(Restaurants.self, from: response.data)
+            let restaurants = try DRDecoder.decoder().decode(Restaurants.self, from: response.data)
             SVProgressHUD.show(withStatus: "筆記更新中...\(restaurants.meta.currentPage ?? 0)/\(restaurants.meta.lastPage ?? 0)")
             if let next = restaurants.links?.next, next != "" {
               update(restaurants: restaurants) {

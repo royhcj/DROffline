@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		537320B321F1C6D800614DDC /* MemoryNoteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 537320B121F1C6D800614DDC /* MemoryNoteTableViewCell.swift */; };
 		537320B421F1C6D800614DDC /* MemoryNoteTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 537320B221F1C6D800614DDC /* MemoryNoteTableViewCell.xib */; };
+		643BC23321F94E01007EE69B /* DRDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 643BC23221F94E01007EE69B /* DRDecoder.swift */; };
 		648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842F921CDD95A00B7510C /* RLMQueue.swift */; };
 		648842FC21CDD9B700B7510C /* RLMServiceV4+Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */; };
 		6488430221DE0F5400B7510C /* AutoLogin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6488430121DE0F5400B7510C /* AutoLogin.swift */; };
@@ -171,6 +172,7 @@
 		4557ABFD1D8B0ED822560300 /* Pods-DesignFlower.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DesignFlower.release.xcconfig"; path = "Pods/Target Support Files/Pods-DesignFlower/Pods-DesignFlower.release.xcconfig"; sourceTree = "<group>"; };
 		537320B121F1C6D800614DDC /* MemoryNoteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MemoryNoteTableViewCell.swift; sourceTree = "<group>"; };
 		537320B221F1C6D800614DDC /* MemoryNoteTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MemoryNoteTableViewCell.xib; sourceTree = "<group>"; };
+		643BC23221F94E01007EE69B /* DRDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DRDecoder.swift; sourceTree = "<group>"; };
 		648842F921CDD95A00B7510C /* RLMQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMQueue.swift; sourceTree = "<group>"; };
 		648842FB21CDD9B700B7510C /* RLMServiceV4+Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RLMServiceV4+Queue.swift"; sourceTree = "<group>"; };
 		6488430121DE0F5400B7510C /* AutoLogin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoLogin.swift; sourceTree = "<group>"; };
@@ -450,6 +452,7 @@
 				723B1F7E21B4D1A200CF91F3 /* ViewBasedFlowController.swift */,
 				72061D7D21AE8E130098FFFD /* FlowedViewController.swift */,
 				723B1F8321B4D3AA00CF91F3 /* DisplayContext.swift */,
+				643BC23221F94E01007EE69B /* DRDecoder.swift */,
 			);
 			name = "(Core)";
 			path = Core;
@@ -1240,6 +1243,7 @@
 				72061DB321AFE0DA0098FFFD /* RLMServiceV4+Image.swift in Sources */,
 				723B1F8821B4E36A00CF91F3 /* V4ReviewFlows-Base.swift in Sources */,
 				72061DAC21AFE0DA0098FFFD /* DishObserve.swift in Sources */,
+				643BC23321F94E01007EE69B /* DRDecoder.swift in Sources */,
 				B0E5C4D321F86443004CBC61 /* V4PickDishFlowController.swift in Sources */,
 				72061D9421AFDF080098FFFD /* RLMRestReviewV4.swift in Sources */,
 				B0A0AFB021C162CB005BE7AB /* OpenHour.swift in Sources */,

@@ -88,7 +88,7 @@ class NoteV3PhotoLibrarySelectionViewController: NewPhotoSelectionViewController
       let asset = assets[$0.section][$0.item]
       
       let selection = V4PhotoSelection(identifier: asset.localIdentifier,
-                                       selectedDate: Date())
+                                       selectedDate: Date.now)
       V4PhotoService.shared.addPhotoSelection(selection,
                                               isSingle: limitCount == 1)
     }

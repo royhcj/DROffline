@@ -23,7 +23,8 @@ extension UserService {
         switch response {
         case .success(let response):
           do {
-            let decoder = JSONDecoder()
+            let decoder = DRDecoder.decoder()
+            decoder.dateDecodingStrategy = .secondsSince1970
             let list = try decoder.decode(APIResponse.self, from: response.data)
             SVProgressHUD.show(withStatus: "餐廳列表更新中...\(list.meta?.currentPage ?? 0)/\(list.meta?.lastPage ?? 0)")
             if let next = list.links?.next, next != "" {

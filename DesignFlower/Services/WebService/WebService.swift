@@ -239,7 +239,7 @@ extension WebService.ServiceBase {
     init(json: JSON) {
       do {
         let data = try json.rawData()
-        let decoder = JSONDecoder()
+        let decoder = DRDecoder.decoder()
         decoder.dateDecodingStrategy = .formatted({
           let formatter = DateFormatter()
           formatter.dateFormat = "yyyy-MM-dd"

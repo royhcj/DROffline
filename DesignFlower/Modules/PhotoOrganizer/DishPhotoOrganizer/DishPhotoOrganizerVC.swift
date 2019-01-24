@@ -272,7 +272,7 @@ class DishPhotoOrganizerVC: UIViewController,
     guard let imageUUID = vm?.selectedImageUUID.value
     else { return print("Error! Failed getting selected image UUID") }
     let library = PHPhotoLibrary.shared()
-    let creationDate = Date()
+    let creationDate = Date.now
     library.performChanges({
       let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
       request.creationDate = creationDate

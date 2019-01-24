@@ -15,7 +15,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
   @objc dynamic var comment: String? // 評比
 //  var id = RealmOptional<Int>() // 評比ID
   @objc dynamic var isCreate = false // 不透過圖片直接建立新的評比
-  @objc dynamic var createDate: Date = Date()
+  @objc dynamic var createDate: Date = Date.now
   var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
   var isLike = RealmOptional<Bool>() // 是否為使用者蒐藏
   var order = RealmOptional<Int>() // 順序
@@ -30,7 +30,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
                    comment: String?,
                    id: RealmOptional<Int>,
                    isCreate: Bool = false,
-                   createDate: Date = Date(),
+                   createDate: Date = Date.now,
                    parentID: RealmOptional<Int>,
                    isLike: RealmOptional<Bool>,
                    order: RealmOptional<Int>,

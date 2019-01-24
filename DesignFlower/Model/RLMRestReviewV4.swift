@@ -26,8 +26,8 @@ class RLMRestReviewV4: SubObject, Uploadable {
   var isScratch = RealmOptional<Bool>() // 是否為草稿
 //  @objc dynamic var isScratch = false
   var allowedReaders = List<Int>() // 白名單
-  @objc dynamic var createDate: Date = Date() // 創造日期
-  @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
+  @objc dynamic var createDate: Date = Date.now // 創造日期
+  @objc dynamic var eatingDate: Date? = Date.now // 吃飯時間
   var parentID = RealmOptional<Int>() // 複製品紀錄本尊的ID
   @objc dynamic var parentUUID: String? // 複製品紀錄本尊的UUID(本尊可能沒有ID)
   @objc dynamic var isShowComment = true // 是否顯示餐廳評比
@@ -47,8 +47,8 @@ class RLMRestReviewV4: SubObject, Uploadable {
                    id: RealmOptional<Int>,
                    isScratch: RealmOptional<Bool> = RealmOptional<Bool>.init(false),
                    allowedReaders: List<Int>,
-                   createDate: Date = Date(),
-                   eatingDate: Date? = Date(),
+                   createDate: Date = Date.now,
+                   eatingDate: Date? = Date.now,
                    parentID: RealmOptional<Int>,
                    isShowComment: Bool = true,
                    isSync: Bool = false,
@@ -178,7 +178,13 @@ class RLMRestReviewV4: SubObject, Uploadable {
     let isShowCommentInt = isShowComment ? 1 : 0
     try continer.encode(isShowCommentInt, forKey: .isShowComment)
 //    try continer.encode(isSync, forKey: .isSync)
-    try continer.encode(updateDate, forKey: .updateDate)
+    if let date = updateDate {
+      try continer.encode(date, forKey: .updateDate)
+    } else {
+      let date = Date.now
+      try continer.encode(date, forKey: .updateDate)
+    }
+
 //    try continer.encode(isFirst, forKey: .isFirst)
     var dishR = [RLMDishReviewV4]()
     dishR.append(contentsOf: dishReviews)

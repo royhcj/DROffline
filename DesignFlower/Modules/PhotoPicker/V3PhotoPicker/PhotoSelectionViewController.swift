@@ -329,7 +329,7 @@ class PhotoSelectionViewController: UIViewController, UICollectionViewDataSource
 
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        headerView.timeLabel.text = dateFormatter.string(from: asset.creationDate ?? Date())
+        headerView.timeLabel.text = dateFormatter.string(from: asset.creationDate ?? Date.now)
 
         headerView.selectAllButton.isSelected = false
 

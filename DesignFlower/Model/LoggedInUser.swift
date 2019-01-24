@@ -81,7 +81,7 @@ class LoggedInUser: NSObject {
     loginType = UserDefaults.standard.string(forKey: "loginType")
     hasGuide = UserDefaults.standard.bool(forKey: "hasGuide")
     views = UserDefaults.standard.integer(forKey: "views")
-    updateTime = Date()
+    updateTime = Date.now
   }
 }
 /* TODO:

@@ -311,8 +311,8 @@ class NoteV3CameraViewController: UIViewController {
 
           // 存入library
           let library = PHPhotoLibrary.shared()
-          let creationDate = Date()
-          let selectedDate = Date()
+          let creationDate = Date.now
+          let selectedDate = Date.now
           library.performChanges({
             let request = PHAssetChangeRequest.creationRequestForAsset(from: capturedImage)
             request.creationDate = creationDate
@@ -362,7 +362,7 @@ class NoteV3CameraViewController: UIViewController {
     photoCount = photoSelections.count
 
     photoSelections = photoSelections.sorted {
-      ($0.selectedDate ?? Date.date1970) > ($1.selectedDate ?? Date.date1970)
+      ($0.selectedDate ?? Date.now) > ($1.selectedDate ?? Date.now)
     }
 
     let localIdentifiers = photoSelections.compactMap { $0.identifier }

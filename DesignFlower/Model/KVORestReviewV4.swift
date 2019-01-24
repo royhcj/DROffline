@@ -17,8 +17,8 @@ public class KVORestReviewV4: NSObject {
   @objc dynamic var id: Int = -1
   @objc dynamic var isScratch = false // 是否為草稿
   @objc dynamic var allowedReaders = [Int]() // 白名單
-  @objc dynamic var createDate: Date = Date() // 創造日期
-  @objc dynamic var eatingDate: Date? = Date() // 吃飯時間
+  @objc dynamic var createDate: Date = Date.now // 創造日期
+  @objc dynamic var eatingDate: Date? = Date.now // 吃飯時間
   @objc dynamic var parentID: Int = -1 // 複製品紀錄本尊的ID
   @objc dynamic var parentUUID: String? // 複製品紀錄本尊的UUID (註：若本尊尚未有id, 則使用本尊的uuid)
         // TODO: 註：每當有review-A獲得id時(或著說第一次上傳至後台時)，應該檢查有無複製品其parentUUID == review-A的uuid，並更新複製品的parentID為review-A的id
