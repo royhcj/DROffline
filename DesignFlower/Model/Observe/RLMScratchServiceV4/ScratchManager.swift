@@ -80,6 +80,9 @@ class ScratchManager {
       } // end for scratch DishReviews
     }
     
+    // 寫入更新時間
+    scratch.updateDate = Date.now
+    
     // 利用observe寫回Database
     let observe = RestReviewObserve(object: scratch,
                                     service: RLMServiceV4.shared)
