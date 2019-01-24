@@ -69,6 +69,8 @@ extension UserService {
             let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: myData?.data.uuid),
             let remoteRestReview = myData?.data
           {
+            // TODO: Fix?
+            RLMServiceV4.shared.update(rlmRestReview, updateDate: remoteRestReview.updateDate)
             RLMServiceV4.shared.update(rlmRestReview, id: remoteRestReview.id.value)
             for remoteDishReview in remoteRestReview.dishReviews {
               guard
@@ -108,6 +110,8 @@ extension UserService {
             let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: myData?.data.uuid),
             let remoteRestReview = myData?.data
           {
+
+            // TODO: Fix?
             RLMServiceV4.shared.update(rlmRestReview, id: remoteRestReview.id.value)
             RLMServiceV4.shared.update(rlmRestReview, updateDate: remoteRestReview.updateDate)
             for remoteDishReview in remoteRestReview.dishReviews {
@@ -117,6 +121,7 @@ extension UserService {
               else {
                 continue
               }
+
               RLMServiceV4.shared.dishReview.update(localDishReview, id: remoteDishReview.id.value)
             }
           }

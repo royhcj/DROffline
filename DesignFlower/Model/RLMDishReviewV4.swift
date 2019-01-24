@@ -116,7 +116,7 @@ class RLMDishReviewV4: SubObject, Uploadable {
     if let parentID = parentID.value, parentID != -1 {
        try container.encode(parentID, forKey: .parentID)
     }
-    try container.encode(createDate, forKey: .createDate)
+    try container.encode(createDate.timeIntervalSince1970, forKey: .createDate)
     try container.encode(isLike.value, forKey: .isLike)
     try container.encode(order.value, forKey: .order)
     var imgs = [RLMImageV4]()

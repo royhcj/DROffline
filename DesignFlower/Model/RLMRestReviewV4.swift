@@ -172,19 +172,13 @@ class RLMRestReviewV4: SubObject, Uploadable {
     var allR = [Int]()
     allR.append(contentsOf: allowedReaders)
     try continer.encode(allR, forKey: .allowedReaders)
-    try continer.encode(createDate, forKey: .createDate)
-    try continer.encode(eatingDate, forKey: .eatingDate)
+    try continer.encode(createDate.timeIntervalSince1970, forKey: .createDate)
+    try continer.encode(eatingDate?.timeIntervalSince1970, forKey: .eatingDate)
     try continer.encode(parentID.value, forKey: .parentID)
     let isShowCommentInt = isShowComment ? 1 : 0
     try continer.encode(isShowCommentInt, forKey: .isShowComment)
 //    try continer.encode(isSync, forKey: .isSync)
-    if let date = updateDate {
-      try continer.encode(date, forKey: .updateDate)
-    } else {
-      let date = Date.now
-      try continer.encode(date, forKey: .updateDate)
-    }
-
+    try continer.encode(updateDate?.timeIntervalSince1970, forKey: .updateDate)
 //    try continer.encode(isFirst, forKey: .isFirst)
     var dishR = [RLMDishReviewV4]()
     dishR.append(contentsOf: dishReviews)

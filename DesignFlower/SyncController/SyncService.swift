@@ -60,8 +60,9 @@ class SyncService {
     }
 
     private static func addToRLMQueue(review: RLMRestReviewV4) {
-      RLMServiceV4.shared.createRLMQueue(copyBy: review)
       RLMServiceV4.shared.update(review, isSync: false)
+      RLMServiceV4.shared.createRLMQueue(copyBy: review)
+
     }
 
     private static func addToRLMQueue(delete uuid: String, id: Int?) {
