@@ -236,6 +236,10 @@ class V4ReviewVC: FlowedViewController,
   // MARK: - ► Cell Delegate
   func changeReviewTitle(_ title: String?) {
     viewModel?.changeReviewTitle(title)
+    UIView.setAnimationsEnabled(false)
+    tableView.beginUpdates()
+    tableView.endUpdates()
+    UIView.setAnimationsEnabled(true)
   }
   
   func changeReviewComment(_ comment: String?) {

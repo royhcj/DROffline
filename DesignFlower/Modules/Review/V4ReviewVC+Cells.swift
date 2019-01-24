@@ -94,22 +94,26 @@ class V4Review_DiningTimeCell: V4ReviewVC.CommonCell {
   
 }
 
-class V4Review_ReviewTitleCell: V4ReviewVC.CommonCell, UITextFieldDelegate {
+class V4Review_ReviewTitleCell: V4ReviewVC.CommonCell, UITextViewDelegate {
   
-  @IBOutlet var reviewTitleTextField: UITextField!
+  @IBOutlet weak var reviewTitleTextView: UITextView!
   
   override func awakeFromNib() {
     super.awakeFromNib()
     
-    reviewTitleTextField.delegate = self
+    reviewTitleTextView.delegate = self
   }
   
   func configure(with review: KVORestReviewV4?) {
-    reviewTitleTextField.text = review?.title
+    reviewTitleTextView.text = review?.title
   }
   
-  func textFieldDidEndEditing(_ textField: UITextField) {
-    delegate?.changeReviewTitle(textField.text)
+  func textViewDidChange(_ textView: UITextView) {
+    delegate?.changeReviewTitle(textView.text)
+  }
+  
+  func textViewDidEndEditing(_ textView: UITextView) {
+    delegate?.changeReviewTitle(textView.text)
   }
 }
 
