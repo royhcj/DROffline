@@ -10,7 +10,13 @@ import Foundation
 import UIKit
 import Photos
 
-class V4ReviewFlowController: ViewBasedFlowController {
+protocol V4ReviewFlowControllerCommonProtocol {
+  var reviewVC: V4ReviewVC? { get }
+  func addChild(flowController: FlowController)
+}
+
+class V4ReviewFlowController: ViewBasedFlowController,
+                              V4ReviewFlowControllerCommonProtocol {
   
   weak var delegate: Delegate?
   
@@ -224,7 +230,21 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
   func showAddDishReviewWithPhoto() {
     showPhotoPicker(.addMorePhotos)
   }
+}
+
+extension V4ReviewFlowController: PhotoOrganizerPresentable {
   
+}
+
+// MARK: - Photo Organizer
+protocol PhotoOrganizerPresentable {
+  func showPhotoOrganizer(dishReviewUUID: String,
+                          dishReviews: [KVODishReviewV4],
+                          initialDisplayIndex: Int?)
+  func photoOrganizer(requestModifications requests: [PhotoOrganizerVC.DishModificationRequest])
+}
+
+extension PhotoOrganizerPresentable where Self: V4ReviewFlowControllerCommonProtocol {
   func showPhotoOrganizer(dishReviewUUID: String,
                           dishReviews: [KVODishReviewV4],
                           initialDisplayIndex: Int?) {
@@ -245,9 +265,9 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
     
     
     let photoOrganizerFlowController
-          = V4PhotoOrganizerFlowController(sourceDisplayContext: displayContext,
-                                           initialDishItems: dishItems,
-                                           initialDisplayIndex: initialDisplayIndex)
+      = V4PhotoOrganizerFlowController(sourceDisplayContext: displayContext,
+                                       initialDishItems: dishItems,
+                                       initialDisplayIndex: initialDisplayIndex)
     addChild(flowController: photoOrganizerFlowController)
     photoOrganizerFlowController.prepare()
     photoOrganizerFlowController.start()
@@ -258,10 +278,10 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
   func photoOrganizer(requestModifications requests: [PhotoOrganizerVC.DishModificationRequest]) {
     for request in requests {
       guard let itemIndex = request.itemIndex,
-            let review = reviewVC?.viewModel?.review,
-            itemIndex < review.dishReviews.count
-      else { continue }
-
+        let review = reviewVC?.viewModel?.review,
+        itemIndex < review.dishReviews.count
+        else { continue }
+      
       let dishReview = review.dishReviews[itemIndex]
       
       for modification in request.modifications {
@@ -276,10 +296,10 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
           }
         case .changePhoto(let imageRepresentation):
           if let imageRepresentation = imageRepresentation,
-             case .phAsset(let newAsset) = imageRepresentation,
-             let asset = newAsset {
+            case .phAsset(let newAsset) = imageRepresentation,
+            let asset = newAsset {
             // TODO: Replace image
-          } // TODO: 其他類型的imageRepresentation尚不支援
+        } // TODO: 其他類型的imageRepresentation尚不支援
         case .changeRating(let rating):
           if let rating = rating {
             reviewVC?.changeDishReviewRank(for: dishReview.uuid,
@@ -311,11 +331,17 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
       reviewVC?.deleteDishReview(for: $0)
     }
   }
-
 }
 
 // MARK: - Pick Dish Manipulation
-extension V4ReviewFlowController: V4PickDishFlowController.Delegate {
+extension V4ReviewFlowController: PickDishPresentable {
+}
+
+protocol PickDishPresentable: V4PickDishFlowController.Delegate {
+  func showPickDish(restaurantID: Int, dishReviewUUID: String)
+  func pickedDish(for dishReviewUUID: String?, dishName: String?, dishID: Int?)
+}
+extension PickDishPresentable where Self: V4ReviewFlowControllerCommonProtocol {
   func showPickDish(restaurantID: Int, dishReviewUUID: String) {
     guard let reviewVC = reviewVC
     else { return }

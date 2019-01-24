@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 class V4ShareFlowController: ViewBasedFlowController,
+                             V4ReviewFlowControllerCommonProtocol,
                              V4ShareVCFlowDelegate {
+  var reviewVC: V4ReviewVC? { return shareVC }
   var shareVC: V4ShareVC?
   var navigationVC: UINavigationController?
   var sourceDisplayContext: DisplayContext
@@ -96,4 +98,12 @@ extension V4ShareFlowController: V4ChooseFriendFlowControllerDelegate {
   func choseFriends(_ friends: [FriendListViewController.Friend]) {
     shareVC?.changeSharedFriends(friends)
   }
+}
+
+extension V4ShareFlowController: PhotoOrganizerPresentable {
+  
+}
+
+extension V4ShareFlowController: PickDishPresentable {
+  
 }

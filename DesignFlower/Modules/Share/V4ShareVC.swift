@@ -162,6 +162,23 @@ class V4ShareVC: V4ReviewVC,
     flowDelegate?.showChooseFriend(initialFriendIDs: friendIDs)
   }
   
+  override func showPhotoOrganizer(for dishReviewUUID: String) {
+    guard let dishReviews = viewModel?.review?.dishReviews
+      else { return }
+    
+    let initialDisplayIndex = dishReviews.firstIndex(where: { $0.uuid == dishReviewUUID})
+    flowDelegate?.showPhotoOrganizer(dishReviewUUID: dishReviewUUID,
+                                     dishReviews: dishReviews,
+                                     initialDisplayIndex: initialDisplayIndex)
+  }
+  
+  override func showMoreForDishReview(_ dishReviewUUID: String) {
+    guard let restaurantID = viewModel?.review?.restaurant?.id
+      else { return }
+    
+    flowDelegate?.showPickDish(restaurantID: restaurantID, dishReviewUUID: dishReviewUUID)
+  }
+  
   // MARK: - ► Friend Related
   func changeSharedFriends(_ friends: [FriendListViewController.Friend]) {
     shareViewModel?.changeSharedFriends(friends)
@@ -174,6 +191,10 @@ class V4ShareVC: V4ReviewVC,
 protocol V4ShareVCFlowDelegate: class {
   func leave()
   func showChooseFriend(initialFriendIDs: [Int])
+  func showPhotoOrganizer(dishReviewUUID: String,
+                          dishReviews: [KVODishReviewV4],
+                          initialDisplayIndex: Int?)
+  func showPickDish(restaurantID: Int, dishReviewUUID: String)
 }
 
 enum ShareScenario {
