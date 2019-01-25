@@ -30,6 +30,7 @@ PODS:
     - PromiseKit/CorePromise
   - PromiseKit/UIKit (4.5.2):
     - PromiseKit/CorePromise
+  - ReachabilitySwift (4.3.0)
   - Realm (3.12.0):
     - Realm/Headers (= 3.12.0)
   - Realm/Headers (3.12.0)
@@ -65,6 +66,7 @@ DEPENDENCIES:
   - Moya/RxSwift
   - PromiseKit (~> 4.0)
   - PromiseKit/Alamofire (~> 4.0)
+  - ReachabilitySwift
   - RealmSwift
   - RxCocoa
   - RxSwift
@@ -88,6 +90,7 @@ SPEC CHECKSUMS:
   Kingfisher: 868c1149679a7ab6869be118faa9b5aed154aaf0
   Moya: cf730b3cd9e005401ef37a85143aa141a12fd38f
   PromiseKit: 743e497a5f505a470d3bbbf4ce0663c1268af0a4
+  ReachabilitySwift: 408477d1b6ed9779dba301953171e017c31241f3
   Realm: cdaef23c4ddb36ab1ddffed23f5a7f3332fc5585
   RealmSwift: 5576324033f0aa5ef1e0a839a3da2281dff47a7f
   Result: 7645bb3f50c2ce726dd0ff2fa7b6f42bbe6c3713
@@ -102,6 +105,6 @@ SPEC CHECKSUMS:
   TableViewDragger: 5933729a18d1606e16388d72f6d4fe5f3a0bcaf4
   YCRateView: 2d9d6b151616d5186dc253681b76fb7ef76e2840
 
-PODFILE CHECKSUM: 3287f6d48c75a39cd7f30905a0a408f9acfecf6a
+PODFILE CHECKSUM: 6c52981294c6ee0a81b0e14caa85c7313714b629
 
 COCOAPODS: 1.4.0

@@ -10,6 +10,7 @@ import UIKit
 import Photos
 import YCRateView
 import TableViewDragger
+import Reachability
 
 class V4ReviewVC: FlowedViewController,
                   UITableViewDataSource,
@@ -99,6 +100,16 @@ class V4ReviewVC: FlowedViewController,
     guard viewModel?.dirty != true
     else {
       print("Unsaved")
+      return
+    }
+    
+    if NetworkStateService.shared.reachability.connection == .none {
+      showAlert(title: "無法連線", message: "請檢察網路狀態", buttonTitle: "確認", buttonAction: nil)
+      return
+    }
+    
+    if viewModel?.wasReviewSavedSuccessfully != true {
+      showAlert(title: "筆記尚未上傳至網路", message: "請檢察網路狀態", buttonTitle: "確認", buttonAction: nil)
       return
     }
     

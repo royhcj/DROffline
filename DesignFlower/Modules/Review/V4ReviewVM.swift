@@ -34,6 +34,17 @@ class V4ReviewViewModel {
   
   var lastBlankDishReviewUUID: String?
   
+  var wasReviewSavedSuccessfully: Bool {
+    guard let uuid = review?.uuid,
+          let rlmReview = RLMServiceV4.shared.getRestReview(uuid: uuid)
+    else { return false }
+    
+    if rlmReview.id.value == nil || rlmReview.id.value == -1 {
+      return false
+    }
+    return true
+  }
+  
   open var restaurantState: V4ReviewVC.RestaurantNameCell.RestaurantState {
     guard let reviewUUID = review?.uuid
     else { return .noAction }

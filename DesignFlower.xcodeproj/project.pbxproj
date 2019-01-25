@@ -102,6 +102,7 @@
 		7288BDB421F5C2B7009A5D09 /* RLMScratchServiceV4.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7288BDB321F5C2B7009A5D09 /* RLMScratchServiceV4.swift */; };
 		7288BDB621F6CBB7009A5D09 /* ScratchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7288BDB521F6CBB7009A5D09 /* ScratchManager.swift */; };
 		7289ED7921FAE0300025BF0E /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7289ED7821FAE0300025BF0E /* UIImage+Resize.swift */; };
+		7289ED7B21FB0D600025BF0E /* NetworkStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7289ED7A21FB0D600025BF0E /* NetworkStateService.swift */; };
 		825146A2F2CB641CB8B874DA /* Pods_DesignFlower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */; };
 		B01B05C821EE242300F49C20 /* V4Review_RestaurantRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */; };
 		B04302F421ED838400196E9A /* V4Review_SharedFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */; };
@@ -268,6 +269,7 @@
 		7288BDB321F5C2B7009A5D09 /* RLMScratchServiceV4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RLMScratchServiceV4.swift; sourceTree = "<group>"; };
 		7288BDB521F6CBB7009A5D09 /* ScratchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchManager.swift; sourceTree = "<group>"; };
 		7289ED7821FAE0300025BF0E /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Resize.swift"; path = "DesignFlower/Core/Utility/UIImage+Resize.swift"; sourceTree = SOURCE_ROOT; };
+		7289ED7A21FB0D600025BF0E /* NetworkStateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkStateService.swift; sourceTree = "<group>"; };
 		B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell.xib; sourceTree = "<group>"; };
 		B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_SharedFriendCell.xib; sourceTree = "<group>"; };
 		B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseFriendViewModel.swift; sourceTree = "<group>"; };
@@ -690,13 +692,14 @@
 				B0A0AFA321C13AD3005BE7AB /* UIColor+Extension.swift */,
 				B0A0AFA121C13A47005BE7AB /* DishRankColor.swift */,
 				B0A0AF9B21C11147005BE7AB /* UIImage+Extension.swift */,
+				7289ED7821FAE0300025BF0E /* UIImage+Resize.swift */,
 				B0A0AF9921C110DA005BE7AB /* TextField+Extension.swift */,
 				B0A0AF9421C11095005BE7AB /* SearchBar */,
 				B0A0AF8D21C10EBE005BE7AB /* TipBar.swift */,
 				7287027F21BFB9FE000E1116 /* Date+Extension.swift */,
 				7287027D21BFB90E000E1116 /* UIAlertController+Extension.swift */,
-				7289ED7821FAE0300025BF0E /* UIImage+Resize.swift */,
 				7287027B21BFB8A4000E1116 /* UIViewController+Alert.swift */,
+				7289ED7A21FB0D600025BF0E /* NetworkStateService.swift */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -1097,6 +1100,7 @@
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/Moya/Moya.framework",
 				"${BUILT_PRODUCTS_DIR}/PromiseKit/PromiseKit.framework",
+				"${BUILT_PRODUCTS_DIR}/ReachabilitySwift/Reachability.framework",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Result/Result.framework",
@@ -1125,6 +1129,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Moya.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PromiseKit.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Reachability.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Result.framework",
@@ -1216,6 +1221,7 @@
 				7219797221DDF45B00FD6435 /* V4ChooseShareFlowController.swift in Sources */,
 				B0A0AFA221C13A47005BE7AB /* DishRankColor.swift in Sources */,
 				64DF218A21EC5F8700C660AC /* Double+Extension.swift in Sources */,
+				7289ED7B21FB0D600025BF0E /* NetworkStateService.swift in Sources */,
 				7287027721BFB6EF000E1116 /* NewPhotoSelectionViewController.swift in Sources */,
 				648842FA21CDD95A00B7510C /* RLMQueue.swift in Sources */,
 				72061D9321AFDF080098FFFD /* RLMImageV4.swift in Sources */,
