@@ -30,6 +30,8 @@ class DishPhotoOrganizerVM: NSObject {
     return index
   }
   
+  var isDirty = BehaviorRelay<Bool>(value: false)
+  
   // Modification Members
 //  var dishModificationRequest = DishModificationRequest()
   
@@ -142,6 +144,20 @@ class DishPhotoOrganizerVM: NSObject {
       .subscribe(onNext: { [weak self] rating in
         self?.dishReview?.rank = String(format: "%.01f", rating ?? 0)
       }).disposed(by: disposeBag)
+    
+    let dirtyMakers: [Observable<Bool>]
+      = [input.changeRating.map { _ in true },
+         output.changedPhoto.map { _ in true },
+         output.addedPhoto.map { _ in true },
+         input.changeDishName.map { _ in true },
+         input.changeComment.map { _ in true },
+         input.changeRating.map { _ in true },
+         input.deleteDishReview.map { _ in true }]
+    dirtyMakers.forEach {
+      $0.asDriver(onErrorJustReturn: false)
+        .drive(self.isDirty)
+        .disposed(by: self.disposeBag)
+    }
     
     input.deleteDishReview
       .skipUntil(dishItem.skip(1))

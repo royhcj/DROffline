@@ -247,7 +247,7 @@ protocol PhotoOrganizerPresentable {
   func showPhotoOrganizer(dishReviewUUID: String,
                           dishReviews: [KVODishReviewV4],
                           initialDisplayIndex: Int?)
-  func photoOrganizer(requestModifications requests: [PhotoOrganizerVC.DishModificationRequest])
+  func photoOrganizer(modified: Bool, requestModifications requests: [PhotoOrganizerVC.DishModificationRequest])
 }
 
 extension PhotoOrganizerPresentable where Self: V4ReviewFlowControllerCommonProtocol {
@@ -278,10 +278,16 @@ extension PhotoOrganizerPresentable where Self: V4ReviewFlowControllerCommonProt
     photoOrganizerFlowController.prepare()
     photoOrganizerFlowController.start()
     
-    photoOrganizerFlowController.requestModifications = photoOrganizer(requestModifications:)
+    photoOrganizerFlowController.requestModifications = photoOrganizer(modified:requestModifications:)
   }
   
-  func photoOrganizer(requestModifications requests: [PhotoOrganizerVC.DishModificationRequest]) {
+  func photoOrganizer(modified: Bool,
+                      requestModifications requests: [PhotoOrganizerVC.DishModificationRequest]) {
+    
+    if modified {
+      reviewVC?.viewModel?.setDirty(modified)
+    }
+    
     for request in requests {
       guard let itemIndex = request.itemIndex,
         let review = reviewVC?.viewModel?.review,

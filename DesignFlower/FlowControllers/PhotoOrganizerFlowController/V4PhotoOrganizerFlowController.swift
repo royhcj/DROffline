@@ -16,7 +16,7 @@ V4PhotoOrganizerVCFlowDelegate {
   var initialDishItems: [PhotoOrganizerVC.DishItem] = []
   var initialDisplayIndex: Int?
   
-  public var requestModifications: (([PhotoOrganizer.DishModificationRequest]) -> Void)?
+  public var requestModifications: ((Bool, [PhotoOrganizer.DishModificationRequest]) -> Void)?
   
   init(sourceDisplayContext: DisplayContext,
        initialDishItems: [PhotoOrganizerVC.DishItem],
@@ -46,11 +46,13 @@ V4PhotoOrganizerVCFlowDelegate {
   }
   
   // MARK: - Photo Organizer VC Flow Delegate
-  func photoOrganizer(_ sender: PhotoOrganizerVC?, requestDishModifications: [PhotoOrganizer.DishModificationRequest]) {
+  func photoOrganizer(_ sender: PhotoOrganizerVC?,
+                      modified: Bool,
+                      requestDishModifications: [PhotoOrganizer.DishModificationRequest]) {
     guard let photoOrganizerVC = photoOrganizerVC
     else { return }
     
-    self.requestModifications?(requestDishModifications)
+    self.requestModifications?(modified, requestDishModifications)
     
     sourceDisplayContext.undisplay(photoOrganizerVC)
   }

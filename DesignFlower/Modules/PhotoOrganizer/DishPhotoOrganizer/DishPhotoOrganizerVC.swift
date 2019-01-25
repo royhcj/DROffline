@@ -368,12 +368,14 @@ extension DishPhotoOrganizerVC: UICollectionViewDataSource,
   }
   
   func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    // TODO: 這段應該要放在view model做，有空再改
     guard let dishReview = vm?.dishItem.value?.dishReview
     else { return }
     
     let kvoImage = dishReview.images[sourceIndexPath.item]
     dishReview.images.remove(at: sourceIndexPath.item)
     dishReview.images.insert(kvoImage, at: destinationIndexPath.item)
+    vm?.isDirty.accept(true)
   }
   
   @objc func handlePhotoCollectionViewLongPress(gesture: UILongPressGestureRecognizer) {

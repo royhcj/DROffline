@@ -140,8 +140,11 @@ class PhotoOrganizerVC: UIViewController,
         }
 */
         // 傳回所有更動
+        let modified = self?.dishOrganizerVCs.reduce(false, { (result, pair) -> Bool in
+          result || (pair.value.vm?.isDirty.value ?? false)
+        }) ?? false
         strongSelf.flowDelegate?
-            .photoOrganizer(self, requestDishModifications: requests)
+            .photoOrganizer(self, modified: modified, requestDishModifications: requests)
       }).disposed(by: disposeBag)
     
     leftPageButton.rx.tap
@@ -264,5 +267,6 @@ class PhotoOrganizerVC: UIViewController,
 
 protocol V4PhotoOrganizerVCFlowDelegate: class {
   func photoOrganizer(_ sender: PhotoOrganizerVC?,
+                      modified: Bool,
                       requestDishModifications:[PhotoOrganizer.DishModificationRequest])
 }
