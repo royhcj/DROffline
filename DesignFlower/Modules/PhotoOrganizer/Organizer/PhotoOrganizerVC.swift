@@ -133,16 +133,16 @@ class PhotoOrganizerVC: UIViewController,
 
           requests.append(request)
         }
-        
+*/
         // 蒐集刪除的動作
         if let deleteRequests = self?.vm?.dishDeleteRequests {
           requests.append(contentsOf: deleteRequests)
         }
-*/
+
         // 傳回所有更動
-        let modified = self?.dishOrganizerVCs.reduce(false, { (result, pair) -> Bool in
+        let modified = strongSelf.dishOrganizerVCs.reduce(false, { (result, pair) -> Bool in
           result || (pair.value.vm?.isDirty.value ?? false)
-        }) ?? false
+        })
         strongSelf.flowDelegate?
             .photoOrganizer(self, modified: modified, requestDishModifications: requests)
       }).disposed(by: disposeBag)

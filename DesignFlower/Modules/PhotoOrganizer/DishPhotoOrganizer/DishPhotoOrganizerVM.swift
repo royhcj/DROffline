@@ -33,7 +33,7 @@ class DishPhotoOrganizerVM: NSObject {
   var isDirty = BehaviorRelay<Bool>(value: false)
   
   // Modification Members
-//  var dishModificationRequest = DishModificationRequest()
+  var dishModificationRequest = DishModificationRequest()
   
   var output: Output?
   
@@ -162,9 +162,8 @@ class DishPhotoOrganizerVM: NSObject {
     input.deleteDishReview
       .skipUntil(dishItem.skip(1))
       .subscribe(onNext: { [weak self] _ in
-// TODO: later
-//        let modification = DishModification.deleteDishReview
-//        self?.dishModificationRequest.append(modification: modification)
+        let modification = DishModification.deleteDishReview
+        self?.dishModificationRequest.append(modification: modification) // 不確定還需不需要在這邊加入，有空再檢查
       }).disposed(by: disposeBag)
     
     input.savePhoto
