@@ -160,10 +160,28 @@ public class V4PhotoService {
   }
   
   func createKVOImage(with asset: PHAsset,
+                      resolution: UIImage.ResizeResolution = .fullHD,
                       completion: @escaping ((KVOImageV4?) -> Void)) {
     getUIImage(for: asset) { uiImage in
-      guard let uiImage = uiImage,
-            let imageData = UIImageJPEGRepresentation(uiImage, 1.0)
+      guard let uiImage = uiImage
+      else {
+        completion(nil)
+        return
+      }
+      
+      var uiImageResized: UIImage
+      do {
+        uiImageResized = try UIImage.resize(image: uiImage,
+                                            to: resolution,
+                                            keepAspectRatio: true,
+                                            scaleDownOnly: true)
+      } catch {
+        print(error)
+        completion(nil)
+        return
+      }
+      
+      guard let imageData = UIImageJPEGRepresentation(uiImageResized, 1.0)
       else {
         completion(nil)
         return
