@@ -36,7 +36,22 @@ extension UserService {
         completion?(result)
         return
       }
+
       let provider = DishRankService.RestaurantReview.provider
+      provider.rx.request(.uploadIMG(fileData: imgData))
+        .asObservable()
+        .subscribe { (event) in
+          switch event {
+          case .next(let response):
+            print(response.data)
+          case .error(let error):
+            print(error.localizedDescription)
+          case .completed:
+            print("completed")
+          }
+      }
+
+
       provider.request(.uploadIMG(fileData: imgData), callbackQueue: nil, progress: { (progressResponse) in
         print(progressResponse.progress)
       }) { (result) in

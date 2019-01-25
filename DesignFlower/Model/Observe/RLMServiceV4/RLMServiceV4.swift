@@ -381,7 +381,6 @@ internal class RLMServiceV4 {
     } catch {
       return nil
     }
-    return nil
   }
 
   // no.19
@@ -409,11 +408,10 @@ internal class RLMServiceV4 {
         localRestReview.parentID.value = remoteReview.parentID.value
         localRestReview.parentUUID = remoteReview.parentUUID
         localRestReview.priceRank = remoteReview.priceRank
-        localRestReview.restaurant = remoteReview.restaurant
+//        localRestReview.restaurant = remoteReview.restaurant
         localRestReview.serviceRank = remoteReview.serviceRank
         localRestReview.title = remoteReview.title
         localRestReview.updateDate = remoteReview.updateDate
-
         if let local = localRestReview.restaurant {
          if let remote = remoteReview.restaurant {
           updateRestaurant(local: local, remote: remote)
@@ -440,26 +438,49 @@ internal class RLMServiceV4 {
         local.name = remote.name
         local.openHour = remote.openHour
         local.phoneNumber = remote.phoneNumber
+        local.id.value = remote.id.value
+        local.uuid = remote.uuid
 
       }
 
-      for remoteDishReview in remoteReview.dishReviews {
-        if let localDishReview = localRestReview.filter(remoteObject: remoteDishReview, localObjects:  Array(localRestReview.dishReviews)) as? RLMDishReviewV4 {
-          // TODO: 更新
-          self.dishReview.update(remoteDishReview: remoteDishReview, to: localDishReview)
-        } else {
-          // TODO: 新增
-          do {
-            try realm.write {
-               localRestReview.dishReviews.append(remoteDishReview)
-            }
-          } catch {
+      func getDishReviewUUIDs(dishReviews: List<RLMDishReviewV4>) -> [String] {
+        var reviewUUIDs = [String]()
+        for dishReview in dishReviews {
+          guard let uuid = dishReview.uuid else {
+            continue
+          }
+          reviewUUIDs.append(uuid)
+        }
+        return reviewUUIDs
+      }
 
+      for remoteDishReview in remoteReview.dishReviews {
+        // 刪去法
+        var dishReviewUUIDs = getDishReviewUUIDs(dishReviews: localRestReview.dishReviews)
+        if let localDishReview = localRestReview.filter(remoteObject: remoteDishReview, localObjects:  Array(localRestReview.dishReviews)) as? RLMDishReviewV4 {
+          // 更新
+          self.dishReview.update(remoteDishReview: remoteDishReview, to: localDishReview)
+          // 刪除有的存在的uuid
+          guard let uuidIndex = (dishReviewUUIDs.firstIndex { (uuid) -> Bool in
+            guard let boxUUID = localDishReview.uuid else {
+              return false
+            }
+            return boxUUID == uuid
+          }) else { continue }
+          dishReviewUUIDs.remove(at: uuidIndex)
+        } else {
+          // 新增
+          self.dishReview.create(in: localRestReview, copyBy: remoteDishReview)
+        }
+        // 刪除
+        if dishReviewUUIDs.count > 0 {
+          dishReviewUUIDs.forEach { (uuid) in
+            RLMServiceV4.shared.delete(dishReviewUUID: uuid)
           }
         }
       }
     } catch {
-
+      print("error in RLMServiceV4")
     }
   }
 

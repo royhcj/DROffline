@@ -84,16 +84,14 @@ class ScratchManager {
     scratch.updateDate = Date.now
     
     // 利用observe寫回Database
-    let observe = RestReviewObserve(object: scratch,
-                                    service: RLMServiceV4.shared)
-
-    DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-      observe.cancelObserve()
-      
-      if let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: reviewUUID, id: nil) {
-        RLMServiceV4.shared.update(rlmRestReview, isSync: needSync)
+      if let rlmScratch = RLMScratchServiceV4.scratchShared.getRestReview(uuid: scratch.uuid) {
+        guard let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: reviewUUID, id: nil) ?? RLMServiceV4.shared.createRLMRestReviewV4() else {
+          return
+        }
+          RLMServiceV4.shared.update(rlmRestReview, with: rlmScratch)
+          RLMServiceV4.shared.update(rlmRestReview, isSync: needSync)
+          completion()
       }
-      completion()
-    }
   }
+
 }

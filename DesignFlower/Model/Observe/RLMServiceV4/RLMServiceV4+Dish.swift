@@ -86,16 +86,9 @@ extension RLMServiceV4 {
 
 
     // no.5
-    internal func update(remoteDish: RLMDishV4,to localDish: RLMDishV4?) {
+    internal func update(remoteDish: RLMDishV4,to localDish: RLMDishV4) {
       do {
         try realm.write {
-          guard let localDish = localDish else {
-            let localDish = realm.create(RLMDishV4.self)
-            localDish.name = remoteDish.name
-            localDish.id = remoteDish.id
-            localDish.uuid = remoteDish.uuid
-            return
-          }
           localDish.name = remoteDish.name
           localDish.id = remoteDish.id
           localDish.uuid = remoteDish.uuid
@@ -106,13 +99,13 @@ extension RLMServiceV4 {
     }
 
     // no.6
-    internal func create(with remoteDish: RLMDishV4) {
+    internal func create(in dishReview: RLMDishReviewV4, copyBy remoteDish: RLMDishV4) {
       do {
         try realm.write {
-          let localDish = realm.create(RLMDishV4.self)
-          localDish.name = remoteDish.name
-          localDish.id = remoteDish.id
-          localDish.uuid = remoteDish.uuid
+          dishReview.dish = realm.create(RLMDishV4.self)
+          dishReview.dish?.name = remoteDish.name
+          dishReview.dish?.id = remoteDish.id
+          dishReview.dish?.uuid = remoteDish.uuid
         }
       } catch {
         print("RLMServiceV4+Image file's no.6 func error")

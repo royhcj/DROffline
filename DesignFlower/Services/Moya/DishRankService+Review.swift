@@ -27,7 +27,6 @@ extension DishRankService {
 
 extension DishRankService.RestaurantReview: MoyaProvidable {
 
-  
   var baseURL: URL {
     switch self {
     case .get(_, _, let url):
@@ -119,9 +118,7 @@ extension DishRankService.RestaurantReview: MoyaProvidable {
 
       //下载儲存位置
       let defaultDownloadDir: URL = KVOImageV4.localFolder
-
       let localLocation: URL = defaultDownloadDir.appendingPathComponent(fileName)
-
       let downloadDestination: DownloadDestination = { _, _ in
         return (localLocation, .removePreviousFile) }
       return .downloadDestination(downloadDestination)

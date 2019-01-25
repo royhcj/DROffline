@@ -65,9 +65,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       AutoLogin.login()
     } else {
       // 取得餐廳列表
-//      let min = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMin.rawValue) as? Date
-//      let max = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMax.rawValue) as? Date
-//      UserService.RestaurantList.getRestList(strat: min, end: max, paramaters: nil)
+      let min = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMin.rawValue) as? Date
+      let max = UserDefaults.standard.value(forKey: UserDefaultKey.rdUtimeMax.rawValue) as? Date
+      UserService.RestaurantList.getRestList(strat: min, end: max, paramaters: nil)
     }
 
     IQKeyboardManager.shared.enable = true

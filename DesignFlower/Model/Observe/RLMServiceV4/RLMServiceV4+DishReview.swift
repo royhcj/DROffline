@@ -165,7 +165,11 @@ extension RLMServiceV4 {
         // 更新菜餚資訊
 
         if let remoteDish = remoteDishReview.dish {
-           realmService.dish.update(remoteDish: remoteDish, to: localDishReview.dish)
+          if let localDish = localDishReview.dish {
+            realmService.dish.update(remoteDish: remoteDish, to: localDish)
+          } else {
+            realmService.dish.create(in: localDishReview, copyBy: remoteDish)
+          }
         }
 
 
@@ -225,6 +229,37 @@ extension RLMServiceV4 {
       } catch {
         print("RLMServiceV4+DihsReview file's no.12 func error")
       }
+    }
+
+    // no. 13
+    internal func createRLMDishReview() -> RLMDishReviewV4? {
+      do {
+        var dishReview: RLMDishReviewV4?
+        try realm.write {
+          dishReview = realm.create(RLMDishReviewV4.self)
+        }
+        return dishReview
+      } catch {
+        print("RLMServiceV4+DihsReview file's no.13 func error")
+        return nil
+      }
+    }
+
+    // no. 14
+    internal func create(in restReview: RLMRestReviewV4, copyBy review: RLMDishReviewV4) {
+      guard let dishReview = createRLMDishReview() else {
+        print("RLMServiceV4+DihsReview file's no.14 func error")
+        return
+      }
+      do {
+        try realm.write {
+          restReview.dishReviews.append(dishReview)
+        }
+      } catch {
+        print("RLMServiceV4+DihsReview file's no.14 func error")
+        return
+      }
+      RLMServiceV4.shared.dishReview.update(remoteDishReview: review, to: dishReview)
     }
 
   }
