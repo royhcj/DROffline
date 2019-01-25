@@ -70,30 +70,6 @@ class V4ShareViewModel: V4ReviewViewModel {
       .catch { (error) in
         print(error)
       }
-    
-#if false // old implementation
-    return WebService.NoteV3FriendAPI.postFriends(accessToken: LoggedInUser.sharedInstance().accessToken!
-      ).then { [unowned self] (friendJSON) -> [FriendListViewController.Friend]? in
-        guard friendJSON.statusCode == 0 else {
-          print("get friend error: \(friendJSON.statusMsg ?? "")")
-          return nil
-        }
-        if let friends = friendJSON.friend {
-          var selectedFriends = [FriendListViewController.Friend]()
-          for (index, friend) in friends.enumerated() {
-            if selectedFriendIDs.contains(where: { id -> Bool in
-              return friend.friendID == id
-            }) {
-              guard let myFriend = friends[index].transfer(friend:  friends[index]) else { continue }
-              selectedFriends.append(myFriend)
-            }
-          }
-          return selectedFriends
-        } else {
-          return nil
-        }
-    }
-#endif
   }
   
   // MARK: - ► Share Related

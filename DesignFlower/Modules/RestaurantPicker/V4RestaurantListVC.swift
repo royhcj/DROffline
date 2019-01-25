@@ -175,7 +175,7 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
   }
   
   @IBAction func clickedReload(_ sender: Any) {
-    startSearch(at: lastReloadedCoordinate)
+    startAutoCompleteSearch(at: lastReloadedCoordinate, queryText: nil) // TODO: 為何是nil?
   }
   
   @IBAction func closeButton(_ sender: UIButton) {
@@ -579,10 +579,46 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
       else { restaurantTableView.reloadData(); return }
     lastReloadedCoordinate = coordinate
 
-    startSearch(at: coordinate)
+    startAutoCompleteSearch(at: coordinate, queryText: nil)
   }
   
-  func startSearch(at coordinate: CLLocationCoordinate2D?) {
+  func localSearch(coordinate: CLLocationCoordinate2D, queryText: String?) {
+    let rlmRestaurants = RLMServiceV4.shared.getRestaurantList()
+    for rlmRestaurant in rlmRestaurants {
+      guard let restaurantLatitude = rlmRestaurant.latitude.value,
+        let restaurantLongitude = rlmRestaurant.longitude.value
+        else { continue }
+      
+      let restaurantCoordinate
+        = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurantLatitude),
+                                 longitude: CLLocationDegrees(restaurantLongitude))
+      let distance = RestaurantSearchResult.calculateDistance(coordinateA: coordinate,
+                                                              coordinateB: restaurantCoordinate)
+      
+      if distance < 3000 { // TODO: 距離從後台取得, 關鍵字判斷
+        let restaurant = Restaurant(shopID: rlmRestaurant.id.value,
+                                    shopName: rlmRestaurant.rdName ?? "",
+                                    address: rlmRestaurant.rdFullAddress ?? rlmRestaurant.appleAddress ?? "",
+                                    addressSource: .manual,
+                                    latitude: String(restaurantLatitude),
+                                    longitude: String(restaurantLongitude),
+                                    shopPhone: rlmRestaurant.rdTel)
+        if let queryText = queryText, queryText.isEmpty == false,
+           let restaurantName = restaurant.shopName {
+          if restaurantName.contains(queryText) {
+            currentSearchResult.insert(restaurant: restaurant, condition: .none)
+          }
+        } else {
+          currentSearchResult.insert(restaurant: restaurant, condition: .none)
+        }
+      }
+      if currentSearchResult.count > 10 {
+        break
+      }
+    }
+  }
+  
+  func startAutoCompleteSearch(at coordinate: CLLocationCoordinate2D?, queryText: String?) {
     
     // 清空搜尋資料
     currentSearchResult.clearAll()
@@ -596,42 +632,17 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     // 1. 搜尋local
-    let rlmRestaurants = RLMServiceV4.shared.getRestaurantList()
-    for rlmRestaurant in rlmRestaurants {
-      guard let restaurantLatitude = rlmRestaurant.latitude.value,
-            let restaurantLongitude = rlmRestaurant.longitude.value
-      else { continue }
-      
-      let restaurantCoordinate
-        = CLLocationCoordinate2D(latitude: CLLocationDegrees(restaurantLatitude),
-                                 longitude: CLLocationDegrees(restaurantLongitude))
-      let distance = RestaurantSearchResult.calculateDistance(coordinateA: coordinate,
-                                                              coordinateB: restaurantCoordinate)
-
-      if distance < 3000 { // TODO: 距離從後台取得
-        let restaurant = Restaurant(shopID: rlmRestaurant.id.value,
-                                    shopName: rlmRestaurant.rdName ?? "",
-                                    address: rlmRestaurant.rdFullAddress ?? rlmRestaurant.appleAddress ?? "",
-                                    addressSource: .manual,
-                                    latitude: String(restaurantLatitude),
-                                    longitude: String(restaurantLongitude),
-                                    shopPhone: rlmRestaurant.rdTel)
-        currentSearchResult.insert(restaurant: restaurant, condition: .none)
-      }
-      if currentSearchResult.count > 10 {
-        break
-      }
-    }
+    localSearch(coordinate: coordinate, queryText: queryText)
     
     // 先刷新local的餐廳列表
     filterRestaurantArray = currentSearchResult.restaurants
     restaurantTableView.reloadData()
     
     // 2. 搜尋autoCompleter
-    autoCompleterSearch(at: coordinate)
+    autoCompleterSearch(at: coordinate, queryText: queryText)
   }
   
-  private func autoCompleterSearch(at coordinate: CLLocationCoordinate2D?) {
+  private func autoCompleterSearch(at coordinate: CLLocationCoordinate2D?, queryText: String?) {
     guard let coordinate = cityCoordinate ?? fixedCoordinate ?? coordinate ?? LocationService.shared.coordinate
     else { restaurantTableView.reloadData(); return }
     
@@ -662,7 +673,12 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
     self.lastReloadedCoordinate = coordinate
     
     firstSearchCompleter.region = MKCoordinateRegionMakeWithDistance(coordinate, searchDistance, searchDistance)
-    firstSearchCompleter.queryFragment = V4RestaurantListVC.searchPlaceholder
+    if let queryText = queryText, queryText.isEmpty == false {
+      firstSearchCompleter.queryFragment = queryText
+    } else {
+      firstSearchCompleter.queryFragment = V4RestaurantListVC.searchPlaceholder
+    }
+    
   }
   
   private func showTimeoutView() {
@@ -1037,6 +1053,16 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
     request.naturalLanguageQuery = appleSearchText
     request.region = newRegion
     
+    // 清空搜尋資料
+    currentSearchResult.clearAll()
+    
+    // 1. 先search local
+    localSearch(coordinate: center, queryText: drSearchText)
+    
+    // 先刷新local的餐廳列表
+    filterRestaurantArray = currentSearchResult.restaurants
+    restaurantTableView.reloadData()
+    
     let completionHandler: MKLocalSearchCompletionHandler = { [weak self] response, error in
       WebService.AddRating.getRestaurants(accessToken: LoggedInUser.sharedInstance().accessToken!,
                                           latitude: center.latitude.description,
@@ -1044,8 +1070,9 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
                                           filter: drSearchText
         ).then { [weak self] restaurants -> Void in
 
-          self?.filterRestaurantArray.removeAll()
-          self?.filterRestaurantArray = restaurants
+          restaurants.forEach {
+            self?.currentSearchResult.insert(restaurant: $0, condition: .byAddressAndName, policy: .overwrite)
+          }
           
           if let actualError = error as NSError? {
             print(actualError)
@@ -1071,10 +1098,15 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
             })
             
           }
-          self?.restaurantTableView.reloadData()
+          
+          if let result = self?.currentSearchResult.restaurants {
+            self?.filterRestaurantArray = result
+            self?.restaurantTableView.reloadData()
+          }
+          
         }.catch { [weak self] error in
           self?.failedGettingRestaurantArray = true
-          self?.filterRestaurantArray.removeAll()
+          //self?.filterRestaurantArray.removeAll()
           self?.restaurantTableView.reloadData()
           /* 不顯示失敗提示
            let alert = UIAlertController(title: "餐廳列表讀取失敗", message: "\(error.localizedDescription)",
