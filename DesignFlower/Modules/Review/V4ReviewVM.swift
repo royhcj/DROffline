@@ -97,7 +97,7 @@ class V4ReviewViewModel {
     
     setDirty(true)
     output?.refreshReview()
-    DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) { [weak self] in
       self?.output?.scrollToDishReviewAtIndex(review.dishReviews.count - 1)
     }
   }

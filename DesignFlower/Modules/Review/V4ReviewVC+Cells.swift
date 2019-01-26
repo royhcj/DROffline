@@ -280,6 +280,9 @@ class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextView
   @IBOutlet weak var serviceRatingLabel: UILabel!
   @IBOutlet weak var environmentRatingLabel: UILabel!
   
+  @IBOutlet weak var coverView: UIView!
+  @IBOutlet weak var coverImageView: UIImageView!
+  @IBOutlet weak var coverLabel: UILabel!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -305,6 +308,13 @@ class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextView
     environmentRatingView.sliderAddTarget(target: self, selector: #selector(environmentRankValueChanged), event: .valueChanged)
     environmentRatingView.yc_IsSliderEnabled = true
     environmentRatingView.yc_IsTextHidden = true
+    
+    priceRatingView.sliderAddTarget(target: self, selector: #selector(showRateView), event: .valueChanged)
+    priceRatingView.sliderAddTarget(target: self, selector: #selector(hideRateView), event: .touchUpInside)
+    serviceRatingView.sliderAddTarget(target: self, selector: #selector(showRateView), event: .valueChanged)
+    serviceRatingView.sliderAddTarget(target: self, selector: #selector(hideRateView), event: .touchUpInside)
+    environmentRatingView.sliderAddTarget(target: self, selector: #selector(showRateView), event: .valueChanged)
+    environmentRatingView.sliderAddTarget(target: self, selector: #selector(hideRateView), event: .touchUpInside)
     
     restaurantNameButton.semanticContentAttribute = UIApplication.shared
       .userInterfaceLayoutDirection == .rightToLeft ? .forceLeftToRight : .forceRightToLeft
@@ -360,6 +370,46 @@ class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextView
   
   override func clickedSelectionButton(_ sender: Any) {
     delegate?.toggleRestaurantRatingSelection()
+  }
+  
+  @objc func showRateView(sender: UISlider) {
+    coverView.isHidden = false
+    coverLabel.text = "\(sender.value)"
+    
+    var imageMiddleName = "star"
+    if sender === priceRatingView {
+      imageMiddleName = "money"
+    }
+    switch sender.value {
+    case 0.0:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_0.0")
+    case 0.5:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_0.5")
+    case 1.0:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_1.0")
+    case 1.5:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_1.5")
+    case 2.0:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_2.0")
+    case 2.5:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_2.5")
+    case 3.0:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_3.0")
+    case 3.5:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_3.5")
+    case 4.0:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_4.0")
+    case 4.5:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_4.5")
+    case 5.0:
+      coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_5.0")
+    default:
+      break
+    }
+  }
+  
+  @objc func hideRateView(sender: UISlider) {
+    coverView.isHidden = true
   }
 }
 

@@ -241,6 +241,7 @@ class V4ReviewVC: FlowedViewController,
       cell.configure(with: dishReview, hasDishMenu: hasDishMenu)
     } else if let cell = cell as? RestaurantRatingCell {
       cell.configure(with: viewModel?.review)
+      cell.layer.zPosition = CGFloat(1000.0) // 為了星星放大view不被擋住
     } else if let cell = cell as? DeleteCell {
       cell.configure(hasShareRecords: viewModel?.reviewHasShareRecords ?? false)
     }
