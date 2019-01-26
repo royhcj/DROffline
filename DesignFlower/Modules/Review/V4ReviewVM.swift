@@ -34,6 +34,8 @@ class V4ReviewViewModel {
   var reviewHasShareRecords: Bool = false // 該評比有沒有分享紀錄（分身）
   
   var lastBlankDishReviewUUID: String?
+  var lastDeletedDishReview: KVODishReviewV4?
+  var lastDeletedDishReviewIndex: Int?
   
   var wasReviewSavedSuccessfully: Bool {
     guard let uuid = review?.uuid,
@@ -129,6 +131,20 @@ class V4ReviewViewModel {
       setDirty(true)
     }
     
+    output?.refreshReview()
+  }
+  
+  func restoreLastDeletedDishReview() {
+    guard let dishReview = lastDeletedDishReview,
+          var index = lastDeletedDishReviewIndex
+    else {
+        return
+    }
+    index = min(index, review?.dishReviews.count ?? 0)
+    
+    review?.dishReviews.insert(dishReview, at: index)
+    
+    setDirty(true, forDishReview: dishReview)
     output?.refreshReview()
   }
   
@@ -286,6 +302,9 @@ class V4ReviewViewModel {
             $0 == dishReview
           })
     else { return }
+    
+    lastDeletedDishReview = review?.dishReviews.at(index)
+    lastDeletedDishReviewIndex = index
     
     review?.dishReviews.remove(at: index)
     setDirty(true, forDishReview: dishReview)

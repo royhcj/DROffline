@@ -375,6 +375,23 @@ class V4ReviewVC: FlowedViewController,
   
   func deleteDishReview(for dishReviewUUID: String) {
     viewModel?.deleteDishReview(for: dishReviewUUID)
+    
+    let message = "已刪除這道菜餚"
+    TipBar.showTip(
+      for: self,
+      on: ((UIApplication.shared.delegate?.window)!)!,
+      message: message,
+      font: UIFont.systemFont(ofSize: 15),
+      backgroundColor: UIColor(white: 83/255, alpha: 1),
+      iconName: "S.select friends",
+      height: 60,
+      animationDirection: .downward,
+      duration: 3,
+      showCloseButton: true,
+      isMakeConstrains: false,
+      resetButtonAction: { [weak self] _ in
+        self?.viewModel?.restoreLastDeletedDishReview()
+      }, action: nil)
   }
   
   func addDishReview() {
