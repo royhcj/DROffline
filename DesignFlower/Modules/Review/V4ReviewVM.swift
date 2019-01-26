@@ -31,6 +31,7 @@ class V4ReviewViewModel {
   var observe: RestReviewObserve?
   var dirty: Bool = false
   var restaurantHasDishMenu: Bool = false // 餐廳有沒有菜單
+  var reviewHasShareRecords: Bool = false // 該評比有沒有分享紀錄（分身）
   
   var lastBlankDishReviewUUID: String?
   
@@ -73,6 +74,7 @@ class V4ReviewViewModel {
     self.review = review
     
     updateRestaurantHasDishMenu()
+    updateReviewHasShareRecords()
     
     output?.refreshReview()
   }
@@ -309,6 +311,40 @@ class V4ReviewViewModel {
         self?.restaurantHasDishMenu = false
       }.always { [weak self] in
         self?.output?.refreshReview() // TODO: Just refresh dish menu only for optimization
+      }
+  }
+  
+  // MAKR: - Share History Manipulation
+  func updateReviewHasShareRecords() {
+    
+    // 取得原稿的id
+    guard let review = review,
+          let rlmReview = RLMServiceV4.shared
+                            .getRestReview(uuid: review.uuid),
+          let reviewID = rlmReview.id.value,
+          reviewID != -1
+    else {
+      return
+    }
+    
+    guard let accessToken = LoggedInUser.sharedInstance().accessToken,
+          review.parentID == -1 // 本尊才有分身
+    else { return }
+    
+    WebService.NoteReviewAPI.getShareRecords(
+      accessToken: accessToken,
+      restaurantReviewID: reviewID)
+      .then { response -> Void in
+        var hasRecords = false
+        if let shareInfos = response.data, shareInfos.count > 0 {
+          hasRecords = true
+        }
+        if hasRecords != self.reviewHasShareRecords {
+          self.reviewHasShareRecords = hasRecords
+          self.output?.refreshReview()
+        }
+      }.catch { error in
+        print(error)
       }
   }
   

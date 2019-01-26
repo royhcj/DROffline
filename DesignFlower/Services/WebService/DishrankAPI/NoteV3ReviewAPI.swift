@@ -482,7 +482,6 @@ extension WebService {
       }
     }
 
-/* TODO: add back later
     // 107 取得評比分享紀錄
     class func getShareRecords(accessToken: String,
                                restaurantReviewID: Int)
@@ -499,7 +498,7 @@ extension WebService {
           print(error)
         }
     }
-
+/* TODO: Add back later
     // 108 收藏餐廳評比
     class func likeRestaurantReview(accessToken: String,
                                     restaurantReviewID: Int)

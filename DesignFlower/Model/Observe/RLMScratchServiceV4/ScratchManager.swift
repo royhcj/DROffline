@@ -61,24 +61,7 @@ class ScratchManager {
     let reviewUUID = scratch.uuid
     
     // 先把id等資料寫回scratch, 避免等下原稿的id被洗掉
-    if RLMServiceV4.shared.isExist(reviewUUID: reviewUUID, reviewID: nil) {
-      let review = KVORestReviewV4(uuid: reviewUUID,
-                                   service: RLMServiceV4.shared)
-      scratch.id = review.id
-      scratch.restaurant?.id = review.restaurant?.id ?? -1
-      for scratchDishReview in scratch.dishReviews {
-        if let dishReview = review.dishReviews.first(where: { $0.uuid == scratchDishReview.uuid }) {
-          scratchDishReview.id = dishReview.id
-          scratchDishReview.dish?.id = dishReview.dish?.id ?? -1
-          
-          for scratchImage in scratchDishReview.images {
-            if let rlmImage = RLMServiceV4.shared.image.getImage(uuid: scratchImage.uuid) {
-              scratchImage.imageID = rlmImage.imageID
-            }
-          }
-        }
-      } // end for scratch DishReviews
-    }
+    updateIDsFromOriginal(for: scratch)
     
     // 寫入更新時間
     scratch.updateDate = Date.now
@@ -92,6 +75,34 @@ class ScratchManager {
           RLMServiceV4.shared.update(rlmRestReview, isSync: needSync)
           completion()
       }
+  }
+  
+  func updateIDsFromOriginal(for scratch: KVORestReviewV4) {
+    let reviewUUID = scratch.uuid
+    
+    guard RLMServiceV4.shared.isExist(reviewUUID: reviewUUID,
+                                      reviewID: nil)
+    else {
+      return
+    }
+    
+    let review = KVORestReviewV4(uuid: reviewUUID,
+                                   service: RLMServiceV4.shared)
+    scratch.id = review.id
+    scratch.restaurant?.id = review.restaurant?.id ?? -1
+    for scratchDishReview in scratch.dishReviews {
+      if let dishReview = review.dishReviews.first(where: { $0.uuid == scratchDishReview.uuid }) {
+        scratchDishReview.id = dishReview.id
+        scratchDishReview.dish?.id = dishReview.dish?.id ?? -1
+        
+        for scratchImage in scratchDishReview.images {
+          if let rlmImage = RLMServiceV4.shared.image.getImage(uuid: scratchImage.uuid) {
+            scratchImage.imageID = rlmImage.imageID
+          }
+        }
+      }
+    } // end for scratch DishReviews
+  
   }
 
 }

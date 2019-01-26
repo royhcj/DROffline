@@ -50,6 +50,13 @@ class V4ShareVC: V4ReviewVC,
   }
   
   @objc func clickedSaveShare(_ sender: Any) {
+    guard let allowedReaders = viewModel?.review?.allowedReaders,
+          allowedReaders.isEmpty == false
+    else {
+      showAlert(title: "請選擇分享對象", message: nil, buttonTitle: "確認", buttonAction: nil)
+      return
+    }
+    
     shareViewModel?.share()
   }
   

@@ -56,6 +56,10 @@ class V4ReviewVC: FlowedViewController,
   
   override func viewWillAppear(_ animated: Bool) {
     super.viewWillAppear(animated)
+    
+    // 更新有無分享紀錄
+    viewModel?.updateReviewHasShareRecords()
+    
     refreshReview()
     refreshDirty()
   }
@@ -237,8 +241,8 @@ class V4ReviewVC: FlowedViewController,
       cell.configure(with: dishReview, hasDishMenu: hasDishMenu)
     } else if let cell = cell as? RestaurantRatingCell {
       cell.configure(with: viewModel?.review)
-    } else if let _ = cell as? DeleteCell {
-      
+    } else if let cell = cell as? DeleteCell {
+      cell.configure(hasShareRecords: viewModel?.reviewHasShareRecords ?? false)
     }
     
     return cell

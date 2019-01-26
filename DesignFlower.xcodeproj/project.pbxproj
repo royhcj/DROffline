@@ -128,6 +128,7 @@
 		B043034F21ED927300196E9A /* InactiveCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043034621ED927300196E9A /* InactiveCode.swift */; };
 		B043035121ED9C2C00196E9A /* LoggedInUser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043035021ED9C2C00196E9A /* LoggedInUser.swift */; };
 		B043035421EDB1DE00196E9A /* V4ChooseFriendFlowController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B043035321EDB1DE00196E9A /* V4ChooseFriendFlowController.swift */; };
+		B083703D21FC34FB006EB377 /* ShareInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B083703C21FC34FB006EB377 /* ShareInfo.swift */; };
 		B08BC46121EC7735008838D6 /* DishPhotoOrganizer+Cells.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08BC46021EC7735008838D6 /* DishPhotoOrganizer+Cells.swift */; };
 		B0A0AF8E21C10EBE005BE7AB /* TipBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF8D21C10EBE005BE7AB /* TipBar.swift */; };
 		B0A0AF9221C10ED2005BE7AB /* LocationService+Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A0AF9021C10ED2005BE7AB /* LocationService+Message.swift */; };
@@ -294,6 +295,7 @@
 		B043034621ED927300196E9A /* InactiveCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InactiveCode.swift; sourceTree = "<group>"; };
 		B043035021ED9C2C00196E9A /* LoggedInUser.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggedInUser.swift; sourceTree = "<group>"; };
 		B043035321EDB1DE00196E9A /* V4ChooseFriendFlowController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = V4ChooseFriendFlowController.swift; sourceTree = "<group>"; };
+		B083703C21FC34FB006EB377 /* ShareInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShareInfo.swift; sourceTree = "<group>"; };
 		B08BC46021EC7735008838D6 /* DishPhotoOrganizer+Cells.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DishPhotoOrganizer+Cells.swift"; sourceTree = "<group>"; };
 		B0A0AF8D21C10EBE005BE7AB /* TipBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipBar.swift; sourceTree = "<group>"; };
 		B0A0AF9021C10ED2005BE7AB /* LocationService+Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "LocationService+Message.swift"; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 				B0A0AFAE21C162CB005BE7AB /* OpenHour.swift */,
 				B0A0AF9F21C139BA005BE7AB /* CityModel.swift */,
 				B0A0AF9D21C13972005BE7AB /* Restaurant.swift */,
+				B083703C21FC34FB006EB377 /* ShareInfo.swift */,
 				72061D9C21AFE0DA0098FFFD /* Observe */,
 				72061D8A21AFDF080098FFFD /* RLMRestReviewV4.swift */,
 				648842F921CDD95A00B7510C /* RLMQueue.swift */,
@@ -1165,6 +1168,7 @@
 				6488430721DF507A00B7510C /* DishRankService.swift in Sources */,
 				72061D6821AE8A950098FFFD /* ViewController.swift in Sources */,
 				B0F8110321E4B60B00BEE91C /* XformToolVC.swift in Sources */,
+				B083703D21FC34FB006EB377 /* ShareInfo.swift in Sources */,
 				7219797621DDF69B00FD6435 /* V4ChooseShareVM.swift in Sources */,
 				B043033A21ED90A200196E9A /* Configuration.swift in Sources */,
 				B0F810FB21E4B60B00BEE91C /* DishPhotoOrganizerVC.swift in Sources */,

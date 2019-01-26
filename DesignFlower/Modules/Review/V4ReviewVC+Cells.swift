@@ -370,6 +370,10 @@ class V4Review_DeleteCell: V4ReviewVC.CommonCell {
   
   @IBOutlet weak var deleteReviewContainer: UIView!
   
+  func configure(hasShareRecords: Bool) {
+    findShareContainer.isHidden = !hasShareRecords
+  }
+  
   @IBAction func clickedFindShare(_ sender: Any) {
     delegate?.findShare()
   }
