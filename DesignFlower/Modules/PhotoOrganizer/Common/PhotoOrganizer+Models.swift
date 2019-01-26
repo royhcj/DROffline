@@ -51,6 +51,7 @@ extension PhotoOrganizer.ImageRepresentation {
       let manager = PHImageManager.default()
       let options = PHImageRequestOptions()
       options.isSynchronous = false
+      options.isNetworkAccessAllowed = true
       manager.requestImage(for: asset,
                            targetSize: PHImageManagerMaximumSize,
                            contentMode: .aspectFit,

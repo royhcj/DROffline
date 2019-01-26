@@ -79,7 +79,10 @@ class KVOImageV4: NSObject {
         let result = PHAsset.fetchAssets(with: .image, options: options)
         if let asset = result.firstObject {
           let manager = PHImageManager.default()
-          manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFit, options: nil, resultHandler: { (result, _) in
+          let options = PHImageRequestOptions()
+          options.isSynchronous = true
+          options.isNetworkAccessAllowed = true
+          manager.requestImage(for: asset, targetSize: PHImageManagerMaximumSize, contentMode: PHImageContentMode.aspectFit, options: options, resultHandler: { (result, _) in
             completion(result)
           })
         }
