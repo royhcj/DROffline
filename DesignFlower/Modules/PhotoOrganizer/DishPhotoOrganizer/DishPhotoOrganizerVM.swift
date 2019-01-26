@@ -59,9 +59,9 @@ class DishPhotoOrganizerVM: NSObject {
   func bind(input: Input) -> Output {
     
     // Self binding
-//    dishItem.subscribe(onNext: { [weak self] (dishItem) in
-//      self?.dishModificationRequest.itemIndex = dishItem?.itemIndex
-//    }).disposed(by: disposeBag)
+    dishItem.subscribe(onNext: { [weak self] (dishItem) in
+      self?.dishModificationRequest.itemIndex = dishItem?.itemIndex
+    }).disposed(by: disposeBag)
     
     //
     let output = Output(dishItem: dishItem.asObservable(),

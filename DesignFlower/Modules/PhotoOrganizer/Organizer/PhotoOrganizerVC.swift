@@ -126,14 +126,12 @@ class PhotoOrganizerVC: UIViewController,
 
         // 蒐集各DishOrganizer的更動
         var requests: [DishModificationRequest] = []
-/* MARKOFF - no need anymore. removing modifications
         for (_, vc) in strongSelf.dishOrganizerVCs {
           guard let request = vc.vm?.dishModificationRequest
           else { continue }
 
           requests.append(request)
         }
-*/
         // 蒐集刪除的動作
         if let deleteRequests = self?.vm?.dishDeleteRequests {
           requests.append(contentsOf: deleteRequests)

@@ -285,9 +285,23 @@ extension PhotoOrganizerPresentable where Self: V4ReviewFlowControllerCommonProt
                       requestModifications requests: [PhotoOrganizerVC.DishModificationRequest]) {
     
     if modified {
-      reviewVC?.viewModel?.setDirty(modified)
+      reviewVC?.viewModel?.setDirty(true)
+      
+      let modifiedDishReviews: Set<KVODishReviewV4> = {
+        var dishReviews = Set<KVODishReviewV4>()
+        for request in requests {
+          if let itemIndex = request.itemIndex,
+            let dishReview = reviewVC?.viewModel?.review?.dishReviews.at(itemIndex) {
+            dishReviews.insert(dishReview)
+          }
+        }
+        return dishReviews
+      }()
+      modifiedDishReviews.forEach {
+        reviewVC?.viewModel?.setDirty(true, forDishReview: $0)
+      }
     }
-    
+#if false // noteV4 不在這裡處理修改相關的request
     for request in requests {
       guard let itemIndex = request.itemIndex,
         let review = reviewVC?.viewModel?.review,
@@ -322,7 +336,7 @@ extension PhotoOrganizerPresentable where Self: V4ReviewFlowControllerCommonProt
         }
       }
     }
-    
+#endif
     // 處理刪除事件
     var deletingDishReviewUUIDs: [String] = []
     for request in requests {
