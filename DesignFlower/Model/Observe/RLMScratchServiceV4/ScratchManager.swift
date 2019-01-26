@@ -29,7 +29,7 @@ class ScratchManager {
     }
     else if let rlmOriginal = RLMServiceV4.shared.getRestReview(uuid: originalUUID) {
       let rlmScratch
-        = RLMRestReviewV4(uuid: nil,
+        = RLMRestReviewV4(uuid: rlmOriginal.uuid,
                           serviceRank: rlmOriginal.serviceRank,
                           environmentRank: rlmOriginal.environmentRank,
                           priceRank: rlmOriginal.priceRank,
@@ -42,7 +42,6 @@ class ScratchManager {
                           dishReviews: rlmOriginal.dishReviews,
                           restaurant: rlmOriginal.restaurant)
       rlmScratch.isScratch.value = true
-      scratchService.createRLM(with: rlmScratch)
       
       let scratch = KVORestReviewV4(with: rlmScratch)
       return scratch

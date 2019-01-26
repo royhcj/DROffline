@@ -43,6 +43,9 @@ class V4ReviewFlowController: ViewBasedFlowController,
     case .writeBegin:
       let flow = V4ReviewFlows.WriteBeginFlow(flowController: self)
       flow.execute()
+    case .open(let reviewUUID):
+      loadReview(reviewUUID)
+      showReviewVC()
     }
   }
   
@@ -87,7 +90,8 @@ class V4ReviewFlowController: ViewBasedFlowController,
   typealias Delegate = V4ReviewFlowControllerDelegate
   
   enum Scenario {
-    case writeBegin // 點羽毛寫筆記
+    case writeBegin                // 點羽毛寫新筆記
+    case open(reviewUUID: String)  // 開啟舊筆記
   }
 }
 

@@ -69,6 +69,9 @@ public class KVORestReviewV4: NSObject {
       let dishReview = KVODishReviewV4(with: rlmDishReview)
       dishReviews.append(dishReview)
     }
+    if let uuid = rlmRestReview.uuid {
+      self.uuid = uuid
+    }
   }
   
   func load(withUUID uuid: String, service: RLMServiceV4) {

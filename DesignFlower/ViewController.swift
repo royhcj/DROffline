@@ -29,7 +29,8 @@ V4ReviewFlowController.Delegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
+      
+        tableView.reloadData()
     }
     
     @IBAction func clickedWriteReview(_ sender: Any) {
@@ -59,6 +60,16 @@ extension ViewController: UITableViewDelegate, UITableViewDataSource {
             cell.configCell(memoryNoteData: list[indexPath.row])
         }
         return cell
+    }
+  
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      guard let reviewUUID = list.at(indexPath.row)?.uuid
+      else { return }
+      
+      reviewFlowController = V4ReviewFlowController(scenario: .open(reviewUUID: reviewUUID))
+      reviewFlowController?.delegate = self
+      reviewFlowController?.prepare()
+      reviewFlowController?.start()
     }
 }
 
