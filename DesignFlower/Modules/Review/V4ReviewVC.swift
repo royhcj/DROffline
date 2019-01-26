@@ -94,6 +94,24 @@ class V4ReviewVC: FlowedViewController,
       return
     }
     
+    if NetworkStateService.shared.reachability.connection == .none {
+      let message = "目前無網路連線，資料將於上線後上傳。"
+      TipBar.showTip(
+        for: self,
+        on: ((UIApplication.shared.delegate?.window)!)!,
+        message: message,
+        font: UIFont.systemFont(ofSize: 15),
+        backgroundColor: UIColor(white: 83/255, alpha: 1),
+        iconName: "S.select friends",
+        height: 60,
+        animationDirection: .downward,
+        duration: 3,
+        showCloseButton: true,
+        isMakeConstrains: false,
+        resetButtonAction: nil,
+        action: nil)
+    }
+    
     // 儲存review
     viewModel?.saveReview()
   }
@@ -113,7 +131,7 @@ class V4ReviewVC: FlowedViewController,
     }
     
     if viewModel?.wasReviewSavedSuccessfully != true {
-      showAlert(title: "筆記尚未上傳至網路", message: "請檢察網路狀態", buttonTitle: "確認", buttonAction: nil)
+      showAlert(title: "筆記尚未上傳至網路", message: "請檢察網路狀態，並稍後再試", buttonTitle: "確認", buttonAction: nil)
       return
     }
     
@@ -198,8 +216,6 @@ class V4ReviewVC: FlowedViewController,
       return 1
     case .sharedFriend:
       return 1
-    default:
-      return 0
     }
   }
   
@@ -218,7 +234,6 @@ class V4ReviewVC: FlowedViewController,
     case .restaurantRating: cellID = "RestaurantRating"
     case .delete:           cellID = "Delete"
     case .sharedFriend:     cellID = "SharedFriend"
-    default:                return UITableViewCell()
     }
     let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
     
