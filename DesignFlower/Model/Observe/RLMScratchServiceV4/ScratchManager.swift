@@ -98,6 +98,7 @@ class ScratchManager {
         for scratchImage in scratchDishReview.images {
           if let rlmImage = RLMServiceV4.shared.image.getImage(uuid: scratchImage.uuid) {
             scratchImage.imageID = rlmImage.imageID
+            scratchImage.url = rlmImage.url
           }
         }
       }
