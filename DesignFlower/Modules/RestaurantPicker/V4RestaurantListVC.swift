@@ -657,8 +657,11 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
           self.waitLoadingTimer?.isValid == true {
           SVProgressHUD.setBackgroundColor(.white)
           SVProgressHUD.dismiss()
+#if false // NoteV3的行為
           SVProgressHUD.show(UIImage(named: "warn_internet")!, status: nil)
           SVProgressHUD.setImageViewSize(CGSize(width: 150, height: 150))
+#endif
+          self.showTimeoutView()
         }
       })
     }
@@ -682,10 +685,27 @@ class V4RestaurantListVC: UIViewController, UITableViewDelegate, UITableViewData
   }
   
   private func showTimeoutView() {
+    let message = "請連上網路以搜尋完整的餐廳" // TODO:
+    TipBar.showTip(
+      for: self,
+      on: ((UIApplication.shared.delegate?.window)!)!,
+      message: message,
+      font: UIFont.systemFont(ofSize: 15),
+      backgroundColor: UIColor(white: 83/255, alpha: 1),
+      iconName: "S.select friends",
+      height: 60,
+      animationDirection: .downward,
+      duration: 3,
+      showCloseButton: true,
+      isMakeConstrains: false,
+      resetButtonAction: nil,
+      action: nil)
+#if false // NoteV3版的行為
     timeoutView.removeFromSuperview()
     
     timeoutView.frame = view.bounds
     view.addSubview(timeoutView)
+#endif
   }
   /*
    @IBAction func clickOpenPositioningButton(_: UIButton) {
