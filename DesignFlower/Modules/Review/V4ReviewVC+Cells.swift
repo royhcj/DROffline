@@ -137,10 +137,13 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
   @IBOutlet var photoImageView: UIImageView!
   @IBOutlet var photoButton: UIButton!
   @IBOutlet weak var moreButton: UIButton!
+  @IBOutlet weak var ratinngCoverView: UIView!
+  @IBOutlet weak var ratingCoverLabel: UILabel!
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    dishRateView.sliderAddTarget(target: self, selector: #selector(dishRankValueChanged), event: .touchUpInside)
+    dishRateView.sliderAddTarget(target: self, selector: #selector(dishRankValueChanged), event: .valueChanged)
+    dishRateView.sliderAddTarget(target: self, selector: #selector(hideRateView), event: .touchUpInside)
     dishRateView.yc_IsSliderEnabled = true
     dishRateView.yc_IsTextHidden = false
     dishRateView.setNeedsDisplay()
@@ -178,8 +181,16 @@ class V4Review_DishReviewCell: V4ReviewVC.SelectableCommonCell,
   }
   
   @objc func dishRankValueChanged(sender: UISlider, value: Float) {
+    
+    ratinngCoverView.isHidden = false
+    ratingCoverLabel.text = String(format: "%.1f", sender.value)
+    
     guard let uuid = dishReviewUUID else { return }
     delegate?.changeDishReviewRank(for: uuid, rank: sender.value)
+  }
+  
+  @objc func hideRateView(sender: UISlider) {
+    ratinngCoverView.isHidden = true
   }
   
   @IBAction func clickedMore(_ sender: Any) {

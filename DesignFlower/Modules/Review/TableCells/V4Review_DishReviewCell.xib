@@ -227,6 +227,8 @@
                 <outlet property="moreButton" destination="EP6-iK-j2g" id="OLt-3b-IaN"/>
                 <outlet property="photoButton" destination="rVX-tv-Ggm" id="7HI-cB-vjD"/>
                 <outlet property="photoImageView" destination="hVi-yr-poZ" id="Orx-DK-Tcg"/>
+                <outlet property="ratingCoverLabel" destination="1xU-hj-cng" id="6me-N2-dRq"/>
+                <outlet property="ratinngCoverView" destination="5XL-Dy-uYZ" id="fIp-DS-3sW"/>
                 <outlet property="selectionContainer" destination="pZn-3v-LoN" id="W6M-OX-l2V"/>
             </connections>
         </tableViewCell>
