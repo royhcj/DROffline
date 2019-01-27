@@ -97,15 +97,30 @@ extension Uploadable where Self: SubObject {
           break
         }
       case .update(let collection, let deletions, let insertions, let modifications):
-        let insertedObjects = insertions.map { collection[$0] }
-        let modifiedObjects = modifications.map { collection[$0] }
-        //let deletedIds = deletions.map { objectIds[$0] } // 會當機
-        let deletedIds = deletions.compactMap { objectIds.at($0) } // TODO: 先改這樣, 稍後再修
+        switch factory {
+        case .addToQueue:
+          let insertedObjects = insertions.map { collection[$0] }
+          let modifiedObjects = modifications.map { collection[$0] }
+          //let deletedIds = deletions.map { objectIds[$0] } // 會當機
+          let deletedIds = deletions.compactMap { objectIds.at($0) } // TODO: 先改這樣, 稍後再修
 
-        let update = Update(insertions: insertedObjects, modifications: modifiedObjects, deletedIds: deletedIds, type: Self.self)
-        callback(update)
+          let update = Update(insertions: insertedObjects, modifications: modifiedObjects, deletedIds: deletedIds, type: Self.self)
+          callback(update)
 
-        objectIds = objects.map { $0.getId() }
+          objectIds = objects.map { $0.getId() }
+        case .upload:
+          print(collection)
+          let insertedObjects = insertions.map { collection[$0] }
+          let modifiedObjects = [Syncable]() // modifications.map { collection[$0] }
+          //let deletedIds = deletions.map { objectIds[$0] } // 會當機
+          let deletedIds = deletions.compactMap { objectIds.at($0) } // TODO: 先改這樣, 稍後再修
+
+          let update = Update(insertions: insertedObjects, modifications: modifiedObjects, deletedIds: deletedIds, type: Self.self)
+          callback(update)
+
+          objectIds = objects.map { $0.getId() }
+        }
+
       case .error(_):
         break
       }

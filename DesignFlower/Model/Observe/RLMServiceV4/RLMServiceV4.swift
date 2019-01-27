@@ -17,12 +17,14 @@ internal class RLMServiceV4 {
   internal var dishReview: DishReview!
   internal var dish: Dish!
   internal var image: RLMServiceV4.Image!
+  internal var queue: RLMServiceV4.Queue!
 
   init() {
     //realm = try! Realm()
     dishReview = RLMServiceV4.DishReview(realmService: self)
     dish = RLMServiceV4.Dish(realmService: self)
     image = RLMServiceV4.Image(realmService: self)
+    queue = RLMServiceV4.Queue(realmService: self)
   }
 
   internal func createRLM<T: SubObject>(uuid: String, type: T.Type) -> T? {
@@ -177,13 +179,17 @@ internal class RLMServiceV4 {
   }
   // no.12
   internal func update(_ restReview: RLMRestReviewV4, isSync: Bool) {
+
     do {
       try realm.write {
+        print("update isSync: \(isSync)")
         restReview.isSync = isSync
       }
     } catch {
       print("RLMServiceV4 file's no.12 func error")
     }
+
+    print("update isSync finish")
   }
   // no.13
   internal func update(_ restReview: RLMRestReviewV4, updateDate: Date?) {
@@ -454,31 +460,34 @@ internal class RLMServiceV4 {
         return reviewUUIDs
       }
 
+      var uuid = [String]()
+
       for remoteDishReview in remoteReview.dishReviews {
-        // 刪去法
-        var dishReviewUUIDs = getDishReviewUUIDs(dishReviews: localRestReview.dishReviews)
         if let localDishReview = localRestReview.filter(remoteObject: remoteDishReview, localObjects:  Array(localRestReview.dishReviews)) as? RLMDishReviewV4 {
           // 更新
           self.dishReview.update(remoteDishReview: remoteDishReview, to: localDishReview)
-          // 刪除有的存在的uuid
-          guard let uuidIndex = (dishReviewUUIDs.firstIndex { (uuid) -> Bool in
-            guard let boxUUID = localDishReview.uuid else {
-              return false
-            }
-            return boxUUID == uuid
-          }) else { continue }
-          dishReviewUUIDs.remove(at: uuidIndex)
+          uuid.append(localDishReview.uuid!)
+
         } else {
           // 新增
           self.dishReview.create(in: localRestReview, copyBy: remoteDishReview)
-        }
-        // 刪除
-        if dishReviewUUIDs.count > 0 {
-          dishReviewUUIDs.forEach { (uuid) in
-            RLMServiceV4.shared.delete(dishReviewUUID: uuid)
-          }
+          uuid.append(remoteDishReview.uuid!)
         }
       }
+
+      var removedUUID = [String]()
+      for dishReview in localRestReview.dishReviews {
+        if !uuid.contains(dishReview.uuid!) {
+          removedUUID.append(dishReview.uuid!)
+        }
+      }
+
+      // 刪除
+      for uuid in removedUUID {
+        RLMServiceV4.shared.delete(dishReviewUUID: uuid)
+      }
+
+      print("update finish")
     } catch {
       print("error in RLMServiceV4")
     }

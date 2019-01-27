@@ -60,6 +60,7 @@ class ScratchManager {
     let reviewUUID = scratch.uuid
     
     // 先把id等資料寫回scratch, 避免等下原稿的id被洗掉
+
     updateIDsFromOriginal(for: scratch)
     
     // 寫入更新時間
@@ -67,7 +68,11 @@ class ScratchManager {
     
     // 利用observe寫回Database
       if let rlmScratch = RLMScratchServiceV4.scratchShared.getRestReview(uuid: scratch.uuid) {
-        guard let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: reviewUUID, id: nil) ?? RLMServiceV4.shared.createRLMRestReviewV4() else {
+        guard let rlmRestReview = RLMServiceV4.shared.getRestReview(uuid: reviewUUID, id: nil) else {
+          let rlmRestReview = RLMServiceV4.shared.createRLMRestReviewV4()!
+          RLMServiceV4.shared.update(rlmRestReview, with: rlmScratch)
+          RLMServiceV4.shared.update(rlmRestReview, isSync: needSync)
+          completion()
           return
         }
           RLMServiceV4.shared.update(rlmRestReview, with: rlmScratch)

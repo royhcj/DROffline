@@ -123,7 +123,9 @@ class RLMDishReviewV4: SubObject, Uploadable {
     var imgs = [RLMImageV4]()
     imgs.append(contentsOf: images)
     try container.encode(imgs, forKey: .images)
-    try container.encode(dish, forKey: .dish)
+
+    try container.encode(dish ?? RLMDishV4(), forKey: .dish)
+
     try container.encode(uuid, forKey: .uuid)
     if let id = id.value, id != -1 {
        try container.encode(id, forKey: .id)

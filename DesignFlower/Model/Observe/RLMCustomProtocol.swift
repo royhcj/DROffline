@@ -39,7 +39,7 @@ class SubObject: Object {
 
  func filter(remoteObject: SubObject, localObjects: [SubObject]) -> SubObject? {
     if let localObject = localObjects.filter({ (localDishReview) -> Bool in
-      if let localID = localDishReview.id.value, let remoteID = remoteObject.id.value {
+      if let localID = localDishReview.id.value, let remoteID = remoteObject.id.value, remoteID != -1 {
         return localID == remoteID
       }
       if let localUUID = localDishReview.uuid, let remoteUUID = remoteObject.uuid {

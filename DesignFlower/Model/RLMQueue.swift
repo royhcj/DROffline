@@ -35,6 +35,7 @@ class RLMQueue: RLMRestReviewV4 {
   // -------- only for queue
   @objc dynamic var queueDate: Date = Date.now // 加入排成時間
   @objc dynamic var isDelete: Bool = false // 是刪除筆記
+  @objc dynamic var isStartUpload: Bool = false // 是否要開始上傳
 
 
   convenience init(uuid: String?,
