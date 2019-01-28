@@ -13,6 +13,15 @@ class ScratchManager {
   static var shared = ScratchManager()
   var scratchService: RLMServiceV4 = RLMScratchServiceV4.scratchShared
   
+  var lastUnsavedScratchUUID: String? {
+    get {
+      return UserDefaults.standard.string(forKey: "lastUnsavedScratchUUID")
+    }
+    set {
+      UserDefaults.standard.set(newValue, forKey: "lastUnsavedScratchUUID")
+    }
+  }
+  
   // MARK: - Get Scratch Methods
   func getScratch(originalUUID: String?) -> KVORestReviewV4 {
     guard let originalUUID = originalUUID

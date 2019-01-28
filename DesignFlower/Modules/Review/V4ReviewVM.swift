@@ -168,6 +168,12 @@ class V4ReviewViewModel {
   func setDirty(_ dirty: Bool) {
     self.dirty = dirty
     
+    if dirty {
+      ScratchManager.shared.lastUnsavedScratchUUID = review?.uuid
+    } else {
+      ScratchManager.shared.lastUnsavedScratchUUID = nil
+    }
+    
     output?.refreshDirty()
   }
   
@@ -235,6 +241,8 @@ class V4ReviewViewModel {
       }
     }
     review = nil
+    
+    ScratchManager.shared.lastUnsavedScratchUUID = nil
   }
   
   // MARK: - Dish Review Change Methods

@@ -79,6 +79,7 @@ class V4ReviewFlowController: ViewBasedFlowController,
   func loadReview(_ reviewUUID: String) {
     let review = ScratchManager.shared.getScratch(originalUUID: reviewUUID)
     reviewVC?.setReview(review)
+    makeReviewDirty(false)
   }
   
   func createNewReview() {
@@ -200,6 +201,8 @@ extension V4ReviewFlowController: V4ReviewVC.FlowDelegate {
         self.createReviewVC()
         self.showReviewVC()
       })
+    } else {
+      makeReviewDirty(true)
     }
   }
   
