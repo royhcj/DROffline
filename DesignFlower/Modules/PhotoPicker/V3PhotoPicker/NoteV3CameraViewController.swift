@@ -330,10 +330,9 @@ class NoteV3CameraViewController: UIViewController {
                   
                   let selection = V4PhotoSelection(identifier: asset.localIdentifier, selectedDate: selectedDate)
                   V4PhotoService.shared.addPhotoSelection(selection, isSingle: self.photoLimit == 1)
+                  self.reloadThumbnail()
                 })
 
-
-                self.reloadThumbnail()
                 self.cameraButton.isEnabled = true
               } else {
 
