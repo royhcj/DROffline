@@ -141,6 +141,10 @@ class DishPhotoOrganizerVC: UIViewController,
     output?.addedPhoto
       .subscribe(onNext: { [weak self] imageRepresentation in
         self?.photosCollectionView.reloadData()
+        if self?.vm?.selectedImageUUID.value == nil,
+           self?.vm?.dishReview?.images.isEmpty == false {
+          self?.selectImageAtIndex.onNext(0)
+        }
       }).disposed(by: disposeBag)
     
     output?.savedPhoto
