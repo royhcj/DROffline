@@ -320,11 +320,11 @@ class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextView
     environmentRatingView.yc_IsSliderEnabled = true
     environmentRatingView.yc_IsTextHidden = true
     
-    priceRatingView.sliderAddTarget(target: self, selector: #selector(showRateView), event: .valueChanged)
+    priceRatingView.sliderAddTarget(target: self, selector: #selector(showMoneyView), event: .valueChanged)
     priceRatingView.sliderAddTarget(target: self, selector: #selector(hideRateView), event: .touchUpInside)
-    serviceRatingView.sliderAddTarget(target: self, selector: #selector(showRateView), event: .valueChanged)
+    serviceRatingView.sliderAddTarget(target: self, selector: #selector(showStarView), event: .valueChanged)
     serviceRatingView.sliderAddTarget(target: self, selector: #selector(hideRateView), event: .touchUpInside)
-    environmentRatingView.sliderAddTarget(target: self, selector: #selector(showRateView), event: .valueChanged)
+    environmentRatingView.sliderAddTarget(target: self, selector: #selector(showStarView), event: .valueChanged)
     environmentRatingView.sliderAddTarget(target: self, selector: #selector(hideRateView), event: .touchUpInside)
     
     restaurantNameButton.semanticContentAttribute = UIApplication.shared
@@ -383,15 +383,19 @@ class V4Review_RestaurantRatingCell: V4ReviewVC.SelectableCommonCell, UITextView
     delegate?.toggleRestaurantRatingSelection()
   }
   
-  @objc func showRateView(sender: UISlider) {
+  @objc func showStarView(sender: UISlider) {
+    showRateView(value: sender.value, imageMiddleName: "star")
+  }
+  
+  @objc func showMoneyView(sender: UISlider) {
+    showRateView(value: sender.value, imageMiddleName: "money")
+  }
+  
+  func showRateView(value: Float, imageMiddleName: String) {
     coverView.isHidden = false
-    coverLabel.text = "\(sender.value)"
-    
-    var imageMiddleName = "star"
-    if sender === priceRatingView {
-      imageMiddleName = "money"
-    }
-    switch sender.value {
+    coverLabel.text = "\(value)"
+  
+    switch value {
     case 0.0:
       coverImageView.image = UIImage(named: "pop_\(imageMiddleName)_0.0")
     case 0.5:
