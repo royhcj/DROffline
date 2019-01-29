@@ -79,6 +79,10 @@ extension Date {
     formatter.dateFormat = format
     return formatter.string(from: self)
   }
+  
+  func stringInISO8601() -> String {
+    return stringWithFormat("yyyy-MM-dd HH:mm:ssz")
+  }
 
   static func getDate(any: Any?) -> Date? {
     let dateFormatter = DateFormatter()

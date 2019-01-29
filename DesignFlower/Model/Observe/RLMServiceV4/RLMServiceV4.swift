@@ -338,6 +338,11 @@ internal class RLMServiceV4 {
     }
     return review
   }
+  
+  // no. 16-1
+  internal func getRestReviews() -> Results<RLMRestReviewV4> {
+    return realm.objects(RLMRestReviewV4.self)
+  }
 
   // no. 17
   internal func delete(reviewUUID: String, forScratch: Bool? = nil) {

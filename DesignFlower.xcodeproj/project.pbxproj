@@ -103,6 +103,7 @@
 		7288BDB621F6CBB7009A5D09 /* ScratchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7288BDB521F6CBB7009A5D09 /* ScratchManager.swift */; };
 		7289ED7921FAE0300025BF0E /* UIImage+Resize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7289ED7821FAE0300025BF0E /* UIImage+Resize.swift */; };
 		7289ED7B21FB0D600025BF0E /* NetworkStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7289ED7A21FB0D600025BF0E /* NetworkStateService.swift */; };
+		72F9CAC021FF043F0088F877 /* V4ReviewFlows-CheckMerge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 72F9CABF21FF043F0088F877 /* V4ReviewFlows-CheckMerge.swift */; };
 		825146A2F2CB641CB8B874DA /* Pods_DesignFlower.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 402B7207DF98BCDB3C1868AF /* Pods_DesignFlower.framework */; };
 		B01B05C821EE242300F49C20 /* V4Review_RestaurantRatingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */; };
 		B04302F421ED838400196E9A /* V4Review_SharedFriendCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */; };
@@ -271,6 +272,7 @@
 		7288BDB521F6CBB7009A5D09 /* ScratchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScratchManager.swift; sourceTree = "<group>"; };
 		7289ED7821FAE0300025BF0E /* UIImage+Resize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Resize.swift"; path = "DesignFlower/Core/Utility/UIImage+Resize.swift"; sourceTree = SOURCE_ROOT; };
 		7289ED7A21FB0D600025BF0E /* NetworkStateService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkStateService.swift; sourceTree = "<group>"; };
+		72F9CABF21FF043F0088F877 /* V4ReviewFlows-CheckMerge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "V4ReviewFlows-CheckMerge.swift"; sourceTree = "<group>"; };
 		B01B05C721EE242300F49C20 /* V4Review_RestaurantRatingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_RestaurantRatingCell.xib; sourceTree = "<group>"; };
 		B04302F321ED838400196E9A /* V4Review_SharedFriendCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = V4Review_SharedFriendCell.xib; sourceTree = "<group>"; };
 		B04302F821ED896300196E9A /* ChooseFriendViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChooseFriendViewModel.swift; sourceTree = "<group>"; };
@@ -599,6 +601,7 @@
 				723B1F8521B4E30700CF91F3 /* V4ReviewFlows-WriteBegin.swift */,
 				723B1F8921B4E51A00CF91F3 /* V4ReviewFlows-CheckLastUnsaved.swift */,
 				723B1F8B21B5081200CF91F3 /* V4ReviewFlows-AddNewPhoto.swift */,
+				72F9CABF21FF043F0088F877 /* V4ReviewFlows-CheckMerge.swift */,
 			);
 			path = ReviewFlowController;
 			sourceTree = "<group>";
@@ -1215,6 +1218,7 @@
 				B043034821ED927300196E9A /* FriendJSON.swift in Sources */,
 				B0A0AF9321C10ED2005BE7AB /* LocationService.swift in Sources */,
 				B0F8110421E4B60B00BEE91C /* ImageEditorViewController.swift in Sources */,
+				72F9CAC021FF043F0088F877 /* V4ReviewFlows-CheckMerge.swift in Sources */,
 				723B1F9721B532E900CF91F3 /* V4PhotoPickerModule.swift in Sources */,
 				B0A0AF9E21C13972005BE7AB /* Restaurant.swift in Sources */,
 				B0A0AFA421C13AD3005BE7AB /* UIColor+Extension.swift in Sources */,
